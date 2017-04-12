@@ -1529,6 +1529,10 @@ moc_para01,112,96,5	script	Administrator Michael	4_M_RUSMAN1,{
 				callsub S_Select,"",
 					13112,getitemname(13112),"Револьвер","HIT -5, АТК 44","";//P_Revolver1
 			}
+			if (Class == Job_Summoner) {
+				callsub S_Select,"",
+					1699,"Eden Foxtail Staff I","Staff","MATK+135, attack 120","";//P_Foxtail1
+			}
 			mes "Так-так... Вы получите комплект обуви и накидку.";
 			next;
 			mes "[Михаэль]";
@@ -1597,6 +1601,10 @@ moc_para01,112,96,5	script	Administrator Michael	4_M_RUSMAN1,{
 			if (Class == Job_Gunslinger) {
 				callsub S_Select,"",
 					13113,getitemname(13113),"Револьвер","HIT -5, АТК 60","";//P_Revolver2
+			}
+			if (Class == Job_Summoner) {
+				callsub S_Select,"",
+					26100,"Eden Foxtail Staff II","Staff","MATK+165, attack 135","";//P_Foxtail1
 			}
 			mes "Так-так... Вам положена обувь и доспех III ступени.";
 			next;
@@ -3100,7 +3108,7 @@ spl_fild02,377,149,3	script	Dispatched Instructor#08	4_M_DST_MASTER,{
 			mes "Не волнуйтесь, ей всё равно, кем. А я просто вернусь к тому, что я делал. Вот ваша награда.";
 			para_2nd01 = 27;
 			erasequest 7236;// Pinguicula Hunt
-			getexp 50000,50000;;
+			getexp 50000,50000;
 		}
 		else {
 			mes "Ну же, пять пингвикул (5 ^4d4dff"+getmonsterinfo(1995,MOB_NAME)+"^000000).";
@@ -3345,6 +3353,8 @@ moc_para01,111,83,3	script	Blacksmith Thorn#2nd10	2_M_OLDBLSMITH,{
 			}
 			else if (Class == Job_Gunslinger)
 				getitem 13114,1; //P.Revolver III
+			else if (Class == Job_Summoner)
+				getitem 26101,1; //P.Foxtail III
 			else {
 				mes "Да, вы подходите для получения снаряжения, это точно...";
 				next;
@@ -3481,7 +3491,8 @@ moc_para01,112,79,3	script	Weapons Expert BK#2nd11	4_M_REPAIR,{
 		1986,	// P_Tail1
 		13114,	// P_Revolver3
 		1831,	// P_Knuckle1
-		13310;	// P_Huuma_Shuriken1
+		13310,	// P_Huuma_Shuriken1
+		26101;	// P_Foxtail III
 	.@menu$ = "Группы ''Эдем'' меч III:" +
 		"Группы ''Эдем'' эспадон III:" +
 		"Группы ''Эдем'' кинжал III:" +
@@ -3496,7 +3507,8 @@ moc_para01,112,79,3	script	Weapons Expert BK#2nd11	4_M_REPAIR,{
 		"Группы ''Эдем'' кнут I:" +
 		"Группы ''Эдем'' револьвер III:" +
 		"Группы ''Эдем'' кастеты I:" +
-		"Группы ''Эдем'' фуума сюрикен I";
+		"Группы ''Эдем'' фуума сюрикен I"; +
+		"Группы ''Эдем'' Foxtail III";
 	mes "[BK]";
 	mes "Что происходит?";
 	mes "Ни за что?!";
