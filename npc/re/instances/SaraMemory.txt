@@ -1,0 +1,1565 @@
+//===== rAthena Script =======================================
+//= Heroes' Trail Part 1 - Sara's Memories
+//===== Description: =========================================
+//= Sara's Memories Instance in the Dimensional Gap.
+//===== Changelogs: ==========================================
+//= 1.0 First version. [Chilly]
+//= 1.1 Clean-up and monster position fix. [RagnarokNova]
+//============================================================
+//= Translated en -> ru [Kellait] 
+//============================================================ 
+
+//= NPCs
+dali,130,107,6	script	Leon the Adventurer	945,{
+	if (BaseLevel < 99) {
+		mes "[Путешественник Леон]";
+		mes "Знаешь... это место для тебя небезопасно. Возвращайся, когда будешь ^0000FF99-го уровня^000000 или выше.";
+		close;
+	}
+	if (saramemory == 1) {
+		mes "[Путешественник Леон]";
+		mes "Я не уверен, что ты полностью исследовал"+(Sex?"":"а")+" пространственно-временной разлом. Возможно, тебе следует взглянуть чуть глубже.";
+		close;
+	}
+	if (saramemory == 2) {
+		mes "[Путешественник Леон]";
+		mes "Что ты видел"+(Sex?"":"а")+"?!";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Хмпф, Сара Ирен?! Она одна из двенадцати валькирий. Не знал, что её история была столь трагичной...";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Похоже ты вызвал"+(Sex?"":"а")+" большое недопонимание между ней и её отцом.";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Не нужно винить себя в случившемся или во всей той пролитой крови. Этим событиям суждено было случиться независимо от того, кто был там.";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Пожалуйста, никому не говори о своём путешествии во времени. Мы не можем позволить никому подумать, что ты более значим"+(Sex?"":"а")+", чем старый Леон. Да никто и не поверит.";
+		next;
+		set saramemory,3;
+		erasequest 15003;
+		getexp 770000,1000000;
+		mes "[Путешественник Леон]";
+		mes "Мне кажется, должно пройти около двадцати часов, прежде чем разлом снова станет стабильным и ты сможешь войти.";
+		close;
+	}
+	if (saramemory == 3) {
+		if ((checkquest(15002,PLAYTIME) == 0) || (checkquest(15002,PLAYTIME) == 1)) {
+			mes "[Путешественник Леон]";
+			mes "Мне кажется, должно пройти около двадцати часов, прежде чем разлом снова станет стабильным и ты сможешь войти.";
+			close;
+		}
+		if (checkquest(15002,PLAYTIME) == 2) {
+			erasequest 15002;
+			mes "^0000FF[ Воспоминания Сары ] Кулдаун был сброшен. Можно снова воспользоваться межпространственным устройством.^000000";
+			next;
+		}
+		mes "[Путешественник Леон]";
+		mes "Желаешь снова увидеть прошлое?";
+		next;
+		switch(select("Yes:No")) {
+		case 1:
+			mes "[Путешественник Леон]";
+			mes "Отправляйся туда с помощью этого устройства и скажи, что ты там видел"+(Sex?"":"а")+".";
+			next;
+			set saramemory,4;
+			setquest 15003;
+			mes "[Путешественник Леон]";
+			mes "Я должен предостеречь тебя. Оно может быть нестабильно, так что не теряй времени.";
+			close;
+		case 2:
+			mes "[Путешественник Леон]";
+			mes "Что ж... Я не могу тебя заставить. Но если передумаешь - обратись ко мне снова.";
+			close;
+		}
+	}
+	if (saramemory == 4) {
+		if ((checkquest(15002,PLAYTIME) == 0) || (checkquest(15002,PLAYTIME) == 1)) {
+			mes "[Путешественник Леон]";
+			mes "Я не уверен, что ты полностью исследовал"+(Sex?"":"а")+" пространственно-временной разлом. Возможно, тебе следует взглянуть чуть глубже.";
+			close;
+		}
+		if (checkquest(15002,PLAYTIME) == 2) {
+			erasequest 15002;
+			mes "^0000FF[ Воспоминания Сары ] Кулдаун был сброшен. Можно снова воспользоваться межпространственным устройством..^000000";
+			next;
+		}
+		mes "[Путешественник Леон]";
+		mes "Я не уверен, что ты полностью исследовал"+(Sex?"":"а")+" пространственно-временной разлом. Возможно, тебе следует взглянуть чуть глубже.";
+		next;
+		switch(select("Ладно:Бросить это дело")) {
+		case 1:
+			mes "[Путешественник Леон]";
+			mes "Рад это слышать! Возможно, когда-нибудь ты станешь так"+(Sex?"им":"ой")+" же храбр"+(Sex?"ым":"ой")+", как старый Лев Лион!";
+			close;
+		case 2:
+			set saramemory,3;
+			erasequest 15003;
+			mes "[Путешественник Леон]";
+			mes "Что ж... Я не могу тебя заставить. Но если передумаешь - обратись ко мне снова.";
+			close;
+		}
+	}
+	if (saramemory == 5) {
+		mes "[Путешественник Леон]";
+		mes "Что ты видел"+(Sex?"":"а")+"?!";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Хмпф, Сара Ирен?! Она одна из двенадцати валькирий. Не знал, что её история была столь трагичной...";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Похоже ты вызвал"+(Sex?"":"а")+" большое недопонимание между ней и её отцом.";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Не нужно винить себя в случившемся или во всей той пролитой крови. Этим событиям суждено было случиться независимо от того, кто был там.";
+		next;
+		mes "[Путешественник Леон]";
+		mes "Пожалуйста, никому не говори о своём путешествии во времени. Мы не можем позволить никому подумать, что ты более значим"+(Sex?"":"а")+", чем старый Леон. Да никто и не поверит.";
+		next;
+		set saramemory,3;
+		erasequest 15003;
+		getexp 550000,550000;
+		mes "[Путешественник Леон]";
+		mes "Мне кажется, должно пройти около двадцати часов, прежде чем разлом снова станет стабильным и ты сможешь войти.";
+		close;
+	}
+	mes "[Путешественник Леон]";
+	mes "Прошу прощения за грубость! Я Пон де Леон, знаменитый путешественник!";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Друзья зовут меня Леон Лев! Это из-за моей внешности и характера. И я немного кусаюсь!";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Знаешь, здесь есть такое странное место...";
+	next;
+	mes "[Путешественник Леон]";
+	mes "При исследовании ты увидишь пространственно-временные разломы. Каждый из них закрыт подобным межпространственным устройством.";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Например, этот, я думаю, ведёт в Пайон. Но мне кажется, что что-то здесь не так. Словно он старше, чем должен быть.";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Так хочется отправиться туда, но возраст и здоровье уже не позволяют.";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Так что я хочу попросить об этом тебя.";
+	next;
+	mes "[Путешественник Леон]";
+	mes "Отправляйся туда с помощью этого устройства, и скажи, что ты там видел"+(Sex?"":"а")+".";
+	next;
+	set saramemory,1;
+	setquest 15003;
+	mes "[Путешественник Леон]";
+	mes "Я должен предостеречь тебя. Он может быть нестабилен, так что не теряй времени.";
+	close;
+}
+
+dali,139,118,4	script	Dimensional Device#sara	10007,{
+	if (BaseLevel < 99) {
+		mes "[Путешественник Леон]";
+		mes "Эй! Ты слишком юн"+(Sex?"":"а")+", чтобы с этим играть! Возвращайся, когда достигнешь хотя бы ^0000FF99-го уровня^000000!";
+		close;
+	}
+	if ((saramemory < 1) || (saramemory == 2) || (saramemory == 3) || (saramemory == 5)) {
+		mes "[Путешественник Леон]";
+		mes "Прежде чем ты начнешь играть с этой штукой, почему бы тебе не подойти и поговорить со мной?";
+		close;
+	}
+
+	// 20 hour cooldown
+	set .@ins_sara_time,checkquest(15002,PLAYTIME);
+	if (.@ins_sara_time == -1) {
+
+		set .@party_id,getcharid(1);
+		set .@p_name$,getpartyname(.@party_id);
+		set .@md_name$,"''Воспоминания Сары''";
+
+		if (!.@party_id) {
+			mes "[Путешественник Леон]";
+			mes "Сначала тебе нужно создать отряд! Забыл"+(Sex?"":"а")+" как? Набери /organize название_отряда.";
+			close;
+		}
+
+		if (getcharid(0) == getpartyleader(.@party_id,2))
+			set .@menu$, "Загрузить пространственное устройство.:Использовать пространственное устройство.:Отмена.";
+		else
+			set .@menu$, ":Использовать пространственное устройство.:Отмена.";
+
+		switch(select(.@menu$)) {
+		case 1:
+			if (instance_create(.@md_name$) < 0) {
+				mes "Название отряда: "+.@p_name$;
+				mes "Командир: "+strcharinfo(0);
+				mes "^0000ff"+.@md_name$+" ^000000- Резервация не удалась!";
+				close;
+			}
+			mes "^FF0000Пространственное устройство запущено. Используй его, чтобы создать пространственно-временной разлом.^000000";
+			close;
+		case 2:
+			switch(instance_enter(.@md_name$)) {
+			case IE_OTHER:
+				mes "Произошла неизвестная ошибка.";
+				close;
+			case IE_NOINSTANCE:
+				mes "Мемориального подземелья "+.@md_name$+" не существует.";
+				mes "Командир отряда ещё не создал подземелье..";
+				close;
+			case IE_NOMEMBER:
+				mes "Войти могут только зарегистрированные участники. "+.@md_name$+".";
+				close;
+			case IE_OK:
+				mapannounce "dali",strcharinfo(0)+", член отряда "+.@p_name$+" входит в "+.@md_name$+".",bc_map,"0x00ff99";
+				setquest 15002;
+				end;
+			}
+		case 3:
+			mes "^Командир отряда еще не загрузил межпространственное устройство.^000000";
+			close;
+		}
+	} else if (.@ins_sara_time == 0 || .@ins_sara_time == 1) {
+		mes "[Путешественник Леон]";
+		mes "Мне кажется, должно пройти около двадцати часов, прежде чем разлом снова станет стабильным и ты сможешь войти.";
+		close;
+	}
+	else {
+		erasequest 15002;
+		mes "^0000FF[ Sara's Memories ] Кулдаун был сброшен. Можно снова воспользоваться межпространственным устройством.^000000";
+		close;
+	}
+}
+
+1@sara,260,156,6	script	A Girl#01	668,{
+	if(getcharid(0)==getpartyleader(getcharid(1),2)) {
+		unittalk getcharid(3),"Где я?";
+		mes "["+strcharinfo(0)+"]";
+		mes "Где я?";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Здравствуйте! Вы в деревне Пайон. Кажется, вы не отсюда...";
+		mes "[Девочка]";
+		mes "Здравствуйте! Вы в деревне Пайон. Кажется, вы не отсюда...";
+		next;
+		unittalk getcharid(3),"А ты отсюда? Ты не похожа на местных жителей.";
+		mes "["+strcharinfo(0)+"]";
+		mes "А ты отсюда? Ты не похожа на местных жителей..";
+		next;
+		npctalk "Да, я родилась здесь! Меня зовут Сара, Сара Ирен!";
+		mes "[Девочка]";
+		mes "Да, я родилась здесь! Меня зовут Сара, Сара Ирен!";
+		next;
+		setnpcdisplay(instance_npcname("A Girl#01"),"Sara Irene");
+		npctalk "Мой папа -- старейшина этой деревни! А я просто пришла проведать маму.";
+		mes "[Сара Ирен]";
+		mes "Мой папа -- старейшина этой деревни! А я просто пришла проведать маму.";
+		next;
+		unittalk getcharid(3),"Ох, извини. Эм... Но почему ты здесь совсем одна?";
+		mes "["+strcharinfo(0)+"]";
+		mes "Ох, извини. Эм... Но почему ты здесь совсем одна?";
+		next;
+		npctalk "Я жду папу, он сказал, что скоро придёт.";
+		mes "[Сара Ирен]";
+		mes "Я жду папу, он сказал, что скоро придёт.";
+		next;
+		donpcevent instance_npcname("Doyen Irene#01", instance_id())+"::OnEnable";
+		mapannounce instance_mapname("1@sara"), "Из дома выходит мужчина. Сара улыбается, увидев его.",bc_area,"0xffffff";
+		mes "^FF0000Из дома выходит мужчина. Сара улыбается, увидев его.^000000";
+		next;
+		npctalk "Привет, папочка!";
+		mes "[Сара Ирен]";
+		mes "Привет, папочка!";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Милая, ты выглядишь такой счастливой.", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Милая, ты выглядишь такой счастливой.";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Ты сказал, что ты скоро! А я уже так давно жду!";
+		mes "[Сара Ирен]";
+		mes "Ты сказал, что ты скоро! А я уже так давно жду!";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Прости, что задержался, моя дорогая. Встреча со старейшинами продлилась дольше, чем я думал.", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Прости, что задержался, моя дорогая. Встреча со старейшинами продлилась дольше, чем я думал.";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Ненавижу этих старых дураков.";
+		mes "[Сара Ирен]";
+		mes "Ненавижу этих старых дураков.";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Не говори так, дорогая... Кто это с тобой?", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Не говори так, дорогая... Кто это с тобой?";
+		next;
+		mapannounce instance_mapname("1@sara"), "Старейшина Ирен пристально смотрит на вас.",bc_area,"0xffffff";
+		mes "^FF0000Старейшина Ирен пристально смотрит на вас.^000000";
+		next;
+		mapannounce instance_mapname("1@sara"), "Сара начинает тихо напевать песню себе под нос. Сорвав несколько цветов, Сера протягивает их Старейшине.",bc_area,"0xffffff";
+		mes "^FF0000Сара начинает тихо напевать песню себе под нос. Сорвав несколько цветов, Сера протягивает их Старейшине.^000000";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Смотри, папочка!";
+		mes "[Сара Ирен]";
+		mes "Смотри, папочка!";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Ох, Сара, можно я их возьму?", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Ох, Сара, можно я их возьму?";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Конечно, глупый папа!";
+		mes "[Сара Ирен]";
+		mes "Конечно, глупый папа!!";
+		next;
+		mapannounce instance_mapname("1@sara"), "Кажется, настроение Старейшины значительно улучшилось.",bc_area,"0xffffff";
+		mes "^FF0000Кажется, настроение Старейшины значительно улучшилось.^000000";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Хорошо, моя принцесса, куда же мы пойдём?", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Хорошо, моя принцесса, куда же мы пойдём?";
+		next;
+		cutin "sara_9sara1",2;
+		npctalk "Ох, папочка! Давай заберёмся на вершину этого холма!";
+		mes "[Сара Ирен]";
+		mes "Ох, папочка! Давай заберёмся на вершину этого холма!";
+		next;
+		cutin "sara_elder_irine1",2;
+		npctalk "Хах! Хорошо, держись за меня крепче!", instance_npcname("Doyen Irene#01", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Хах! Хорошо, держись за меня крепче!";
+		next;
+		cutin "sara_elder_irine1",255;
+		donpcevent instance_npcname("A Girl#01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Doyen Irene#01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Strange Old Man#01", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Mysterious Old Man#02", instance_id())+"::OnEnable";
+		mapannounce instance_mapname("1@sara"), "Как только они уходят, из-за угла до вас доносятся странные голоса...",bc_area,"0xffffff";
+		mes "^FF0000Как только они уходят, из-за угла до вас доносятся странные голоса...^000000";
+		next;
+		npctalk "Я чувствую, что сила Сары растёт. Мы не можем просто смотреть на это и позволить ей достичь предела возможностей!", instance_npcname("Strange Old Man#01", instance_id());
+		mes "[Чудной старец]";
+		mes "Я чувствую, что сила Сары растёт. Мы не можем просто смотреть на это и позволить ей достичь предела возможностей!";
+		next;
+		npctalk "Она была рождена под плохим знаком, а её мать даже не одна из нас!", instance_npcname("Mysterious Old Man#02", instance_id());
+		mes "[Таинственный старец]";
+		mes "Она была рождена под плохим знаком, а её мать даже не одна из нас!";
+		next;
+		npctalk "Однажды именно она станет причиной кровопролития на этих улицах.", instance_npcname("Mysterious Old Man#02", instance_id());
+		mes "[Таинственный старец]";
+		mes "Однажды именно она станет причиной кровопролития на этих улицах.";
+		next;
+		npctalk "Мы должны сделать хоть что-то, пока Святые создания не избрали её. Я попросил 'Его' позаботиться об этом.", instance_npcname("Strange Old Man#01", instance_id());
+		mes "[Чудной старец]";
+		mes "Мы должны сделать хоть что-то, пока Святые создания не избрали её. Я попросил 'Его' позаботиться об этом..";
+		next;
+		npctalk "Увидим... Жду не дождусь услышать плохие новости о том, что произошло с ней...", instance_npcname("Mysterious Old Man#02", instance_id());
+		mes "[Таинственный старец]";
+		mes "Увидим... Жду не дождусь услышать плохие новости о том, что произошло с ней...";
+		next;
+		donpcevent instance_npcname("Strange Old Man#01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Mysterious Old Man#02", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("#sara_warp01", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#01", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara's Mother", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Doyen Irene#02", instance_id())+"::OnEnable";
+		mapannounce instance_mapname("1@sara"), "Старик уходит. Похоже, Сара в опасности. Нужно что-то сделать!",bc_area,"0xffffff";
+		mes "^FF0000Старик уходит. Похоже, Сара в опасности. Нужно что-то сделать!^000000";
+		close;
+	}
+	else {
+		end;
+	}
+
+OnInstanceInit:
+OnEnable:
+	enablenpc instance_npcname("A Girl#01");
+	end;
+OnDisable:
+	disablenpc instance_npcname("A Girl#01");
+	end;
+}
+
+1@sara,268,158,4	script	Doyen Irene#01	684,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Doyen Irene#01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Doyen Irene#01");
+	end;
+}
+
+1@sara,260,156,4	script	Strange Old Man#01	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Strange Old Man#01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Strange Old Man#01");
+	end;
+}
+
+1@sara,260,156,4	script	Mysterious Old Man#02	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Mysterious Old Man#02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Mysterious Old Man#02");
+	end;
+}
+
+1@sara,107,325,6	script	Sara Irene#01	668,{
+	if(getcharid(0)==getpartyleader(getcharid(1),2)) {
+		cutin "sara_9sara1",2;
+		npctalk "Ох! Снова здравствуйте! Я вас помню, что случилось?";
+		mes "[Сара Ирен]";
+		mes "Ох! Снова здравствуйте! Я вас помню, что случилось?";
+		next;
+		npctalk "Я пришла подарить цветы моей мамочке!";
+		mes "[Сара Ирен]";
+		mes "Я пришла подарить цветы моей мамочке!";
+		next;
+		mapannounce instance_mapname("1@sara"), "С цветами в руках, Сара прыгает вперёд, чтобы открыть дверь.",bc_area,"0xffffff";
+		mes "^FF0000С цветами руках, Сара прыгает вперёд, чтобы открыть дверь.^000000";
+		next;
+		npctalk "Мама! Папа! Смотрите, что я нашла!";
+		mes "[Сара Ирен]";
+		mes "Мама! Папа! Смотрите, что я нашла!";
+		next;
+		playBGMall "37",instance_mapname("1@sara");
+		cutin "sara_9sara1",255;
+		cutin "sara_momdie",4;
+		mapannounce instance_mapname("1@sara"), "Дверь открывается, открывая взору женщину при смерти и стоящего над ней Старейшину с окровавленным мечом.",bc_area,"0xffffff";
+		mes "^FF0000Дверь открывается, открывая взору женщину при смерти и стоящего над ней Старейшину с окровавленным мечом.^000000";
+		next;
+		npctalk "...";
+		mes "[Сара Ирен]";
+		mes "...";
+		next;
+		npctalk "Сара...Бе-...ги...", instance_npcname("Sara's Mother", instance_id());
+		mes "[Мать Сары]";
+		mes "Сара...Бе-...ги...";
+		next;
+		npctalk "...";
+		mes "[Сара Ирен]";
+		mes "...";
+		next;
+		mapannounce instance_mapname("1@sara"), "Из рук женщины выскальзывает драгоценный камень. Он катится к ногам Сары, и она бессознательным движением поднимает его.",bc_area,"0xffffff";
+		mes "^FF0000Из рук женщины выскальзывает драгоценный камень. Он катится к ногам Сары, и она бессознательным движением поднимает его.^000000";
+		next;
+		mapannounce instance_mapname("1@sara"), "Старейшина оборачивается и замечает Сару.",bc_area,"0xffffff";
+		mes "^FF0000Старейшина оборачивается и замечает Сару.^000000";
+		next;
+		cutin "sara_momdie",255;
+		cutin "sara_elder_irine4",2;
+		npctalk "Ахх, Сара! Я везде тебя ищу...", instance_npcname("Doyen Irene#02", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Ахх, Сара! Я везде тебя ищу...";
+		next;
+		cutin "sara_9sara2",2;
+		npctalk "...";
+		mes "[Сара Ирен]";
+		mes "...";
+		next;
+		switch(select("Убежать с Сарой.")) {}
+		cutin "sara_elder_irine3",2;
+		npctalk "Стража! СТРАЖА!! Здесь убийца! Держите его!", instance_npcname("Doyen Irene#02", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Стража! СТРАЖА!! Здесь убийца! Держите его!";
+		next;
+		mapannounce instance_mapname("1@sara"), "Снаружи слышится топот множества сапог!",bc_area,"0xffffff";
+		mes "^FF0000Снаружи слышится топот множества сапог!^000000";
+		next;
+		cutin "sara_9sara3",2;
+		npctalk "Мама, НЕТ!!!!!!!!!!";
+		mes "[Сара Ирен]";
+		mes "Мама, НЕТ!!!!!!!!!!";
+		next;
+		donpcevent instance_npcname("Sara Irene#01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara's Mother", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Doyen Irene#02", instance_id())+"::OnDisable";
+		mapannounce instance_mapname("1@sara"), "Сара убегает, и топот стражи становится всё ближе...",bc_area,"0xffffff";
+		mes "^FF0000Сара убегает, и топот стражи становится всё ближе...^000000";
+		close2;
+		cutin "sara_9sara3",255;
+		donpcevent instance_npcname("#MobsSara01", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk01", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk02", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk03", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk04", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk05", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk06", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk07", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk08", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk09", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk10", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk11", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk12", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk13", instance_id())+"::OnEnable";
+		end;
+	}
+	else {
+		end;
+	}
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#01");
+	end;
+}
+
+1@sara,107,325,4	script	Sara's Mother	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara's Mother");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara's Mother");
+	end;
+}
+
+1@sara,107,325,4	script	Doyen Irene#02	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Doyen Irene#02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Doyen Irene#02");
+	end;
+}
+
+1@sara,152,233,6	script	Sara Irene#02	668,{
+	if(getcharid(0)==getpartyleader(getcharid(1),2)) {
+		cutin "sara_9sara2",2;
+		npctalk "Мамочка!";
+		mes "[Сара Ирен]";
+		mes "Мамочка!";
+		next;
+		cutin "sara_elder_irine4",2;
+		npctalk "Сара...", instance_npcname("Doyen Irene#03", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Сара...";
+		next;
+		cutin "sara_9sara2",2;
+		npctalk "Нет!";
+		mes "[Сара Ирен]";
+		mes "Нет!";
+		next;
+		cutin "sara_elder_irine4",2;
+		npctalk "Сара, я искал тебя. Пожалуйста, пойдём со мной, здесь слишком опасно!", instance_npcname("Doyen Irene#03", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Сара, я искал тебя. Пожалуйста, пойдём со мной, здесь слишком опасно!";
+		next;
+		unittalk getcharid(3),"Я не позволю забрать её!";
+		mes "["+strcharinfo(0)+"]";
+		mes "Я не позволю забрать её!";
+		next;
+		cutin "sara_elder_irine3",2;
+		npctalk "Здесь убийца! Стража! Мы должны прикончить е"+(Sex?"го":"ё")+" раз и навсегда!", instance_npcname("Doyen Irene#03", instance_id());
+		mes "[Старейшина Ирен]";
+		mes "Здесь убийца! Стража! Мы должны прикончить е"+(Sex?"го":"ё")+" раз и навсегда!";
+		next;
+		unittalk getcharid(3),"Сара... беги! Спасайся!";
+		mes "["+strcharinfo(0)+"]";
+		mes "Сара... беги! Спасайся!";
+		next;
+		cutin "sara_9sara2",2;
+		npctalk "...х-хорошо.";
+		mes "[Сара Ирен]";
+		mes "...х-хорошо.";
+		close2;
+		cutin "sara_9sara3",255;
+		donpcevent instance_npcname("Sara Irene#02", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Doyen Irene#03", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("#BossSara01", instance_id())+"::OnEnable";
+		end;
+	}
+	else {
+		end;
+	}
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#02");
+	end;
+}
+
+1@sara,152,233,4	script	Doyen Irene#03	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Doyen Irene#03");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Doyen Irene#03");
+	end;
+}
+
+1@sara,156,236,4	script	Doyen Irene#04	684,{
+	if(getcharid(0)==getpartyleader(getcharid(1),2)) {
+		cutin "sara_elder_irine4",2;
+		npctalk "Ты... слишком сил"+(Sex?"ён":"ьна")+".";
+		mes "[Старейшина Ирен]";
+		mes "Ты... слишком сил"+(Sex?"ён":"ьна")+".";
+		next;
+		npctalk "Почему... *кашляет* ты пытал"+(Sex?"ся":"ась")+" убить мою жену и дочь?";
+		mes "[Старейшина Ирен]";
+		mes "Почему... *кашляет* ты пытал"+(Sex?"ся":"ась")+" убить мою жену и дочь?";
+		next;
+		unittalk getcharid(3),"О чём ты говоришь? Мы видели, как ты стоял рядом с телом её матери, с ОКРОВАВЛЕННЫМ мечом!";
+		mes "["+strcharinfo(0)+"]";
+		mes "О чём ты говоришь? Мы видели, как ты стоял рядом с телом её матери, с ОКРОВАВЛЕННЫМ мечом!";
+		next;
+		npctalk "Ты... думаешь это я убил"+(Sex?"":"а")+" её мать?";
+		mes "[Старейшина Ирен]";
+		mes "Ты... думаешь это я убил"+(Sex?"":"а")+" её мать?";
+		next;
+		npctalk "Я убил его, поэтому мой меч был в крови...";
+		mes "[Старейшина Ирен]";
+		mes "Убийца *кашляет* уже нанёс ей удар. Я убил его, поэтому мой меч был в крови...";
+		next;
+		cutin "sara_elder_irine4",255;
+		cutin "sara_momdie",4;
+		mapannounce instance_mapname("1@sara"), "Вы вспоминаете, что в левом углу комнаты лежало чьё-то тело. Возможно, это и был убийца, о котором говорил Ирен.",bc_area,"0xffffff";
+		mes "^FF0000Вы вспоминаете, что в левом углу комнаты лежало чьё-то тело. Возможно, это и был убийца, о котором говорил Ирен.^000000";
+		next;
+		cutin "sara_momdie",255;
+		cutin "sara_elder_irine4",2;
+		npctalk "Если... ты не убийца, посланный к ним, кто же?";
+		mes "[Старейшина Ирен]";
+		mes "Если... ты не убийца, посланный к ним, кто же?";
+		next;
+		unittalk getcharid(3),"Я всего лишь путешественни"+(Sex?"к":"ца")+". Я слышал"+(Sex?"":"а")+", как странные люди говорили что-то о смерти и строили козни.";
+		mes "["+strcharinfo(0)+"]";
+		mes "Я всего лишь путешественни"+(Sex?"к":"ца")+". Я слышал"+(Sex?"":"а")+", как странные люди говорили что-то о смерти и строили козни.";
+		next;
+		npctalk "Если... ты говоришь правду... прости меня. Я думал, что ты од"+(Sex?"ин":"на")+" из них.";
+		mes "[Старейшина Ирен]";
+		mes "Если... ты говоришь правду... прости меня. Я думал, что ты од"+(Sex?"ин":"на")+" из них.";
+		next;
+		npctalk "Странные люди? ...Уверен, это был кто-то из старейшин. Ах...";
+		mes "[Старейшина Ирен]";
+		mes "Странные люди? ...Уверен, это был кто-то из старейшин. Ах...";
+		next;
+		npctalk "Здесь всё ещё могут быть убийцы, нам нужно как можно быстрее найти Сару!!";
+		mes "[Старейшина Ирен]";
+		mes "Здесь всё ещё могут быть убийцы, нам нужно как можно быстрее найти Сару!";
+		next;
+		unittalk getcharid(3),"Сара думает, что это ты убил её мать. Мы должны рассказать ей правду!";
+		mes "["+strcharinfo(0)+"]";
+		mes "Сара думает, что это ты убил её мать. Мы должны рассказать ей правду!";
+		next;
+		npctalk "Нам нужно скорее найти её. Нужно разделиться и начать поиски. Пожалуйста, помоги мне найти мою дочь и всё ей объяснить.";
+		mes "[Старейшина Ирен]";
+		mes "Нам нужно скорее найти её. Нужно разделиться и начать поиски. Пожалуйста, помоги мне найти мою дочь и всё ей объяснить.";
+		close2;
+		cutin "sara_elder_irine4",255;
+		mapannounce instance_mapname("1@sara"), "Мы должны найти Сару. Вы помните, что она убежала в направлении на восемь часов.",bc_map,"0xffff00";
+		viewpoint 1,88,188,1,0x00FF00;
+		donpcevent instance_npcname("Doyen Irene#04", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("#sara_warp06", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#03", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("?????#01", instance_id())+"::OnEnable";
+		end;
+	}
+	else {
+		end;
+	}
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Doyen Irene#04");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Doyen Irene#04");
+	end;
+}
+
+1@sara,39,142,4	script	Sara Irene#03	668,{
+	if(getcharid(0)==getpartyleader(getcharid(1),2)) {
+		mapannounce instance_mapname("1@sara"), "Едва вы собираетесь окликнуть Сару -- внезапный удар сзади сбивает вас с ног.",bc_area,"0xffffff";
+		mes "^FF0000Едва вы собираетесь окликнуть Сару -- внезапный удар сзади сбивает вас с ног.^000000";
+		next;
+		cutin "sara_beholder",2;
+		npctalk "Вмешательство путешественников во времени больше недопустимо. Вы не сможете предотвратить нашу встречу с Сарой.", instance_npcname("?????#01", instance_id());
+		mes "[?????]";
+		mes "Вмешательство путешественников во времени больше недопустимо. Вы не сможете предотвратить нашу встречу с Сарой.";
+		next;
+		npctalk "Вам пора вернуться в своё время.", instance_npcname("?????#01", instance_id());
+		mes "[?????]";
+		mes "Вам пора вернуться в своё время.";
+		next;
+		mapannounce instance_mapname("1@sara"), "Вы падаете, и две тёмные фигуры приближаются к Саре.",bc_area,"0xffffff";
+		mes "^FF0000Вы падаете, и две тёмные фигуры приближаются к Саре.^000000";
+		next;
+		npctalk "Дитя, исполненное горя, отчаяния, ненависти! Мы покажем тебе твоё истинное предназначение...", instance_npcname("?????#01", instance_id());
+		mes "[?????]";
+		mes "Дитя, исполненное горя, отчаяния, ненависти! Мы покажем тебе твоё истинное предназначение...";
+		next;
+		cutin "sara_9sara2",2;
+		npctalk "...";
+		mes "[Sara Irene]";
+		mes "...";
+		next;
+		cutin "sara_beholder",2;
+		npctalk "Сара Ирен, 'Он' исполнит все твои желания.", instance_npcname("?????#01", instance_id());
+		mes "[?????]";
+		mes "Сара Ирен, 'Он' исполнит все твои желания.";
+		next;
+		cutin "sara_beholder",255;
+		mapannounce instance_mapname("1@sara"), "Один из незнакомцев укрывает Сару плащом, и все три фигуры исчезают.",bc_area,"0xffffff";
+		mes "^FF0000Один из незнакомцев укрывает Сару плащом, и все три фигуры исчезают.^000000";
+		close2;
+		viewpoint 1,16,143,1,0x00FF00;
+		donpcevent instance_npcname("Sara Irene#03", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("?????#01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("#sara_warp07", instance_id())+"::OnEnable";
+		end;
+	}
+	else {
+		end;
+	}
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#03");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#03");
+	end;
+}
+
+1@sara,39,142,4	script	?????#01	-1,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("?????#01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("?????#01");
+	end;
+}
+
+1@sara,97,304,6	script	Sara Irene#talk01	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Почему, папа?";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk01", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk01", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk01");
+	end;
+}	
+
+1@sara,128,296,6	script	Sara Irene#talk02	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Только не мама!";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk02", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk02", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk02");
+	end;
+}	
+
+1@sara,124,230,6	script	Sara Irene#talk03	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Почему... почему?";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk03", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk03", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk03");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk03");
+	end;
+}	
+
+1@sara,174,227,6	script	Sara Irene#talk04	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Нееееет...";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk04", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk04", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk04");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk04");
+	end;
+}	
+
+1@sara,203,259,6	script	Sara Irene#talk05	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "...";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk05", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk05", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk05");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk05");
+	end;
+}	
+
+1@sara,256,279,4	script	Sara Irene#talk06	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "...Мамочка";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk06", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk06", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk06");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk06");
+	end;
+}	
+
+1@sara,228,282,6	script	Sara Irene#talk07	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Почему так больно?";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk07", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk07", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk07");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk07");
+	end;
+}
+
+1@sara,265,253,4	script	Sara Irene#talk08	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk ".........";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk08", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk08", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk08");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk08");
+	end;
+}
+
+1@sara,230,95,6	script	Sara Irene#talk09	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk ".........";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk09", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk09", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk09");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk09");
+	end;
+}
+
+1@sara,150,60,6	script	Sara Irene#talk10	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Нееееет...";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk10", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk10", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk10");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk10");
+	end;
+}
+
+1@sara,105,63,6	script	Sara Irene#talk11	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk ".........";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk11", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk11", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk11");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk11");
+	end;
+}
+
+1@sara,184,106,6	script	Sara Irene#talk12	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Папочка!";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk12", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk12", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk12");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk12");
+	end;
+}
+
+1@sara,164,175,4	script	Sara Irene#talk13	668,5,5,{
+	end;
+
+OnTouch:
+	npctalk "Почему, папа?!";
+	sleep2 1000;
+	initnpctimer;
+	donpcevent instance_npcname("Sara Irene#talk13", instance_id())+"::OnDisable";
+	end;
+
+OnTimer30000:
+	donpcevent instance_npcname("Sara Irene#talk13", instance_id())+"::OnEnable";
+	stopnpctimer;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Sara Irene#talk13");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Sara Irene#talk13");
+	end;
+}
+
+//= Mobs
+1@sara,1,1,4	script	#MobsSara01	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#MobsSara01", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#MobsSara01", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,107,325,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,115,325,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,116,317,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,108,317,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,116,311,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,108,311,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,101,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,105,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,109,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,113,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,117,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,295,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,122,227,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,122,225,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,122,223,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,122,221,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,122,219,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,122,217,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,227,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,225,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,223,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,221,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,219,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,121,217,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,151,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,153,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,155,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,157,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,159,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,161,231,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,187,215,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,187,217,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,187,219,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,187,221,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,187,223,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,187,225,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,215,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,217,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,219,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,221,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,223,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,188,225,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,192,250,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,194,250,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,196,250,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,198,250,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,196,254,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,196,256,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,196,258,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,199,254,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,199,256,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,199,258,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+
+	monster .@map$,204,246,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,204,248,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,204,250,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,204,252,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,204,254,"Пайонский воин",2543,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	monster .@map$,206,251,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara01")+"::OnMyMobDead";
+	set 'Sara_Mobs,58;
+	initnpctimer;
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@sara"), "Необходимо уничтожить стражу, чтобы перейти в следующую зону.",bc_map,"0xffff00";
+	end;
+
+OnTimer5000:
+	mapannounce instance_mapname("1@sara"), "Группы стражников объединяются для атаки!",bc_map,"0xffff00";
+	stopnpctimer;
+	end;
+
+OnMyMobDead:
+	set 'Sara_Mobs,'Sara_Mobs-1;
+	if ('Sara_Mobs < 1) {
+		set 'Sara_Mobs,0;
+		mapannounce instance_mapname("1@sara"), "Сара вновь убежала! Вам кажется, что она побежала в направлении на два часа!",bc_map,"0xffff00";
+		viewpoint 1,208,250,1,0x00FF00;
+		donpcevent instance_npcname("#sara_warp02", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara02", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara01", instance_id())+"::OnDisable";
+	}
+	end;
+}
+
+1@sara,1,1,4	script	#MobsSara02	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#MobsSara02", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#MobsSara02", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,228,312,"",2546,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,227,312,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,229,315,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+
+	monster .@map$,247,290,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,248,290,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,249,290,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+
+	monster .@map$,223,264,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,230,248,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,227,248,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+
+	monster .@map$,238,229,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,225,220,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,228,220,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+
+	monster .@map$,220,212,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,223,212,"Пайонский воин",2544,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+
+	monster .@map$,219,203,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	monster .@map$,222,203,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara02")+"::OnMyMobDead";
+	set 'Sara_Mobs,16;
+	end;
+
+OnMyMobDead:
+	set 'Sara_Mobs,'Sara_Mobs-1;
+	if ('Sara_Mobs < 1) {
+		set 'Sara_Mobs,0;
+		mapannounce instance_mapname("1@sara"), "Сара вновь убежала! Вам кажется, что она побежала в направлении на пять часов!",bc_map,"0xffff00";
+		viewpoint 1,226,190,1,0x00FF00;
+		donpcevent instance_npcname("#sara_warp03", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara03", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara02", instance_id())+"::OnDisable";
+	}
+	end;
+}
+
+1@sara,1,1,4	script	#MobsSara03	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#MobsSara03", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#MobsSara03", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,255,91,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,255,92,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,255,93,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,255,94,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,254,91,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,254,92,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,254,93,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,254,94,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,228,65,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";	
+	monster .@map$,228,64,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";	
+	monster .@map$,228,63,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,228,62,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,198,62,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,195,56,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,195,60,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,195,62,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,192,56,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,192,60,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,192,62,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,187,68,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,188,63,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,120,39,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,121,39,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,121,39,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,93,64,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,93,68,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,93,72,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,93,76,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,90,64,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,90,68,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,90,72,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,90,76,"Сторожевой пёс",2545,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,87,67,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,87,63,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,87,59,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,87,55,"Пайонский воин",2543,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,84,67,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,84,63,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,84,59,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,84,55,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+
+	monster .@map$,81,67,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,81,63,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,81,59,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,81,55,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	monster .@map$,81,51,"Сторожевой пёс",2546,1,instance_npcname("#MobsSara03")+"::OnMyMobDead";
+	set 'Sara_Mobs,45;
+	end;
+
+OnMyMobDead:
+	set 'Sara_Mobs,'Sara_Mobs-1;
+	if ('Sara_Mobs < 1) {
+		set 'Sara_Mobs,0;
+		mapannounce instance_mapname("1@sara"), "Сара вновь убежала! *вздох* Вам кажется, что она побежала в направлении на двенадцать часов!",bc_map,"0xffff00";
+		viewpoint 1,166,67,1,0x00FF00;
+		donpcevent instance_npcname("#sara_warp04", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara04", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("#MobsSara03", instance_id())+"::OnDisable";
+	}
+	end;
+}
+
+1@sara,1,1,4	script	#MobsSara04	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#MobsSara04", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#MobsSara04", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,155,97,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,157,97,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,159,97,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,161,97,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,201,113,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,204,113,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,207,113,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,210,113,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,213,113,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,201,117,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,204,117,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,207,117,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,210,117,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,213,117,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,223,152,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,223,148,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,223,144,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,221,152,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,221,148,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,221,144,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,151,174,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,153,174,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,155,174,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,157,174,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,159,174,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,151,177,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,153,177,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,155,177,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,157,177,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,159,177,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,151,180,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,153,180,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,155,180,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,157,180,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,159,180,"Пайонский воин",2544,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,173,139,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,170,139,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,167,139,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,164,139,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+
+	monster .@map$,173,137,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,170,137,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,167,137,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	monster .@map$,164,137,"Пайонский воин",2543,1,instance_npcname("#MobsSara04")+"::OnMyMobDead";
+	set 'Sara_Mobs,43;
+	end;
+
+OnMyMobDead:
+	set 'Sara_Mobs,'Sara_Mobs-1;
+	if ('Sara_Mobs < 1) {
+		set 'Sara_Mobs,0;
+		mapannounce instance_mapname("1@sara"), "Сара продолжает убегать! Вам кажется, что она побежала в направлении на двенадцать часов!",bc_map,"0xffff00";
+		viewpoint 1,155,180,1,0x00FF00;
+		donpcevent instance_npcname("#sara_warp05", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#02", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Doyen Irene#03", instance_id())+"::OnEnable";
+		donpcevent instance_npcname("Sara Irene#talk01", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk02", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk03", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk04", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk05", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk06", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk07", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk08", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk09", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk10", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk11", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk12", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("Sara Irene#talk13", instance_id())+"::OnDisable";
+		donpcevent instance_npcname("#MobsSara04", instance_id())+"::OnDisable";
+	}
+	end;
+}
+
+1@sara,1,1,4	script	#BossSara01	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#BossSara01", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#BossSara01", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,150,232,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"Я слишком стар для этого д-";
+	monster .@map$,150,227,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,150,222,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,150,217,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,161,232,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,161,227,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,161,222,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	monster .@map$,161,217,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
+	unittalk $@mobid[0],"За Пайон !!";
+	areamobuseskill .@map$,155,225,10,2544,"NPC_EMOTION",1,0,0,e_go,0;
+	areamobuseskill .@map$,159,236,1,2543,"NPC_EMOTION",1,0,0,e_swt,0;
+	set 'Sara_Mobs,8;
+	end;
+
+OnMyMobDead:
+	set 'Sara_Mobs,'Sara_Mobs-1;
+	if ('Sara_Mobs < 1) {
+		set 'Sara_Mobs,0;
+	mapannounce instance_mapname("1@sara"), "Старейшина Ирен обнажает клинок!",bc_map,"0xffff00";
+		donpcevent instance_npcname("#BossSara02", instance_id())+"::OnEnable";
+	}
+	end;
+}
+
+1@sara,1,1,4	script	#BossSara02	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#BossSara02", instance_id());
+	end;
+OnEnable:
+	enablenpc instance_npcname("#BossSara02", instance_id());
+	set .@map$, instance_mapname("1@sara");
+	monster .@map$,155,226,"Старейшина Ирен",2542,1,instance_npcname("#BossSara02")+"::OnMyMobDead";
+	unittalk $@mobid[0],"Я отомщу за мать Сары !!";
+	end;
+
+OnMyMobDead:
+	mapannounce instance_mapname("1@sara"), "Старейшина Ирен пал.",bc_map,"0xffff00";
+	donpcevent instance_npcname("Doyen Irene#04", instance_id())+"::OnEnable";
+	end;
+}
+
+//= Warps
+1@sara,240,145,4	script	#sara_warp01	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),94,320;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp01");
+	end;
+}
+
+1@sara,208,250,4	script	#sara_warp02	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),230,311;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp02");
+	end;
+}
+
+1@sara,226,190,4	script	#sara_warp03	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),263,94;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp03");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp03");
+	end;
+}
+
+1@sara,166,67,4	script	#sara_warp04	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),164,81;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp04");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp04");
+	end;
+}
+
+1@sara,155,180,4	script	#sara_warp05	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),155,196;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp05");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp05");
+	end;
+}
+
+1@sara,88,188,4	script	#sara_warp06	45,2,2,{
+	end;
+
+OnTouch:
+	warp instance_mapname("1@sara"),89,175;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp06");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp06");
+	end;
+}
+
+1@sara,16,143,4	script	#sara_warp07	45,2,2,{
+	end;
+
+OnTouch:
+	if (saramemory == 1) {
+		set saramemory,2;
+	}
+	if (saramemory == 4) {
+		set saramemory,5;
+	}
+	warp "dali",134,111;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#sara_warp07");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#sara_warp07");
+	end;
+}
