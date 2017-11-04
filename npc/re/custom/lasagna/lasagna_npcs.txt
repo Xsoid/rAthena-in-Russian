@@ -10,6 +10,9 @@
 //===== Changelogs: ==========================================
 //= 1.0 First version. [Capuche]
 //============================================================
+//= Translation en > ru [Akaineko]
+//--- Концепт: Фарфалле, Паста, Лазанья)))
+//============================================================
 
 function	script	close3	{
 	close2;
@@ -22,74 +25,74 @@ lasa_fild01,47,297,0	script	#doint_evt01	HIDDEN_WARP_NPC,1,1,{
 OnTouch:
 	if (Class == Job_Summoner && isbegin_quest(7711) == 0) {
 		sleep2 100;
-		npctalk "Hey, newbie! Get over here!", "Vigilante Ajegna#doram0", bc_self;
-		npctalk "Come on over here! Click me, quick!", "Vigilante Ajegna#doram0", bc_self;
+		npctalk "Эй, новичок! Подойди!", "Дружинник Аджейна#doram0", bc_self;
+		npctalk "Подойди сюда! Быстрее, кликни по мне!", "Дружинник Аджейна#doram0", bc_self;
 		setquest 7711;// Beginning
 	}
 	end;
 }
 
-lasa_fild01,49,304,3	script	Vigilante Ajegna#doram0	4_DR_SOLDIER,{
+lasa_fild01,49,304,3	script	Дружинник Аджейна#doram0	4_DR_SOLDIER,{
 	if (Class != Job_Summoner) {
-		mes "[Vigilante Ajegna]";
-		mes "Huh? I doubt you're from Far-Star.";
-		mes "I get it! You're from the New Continent, aren't you?";
+		mes "[Дружинник Аджейна]";
+		mes "Хм? Не похоже, что ты с Пасты.";
+		mes "Понял! Ты с Новой суши, да?";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "If you're planning to cross that ridge, I wouldn't recommend it.";
-		mes "Why don't you just return to your village from here?";
+		mes "[Дружинник Аджейна]";
+		mes "Идёшь за мост? Я бы не советовал.";
+		mes "Ещё не поздно вернуться.";
 		close;
 	}
 	switch( isbegin_quest(7712) ) {
 	case 0:
-		mes "[Vigilante Ajegna]";
-		mes "Oh, there you go!";
-		mes "You can talk to others in the same way you just spoke to me.";
+		mes "[Дружинник Аджейна]";
+		mes "О, вот и ты!";
+		mes "С остальными можно говорить точно так же, как ты сейчас заговорил со мной.";
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffBasically, you talk by left-clicking the mouse button while hovering the cursor over an NPC.";
-		mes "Left-click the mouse button to talk with an NPC, move about and attack a target.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffЧтобы начать разговор, наведите курсор на персонажа и кликните левой кнопкой мыши.";
+		mes "ЛКМ отвечает за разговор, перемещение и атаки.^000000";
 		cutin "tutorial01.bmp",4;
 		next;
 		cutin "",255;
-		mes "[Vigilante Ajegna]";
-		mes "Good work crossing over the mountain, newbie.";
-		mes "Just like yourself, there are a bunch of people who are crossing this mountain range these days to reach the ^4d4dffNew Continent^000000.";
+		mes "[Дружинник Аджейна]";
+		mes "Ты проделал хороший путь, новичок.";
+		mes "Многие сейчас перебираются через горы в надежде попасть на ^4d4dffНовую сушу^000000.";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "Honestly, I was surprised, too.";
-		mes "I never imagined even in my wildest dreams that there would be any other continent other than ^4d4dffMidgard^000000 or ^4d4dffFar-Star,^000000 which we live in.";
+		mes "[Дружинник Аджейна]";
+		mes "Честно говоря, меня тоже это поразило.";
+		mes "Никогда даже представить себе не мог, что где-то может быть земля кроме ^4d4dffМидгарда^000000 и нашей ^4d4dffПасты^000000.";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "That explains the slew of Dorams, who simply wander about, in ^4d4dffLasagna^000000, which was nothing but a fishing village in the border area.";
+		mes "[Дружинник Аджейна]";
+		mes "Вот откуда в ^4d4dffЛазанье^000000, простой рыбацкой деревушке на краю мира, столько праздношатающихся.";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "What's worse is that the Dorams who come from outside of Lasagna would often cause problems. This is really causing a headache for the Vigilante Corp.";
-		mes "A Vigilante's job is to assist the Dorams who are in the New Continent expedition, in addition to maintaining public order, so please help.";
+		mes "[Дружинник Аджейна]";
+		mes "Хуже, когда они не просто праздно шатаются, а начинают создавать проблемы. Та ещё головная боль для Дружины.";
+		mes "Задача Дружины -- помощь тем, кто отправился в экспедицию на Новую сушу, и это вдобавок к поддержанию общественного порядка, так что буду благодарен за содействие.";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "Do you see the Doram over there? He's ^4d4dffAglio^000000. He'll let you in on some useful stuff. Go meet the guy.";
+		mes "[Дружинник Аджейна]";
+		mes "Видишь вон того дорама? Это ^4d4dffАглиу^000000. Он расскажет тебе кое-что полезное. Подойди к нему.";
 		if (isbegin_quest(7711) == 0)
 			setquest 7711;
-		completequest 7711;// Beginning
-		setquest 7712;// Where am I? Who am I??
-		close;
+			completequest 7711;// Beginning
+			setquest 7712;// Where am I? Who am I??
+			close;
 	case 1:
-		mes "[Vigilante Ajegna]";
-		mes "I should welcome the new Dorams coming in here.";
-		mes "^4d4dffAglio^000000 will let you in on more details. He's right over there.";
+		mes "[Дружинник Аджейна]";
+		mes "Я приветствую вновь прибывших.";
+		mes "А ^4d4dffАглиу^000000 расскажет тебе подробности. Он вон там.";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "Aglio is one of the very, I mean, very good Doram in the Farfalle Vigilante Corp, so watch and learn!";
+		mes "[Дружинник Аджейна]";
+		mes "Аглиу один из очень, ОЧЕНЬ хороших дорамов в Дружине Фарфалле, так что смотри и учись!";
 		close;
 	case 2:
-		mes "[Vigilante Ajegna]";
-		mes "If you have any questions, don't hesitate to ask him.";
-		mes "Don't be a stranger even when you're out on the New Continent!";
+		mes "[Дружинник Аджейна]";
+		mes "Если появятся вопросы, не стесняйся, спрашивай.";
+		mes "Да и вообще не будь букой, даже на Новой суше!";
 		next;
-		mes "[Vigilante Ajegna]";
-		mes "The Lasagna Port is over that way!";
-		mes "Don't tell me you're here because you didn't know that.";
+		mes "[Дружинник Аджейна]";
+		mes "Порт Лазаньи в той стороне!";
+		mes "Только не говори, что не знал"+(Sex?"":"а")+".";
 		close;
 	}
 OnInit:
@@ -97,144 +100,143 @@ OnInit:
 	end;
 }
 
-lasa_fild01,53,322,3	script	Applicant Paul#doramt13	4_M_MERCAT1,4,4,{
+lasa_fild01,53,322,3	script	Кандидат Пауль#doramt13	4_M_MERCAT1,4,4,{
 	if (Class != Job_Summoner) {
-		mes "[Paul]";
-		mes "~Shrieks~ You startled me!";
-		mes "A human? Wow, what an odd-looking one!";
+		mes "[Пауль]";
+		mes "~визг~ Ты меня испугал!";
+		mes "Человек? Уу, какой странный!";
 		close;
 	}
 	switch( isbegin_quest(7723) ) {
 	case 0:
-		mes "[Paul]";
-		mes "So, you're that adventurer Doram, eh?";
-		mes "Hey, what do you think?";
-		mes "You agree with me about damage, right? STR comes first!";
+		mes "[Пауль]";
+		mes "Ты же у нас приключенец, да?";
+		mes "Слушай, вот ты как считаешь?";
+		mes "Я же прав насчёт урона? Тут главное сила!";
 		next;
-		mes "[Paul]";
-		mes "You need to be on the offense to win the battle.";
-		mes "^4d4dffThe quickest way to boost ATK is to boost STR^000000!";
+		mes "[Пауль]";
+		mes "Чтобы победить, нужно нападать.";
+		mes "^4d4dffА самый быстрый способ повысить атаку это качать силу^000000!";
 		next;
-		mes "[MacCarnie]";
-		mes "...Reckless attacks are of no use!";
-		mes "No attack will work if you miss the target!";
+		mes "[Мак`Карни]";//нужен более прикольный перевод фамилии. от слова carnivorous
+		mes "...Бездумные атаки бессмысленны!";
+		mes "От атаки не будет никакого толка, если в цель не попадаешь!";
 		next;
-		mes "[MacCarnie]";
-		mes "So, ^4d4dffyou need to boost DEX first to increase Accuracy^000000.";
-		mes "It doesn't matter how strong you are. You need to hit the target first!";
+		mes "[Мак`Карни]";
+		mes "Поэтому ^4d4dffнужно повышать сноровку, чтобы улучшить меткость^000000.";
+		mes "Неважно, насколько ты силён. Сначала нужно попасть!";
 		next;
-		mes "[MacCarnie]";
-		mes "I refuse to use martial arts willy-nilly as you do!";
-		mes "^4d4dffI'm using the summoning skill by boosting INT for magical attacks!^000000";
+		mes "[Мак`Карни]";
+		mes "И вообще, я не ограничен боевыми искусствами, в отличие от тебя.";
+		mes "^4d4dffЯ изучаю призывание и тренирую интеллект для магических атак!^000000";
 		next;
-		mes "[Paul]";
-		mes "Pfff! What's wrong with using the summoning skills to complement the physical skills?";
-		mes "Are you implying that I haven't got a clue?";
+		mes "[Пауль]";
+		mes "Пффф! И что мешает пользоваться призыванием в дополнение к физическим умениям?";
+		mes "Ты что, намекаешь, что я в этом не разбираюсь?";
 		next;
-		mes "[MacCarnie]";
-		mes "...That's not what I meant! This cat's brains must be full of fat!";
+		mes "[Мак`Карни]";
+		mes "...Я вовсе не это имел в виду. У этого кота в мозгах, наверное, один жир!";
 		next;
-		mes "[Vigilante Gnocchi]";
-		mes "...Stop fighting, you two!";
-		mes "Hey, there. Newcomer.";
-		mes "You can ask me if there is something you'd like to know.";
-		npctalk "You can ask me if there is something you'd like to know.", "Vigilante Gnocchi#doramt13", bc_self;
+		mes "[Дружинник Гноччи]";
+		mes "...Хватит собачиться, вы, двое!";
+		mes "Эй. Новоприбывший.";
+		mes "Если ты что-то хочешь узнать, можешь спрашивать у меня.";
+		npctalk "Если ты что-то хочешь узнать, можешь спрашивать у меня.", "Дружинник Гноччи#doramt13", bc_self;
 		setquest 7723;// The potential within
 		close;
 	case 1:
-		mes "[Paul]";
-		mes "He might tell you What's good about being a Vigilante, so go ahead and ask him.";
-		mes "He'll prove that I was right, after all.";
+		mes "[Пауль]";
+		mes "Он может рассказать тебе, чем хорошо быть дружинником, так что расспросил бы ты его.";
+		mes "Он подтвердит, что я был прав, в конце концов.";
 		close;
 	case 2:
-		mes "[Paul]";
-		mes "So, is this all about boosting your abilities based on your competencies?";
+		mes "[Пауль]";
+		mes "Ну, то есть суть в том, что какие характеристики повышать, зависит от того, какая у тебя специализация?";
 		next;
-		mes "[Paul]";
-		mes "Come to think of it, there is a ^4d4dffhypnotist^000000 in the village.";
-		mes "^4d4dffYou can reset skills and statuses through a hypnotist^000000. Just so you know that you can.";
+		mes "[Пауль]";
+		mes "Кстати о специализациях, в деревне есть ^4d4dffгипнотизёр^000000.";
+		mes "^4d4dffГипнотизёр сбрасывает умения и характеристики^000000. Просто чтоб ты знал, что такое бывает.";
 		close;
 	}
 OnTouch:
 	if (Class == Job_Summoner && isbegin_quest(7723) == 0) {
-		npctalk "You, dimwit! Nothing beats damage! You should boost your STR first!", "Applicant Paul#doramt13", bc_self;
+		npctalk "Сопляк! Нет ничего важнее урона! Сначала силу нужно качать!", "Кандидат Пауль#doramt13", bc_self;
 		sleep2 2000;
-		npctalk "You have no idea! DEX comes first if you want your attack to be successful!!", "Applicant MacCarnie#doramt13", bc_self;
+		npctalk "Ты ничего не понимаешь! Сноровка важнее, если хочешь, чтобы твоя атака была успешна!", "Кандидат Мак`Карни#doramt13", bc_self;
 		sleep2 1000;
-		emotion 36,0,"Applicant Paul#doramt13";
-		emotion 54,0,"Applicant MacCarnie#doramt13";
+		emotion 36,0,"Кандидат Пауль#doramt13";
+		emotion 54,0,"Кандидат Мак`Карни#doramt13";
 	}
 	end;
 OnInit:
-	if (strnpcinfo(0) == "Applicant Paul#doramt13")
+	if (strnpcinfo(0) == "Кандидат Пауль#doramt13")
 		questinfo 7723, QTYPE_QUEST, 1;
 	end;
 }
-lasa_fild01,50,321,6	duplicate(Applicant Paul#doramt13)	Applicant MacCarnie#doramt13	4_M_MERCAT1
+lasa_fild01,50,321,6	duplicate(Кандидат Пауль#doramt13)	Кандидат Мак`Карни#doramt13	4_M_MERCAT1
 
-lasa_fild01,54,325,3	script	Vigilante Gnocchi#doramt13	4_DR_SOLDIER,{
+lasa_fild01,54,325,3	script	Дружинник Гноччи#doramt13	4_DR_SOLDIER,{
 	if (Class != Job_Summoner) {
-		mes "[Vigilante Gnocchi]";
-		mes "Ahem! This is like a gateway to the Far-Star Continent.";
-		mes "No more humans are allowed!";
+		mes "[Дружинник Гноччи]";
+		mes "Кх-хм! Это, можно сказать, врата Пасты. Людям нельзя!";
 		close;
 	}
 	switch( isbegin_quest(7723) ) {
 	case 0:
-		npctalk "Do you happen to know why they are making so much noise?", "", bc_self;
+		npctalk "Ты случайно не в курсе, почему они так шумят?", "", bc_self;
 		end;
 	case 1:
-		mes "[Vigilante Gnocchi]";
-		mes "So they were having an animated discussion over status.";
+		mes "[Дружинник Гноччи]";
+		mes "А, они спорят о характеристиках.";
 		next;
 		break;
 	case 2:
-		mes "[Vigilante Gnocchi]";
-		mes "Do you need more explanation on the status?";
+		mes "[Дружинник Гноччи]";
+		mes "Тебе нужны разъяснения касательно характеристик?";
 		next;
-		if (select( "Yes.", "No." ) == 2) {
-			mes "[Vigilante Gnocchi]";
-			mes "Up to level 49, the village hypnotist will reset your stats and skills.";
-			mes "This will let you practice and experiment which will help find the path that works for you.";
+		if (select( "Да.", "Нет." ) == 2) {
+			mes "[Дружинник Гноччи]";
+			mes "Пока ты не достигнешь 49 базового уровня, гипнотизёр может сбросить тебе характеристики и умения.";
+			mes "Так можно попробовать разные варианты и понять, какой тебе больше нравится.";
 			close;
 		}
 		break;
 	}
-	mes "[Vigilante Gnocchi]";
-	mes "Press the ^4d4dffAlt+Q^000000 keys to view your physical stats.";
-	mes "Calibration is also available depending on your equipment.";
+	mes "[Дружинник Гноччи]";
+	mes "Чтобы посмотреть свои характеристики, нажми ^4d4dff[Alt] + [Й]^000000.";
+	mes "Их можно повышать тренировками и снаряжением.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "Let me explain the statuses in detail.";
-	mes "^4d4dffSTR means strength^000000. It ^4d4dffboosts physical attacks^000000.";
+	mes "[Дружинник Гноччи]";
+	mes "Давай я обьясню поподробнее.";
+	mes "^4d4dffSTR означает силу^000000. Она ^4d4dffвлияет на физические атаки^000000.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "^4d4dffVIT is vitality which indicates health^000000. This is what ^4d4dffboosts your overall HP^000000.";
-	mes "^4d4dffAGI means agility^000000. It affects ^4d4dffevasion and attack speed^000000.";
+	mes "[Дружинник Гноччи]";
+	mes "^4d4dffVIT это живучесть, или здоровье^000000. Она даёт ^4d4dffHP^000000.";
+	mes "^4d4dffAGI -- ловкость^000000. Она влияет на ^4d4dffуворот и скорость атаки^000000.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "^4d4dffINT refers to intelligence and MATK means magical attack^000000. If your skills are centered on magic, you must boost INT first and foremost.";
+	mes "[Дружинник Гноччи]";
+	mes "^4d4dffINT означает интеллект, МАТК -- магическую атаку^000000. Если твои умения включают магические атаки, высокий интеллект для тебя очень важен.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "^4d4dffDEX is related with dexterity and accuracy^000000.";
-	mes "You can both quicken casting speed and boost the accuracy of your attacks.";
+	mes "[Дружинник Гноччи]";
+	mes "^4d4dffDEX означает сноровку^000000.";
+	mes "Она влияет на точность твоих попаданий и скорость произнесения заклинаний и умений.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "^4d4dffLUK means luck; the more luck you have, the higher your critical hit rate (CRI) becomes^000000.";
-	mes "It also means you can dodge an enemy's attack more easily.";
+	mes "[Дружинник Гноччи]";
+	mes "^4d4dffLUK это удача; чем больше удача, тем вероятнее критическое попадание^000000.";
+	mes "А ещё больше шансов избежать вражеской атаки.";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "If you want to boost your physical attacks, focus on STR. If what you want is magical attacks, go for INT. Got it?";
+	mes "[Дружинник Гноччи]";
+	mes "Итак, для физических атак повышай силу, для магических -- интеллект. Всё ясно?";
 	next;
-	mes "[Vigilante Gnocchi]";
-	mes "DEX is highly crucial in the early stages because it is what boosts Accuracy.";
-	mes "This can be a difficult concept to get, so you should try boosting this and that to find your own way.";
+	mes "[Дружинник Гноччи]";
+	mes "DEX очень важна на ранних стадиях, потому что от неё зависит точность.";
+	mes "Всё это может поначалу сбивать с толку, тут нужно просто попробовать всё и решить, что тебе больше нравится.";
 	if (isbegin_quest(7723) == 1) {
 		completequest 7723;// The potential within
 		getexp 50,50;
 		next;
-		mes "[Vigilante Gnocchi]";
-		mes "I wish you godspeed!";
+		mes "[Дружинник Гноччи]";
+		mes "Желаю удачи!";
 	}
 	close;
 OnInit:
@@ -243,62 +245,62 @@ OnInit:
 	end;
 }
 
-lasa_fild01,60,322,3	script	Vigilante Aglio#doram02	4_DR_AGLIO,{
+lasa_fild01,60,322,3	script	Дружинник Аглиу#doram02	4_DR_AGLIO,{
 	if (Class != Job_Summoner) {
-		mes "[Vigilante Aglio]";
-		mes "Oh! You must be the famous strangers from the New Continent, eh?";
-		mes "Out-of-towner Dorams abound in this place, I definitely don't want any more of them.";
+		mes "[Дружинник Аглиу]";
+		mes "О! Вы, должно быть, один из знаменитых гостей с Новой земли?";
+		mes "Это место и так наводняют дорамы-путешественники, не хватало ещё и вас!";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Wouldn't they be surprised to see you guys?";
-		mes "Moreover, it's dangerous to cross the mountain ridge.";
-		mes "This is for your own good. Just go back to where you come from.";
+		mes "[Дружинник Аглиу]";
+		mes "Ваш приезд их сильно удивит.";
+		mes "Да и вообще, переходить перевал просто опасно.";
+		mes "Ради вашего же благополучия. Возвращайтесь, откуда пришли.";
 		close;
 	}
 	if (checkweight(1001,2) == 0) {
-		mes "- Hold on a second here!! -";
-		mes "- You have too many items. -";
-		mes "- That means you can no longer receive any items. -";
-		mes "- Free up some space -";
-		mes "- and try again. -";
+		mes "- Подождите !! -";
+		mes "- У вас слишком много вещей. -";
+		mes "- Вы не можете получать новые. -";
+		mes "- Освободите место и -";
+		mes "- повторите попытку. -";
 		close;
 	}
 	if (lasagna_quest[0] == 0) {
-		mes "[Vigilante Aglio]";
-		mes "Oh, hello?";
-		mes "I'm Aglio. I'm going to be your attendant from this point on.";
-		mes "Consider it a privilege.";
-		mes "Because I'm one of the ace members of the Farfalle Vigilante Corp.";
+		mes "[Дружинник Аглиу]";
+		mes "Добрый день?";
+		mes "Меня зовут Аглиу. Я буду твоим сопровождающим.";
+		mes "Расценивай это как привилегию.";
+		mes "Потому что я один из асов Дружины Фарфалле.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "I'm sure I can be of help for just about anything.";
-		mes "First off, let's see what you've got.";
+		mes "[Дружинник Аглиу]";
+		mes "Уверен, я так или иначе могу помочь практически по любому вопросу.";
+		mes "Итак, что мы вообще имеем.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Hang on. Let me check if you are properly equipped first.";
-		mes "You don't want to fight with bare hands, now do you?";
-		mes "^4d4dffYou should equip your weapons.^000000";
+		mes "[Дружинник Аглиу]";
+		mes "Что у тебя со снаряжением?";
+		mes "Мы же не собираемся драться голыми когтями?";
+		mes "^4d4dffТебе следует взять в руки оружие.^000000";
 		next;
 		cutin "tutorial03.BMP",4;
-		mes "!- Notice -!";
-		mes "^4d4dffYou can use or equip an item by double-clicking it.";
-		mes "Open or close the item window with the shortcut key [Alt+E].";
+		mes "!- NB -!";
+		mes "^4d4dffПрименить или надеть предмет можно, дважды кликнув на него.";
+		mes "Сочетание клавиш [Alt] + [У] открывает ваш инвентарь.";
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffCheck out your equipped items easily by pressing the shortcut key [Alt+Q].";
-		mes "Simply drag the appropriate items to the area you'd like to equip.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffС помощью сочетания клавиш [Alt] + [Й] можно увидеть надетые предметы.";
+		mes "Вы также можете просто ''перенести'' предмет в соответствующую ячейку, чтобы его надеть.^000000";
 		next;
 		cutin "",255;
-		mes "[Vigilante Aglio]";
-		mes "Now that we've checked your weapons, why don't we take a look at a target to hunt?";
-		mes "Do you see those ^4d4dffEggring^000000 wandering around over there?";
+		mes "[Дружинник Аглиу]";
+		mes "Итак, с оружием разобрались, теперь нам нужна цель для охоты!";
+		mes "Видишь, всё кишит ^4d4dffЭггрингами^000000?";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "They may look dumb but they can be a real pain in the butt. They will pick up and eat anything they come across.";
-		mes "They are a dime a dozen around here, so they're a great target for the novice Dorams to test their worth on.";
+		mes "[Дружинник Аглиу]";
+		mes "Выглядят смешно, но от них много проблем. Они поедают всё, что найдут.";
+		mes "И их тут как крыс, поэтому они хорошие кандидаты для новичков.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Go ahead and get rid of some ^4d4dffEggring^000000, will you? ^4d4dffThree^000000 should do for now.";
+		mes "[Дружинник Аглиу]";
+		mes "Иди и избавься от парочки этих ^4d4dffEggring^000000. ^4d4dffТрёх^000000 пока будет достаточно.";
 		if (isbegin_quest(7712) == 0)
 			setquest 7712;// Where am I? Who am I??
 		completequest 7712;
@@ -306,37 +308,37 @@ lasa_fild01,60,322,3	script	Vigilante Aglio#doram02	4_DR_AGLIO,{
 		lasagna_quest[0] = 1;
 		next;
 		cutin "tutorial02.BMP",4;
-		mes "^4d4dff!- Notice -!^000000";
-		mes "You have accepted a quest from an NPC.";
-		mes "^4d4dffCheck out the quest details by pressing the shortcut key [Alt+U],^000000 or through the Quest icon found in the menu tray.^000000";
+		mes "^4d4dff!- NB -!^000000";
+		mes "Вы взяли задание.";
+		mes "^4d4dffДетали и описание задания можно уточнить с помощью сочетания клавиш [Alt] + [Г]^000000 или через меню.^000000";
 		close3;
 	}
 	if (lasagna_quest[0] == 1 || lasagna_quest[0] == 2 || lasagna_quest[0] == 3) {
 		if (lasagna_quest[0] == 1) {
 			if (checkquest(7713,HUNTING) < 2) {
-				mes "[Vigilante Aglio]";
-				mes "Alright, to warm up, go and eliminate ^4d4dffthree Eggrings^000000.";
+				mes "[Дружинник Аглиу]";
+				mes "В качестве разминки уничтожь ^4d4dffтри Эггринга^000000.";
 				next;
-				mes "[Vigilante Aglio]";
-				mes "What do they look like? You'll see just by glancing at them right away. You can't miss them!";
-				mes "They abound around here. Go get them, tiger!";
+				mes "[Дружинник Аглиу]";
+				mes "Как они выглядят? Ты их не пропустишь!";
+				mes "Они здесь повсюду. Иди порви их, тигр"+(Sex?"":"ица")+"!";
 				next;
 				cutin "tutorial02.BMP",4;
-				mes "^4d4dff!- Notice -!^000000";
-				mes "^4d4dffCheck out the quest details by pressing the shortcut key [Alt+U],^000000 or through the Quest icon found in the menu tray.^000000";
+				mes "^4d4dff!- NB -!^000000";
+				mes "^4d4dffУточняйте детали задания в окне заданий. Чтобы открыть его, нажмите [Alt] + [Г] или соответствующую иконку меню^000000.";
 				close;
 			}
-			mes "[Vigilante Aglio]";
-			mes "Whoa, you're good!";
-			mes "I should've seen that in you because crossing the mountains is never easy.";
+			mes "[Дружинник Аглиу]";
+			mes "Ха, а ты неплох"+(Sex?"":"а")+"!";
+			mes "Хотя чего ещё я мог ждать, всё-таки перейти горы это вам не в тапки класть.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "I believe you can do very well, even in a new location.";
-			mes "Here, take this.";
+			mes "[Дружинник Аглиу]";
+			mes "Уверен, ты не растеряешься даже на новом месте.";
+			mes "Вот, возьми.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "I brought some snacks for you.";
-			mes "It's cool apple juice!";
+			mes "[Дружинник Аглиу]";
+			mes "Добыл тебе вкусняшку.";
+			mes "Холодный яблочный сок!";
 			completequest 7713;// First Battle!
 			getexp 70,70;
 			setquest 7714;// Refreshing Apple Juice
@@ -346,55 +348,55 @@ lasa_fild01,60,322,3	script	Vigilante Aglio#doram02	4_DR_AGLIO,{
 		}
 		if (lasagna_quest[0] == 2) {
 			if (countitem(531) > 0) {
-				mes "[Vigilante Aglio]";
-				mes "Click the 'Item' icon in the basic information window found in the upper left-hand side to open the item window.";
+				mes "[Дружинник Аглиу]";
+				mes "Нажми на значок инвентаря в правом верхнем углу, под окном с основной информацией.";
 				next;
-				mes "[Vigilante Aglio]";
-				mes "The item window comes with four tabs.";
-				mes "Items are automatically placed into the Item, Gear and Etc tabs, depending on their type.";
+				mes "[Дружинник Аглиу]";
+				mes "У окна инвентаря вкладки.";
+				mes "В зависимости от типа предмета он попадёт в одну из вкладок: ''используемые'', ''надеваемые'' или ''другие''. В четвёртую часть, ''избранное'', можно самому класть любые предметы.";
 				next;
-				mes "[Vigilante Aglio]";
-				mes "To use or equip an item, ^4d4dffdouble-click that item^000000, or";
-				mes "^4d4dffdrag it to the Equipment window^000000 to use.";
+				mes "[Дружинник Аглиу]";
+				mes "Чтобы использовать или надеть предмет, ^4d4dffдважды кликни по нему^000000 или";
+				mes "^4d4dffперетащи в окно снаряжения^000000.";
 				next;
 				cutin "tutorial03.BMP",4;
-				mes "!- Notice -!";
-				mes "^4d4dffYou can use or equip an item by double-clicking it.";
-				mes "Open or close the item window with the shortcut key [Alt+E].";
+				mes "!- NB -!";
+				mes "^4d4dffЧтобы использовать или надеть предмет, дважды кликните по нему.";
+				mes "Окно инвентаря открывается и закрывается сочетанием клавиш [Alt] + [У].";
 				next;
-				mes "!- Notice -!";
-				mes "^4d4dffCheck out your equipped items easily by pressing the shortcut key [Alt+Q].";
-				mes "Or, simply drag the appropriate items to the area you'd like to equip.^000000";
+				mes "!- NB -!";
+				mes "^4d4dffЧтобы посмотреть текущую экипировку, нажмите [Alt] + [Й].";
+				mes "В это окно также можно перетаскивать предметы, которые вы хотите надеть.^000000";
 				next;
 				cutin "",255;
-				mes "[Vigilante Aglio]";
-				mes "If you want to ^4d4dffsee a detailed description for each item, right-click that item.^000000";
-				mes "This shows the detailed description of the selected item.";
+				mes "[Дружинник Аглиу]";
+				mes "Если тебя заинтересуют подробности о каком-то предмете, ^4d4dffкликни по нему правой кнопкой мыши.^000000";
+				mes "Это выведет его описание.";
 				next;
 				cutin "tutorial04.BMP",4;
-				mes "!- Notice -!";
-				mes "^4d4dffRight-click an item to view its detailed description.^000000";
+				mes "!- NB -!";
+				mes "^4d4dffЧтобы посмотреть подробное описание предмета, кликните по нему ПКМ.^000000";
 				next;
-				mes "!- Notice -!";
-				mes "^4d4dffIf a player wishes, they can use the social options such as Booking, Party, or Guild. Here, they join a party or request transactions.^000000";
+				mes "!- NB -!";
+				mes "^4d4dffПКМ на персонажа игрока вызывает список возможностей социального взаимодействия: пригласить в группу, гильдию, предложить обмен и др.^000000";
 				next;
 				cutin "",255;
-				mes "[Vigilante Aglio]";
-				mes "Well, then. ^4d4dffGo ahead and drink the apple juice that I gave you.^000000";
+				mes "[Дружинник Аглиу]";
+				mes "Ну, ^4d4dffа теперь попробуй выпить сок, который я тебе дал^000000.";
 				close;
 			}
-			mes "[Vigilante Aglio]";
-			mes "How do you like it? It's cool, sweet, and just good, right?";
-			mes "I would've given you more if I had any, but...no.";
+			mes "[Дружинник Аглиу]";
+			mes "Нравится? Холодный, сладкий, вкуснота, а?";
+			mes "Я бы и больше дал, если б мог.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "Oh, right! I'll give you this, too.";
-			mes "It'll restore your stamina if you take it when you're tired.";
+			mes "[Дружинник Аглиу]";
+			mes "О, точно, дам тебе лучше вот это.";
+			mes "Восстанавливает силы, если устанешь.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "Also, I'll give you a new staff.";
-			mes "It should be better than that sprout you brought with you.";
-			mes "Now you know how to equip an item because I already explained it to you, don't you?";
+			mes "[Дружинник Аглиу]";
+			mes "И тебе полагается новое оружие.";
+			mes "Будет получше твоей веточки.";
+			mes "Как брать оружие в руки, я уже обьяснил.";
 			completequest 7714;// Refreshing Apple Juice
 			getitem 569,30;// Novice Potion
 			getitem 1687,1;// Beginner Foxtail Staff [1]
@@ -402,136 +404,136 @@ lasa_fild01,60,322,3	script	Vigilante Aglio#doram02	4_DR_AGLIO,{
 			lasagna_quest[0] = 3;
 		}
 		next;
-		classchange( 4_DR_KID_01, "Kid#doram03t", bc_self );
-		mes "[Vigilante Aglio]";
-		mes "I'll direct you to the village, now.";
-		npctalk "....Aglioooooo!!", "Kid#doram03t", bc_self;
+		classchange( 4_DR_KID_01, "Котёнок#doram03t", bc_self );
+		mes "[Дружинник Аглиу]";
+		mes "Ну всё, давай я расскажу, как добраться до дере...";
+		npctalk "....А-аглиуууу!!", "Котёнок#doram03t", bc_self;
 		next;
-		npctalk "Oh, my days! You startled me!", "", bc_self;
-		mes "[Vigilante Aglio]";
-		mes "What's up?";
-		mes "Oh, you're the youngest kitten of the tool merchant!";
-		mes "it's dangerous around here. What brought you all this way?";
+		npctalk "Ё! Ты меня напугал!", "", bc_self;
+		mes "[Дружинник Аглиу]";
+		mes "Что стряслось?";
+		mes "А, ты же младший котёнок лавочника!";
+		mes "Здесь опасно, ты что здесь делаешь?";
 		next;
-		mes "[The Youngest Kitten of the Tool Merchant]";
-		mes "Oh, actually...I lost it!";
-		mes "There was a box!";
-		mes "I was supposed to give it to Haru.";
-		mes "I was just trying to hang out for a while, but I fell down!";
+		mes "[Младший котёнок лавочника]";
+		mes "Ну, я...это, потерял!";
+		mes "Коробку!";
+		mes "Для Хару.";
+		mes "Ну, я ещё хотел зависнуть, но упал!";
 		next;
-		mes "[The Youngest Kitten of the Tool Merchant]";
-		mes "Please find it, Aglio!";
-		mes "Or, I'm going to be in trouble!";
+		mes "[Младший котёнок лавочника]";
+		mes "Аглиу, найди её, пожалуйста-пожалуйста!";
+		mes "А то мне конец!";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "So, you were running an errand to deliver a box to Healer Haru.";
-		mes "But you fell down while hanging out for a while and lost the box. Is that it?";
+		mes "[Дружинник Аглиу]";
+		mes "Итак, тебе было поручено доставить коробку Хару-сенсею,";
+		mes "ты где-то болтался, упал и потерял её? Так?";
 		next;
-		mes "[The Youngest Child of the Tool Merchant]";
-		mes "Yes, sir!";
-		mes "You're so good at summing it up!";
+		mes "[Младший котёнок лавочника]";
+		mes "Да, сэр!";
+		mes "Вы просто мастер опроса!";//~
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Alright. You just return to your village.";
-		mes "I'll see what I can do. You return home and wait.";
+		mes "[Дружинник Аглиу]";
+		mes "Хорошо. Возвращайся пока что в деревню.";
+		mes "Я посмотрю, что смогу сделать. А ты сиди дома и жди.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "One more thing. Just drop that habit of acting like you're naive in front of the strangers!";
+		mes "[Дружинник Аглиу]";
+		mes "Да, и ещё. Брось эту привычку прикидываться пусечкой перед незнакомцами!";
 		next;
-		mes "[The Youngest Kitten of the Tool Merchant]";
-		mes "Come on...I'm the cutest, youngest kitten from Lasagna!";
-		mes "Anyway, I hope you help me by finding that box. Please.";
+		mes "[Младший котёнок лавочника]";
+		mes "Да ладно тебе... Я ж самый миленький котеночек на селе!";
+		mes "Короче, надеюсь на твою помощь с этой коробкой. Пожалуйста.";
 		next;
-		npctalk "You know that I love you, don't you?", "Kid#doram03t", bc_self;
+		npctalk "Ты же в курсе, что я тебя просто обожаю?", "Котёнок#doram03t", bc_self;
 		sleep2 1000;
-		npctalk "Just go, already!", "", bc_self;
-		classchange( HIDDEN_WARP_NPC, "Kid#doram03t", bc_self );
-		mes "[Vigilante Aglio]";
+		npctalk "Уйди уже!", "", bc_self;
+		classchange( HIDDEN_WARP_NPC, "Котёнок#doram03t", bc_self );
+		mes "[Дружинник Аглиу]";
 		mes ".....";
-		mes "........~Sighs deeply~...";
+		mes "........~Глубоко вздыхает~...";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Well, there's no choice, then.";
-		mes "" + strcharinfo(0) + "";
-		mes "I think you can step up and handle it this time.";
+		mes "[Дружинник Аглиу]";
+		mes "Вариантов нет.";
+		mes + strcharinfo(0) + "...";
+		mes "Думаю, тебе придётся за это взяться.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "it's a relief to have a competent Doram with me.";
-		mes "My guess is that an ^4d4dffEggring must've eaten that box.^000000";
+		mes "[Дружинник Аглиу]";
+		mes "Как хорошо, что у меня рядом есть нормальный, квалифицированный дорам.";
+		mes "Полагаю, ^4d4dffкоробку проглотил Эггринг^000000.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "Keep hunting Eggrings until you find that box...";
-		mes "Let's go!";
+		mes "[Дружинник Аглиу]";
+		mes "Вскрывай их, пока не найдёшь эту коробку...";
+		mes "Вперёд!";
 		setquest 7715;// Midding Box
 		lasagna_quest[0] = 4;
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffYou accepted a new quest from Vigilante Aglio.";
-		mes "Check out the details of the quest in the Quest Information Window.";
+		mes "!- NB -!";
+		mes "^4d4dffВы приняли задание от Дружинника Аглиу.";
+		mes "Уточните подробности в окне заданий.^000000";
 		next;
-		mes "!- Notice -!";
-		mes "Press the ^4d4dffAlt + U^000000 shortcut key to open the Quest Information Window.";
+		mes "!- NB -!";
+		mes "Чтобы открыть окно заданий, нажмите ^4d4dff[Alt] + [Г]^000000.";
 		close;
 	}
 	if (lasagna_quest[0] == 4) {
 		if (countitem(1081) < 1) {// Midding Box
-			mes "[Vigilante Aglio]";
-			mes "You must remember Eggrings, you've hunted them before, haven't you?";
-			mes "They are easily spotted around here.";
+			mes "[Дружинник Аглиу]";
+			mes "Ты наверняка помнишь Эггрингов, ты же их уже бил"+(Sex?"":"а")+".";
+			mes "Их невозможно с чем-то перепутать.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "I have no idea which Eggring swallowed the box, but, you'll find it once you start hunting them.";
+			mes "[Дружинник Аглиу]";
+			mes "Понятия не имею, какой именно проглотил нашу коробку, это можно выяснить только опытным путем.";
 			next;
-			mes "[Vigilante Aglio]";
-			mes "Well, then. I'm counting on you.";
+			mes "[Дружинник Аглиу]";
+			mes "Ну, я рассчитываю на тебя.";
 			close;
 		}
-		mes "[Vigilante Aglio]";
-		mes "Ohh...! This is the box!";
-		mes "You can bring this when you visit the village!";
+		mes "[Дружинник Аглиу]";
+		mes "О, а вот и наша коробка!";
+		mes "Отдашь её, как будешь в деревне!";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "^4d4dffWhen you arrive in the village, find the tool shop first and deliver this box.^000000";
+		mes "[Дружинник Аглиу]";
+		mes "^4d4dffКогда прибудете в деревню, найдите лавку и отдайте коробку.^000000";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "I'll let you know how to reach the village.";
-		mes "Follow the arrows that just appeared on the ground.";
+		mes "[Дружинник Аглиу]";
+		mes "Я обьясню, как добраться до деревни...";
+		mes "Вот, иди по стрелочкам на земле.";
 		erasequest 7715;// Midding Box
 		setquest 7716;// To the Village!
 		getexp 100,100;
 		lasagna_quest[0] = 5;
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffSometimes NPCs will help you find your destination through the Navigation tool.";
-		mes "Links can be created if there is a need for it. If you see the [Target], click it for pathfinding.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffИногда персонажи будут подсказывать, как добраться до места назначения.";
+		mes "Это обозначается ссылками. Если вы видите запись вида [Цель], кликните её для навигации.^000000";
 		cutin "navi01.bmp",4;
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffCall up the Navigation panel by clicking the appropriate menu icon.";
-		mes "Search for the target, set the goal, and click Pathfinding.";
-		mes "Arrows will be generated pointing toward the location of the target.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffОкно навигатора вызывается с помощью соответствующей иконки в меню.";
+		mes "Выполните поиск цели, задайте точку назначения и кликните ''Простроить маршрут''.";
+		mes "Кратчайший путь к цели будет показан стрелочками.^000000";
 		cutin "navi02.bmp",4;
 		navigateto "lasagna",168,124;
 		close3;
 	}
 	if (lasagna_quest[0] == 5) {
-		mes "[Vigilante Aglio]";
-		mes "What's in front of you is Lasagna, the harbor village.";
-		mes "You should bring that box to the tool shop first, right?";
+		mes "[Дружинник Аглиу]";
+		mes "Перед тобой Лазанья, портовая деревня.";
+		mes "Тебе нужно доставить коробку в лавку, так?";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "I'll let you know how to reach the village.";
-		mes "Follow the arrows that just appeared on the ground.";
+		mes "[Дружинник Аглиу]";
+		mes "Я расскажу, как добраться до деревни...";
+		mes "Вот, иди по стрелкам на земле.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "I'll be right behind you!";
-		mes "Don't worry about me. Just keep going.";
+		mes "[Дружинник Аглиу]";
+		mes "Я следом!";
+		mes "Обо мне не беспокойся, вперёд, вперёд.";
 		navigateto "lasagna",168,124;
 		close;
 	}
-	mes "[Vigilante Aglio]";
-	mes "Haven't you left for Midgard yet?";
-	mes "Well, problems do occur at the harbor from time to time, but I thought it wouldn't be an issue for you.";
+	mes "[Дружинник Аглиу]";
+	mes "Ещё не отправил"+(Sex?"ся":"ась")+" в Мидгард?";
+	mes "Ну, в гавани случаются проблемы, но я как-то думал, что тебя это не остановит.";
 	close;
 OnInit:
 	questinfo 7715, QTYPE_QUEST, 1;
@@ -543,92 +545,91 @@ OnInit:
 	end;
 }
 
-lasa_fild01,62,321,3	script	Kid#doram03t	HIDDEN_WARP_NPC,{ end; }
+lasa_fild01,62,321,3	script	Котёнок#doram03t	HIDDEN_WARP_NPC,{ end; }
 
-lasa_fild01,132,374,3	script	Sloth#doram	4_DR_KID_01,3,3,{
+lasa_fild01,132,374,3	script	Лень#doram	4_DR_KID_01,3,3,{
 	if (checkweight(1001,3) == 0) {
-		mes "- Hold on a second here!! -";
-		mes "- You have too many items. -";
-		mes "- That means you can no longer receive any items. -";
-		mes "- Free up some space -";
-		mes "- and try again. -";
+		mes "- Секундочку! -";
+		mes "- У вас мало свободного места -";
+		mes "- в инвентаре. Облегчите ношу -";
+		mes "- и повторите попытку. -";
 		close;
 	}
 	switch( isbegin_quest(7719) ) {
 	case 0:
-		mes "[Sloth]";
-		mes "Hmm...You look energetic.";
-		mes "You see, I have an upset stomach.";
+		mes "[Лень]";
+		mes "Хмм...выглядишь...живо.";
+		mes "У меня с желудком проблемы...";
 		next;
-		mes "[Sloth]";
-		mes "The weather is sunny and warm, but...";
-		mes "I think I'm having a very bad day...";
+		mes "[Лень]";
+		mes "На солнышке тепло и уютно, но...";
+		mes "Похоже это просто не мой день...";
 		next;
-		mes "[Sloth]";
-		mes "I should pluck all the Red Grass in this herb field...";
+		mes "[Лень]";
+		mes "Мне надо бы собрать траву...вот ту красную траву на поле...";
 		next;
-		mes "[Sloth]";
-		mes "But I'm pleasantly full in this fine sunny weather...";
-		mes "And there's a good breeze blowing...";
+		mes "[Лень]";
+		mes "Но погода такая славная...";
+		mes "Ветерок такой нежный...";
 		next;
-		mes "[Sloth]";
-		mes "I don't think I can ever drag myself up.";
-		mes "But I'm supposed to pluck the Red Grass...";
-		mes "If you do it I'll give you anchovies, okay?";
+		mes "[Лень]";
+		mes "Не могу подняться.";
+		mes "Но я должен собрать траву...";
+		mes "Если ты это сделаешь, получишь анчоусов, м?";
 		next;
-		switch( select( "I'll pluck the Red Grass for you.", "Move your butt, you lazy sloth!" ) ) {
+		switch( select( "Хорошо, я соберу траву.", "Шевели хвостом, ленивец!" ) ) {
 		case 1:
-			mes "[Sloth]";
-			mes "^4d4dffPluck 3 Red Grass and then collect 2 Red Herbs^000000 around here!";
+			mes "[Лень]";
+			mes "^4d4dffСрежь три кустика и добудь 2 пучка красной травы^000000!";
 			next;
-			mes "[Sloth]";
-			mes "This may be of great help to you!";
-			mes "Well, then. I'm counting on you.";
+			mes "[Лень]";
+			mes "Тебе это тоже может оказаться полезно!";
+			mes "Ну, давай. Я рассчитываю на тебя.";
 			next;
-			mes "[Sloth]";
-			mes "I'll rest here to make my upset stomach feel better.";
+			mes "[Лень]";
+			mes "Я пока отдохну тут, вдруг с желужком станет получше.";
 			setquest 7719;// Time to Digest
 			close;
 		case 2:
-			mes "[Sloth]";
-			mes "Meeow....";
-			mes "....Meeowww....";
+			mes "[Лень]";
+			mes "Мяяя....";
+			mes "....Мяяяяя....";
 			close;
 		}
 	case 1:
 		if (checkquest(7719,HUNTING) != 2) {
-			mes "[Sloth]";
-			mes "What I want isn't too much.";
-			mes "Just ^4d4dffpluck the Red Grass and collect 2 Red Herbs^000000 around here. That's all.";
+			mes "[Лень]";
+			mes "Я совсем немногого хочу.";
+			mes "Всего-то ^4d4dffсобери 2 красные травки^000000 где-нибудь неподалёку. Вот и всё.";
 			next;
-			mes "[Sloth]";
-			mes "They grow too fast and keep growing no matter how many times I pluck them. I've had it...";
+			mes "[Лень]";
+			mes "Они растут быстрее, чем успеваешь их срезать...";
 			close;
 		}
 		if (countitem(507) < 2) {
-			mes "[Sloth]";
-			mes "What I want isn't too much.";
-			mes "Just ^4d4dffpluck the Red Grass and collect 2 Red Herbs^000000 around here. That's all.";
+			mes "[Лень]";
+			mes "Мне же многого не надо.";
+			mes "Всего лишь ^4d4dff2 красные травки^000000, и всё.";
 			close;
 		}
-		mes "[Sloth]";
-		mes "Oh...This aroma!";
-		mes "You plucked the Red Herbs just right.";
+		mes "[Лень]";
+		mes "О... Этот аромат!";
+		mes "Ты абсолютно правильно срезал красную траву.";
 		next;
-		mes "[Sloth]";
-		mes "I'll munch on them like twigs and digest them just like that. Meow!";
+		mes "[Лень]";
+		mes "Мне нужно разжевать стебли, это должно помочь. Мяу!";
 		next;
-		mes "[Sloth]";
-		mes "I'll give you the left-over herbs as a reward.";
-		mes "Chew them up and ^4d4dffyour HP will be restored.^000000";
+		mes "[Лень]";
+		mes "Я отдам тебе лишнюю траву.";
+		mes "Пожуй её, ^4d4dffи восстановишь здоровье^000000.";
 		next;
-		mes "[Sloth]";
-		mes "If you ask Haru, she'll tell you how to turn them into a potion with more effects.";
+		mes "[Лень]";
+		mes "Если интересно, можешь спросить у Хару, как сделать из травы зелье для большей эффективности.";
 		next;
-		mes "[Sloth]";
-		mes "Anyway, I'm the cat who knows how to return the favor.";
-		mes "This is for you.";
-		mes "Stay out of trouble, now.";
+		mes "[Лень]";
+		mes "Так или иначе, а я добра не забываю.";
+		mes "Вот, это тебе.";
+		mes "Береги себя.";
 		completequest 7719;
 		delitem 507,1;// Red Herb
 		getitem 11601,20;// Delicious Anchovy
@@ -637,184 +638,177 @@ lasa_fild01,132,374,3	script	Sloth#doram	4_DR_KID_01,3,3,{
 		getexp 80,80;
 		close;
 	case 2:
-		mes "[Sloth]";
-		mes "I'm feeling... so tired...";
+		mes "[Лень]";
+		mes "Ох... Я так устал...";
 		close;
 	}
 OnTouch:
 	if (isbegin_quest(7719) == 2)
-		npctalk "~Growling~", "", bc_self;
+		npctalk "~Ворчит~", "", bc_self;
 	else
-		npctalk "Hey, there! Get over here for a minute!", "", bc_self;
+		npctalk "Эй! Подойди на минутку!", "", bc_self;
 	end;
 OnInit:
 	questinfo 7719, QTYPE_QUEST, 1;
 	end;
 }
 
-lasa_fild01,103,344,3	script	Well-known Troublemaker	4_DR_KID_01,3,3,{
+lasa_fild01,103,344,3	script	Известный забияка	4_DR_KID_01,3,3,{
 	if (Class != Job_Summoner) {
-		mes "[Well-known Troublemaker]";
-		mes "What brought you all the way up here, human?";
-		mes "Be gone! Be gone, meeow!";
+		mes "[Известный забияка]";
+		mes "Что привело сюда человека?";
+		mes "Изыди! Изыди, мяв!";
 		next;
-		mes "[Well-known Troublemaker]";
-		mes "This is like a gateway. It cannot and should not be tainted by humans!";
+		mes "[Известный забияка]";
+		mes "Это врата нашей земли! Нельзя допустить, чтобы их осквернил человек!";
 		close;
 	}
 	switch( isbegin_quest(7721) ) {
 	case 0:
-		mes "[Well-known Kittie]";
-		mes "Hey, buddy!";
-		mes "Nyo-hoho! Nyo-hoho! You look so hectic. Where are you going?";
-		mes "To me, you look like a newbie adventurer who has just crossed the mountain ridge, meeow.";
+		mes "[Известный забияка]";
+		mes "Привет, хвостат"+(Sex?"ый":"ая")+"!";
+		mes "Ннё-хо-хо! Ннё-хо-хо! Ты чего это так"+(Sex?"ой":"ая")+" чахоточн"+(Sex?"ый":"ая")+"?";
+		mes "Для меня ты выглядишь как зелёный новичок, только что пришедший с перевала, мёу.";
 		next;
-		mes "[Well-known Kittie]";
-		mes "Aren't you too weak to handle the Dorams in Lasagna?";
+		mes "[Известный забияка]";
+		mes "Кишка тонка разобраться с лазаньскими дорамами?";
 		next;
-		mes "[Well-known Kittie]";
-		mes "Do you even know how to use skills?";
-		mes "To me, you look like a greenhorn who's simply acting out.";
+		mes "[Известный забияка]";
+		mes "Да ты вообще навыками знаешь, как пользоваться?";
+		mes "Да ты просто выделываешься и ничего не умеешь!";
 		next;
-		select( "I'm a better fighter than you are!", "Whoa, is that so?" );
-		mes "[Well-known Kittie]";
-		mes "Nyo-ho! Nyo-ho! How dare you disrespect me?";
-		mes "How about making a bet with me?";
+		select( "Я боец получше тебя!", "Да, правда что ли?" );
+		mes "[Известный забияка]";
+		mes "Ннё-хо! Ннё-хо! Как ты смеешь грубить мне?";
+		mes "Может, заключим пари?";
 		next;
-		mes "[Well-known Kittie]";
-		mes "I'll give you 10 full minutes while you hunt ^4d4dff3 Leaf Lunatics and 2 Grass Fabres^000000 around here!";
+		mes "[Известный забияка]";
+		mes "Я дам тебе целых 10 минут на то, чтобы ты победил"+(Sex?"":"а")+" ^4d4dff3 Лунатика-Листка и 2 Полевых фабре^000000!";
 		next;
-		mes "[Well-known Kittie]";
-		mes "If you show me what you're made of, I'll get out of your way.";
+		mes "[Известный забияка]";
+		mes "Покажешь, из какого теста ты сделан"+(Sex?"":"а")+", и может быть я тебя пропущу.";
 		next;
-		switch( select( "Accept.", "Decline." ) ) {
+		switch( select( "Принять.", "Отказаться." ) ) {
 		case 1:
-			mes "[Well-known Kittie]";
-			mes "You've got 10 minutes. No more, no less!";
-			mes "^4d4dff3 Leaf Lunatics and 2 Grass Fabres!^000000";
+			mes "[Известный забияка]";
+			mes "У тебя есть 10 минут!";
+			mes "^4d4dff"+getmonsterinfo(3496,MOB_NAME)+", 3 шт., "+getmonsterinfo(3497,MOB_NAME)+", 2 шт.!^000000";//Leaf Lunatic and Grass Fabre
 			setquest 7721;// Cat showoff contest
 			close;
 		case 2:
-			mes "[Well-known Kittie]";
-			mes "Are you running away?!";
-			mes "No adventurer with a faint heart ever survived on the New Continent!";
+			mes "[Известный забияка]";
+			mes "Уже убегаешь?!";
+			mes "На Новом Континенте трусы не выживают!";
 			close;
 		}
 	case 1:
 		.@quest_hunting = checkquest(7721,HUNTING);
 		.@quest_playtime = checkquest(7721,PLAYTIME);
 		if (.@quest_playtime < 2 && .@quest_hunting < 2) {
-			mes "[Well-known Kittie]";
-			mes "Eliminate ^4d4dff3 Leaf Lunatics and 2 Grass Fabres^000000 swarming around here within ^4d4dff10 minutes^000000!";
+			mes "[Известный забияка]";
+			mes "Победи ^4d4dff"+getmonsterinfo(3496,MOB_NAME)+", 3 шт., "+getmonsterinfo(3497,MOB_NAME)+", 2 шт.^000000 за ^4d4dff10 минут^000000!";
 			close;
 		}
 		if (.@quest_playtime == 2 && .@quest_hunting < 2) {
-			mes "[Well-known Kittie]";
-			mes "Nyo-hoho!! Nyo-hoho!!";
-			mes "Was it too tough for you to handle?";
-			mes "What do you think? Want to give it another try?";
+			mes "[Известный забияка]";
+			mes "Ннё-хо-хо!! Нннё-хо-хо!!";
+			mes "Слишком трудно оказалось?";
+			mes "Что думаешь? Попробуешь ещё раз?";
 			next;
-			mes "[Well-known Kittie]";
-			mes "Was it too hard for you?";
-			mes "Are you using your ^4d4dffskills^000000 well while hunting?";
+			mes "[Известный забияка]";
+			mes "Тяжело было, а?";
+			mes "А пользуешься ли ты ^4d4dffумениями^000000 на охоте?";
 			next;
-			mes "[Well-known Kittie]";
-			mes "You can ^4d4dffbring up the Skill Tree by pressing the [Alt+S] shortcut key or clicking the corresponding skill icon.^000000";
+			mes "[Известный забияка]";
+			mes "^4d4dffОкно умений открывается клавишами [Alt] + [Ы] или соответствующей иконкой меню^000000.";
 			next;
-			mes "[Well-known Kittie]";
-			mes "Setup the skill you'd like to use so that you can use it while in battle.";
+			mes "[Известный забияка]";
+			mes "Умения, требующие активации вручную, можно поставить на ^4d4dffбыстрые клавиши^000000.";
 			next;
-			mes "[Well-known Kittie]";
-			mes "^4d4dffSkills that are activated manually ^000000 can be ^4d4dffplaced on the quickbar^000000 for fast use.";
+			mes "[Известный забияка]";
+			mes "...Ну вот, теперь ты знаешь, как пользоваться умениями.";
+			mes "Что планируешь делать дальше?";
 			next;
-			mes "[Well-known Kittie]";
-			mes "...Now you know how to use skills.";
-			mes "So, what are you going to do?";
-			next;
-			switch( select( "Try again.", "I'll quit right now!" ) ) {
+			switch( select( "Попробовать ещё раз.", "С меня достаточно!" ) ) {
 			case 1:
-				mes "[Well-known Kittie]";
-				mes "You have moxie and I like that!";
-				mes "Alright, then. Give it another go!";
+				mes "[Известный забияка]";
+				mes "Мне нравится твоя дерзость!";
+				mes "Вздуй их!";
 				erasequest 7721;
 				setquest 7721;// Cat showoff contest
 				close;
 			case 2:
-				mes "[Well-known Kittie]";
-				mes "How can you hope to survive the New Continent with that weak mindset?";
-				mes "Nyo-hoho! Nyo-hoho! I'm the strongest Doram in this domain!";
+				mes "[Известный забияка]";
+				mes "Как ты вообще планируешь выжить на Новой суше, будучи такой соплёй?";
+				mes "Нё-ххо! Ннё-ххо! Я самый крутой дорам в округе!";
 				close;
 			}
 		}
 		if (.@quest_playtime < 2 && .@quest_hunting == 2) {
-			mes "[Well-known Kittie]";
-			mes "Hmm...You are good.";
-			mes "I feel challenged whenever I stumble upon a competent Doram such as you.";
+			mes "[Известный забияка]";
+			mes "Хмм... Неплохо.";
+			mes "Мне прямо хочется в чём-нибудь превзойти так"+(Sex?"ого крутого кота":"ую крутую кошку")+".";
 		}
 		else {
-			mes "[Well-known Kittie]";
-			mes "Time is already up! Nyo-hoho!!";
-			mes "So that again proves that I'm the best in this domain!";
+			mes "[Известный забияка]";
+			mes "Время вышло! Ннё-хо-хо!!";
+			mes "Что ещё раз доказывает, что я лучший в округе!";
 		}
 		next;
-		mes "[Well-known Kittie]";
-		mes "You finished the job on a high note so I'd like to help you in return.";
+		mes "[Известный забияка]";
+		mes "Ты сделал"+(Sex?"":"а")+" всё в наилучшем виде, так что я хочу сделать тебе в ответ что-нибудь хорошее.";
 		next;
-		mes "[Well-known Kittie]";
-		mes "By the way, do you know what a ^4d4dffSkill Tree^000000 is?";
-		mes "Did I teach you about that?";
-		mes "Do you remember anything about it?";
+		mes "[Известный забияка]";
+		mes "Кстати, уже в курсе, что такое ^4d4dffдерево умений^000000?";
+		mes "Я тебе уже рассказывал?";
+		mes "Запомнил"+(Sex?"":"а")+" хоть что-нибудь?";
 		next;
-		mes "[Well-known Kittie]";
-		mes "You can ^4d4dffbring up the Skill Tree by pressing the [Alt+S] shortcut key or clicking the corresponding skill icon.^000000";
+		mes "[Известный забияка]";
+		mes "^4d4dffОкно умений открывается клавишами [Alt] + [Ы] или соответствующей иконкой меню^000000.";
 		next;
-		mes "[Well-known Kittie]";
-		mes "Setup the skill you'd like to use so that you can use it while in battle.";
+		mes "[Известный забияка]";
+		mes "Умения, требующие активации вручную, можно поставить на ^4d4dffбыстрые клавиши^000000.";
 		next;
-		mes "[Well-known Kittie]";
-		mes "^4d4dffSkills that are activated manually ^000000 can be ^4d4dffplaced on the quickbar^000000 for fast use.";
-		next;
-		mes "[Well-known Kittie]";
-		mes "...Now you know how to use skills.";
-		mes "You should thank me. Nyo-hoho!";
+		mes "[Известный забияка]";
+		mes "...Ну вот, теперь ты знаешь, как пользоваться умениями.";
+		mes "Можешь поблагодарить меня. Нё-хо!";
 		completequest 7721;// Cat showoff contest
 		getexp 120,120;
 		close2;
-		classchange( 4_DR_AGLIO, "Vigilante Aglio#doram12", bc_self );
+		classchange( 4_DR_AGLIO, "Дружинник Аглиу#doram12", bc_self );
 		sleep2 1000;
-		npctalk "You! You're picking a fight with another innocent passerby?", "Vigilante Aglio#doram12", bc_self;
+		npctalk "Ты! Опять затеваешь драки с прохожими?", "Дружинник Аглиу#doram12", bc_self;
 		sleep2 2000;
-		npctalk "Picking a fight? This is what we call training!", "Well-known Troublemaker", bc_self;
+		npctalk "Драки? Это называется ''тренировки''!", "Известный забияка", bc_self;
 		sleep2 2000;
-		npctalk "Shut your mouth! You're joining the Vigilante Corp the moment you return to the village, got it?", "Vigilante Aglio#doram12", bc_self;
+		npctalk "Молчать! Ты вступаешь в Дружину сразу же, как только вернёшься в деревню, ясно?", "Дружинник Аглиу#doram12", bc_self;
 		sleep2 2000;
-		npctalk "Well, uh...I'm...uh...I'm free-spirited! That's all!", "Well-known Troublemaker", bc_self;
+		npctalk "Ну..Я... Эм... Я свободолюбив! Типа, да!", "Известный забияка", bc_self;
 		sleep2 2000;
-		npctalk "Enough. " + strcharinfo(0) + " the next destination is the tool shop in the village. I'll let you know where it is, again.", "Vigilante Aglio#doram12", bc_self;
+		npctalk "Хватит. " + strcharinfo(0) + ", твоя следующая цель -- деревенская лавка. Сейчас обьясню, как её найти.", "Дружинник Аглиу#doram12", bc_self;
 		sleep2 2000;
-		npctalk "I'll see you again in the village!", "Vigilante Aglio#doram12", bc_self;
+		npctalk "Встетимся в деревне!", "Дружинник Аглиу#doram12", bc_self;
 		navigateto "lasagna",168,124;
 		sleep2 2000;
-		npctalk "You're just full of it.", "Well-known Troublemaker", bc_self;
-		classchange( HIDDEN_WARP_NPC, "Vigilante Aglio#doram12", bc_self );
+		npctalk "Лопни уже.", "Известный забияка", bc_self;
+		classchange( HIDDEN_WARP_NPC, "Дружинник Аглиу#doram12", bc_self );
 		end;
 	case 2:
-		mes "[Well-known Kittie]";
-		mes "Do you need to be enlightened again?";
+		mes "[Известный забияка]";
+		mes "Просветить тебя ещё раз?";
 		next;
-		mes "[Well-known Kittie]";
-		mes "There's nothing special about life in this world.";
-		mes "You'd better make yourself familiar with the skill tree. It is accessed when you click the Skill icon.";
+		mes "[Известный забияка]";
+		mes "Жизнь в этом мире не так уж сложна.";
+		mes "Советую прежде всего освоить дерево умений.";
 		next;
-		mes "[Well-known Kittie]";
-		mes "Battle Dorams are specialized in summoning.";
-		mes "Focus on using the summoning skills so that you can win battles.";
+		mes "[Известный забияка]";
+		mes "Боевые дорамы специализируются на призывании. Изучи призывание -- и успех в бою тебе обеспечен.";
 		close;
 	}
 
 OnTouch:
 	if (Class == Job_Summoner && isbegin_quest(7721) == 0)
-		npctalk "Meeow?? Is this another out-of-towner Doram that I haven't met before?", "", bc_self;
+		npctalk "Мяяу?? Новое лицо?", "", bc_self;
 	end;
 
 OnInit:
@@ -823,57 +817,57 @@ OnInit:
 	end;
 }
 
-lasa_fild01,102,342,7	script	Vigilante Aglio#doram12	HIDDEN_WARP_NPC,{ end; }
+lasa_fild01,102,342,7	script	Дружинник Аглиу#doram12	HIDDEN_WARP_NPC,{ end; }
 
 -	shop	Cat Paw Shrimp Merchant#shop::doram_shrimp	-1,515:-1,567:-1,11602:-1
 
 lasagna,168,125,3	script	Kid#doram04t	4_DR_KID_01,{
 	if (lasagna_quest[0] == 5) {
 		if (countitem(1081) > 0) {
-			mes "[Kitten]";
-			mes "This is it!!";
+			mes "[Котёнок]";
+			mes "Это она! Она!!";
 			next;
-			mes "The kitten hoisted the box given to him up high, screaming out in joy";
+			mes "*Котёнок прижимает коробку к пузу, пища от счастья*";
 			next;
-			mes "[Tool Merchant]";
-			mes "Wait. This box looks familiar...";
-			mes "Hey! Isn't this the box that I told you to deliver to Haru?";
+			mes "[Лавочник]";
+			mes "Стой. Она очень похожа...";
+			mes "Эй! Это что, та самая коробка, которую нужно было доставить Хару?";
 			next;
-			mes "[Kitten]";
-			mes "~Gulps~";
-			mes "I'm leaving! Right now!";
-			mes "Thank you for finding the box!";
+			mes "[Котёнок]";
+			mes "~Сглатывает~";
+			mes "Мне пора бежать!";
+			mes "Спасибо, что наш"+(Sex?"ёл":"ла")+" её!";
 			delitem 1081, countitem(1081);// Delivery Box
 			completequest 7716;// To the Village!
 			getexp 70,70;
 			classchange( HIDDEN_WARP_NPC, "", bc_self );
 			lasagna_quest[0] = 6;
 			next;
-			npctalk "...Wow, that was fast.", "Tool Merchant#doram05t", bc_self;
-			mes "[Tool Merchant]";
-			mes "Anyway, thank you for finding the box.";
-			mes "If you have the time, sit down and talk with me.";
+			npctalk "...Вот это скорость.", "Лавочник#doram05t", bc_self;
+			mes "[Лавочник]";
+			mes "Спасибо, что отыскал"+(Sex?"":"а")+" эту коробку.";
+			mes "Я бы перекинулся с тобой парой слов, если время есть.";
 			close;
 		}
 	}
 	if (lasagna_quest[0] < 6) {
-		mes "[Kitten]";
-		mes "Why is he taking so long...?";
-		mes "I'm worried.";
+		mes "[Котёнок]";
+		mes "Ммм, почему так долго!";
+		mes "*Беспокоится*";
 		next;
-		select("Is there anything that troubles you?");
-		mes "[Kitten]";
-		mes "No, it's nothing.";
-		mes "I'm not one of the Dorams who would randomly give up on their errands!";
+		select("Что такое?");
+		mes "[Котёнок]";
+		mes "Ничего.";
+		mes "Я же не из тех, кто не выполняет обещаний!";
 		next;
-		mes "The little Doram starts whining, secretly being conscious of the adult Doram next to him.";
+		mes "*Котёнок тихо похныкивает, незаметно поглядывая на взрослого кота неподалёку.*";
 		close;
 	}
-	mes "[Kitten]";
-	mes "I was told you're headed to the New Continent.";
-	mes "I want to go there myself, too!";
+	mes "[Котёнок]";
+	mes "Я слышал, ты направляешься на Новую землю.";
+	mes "Я тоже туда хочу!";
 	close2;
-	npctalk "You're too young! Just join the Vigilante Corp.", "Tool Merchant#doram05t", bc_self;
+	npctalk "Маловат ты ещё! Сначала в дружину вступил бы.", "Лавочник#doram05t", bc_self;
 	end;
 OnInit:
 	questinfo 7716, QTYPE_QUEST, 1;
@@ -881,32 +875,32 @@ OnInit:
 	end;
 }
 
-lasagna,165,125,5	script	Tool Merchant#doram05t	4_DR_M_01,{
+lasagna,165,125,5	script	Лавочник#doram05t	4_DR_M_01,{
 	if (lasagna_quest[0] == 5) {
 		if (countitem(1081) > 0) {
-			mes "[Kitten]";
-			mes "This is it!!";
+			mes "[Котёнок]";
+			mes "Это она! Она!!";
 			next;
-			mes "The kitten hoisted the box given to him up high, screaming out in joy";
+			mes "*Котёнок прижимает коробку к пузу, пища от счастья*";
 			next;
-			mes "[Tool Merchant]";
-			mes "Wait. This box looks familiar...";
-			mes "Hey! Isn't this the box that I told you to deliver to Haru?";
+			mes "[Лавочник]";
+			mes "Стой. Она очень похожа...";
+			mes "Эй! Это что, та самая коробка, которую нужно было доставить Хару?";
 			next;
-			mes "[Kitten]";
-			mes "~Gulps~";
-			mes "I'm leaving! Right now!";
-			mes "Thank you for finding the box!";
+			mes "[Котёнок]";
+			mes "~Сглатывает~";
+			mes "Мне пора бежать!";
+			mes "Спасибо, что наш"+(Sex?"ёл":"ла")+" её!";
 			delitem 1081, countitem(1081);// Delivery Box
 			completequest 7716;// To the Village!
 			getexp 70,70;
 			classchange( HIDDEN_WARP_NPC, "Kid#doram04t", bc_self );
 			lasagna_quest[0] = 6;
 			next;
-			npctalk "...Wow, that was fast.", "", bc_self;
-			mes "[Tool Merchant]";
-			mes "Anyway, thank you for finding the box.";
-			mes "If you have the time, sit down and talk with me.";
+			npctalk "...Вот это скорость.", "", bc_self;
+			mes "[Лавочник]";
+			mes "Спасибо, что отыскал"+(Sex?"":"а")+" эту коробку.";
+			mes "Я бы перекинулся с тобой парой слов, если время есть.";
 			close;
 		}
 	}
@@ -919,22 +913,22 @@ lasagna,165,125,5	script	Tool Merchant#doram05t	4_DR_M_01,{
 			mes "- and try again. -";
 			close;
 		}
-		mes "[Tool Merchant]";
-		mes "You must be here to apply for the expedition to the New Continent.";
-		mes "It looks like my son caused some trouble for you.";
-		mes "Thank you for your help.";
+		mes "[Лавочник]";
+		mes "Ты, как я понимаю, в составе экспедиции на Новую сушу.";
+		mes "Похоже, мой сынок доставил тебе хлопот.";
+		mes "Спасибо за помощь.";
 		next;
-		mes "[Tool Merchant]";
-		mes "This is not much, but please take it. It's a token of my appreciation.";
-		mes "I also gave you ^4d4dffa new set of clothes^000000 so that you can change out of your dirty ones.";
+		mes "[Лавочник]";
+		mes "Здесь немного, но всё равно возьми, пожалуйста. В знак моей благодарности.";
+		mes "И ещё там ^4d4dffновая смена одежды^000000.";
 		next;
-		mes "[Tool Merchant]";
-		mes "You can find other tool merchants like me in each village.";
-		mes "You can buy and sell the items through those merchants.";
+		mes "[Лавочник]";
+		mes "Лавки, подобные моей, встречаются повсеместно.";
+		mes "Они работают как на продажу, так и на скупку.";
 		next;
-		mes "[Tool Merchant]";
-		mes "Ask ^4d4dffHealer Haru about the Combination Kit^000000 and she'll help you use it effectively.";
-		mes "Just take this with you.";
+		mes "[Лавочник]";
+		mes "Как пользоваться набором для готовки, тебе лучше расскажет ^4d4dffХару-сенсей^000000.";
+		mes "Просто возьми, пригодится.";
 		setquest 7717;// Merchant's Kindness
 		getitem 569,50;// Novice Potion
 		getitem 12323,10;// Novice Fly Wing
@@ -945,50 +939,50 @@ lasagna,165,125,5	script	Tool Merchant#doram05t	4_DR_M_01,{
 		getexp 50,50;
 		lasagna_quest[0] = 7;
 		next;
-		mes "[Tool Merchant]";
-		mes "If you want to dispose of any items, you should see me.";
-		mes "Do you understand?";
+		mes "[Лавочник]";
+		mes "Если захочешь избавиться от хлама, приходи ко мне.";
+		mes "Ясно?";
 		next;
-		mes "[Tool Merchant]";
-		mes "^4d4dffHealer Haru's house^000000 is straight ^4d4dffto the east^000000 from here.";
+		mes "[Лавочник]";
+		mes "^4d4dffДом Хару-сенсея^000000 строго ^4d4dffна восток^000000 отсюда.";
 		next;
-		mes "[Tool Merchant]";
-		mes "Plants and grasses are packed in front of her house because she's busy testing medicinal herbs.";
-		mes "^4d4dffIt's the house where lots of flowerpots are aligned.^000000 You can't miss it.";
+		mes "[Лавочник]";
+		mes "Хозяйка активно изучает лечебные свойства растений, поэтому каких только трав не растёт у неё на огороде!";
+		mes "^4d4dffЕё дом окружён цветочными горшками.^000000 Его невозможно перепутать.";
 		close;
 	}
 	if (lasagna_quest[0] == 7) {
-		mes "[Tool Merchant]";
-		mes "Haru is a very smart girl, so every sick person goes to her place.";
+		mes "[Лавочник]";
+		mes "Хару-сенсей очень искусна, и любой больной сразу идёт к ней.";
 		next;
-		mes "[Tool Merchant]";
-		mes "You're about to go on a journey and she's going to be a lot of help.";
-		mes "Be sure to meet her.";
+		mes "[Лавочник]";
+		mes "А ты отправляешься в далёкую экспедицию.";
+		mes "Зайди к ней, она наверняка чем-нибудь поможет.";
 		next;
-		mes "[Tool Merchant]";
-		mes "^4d4dffHealer Haru's house^000000 is straight ^4d4dffto the east^000000 from here.";
+		mes "[Лавочник]";
+		mes "^4d4dffДом Хару-сенсея^000000 строго ^4d4dffна восток^000000 отсюда.";
 		next;
-		mes "[Tool Merchant]";
-		mes "Plants and grasses are packed in front of her house because she's busy testing medicinal herbs.";
-		mes "^4d4dffIt's the house where lots of flowerpots are aligned.^000000 You can't miss it.";
+		mes "[Лавочник]";
+		mes "Хозяйка активно изучает лечебные свойства растений, поэтому каких только трав не растёт у неё на огороде!";
+		mes "^4d4dffЕё дом окружён цветочными горшками.^000000 Его невозможно перепутать.";
 		next;
-		mes "[Tool Merchant]";
-		mes "Is there anything you need?";
+		mes "[Лавочник]";
+		mes "М? Тебе что-то нужно?";
 	}
 	else {
-		mes "[Tool Merchant]";
-		mes "Welcome.";
+		mes "[Лавочник]";
+		mes "Добро пожаловать.";
 	}
 	next;
-	if (select( "Buy an item.", "Sell your belongings." ) == 1) {
-		mes "[Tool Merchant]";
-		mes "Do you need anything? I have basic potions, traps, magnifiers...You name it!";
+	if (select( "Купить кое-что.", "Продать кое-что." ) == 1) {
+		mes "[Лавочник]";
+		mes "У меня есть простые зелья, силки, лупы... Говори, что нужно!";
 		close2;
 		callshop "tool_shop_lasagna",1;
 		end;
 	}
-	mes "[Tool Merchant]";
-	mes "Good thinking! I knew you would. you'd better sell away items that you no longer need!";
+	mes "[Лавочник]";
+	mes "Я всегда говорил -- чтобы купить что-нибудь нужное, нужно сначала продать что-нибудь ненужное!";
 	close2;
 	callshop "tool_shop_lasagna",2;
 	end;
@@ -998,64 +992,64 @@ lasagna,165,125,5	script	Tool Merchant#doram05t	4_DR_M_01,{
 
 lasagna,224,126,5	script	Healer Haru#doram07t	4_DR_M_02,{
 	if (lasagna_quest[0] == 7) {
-		mes "[Healer Haru]";
-		mes "I see a lot of out-of-towners these days.";
-		mes "What do you need?";
-		.@menu$[2] = "Show her the Combination Kit.";
+		mes "[Хару-сенсей]";
+		mes "В последнее время появилось столько иногородних.";
+		mes "Что тебе нужно?";
+		.@menu$[2] = "Показать набор.";
 	}
 	else {
-		mes "[Healer Haru]";
-		mes "What's up?";
-		setarray .@menu$[0], "Somebody, help me!", "About First Aid", "About Medical Botany";
+		mes "[Хару-сенсей]";
+		mes "Что случилось?";
+		setarray .@menu$[0], "Помогите!", "О первой помощи.", "О фармацевтике.";
 	}
 	next;
 	switch( select( .@menu$[0], .@menu$[1], .@menu$[2] ) ) {
 	case 1:
 		if (Class == Job_Summoner) {
-			mes "[Healer Haru]";
-			mes "Oh, no...";
-			mes "It's going to be fine.";
+			mes "[Хару-сенсей]";
+			mes "О, нет...";
+			mes "Ну ничего, сейчас поправим.";
 			npcskill "AL_HEAL",10,130,115;// 1748 hp
 			percentheal 0,100;
 			close;
 		}
-		mes "[Healer Haru]";
-		mes "Oh, dear...";
-		mes "Does it hurt a lot?";
-		mes "You need 5,000 Zeny to heal it all. Do you want me to do it?";
+		mes "[Хару-сенсей]";
+		mes "Ох, милый...";
+		mes "Сильно болит?";
+		mes "Это будет стоить 5 000 зени. Лечим?";
 		next;
-		if (select( "Say yes.", "It's too expensive." ) == 2) {
-			mes "[Healer Haru]";
-			mes "Take your time and get some rest.";
+		if (select( "Да.", "Дороговато." ) == 2) {
+			mes "[Хару-сенсей]";
+			mes "Тогда постарайтесь отдохнуть.";
 			close;
 		}
 		if (Zeny >= 5000)// intended ?
 			Zeny = Zeny - 5000;
-		mes "[Healer Haru]";
-		mes "Thank you for using our service.";
+		mes "[Хару-сенсей]";
+		mes "Спасибо.";
 		// npcskill "AL_HEAL",10,130,115;// 1748 hp
 		percentheal 100,100;
 		close;
 	case 2:
 		if (getskilllv("NV_FIRSTAID") > 0) {
-			mes "[Healer Haru]";
-			mes "You already know what First Aid is...";
-			mes "Please. I don't have all day.";
+			mes "[Хару-сенсей]";
+			mes "Ты всё и сам"+(Sex?"":"а")+" знаешь...";
+			mes "Пожалуйста, у меня нет лишних суток.";
 			close;
 		}
-		mes "[Healer Haru]";
-		mes "Oh, you'd like to learn about First Aid! How admirable of you!";
-		mes "First Aid is a skill converting your SP into HP in an emergency.";
+		mes "[Хару-сенсей]";
+		mes "О, хочешь научиться первой помощи? Очень похвально!";
+		mes "Это умение немного поправить своё здоровье в экстренной ситуации.";
 		next;
-		mes "[Healer Haru]";
-		mes "The healing amount can be minimal...";
-		mes "But you can at least avoid getting stunned by a critical hit.";
+		mes "[Хару-сенсей]";
+		mes "Эти меры сложно назвать лечением...";
+		mes "Это скорее способ не дать себе умереть от критических ран.";
 		specialeffect EF_BEGINSPELL6;
 		specialeffect EF_SPELLBREAKER;
 		next;
-		mes "[Healer Haru]";
-		mes "Click the ^4d4dffSkill^000000 button to open the Skill Window.";
-		mes "FYI, the shortcut key is ^4d4dffAlt+S^000000.";
+		mes "[Хару-сенсей]";
+		mes "Чтобы открыть окно умений, нажми иконку с книгой.";
+		mes "Сочетание клавиш ^4d4dff[Alt] + [Ы]^000000.";
 		getexp 100,100;
 		if (isbegin_quest(7722) == 0) {
 			setquest 7722;// EMT
@@ -1063,58 +1057,54 @@ lasagna,224,126,5	script	Healer Haru#doram07t	4_DR_M_02,{
 		}
 		skill "NV_FIRSTAID",1,SKILL_PERM;
 		next;
-		mes "[Healer Haru]";
-		mes "Well, then. I'll let you in on something juicy while I'm at it.";
-		mes "Press the ^4d4dffF12 key^000000, will you?";
-		mes "Surprise! It brings up the shortcut key window where nine small slots are arranged in a row.";
+		mes "[Хару-сенсей]";
+		mes "Хорошо. Теперь расскажу тебе одну полезную хитрость.";
+		mes "Нажми-ка кнопку ^4d4dff[F12]^000000?";
+		mes "Сюрприз! Видишь окно, состоящее из идущих подряд ячеек? Это панель быстрых клавиш.";
 		next;
-		mes "[Healer Haru]";
-		mes "Drag the corner area in the right-hand side of the shortcut key window to view other pages.";
+		mes "[Хару-сенсей]";
+		mes "Потянув за её правый нижний угол, можно открыть дополнительные строки.";
 		next;
-		mes "[Healer Haru]";
-		mes "It's easy to use. ^4d4dffEach slot corresponds to the keys from F1 through F9.^000000";
-		mes "Drag your skill or item to use in the slot and press the corresponding key to activate it instantly.";
+		mes "[Хару-сенсей]";
+		mes "Это очень удобная штука. ^4d4dffКаждая ячейка соответствует быстрой клавише от F1 до F9.^000000";
+		mes "Туда можно перетаскивать умения, так ты сможешь использовать их, нажимая соответствующие кнопки.";
 		next;
 		cutin "tutorial05.BMP",4;
-		mes "!- Notice -!";
-		mes "^4d4dffTo place an item or skill icon to use, drag it to the shortcut key slot.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffУмения и предметы можно поместить в ячейки быстрых клавиш.^000000";
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffTo use or equip an item or equipment registered in the slot, press the key that corresponds to each slot from F1 to F9.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffТаким образом можно надеть или использовать предмет или умение, нажав на соответствующую кнопку.^000000";
 		next;
-		mes "!- Notice -!";
-		mes "^4d4dffIn the shortcut key settings, you can select the corresponding shortcut keys as you desire.^000000";
-		next;
-		mes "!- Notice -!";
-		mes "^4d4dffPlace an item and/or skill that you often use for quick usage.^000000";
+		mes "!- NB -!";
+		mes "^4d4dffНабор кнопок можно выбрать в настройках.^000000";
 		cutin "",255;
 		next;
-		mes "[Healer Haru]";
-		mes "Well, now. Open the Skill Window and place the First Aid skill in a shortcut key slot to use.";
-		mes "It's going to be a lot easier to use it.";
+		mes "[Хару-сенсей]";
+		mes "Отлично. Чтобы было удобнее применять первую помощь, лучше поставь её на кнопку.";
 		close;
 	case 3:
 		if (isbegin_quest(7718) == 0 || lasagna_quest[0] == 7) {
-			mes "[Healer Haru]";
-			mes "Oh, so you're here to learn the potion combination?";
-			mes "Then, you need a combination scroll first.";
-			mes "Above all, the most important out of all the combination items should be a potion.";
+			mes "[Хару-сенсей]";
+			mes "Фармацевтика, или наука о смешивании лечебных растительных ингредиентов, это частный случай науки о производстве из одних предметов другие.";
+			mes "Для любого такого производства необходим рецепт или иная инструкция.";
+			mes "Сейчас из всех возможностей производства для нас наиболее важны именно лечебные зелья.";
 			next;
-			mes "[Healer Haru]";
-			mes "Have you ever seen the grass growing in the field while you're traveling?";
-			mes "^4d4dffRed Grass, Blue Grass, Green Grass, White Grass...^000000etc...";
+			mes "[Хару-сенсей]";
+			mes "Ты когда-нибудь присматривал"+(Sex?"ся":"ась")+" к полевым травам?";
+			mes "^4d4dffКрасная трава, Синяя трава, Зелёная, Белая...^000000 и так далее.";
 			next;
-			mes "[Healer Haru]";
-			mes "You can obtain herbs from these grasses.";
-			mes "Each herb is a good source to be processed into various kinds of medicine.";
+			mes "[Хару-сенсей]";
+			mes "Из них можно получать растительное сырьё.";
+			mes "Это сырьё, или собственно ''травы'', используются для приготовления многих видов лекарств.";
 			next;
-			mes "[Healer Haru]";
-			mes "Red Herbs are running out.";
-			mes "I think you should go pick some now.";
+			mes "[Хару-сенсей]";
+			mes "У меня почти закончилась красная трава...";
+			mes "Думаю, тебе стоит заняться её сбором.";
 			next;
-			mes "[Healer Haru]";
-			mes "The herbs are growing in the entrance of the village. Did you see them?";
-			mes "^4d4dffGo and collect 1 Red Herb in the entrance of the village.^000000 This should be a good practice.";
+			mes "[Хару-сенсей]";
+			mes "Недалеко от входа в деревню её много. Видел"+(Sex?"":"а")+"?";
+			mes "Добудь, пожалуйста, ^4d4dff1 пучок красной травы^000000. Это послужит неплохой практикой.";
 			if (isbegin_quest(7717) == 1)
 				erasequest 7717;
 			if (isbegin_quest(7718) == 0)
@@ -1122,11 +1112,11 @@ lasagna,224,126,5	script	Healer Haru#doram07t	4_DR_M_02,{
 			if (lasagna_quest[0] == 7)
 				lasagna_quest[0] = 8;
 			next;
-			mes "[Healer Haru]";
-			mes "Come on. Hurry!";
+			mes "[Хару-сенсей]";
+			mes "Всё, поспеши!";
 			close2;
 			if (lasagna_quest[0] == 7 && Class == Job_Summoner)
-				npctalk "Hey, there. Newbie Doram. Talk to me.", "Hypnotist#doram08t", bc_self;
+				npctalk "Новичок, подойди, пожалуйста. Нужно поговорить.", "Гипнотизёр#doram08t", bc_self;
 			end;
 		}
 		if (isbegin_quest(7718) == 1) {
@@ -1139,38 +1129,37 @@ lasagna,224,126,5	script	Healer Haru#doram07t	4_DR_M_02,{
 					mes "- and try again. -";
 					close;
 				}
-				mes "[Healer Haru]";
-				mes "You've got them, perfect.";
-				mes "This ^4d4dffherb is effective even when eaten as it is, but, it is far more effective when it is made into a potion.^000000";
+				mes "[Хару-сенсей]";
+				mes "Собрал"+(Sex?", молодец.":"а, умница.")+;
+				mes "Такие травы ^4d4dffполезны как при приёме в сыром виде, так и в составе зелий.^000000 В последнем случае они особенно эффективны.";
 				next;
-				mes "[Healer Haru]";
-				mes "Effects vary for the herbs, depending on their colors.";
-				mes "^4d4dffGreen Herbs are known for detoxification.^000000";
-				mes "^4d4dff Blue Herbs restore SP^000000.";
+				mes "[Хару-сенсей]";
+				mes "Эффекты различаются для разных видов трав, которые можно отличить по цвету их листьев:";
+				mes "^4d4dffзелёные травы являются универсальным противоядием;^000000";
+				mes "^4d4dffсиние восстанавливают душевные силы.^000000";
 				next;
-				mes "[Healer Haru]";
-				mes "Anything else?";
-				mes "Well, now. Your HP is being restored as the Red Herb does it's work.";
-				mes "Press juice out of it and put them in a bottle...";
+				mes "[Хару-сенсей]";
+				mes "Так, что ещё.";
+				mes "Ну вот, как-то так. Ну а красные немного восполняют здоровье.";
+				mes "Выжимаешь из листьев сок до последней капли, запечатываешь в бутылку...";
 				next;
-				mes "[Healer Haru]";
-				mes "This is what we call a potion that you can take anytime, anywhere!";
-				mes "This is for you on this special encounter.";
+				mes "[Хару-сенсей]";
+				mes "Это основной принцип производства так называемого зелья, которое можно затем хранить сколько угодно и выпить, когда необходимо!";
+				mes "Идеально для экстренных случаев.";
 				next;
-				mes "[Healer Haru]";
-				mes "Prepare the materials written in the combination scroll.";
-				mes "Then, ^4d4dffuse the Combination Kit or cooking utensils^000000 to make an item you want.";
+				mes "[Хару-сенсей]";
+				mes "Выбери рецепт, приготовь ингредиенты, а затем воспользуйся набором для готовки.";
 				next;
-				mes "[Healer Haru]";
-				mes "You can also make various other types of tools, other than potions, with the materials you pick up, so use them well.";
+				mes "[Хару-сенсей]";
+				mes "В производстве могут использоваться самые неожиданные, на первый взгляд бесполезные вещи, так делаются не только зелья, но и многое другое.";
 				next;
-				mes "[Healer Haru]";
-				mes "I gave you Red Herbs and apples.";
-				mes "So give it a try and craft something with the Combination Kit.";
+				mes "[Хару-сенсей]";
+				mes "Даю тебе яблоко и препарат тех трав, что ты собрал"+(Sex?"":"а")+".";
+				mes "Попробуй сделать из них что-нибудь, использовав набор для готовки.";
 				next;
-				mes "[Healer Haru]";
-				mes "Here's the directions. To read the combination scroll,";
-				mes "^4d4dffRight-click the scroll,^000000 and then, click the ^4d4dffbook-shaped icon^000000 found in the description window.";
+				mes "[Хару-сенсей]";
+				mes "Рецепты читаются так.";
+				mes "^4d4dffКликни правой кнопкой мыши на рецепт и найди в окне описания значок книги. Кликни по нему ЛКМ.^000000";
 				if (isbegin_quest(7717) > 0)
 					erasequest 7717;
 				if (isbegin_quest(7718) == 0)
@@ -1182,35 +1171,34 @@ lasagna,224,126,5	script	Healer Haru#doram07t	4_DR_M_02,{
 				getitem 12849,10;// Combination Kit
 				getitem 507,1;// Red Herb
 				getitem 512,1;// Apple
-				npctalk "Oh! Here you are!", "Vigilante Aglio#doram09", bc_self;
-				classchange( 4_DR_AGLIO, "Vigilante Aglio#doram09", bc_self );
+				npctalk "О! Вот ты где!", "Дружинник Аглиу#doram09", bc_self;
+				classchange( 4_DR_AGLIO, "Дружинник Аглиу#doram09", bc_self );
 				lasagna_quest[0] = 9;
 				close;
 			}
 			else {
-				mes "[Healer Haru]";
-				mes "There is a place near the entrance of the village where herbs grow.";
-				mes "^4d4dffBeat the Red Grass and get 1 Red Herb^000000.";
+				mes "[Хару-сенсей]";
+				mes "Место, где в изобилии растут красные растения, находится неподалёку от входа в деревню.";
+				mes "Срежь красное растение и добудь ^4d4dff1 Красную траву^000000.";
 				next;
-				mes "[Healer Haru]";
-				mes "You should know what the herbs look like.";
+				mes "[Хару-сенсей]";
+				mes "Ты не можешь не знать, как выглядят красные лекарственные растения.";
 				close;
 			}
 		}
-		mes "[Healer Haru]";
-		mes "I've given you all the details about the basics of medicinal botany.";
-		mes "By the way, there is ^4d4dffShining Grass^000000 in this world.";
+		mes "[Хару-сенсей]";
+		mes "Основы фармацевтики я обьяснила.";
+		mes "Кстати, в мире встречается ещё так называемая ^4d4dffСверкающая трава^000000.";
 		next;
-		mes "[Healer Haru]";
-		mes "You have no idea what kind of herb the Shining Grass will produce.";
-		mes "I was lucky enough to obtain Igdrasil's Fruit once.";
+		mes "[Хару-сенсей]";
+		mes "Результат заготовки такого растения непредсказуем. Из него может получиться любой вид трав.";
+		mes "Однажды я даже нашла на нём семя Иггдрасиля.";
 		next;
-		mes "[Healer Haru]";
-		mes "Rumor has it that, among humans, ^4d4dffAlchemist^000000, ^4d4dffCreator^000000, or the upper-level ^4d4dffGeneric^000000";
-		mes "are highly specialized in crafting potions.";
+		mes "[Хару-сенсей]";
+		mes "Ходят слухи, что у людей бывают ^4d4dffАлхимики^000000, ^4d4dffБиохимики^000000 и высококвалифицированные ^4d4dffГенетики^000000, и что они специализируются на зельеварении.";
 		next;
-		mes "[Healer Haru]";
-		mes "If you happen to meet a human in the Midgard Continent, why don't you ask them?";
+		mes "[Хару-сенсей]";
+		mes "Если тебе удастся побывать на Мидгарде, попробуй узнать поподробности, пожалуйста?";
 		close;
 	}
 
@@ -1219,82 +1207,85 @@ OnInit:
 	end;
 }
 
-lasagna,222,123,5	script	Hypnotist#doram08t	4_CAT_MERMASTER,{
+lasagna,222,123,5	script	Гипнотизёр#doram08t	4_CAT_MERMASTER,{
 	if (Class != Job_Summoner) {
-		mes "[Hypnotist]";
-		mes "Oh! So you're that famous human everyone is talking about!";
-		mes "But why is your hair uneven?";
+		mes "[Гипнотизёр]";
+		mes "О! Вы тот самый человек, о котором столько говорят!";
+		mes "Но что с вашей шерстью?";
 		next;
-		mes "[Hypnotist]";
-		mes "Have you come down with a skin disease or something?";
-		mes "This healer next to me is really good. You should ask her to take a look at it!";
+		mes "[Гипнотизёр]";
+		mes "Вы пострадали от какого-то вида кожной болезни?";
+		mes "Не беспокойтесь, наша Хару-сенсей излечит какую угодно хворь!";
 		next;
-		mes "[Hypnotist]";
-		mes "You're really big and that type of poor hair just doesn't go well with you...";
-		mes "It must've been a lot of work.";
+		mes "[Гипнотизёр]";
+		mes "С учётом ваших грандиозных размеров...";
+		mes "Должно быть, тяжело вам.";
 		close;
 	}
-	mes "[Hypnotist]";
-	mes "I'm casting hypnosis on the young lads for their future.";
+	mes "[Гипнотизёр]";
+	mes "Я гипнотизирую молодых дорамов ради их будущего.";
 	next;
 	if (BaseLevel > 49) {
-		mes "[Hypnotist]";
-		mes "You must have been over with wandering by now.";
+		mes "[Гипнотизёр]";
+		mes "А вам стоило бы уже найти себе занятие.";
 		close;
 	}
-	mes "[Hypnotist]";
-	mes "If you don't like a skill you just learned, I can reset it for you.";
+	mes "[Гипнотизёр]";
+	mes "Если ты научил"+(Sex?"ся":"ась")+" чему-то, чего не хочешь уметь, я могу помочь забыть это.";
 	next;
-	mes "[Hypnotist]";
-	mes "^4d4dffUp to level 49, your skills and status can be reset anytime you want.^000000";
+	mes "[Гипнотизёр]";
+	mes "С моей помощью ты можешь ^4d4dffсбросить умения и характеристики.^000000";
 	next;
-	.@s = select( "Reset the status.", "Reset the skill." );
+	mes "[Гипнотизёр]";
+	mes "^4d4dffСеанс бесплатен и количество сеансов не ограничено, но твой базовый уровень должен быть строго меньше 49.^000000";
+	next;
+	.@s = select( "Сбросить все характеристики.", "Сбросить все умения." );
 	if (Weight > 0) {
-		mes "[Hypnotist]";
-		mes "Your items can be lost, so be sure to make yourself weigh ^FF00000^000000.";
+		mes "[Гипнотизёр]";
+		mes "Тебе следует избавиться от всего груза.";
 		next;
-		mes "[Hypnotist]";
-		mes "The Cat Paw Commerce Group is responsible for the warehouse, so leave your items to them.";
+		mes "[Гипнотизёр]";
+		mes "Обратись к котам из торговой группы, они предоставляют услуги хранилища.";
 		close;
 	}
 	if (.@s == 1) {
 		resetstatus();
-		mes "[Hypnotist]";
-		mes "Your status has been reset successfully!";
+		mes "[Гипнотизёр]";
+		mes "Ну вот, в твоих характеристиках теперь кот не валялся!";
 		next;
-		mes "[Hypnotist]";
-		mes "I don't do it for the experienced. So you should figure out your own status well beforehand.";
+		mes "[Гипнотизёр]";
+		mes "Имей в виду, что я не работаю с опытными котами, определяйся поскорее.";
 		close;
 	}
 	resetskill();
-	mes "[Hypnotist]";
-	mes "Your skill has been reset successfully!";
+	mes "[Гипнотизёр]";
+	mes "Ты теперь чистый лист!";
 	next;
-	mes "[Hypnotist]";
-	mes "I reset skills and statuses without charge only when your level stays at 49 or below.";
-	mes "Before that, I advise you to practice with many skills in diverse ways, to help you decide what you like.";
+	mes "[Гипнотизёр]";
+	mes "Помни, что я могу сбросить навыки только у неопытных котов, чей уровень не превышает 48.";
+	mes "Поэтому успей наэкспериментироваться вдоволь и определиться, что тебе больше нравится.";
 	close;
 }
 
-lasagna,230,127,3	script	Vigilante Aglio#doram09	HIDDEN_WARP_NPC,{
+lasagna,230,127,3	script	Дружинник Аглиу#doram09	HIDDEN_WARP_NPC,{
 	if (lasagna_quest[0] == 9) {
-		mes "[Vigilante Aglio]";
-		mes "I was looking for you at the tool shop and they said you headed here.";
+		mes "[Дружинник Аглиу]";
+		mes "Я искал тебя в лавке, мне сказали, ты пош"+(Sex?"ёл":"ла")+" в эту сторону.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "First off, we should meet up with our leader to make decisions about the schedule.";
-		mes "We'd better head to the square.";
+		mes "[Дружинник Аглиу]";
+		mes "Для начала нам нужно повидать нашего шефа, чтобы определиться с дальнейшими планами.";
+		mes "Лучше пойдём к площади.";
 		next;
-		mes "[Vigilante Aglio]";
-		mes "I think you can find another Vigilante like myself in the square...";
+		mes "[Дружинник Аглиу]";
+		mes "Обычно мы собираемся там...";
 		navigateto "lasagna",170,152;
 		close;
 	}
 }
 
 izlude,117,165,3	script	Cat Paw Shrimp Merchant#iz	4_M_MERCAT1,{
-	npctalk "Here are the shrimps, carrots and catnip!", "", bc_self;
-	switch( select( "Buy", "Sell", "Cancel" ) ) {
+	npctalk "Креветки! Морковь! Кошачья мята!", "", bc_self;
+	switch( select( "Покупка", "Продажа", "Отмена" ) ) {
 	case 1:
 		callshop "doram_shrimp",1;
 		end;
@@ -1302,7 +1293,7 @@ izlude,117,165,3	script	Cat Paw Shrimp Merchant#iz	4_M_MERCAT1,{
 		callshop "doram_shrimp",2;
 		end;
 	case 3:
-		npctalk "Come back again soon!", "", bc_self;
+		npctalk "Заходите ещё!", "", bc_self;
 		end;
 	}
 }
@@ -1342,23 +1333,23 @@ yuno,205,116,5	duplicate(Cat Paw Shrimp Merchant#iz)	Cat Paw Shrimp Merchant#yu	
 
 izlude,195,213,5	script	Con-Chliina Crewman#doi	4_M_MERCAT1,{
 	mes "[Con-Chliina Crewman]";
-	mes "From the continent of Midgard to Far-Star!";
+	mes "С Мидгарда на Пасту!";
 	next;
 	mes "[Con-Chliina Crewman]";
 	if (Class == Job_Summoner)
 		.@cost = 200;
 	else
 		.@cost = 2000;
-	mes "Only ^0000cd" + .@cost + " Zenies^000000 to the port city Lasagna.";
+	mes "Всего ^0000cd" + .@cost + " зени^000000 до порта Лазаньи.";
 	next;
-	if (select( "To Lasagna - " + .@cost + "z", "Cancel" ) == 2) {
+	if (select( "На Лазанью " + .@cost + " з.", "Отмена." ) == 2) {
 		mes "[Con-Chliina Crewman]";
-		mes "I see.";
+		mes "Не вопрос.";
 		close;
 	}
 	if (Zeny < .@cost) {
 		mes "[Con-Chliina Crewman]";
-		mes "Not enough? How about checking how much he has?";
+		mes "Не хватило? Бывает.";
 		close;
 	}
 	Zeny = Zeny - .@cost;
@@ -1370,105 +1361,104 @@ malangdo,218,81,5	duplicate(Con-Chliina Crewman#doi)	Con-Chliina Crewman#dom	4_M
 izlude,138,183,3	script	Vigilante Penne#doect01	4_DR_SOLDIER,{
 	if (Class == Job_Summoner) {
 		mes "[Vigilante Penne]";
-		mes "Hiya! Isn't it delightful to see the Farfalle Vigilante even here?";
+		mes "Привет! Правда, здорово даже здесь встретить собрата-дружинника?";
 		next;
 		mes "[Vigilante Penne]";
-		mes "By the way, how's your settlement in this land coming along?";
-		mes "Have you been to ^4d4dffProntera^000000 or ^4d4dffPayon^000000 near here?";
+		mes "Как устроился?";
+		mes "Уже побывал в ^4d4dffПронтере^000000 или ^4d4dffПайоне^000000?";
 		next;
 		mes "[Vigilante Penne]";
-		mes "There is a Paradise Group you might want to visit.";
-		mes "It doesn't hurt to go visit there.";
+		mes "А ещё тут есть ''Райский уголок'', тебе не помешает зайти туда, если до сих пор этого не сделал.";
 		close;
 	}
 	mes "[Vigilante Penne]";
-	mes "Humans always intrigue me with their peculiar look.";
-	mes "Like a big, hairless cat!";
+	mes "Люди такие удивительные! Каждый раз поражаюсь, как странно вы выглядите!";
+	mes "Вы похожи на лысых котов-переростков! :D";
 	next;
 	mes "[Vigilante Penne]";
-	mes "Me? Let me explain. I'm the proud member of the Farfalle Vigilante from the great Far-Star Continent.";
+	mes "Я? Me? Let me explain. I'm the proud member of the Farfalle Vigilante from the great Far-Star Continent.";
 	next;
-	switch( select( "Far-Star Continent?", "Farfalle Vigilante?", "Are you from the Cat Paw Commerce Group?" ) ) {
+	switch( select( "Земля Паста?", "Дружина Фарфалле?", "Ты из котов-торговцев?" ) ) {
 	case 1:
 		mes "[Vigilante Penne]";
-		mes "There are more continents other than Midgard.";
+		mes "Кроме Мидгарда существуют и другие континенты. Земля, с которой пришли мы, называется ПастаThere are more continents other than Midgard.";
 		mes "The land we crossed from is called Far-Star.";
 		next;
 		mes "[Vigilante Penne]";
-		mes "Well, we're no different because we thought there was only the Far-Star Continent under the sun.";
+		mes "Хех, мы тоже думали, что других котинентов нет и Паста -- это всё, что имеет своё место под солнцем. Но мир гораздо шире...Well, we're no different because we thought there was only the Far-Star Continent under the sun.";
 		mes "The world sure is wide...";
 		close;
 	case 2:
 		mes "[Vigilante Penne]";
-		mes "So, do you see this ribbon that goes perfectly well with this cool uniform?";
-		mes "(Show the below-neck area.)";
+		mes "Видишь вот эту ленточку, как прекрасно она смотрится с этой крутой формой?";
+		mes "*Показывает нижнюю часть шеи*(Show the below-neck area.)";
 		next;
 		mes "[Vigilante Penne]";
-		mes "This is the symbol of our Farfalle Vigilante.";
-		mes "We are the legendary Vigilante Corp that protects Lasagna!";
+		mes "Это знак нашей Дружины Фарфалле. This is the symbol of our Farfalle Vigilante.";
+		mes "Мы являемся той самой легендарной Дружиной, которая бережёт Лазанью!";
 		next;
 		mes "[Vigilante Penne]";
-		mes "You have no idea how cool our leader Peperoncino can be...";
-		mes "We do all kinds of chores from handling the urchins at the port to maintaining the security of the village.";
+		mes "Ты даже не представляешь, как крут наш лидер Пепперончино...";
+		mes "Мы делаем всё, от надзора за портовыми оборванцами до поддержания порядка в деревне.";
 		next;
 		mes "[Vigilante Penne]";
-		mes "Moreover, you can come to this...Mid...Midgur...Midgar...";
-		mes "Anyway! You're allowed to come here only when the Farfalle Vigilante accepts.";
+		mes "Более того, на этот... Мит... Митраг... Митгар...";
+		mes "Короче! Сюда можно ездить только по разрешению Дружины.";
 		next;
-		mes "This proud cat is getting really talkative...";
+		mes "Болтуна понесло...";
 		close2;
-		npctalk "Huh? Are you just passing by?", "", bc_self;
+		npctalk "Хм? Уже уходишь?", "", bc_self;
 		end;
 	case 3:
 		mes "[Vigilante Penne]";
-		mes "No, That's not it!!";
-		mes "The Cat Paw Commerce Group is led by Captain Tomei-Tomas!";
+		mes "Нет, это совсем другое!!";
+		mes "Коты-торговцы подчиняются капитану Тома-Томасу!";
 		next;
 		mes "[Vigilante Penne]";
-		mes "I'm with the Farfalle Vigilante commanded by Leader Peperoncino!";
+		mes "А я с Дружиной Фарфалле, ей командует лидер Пепперончино!";
 		next;
 		mes "[Vigilante Penne]";
-		mes "Oh, my days! So you haven't even been to Lasagna, have you?";
-		mes "Our great Captain Gamberri ventured here in person!";
+		mes "Ох, матушки мои, ты что, никогда не был в Лазанье?";
+		mes "Тебе повезло, что мы пришли с самим капитаном Gamberri !";
 		next;
 		mes "[Vigilante Penne]";
-		mes "We are gracious enough to give humans like you a chance to go to the land of Lasagna.";
-		mes "Before long, this Midgur...Midgarr...?? This land will soon be controlled by us, the Dorams!";
+		mes "Мы достаточно добры, чтобы дать вам, людям, возможность побывать на нашей земле.";
+		mes "Скоро этот Митгур...Митгар...?? Этот континент тоже станет домом ДорамовThis land will soon be controlled by us, the Dorams!";
 		next;
 		mes "[Vigilante Penne]";
-		mes "You'd better earn our favor. If you do, we might give you a job to clean anchovies in Lasagna!";
+		mes "Тебе стоит заслужить наше расположение. Может, даже получишь возможность чистить рыбу в Лазанье!You'd better earn our favor. If you do, we might give you a job to clean anchovies in Lasagna!";
 		close;
 	}
 }
 
-lasagna,209,301,3	script	Mustachi#dorcon01	4_DR_KID_01,{
-	mes "[Mustachi]";
-	mes "We trim your beards. We comb your tails. Be sure to groom yourselves before setting out to the new world.";
-	mes "There's a hair designer in downtown, so make sure you drop by.";
+lasagna,209,301,3	script	Усач#dorcon01	4_DR_KID_01,{
+	mes "[Усач]";
+	mes "Подстрижём бороду, подровняем хвост... Перед тем, как отправляться в новый мир, нужно позаботиться о себе.";
+	mes "В городе есть парикмахер, не забудь зайти.";
 	close;
 }
 
 lasagna,232,181,5	script	Linguina#dorcon01	4_CAT_ADV1,{
 	mes "[Linguina]";
-	mes "This is a pub but also an adventurers' club where adventurers stop by. They come from all over the place and share their stories as well as find companions for adventures.";
+	mes "Это, конечно, прежде всего паб, но для наёмников и искателей приключений это место, где можно не только выпить, но и встретиться с другими путешественниками, обменяться новостями и историями, найти занятие и подходящую компанию.";
 	next;
 	mes "[Linguina]";
-	mes "These days, many people come to seek information before heading off to the new world.";
+	mes "Прежде чем отправиться в новый мир, важно как можно больше узнать о нём.";
 	next;
 	mes "[Linguina]";
-	mes "About ten years ago, it was a conciliating place to rehab hoodlum dorams and recruit them as vigilantes. Before that, rough sailors came to relax after a hard day's work.";
+	mes "Ещё десяток лет назад здесь происходил призыв новичков в дружину. А до того здесь отдыхали моряки после тяжёлой работы.";
 	next;
 	mes "[Linguina]";
-	mes "Chief Peperoncino and Captain Gamberry first met here as well. The three became sworn brothers and became legends after their endeavors proved to be successful.";
+	mes "Именно здесь и познакомились лидер Пепперончино и капитан Gamberry. Впоследствие эти трое побратались и совершили подвиги, вошедшие в легенды.";
 	next;
 	mes "[Linguina]";
-	mes "So people who wish to succeed or adventurers who wish to become just like them come here a lot.";
+	mes "Поэтому сюда стекаются все, кто желает обрести удачу в рискованном деле или опасном путешествии.";
 	close;
 }
 
 lasagna,227,187,1	script	Vongolo#dorcon01	4_CAT_SAILOR1,{
 	mes "[Vongolo]";
-	mes "Did you decide what you'll have?";
+	mes "Уже решил, что выбрать?";
 	next;
 	mes "[Vongolo]";
 	mes "Everyone orders kaluna milk here because of the oven resolution by Peperoncino, Gamberry, and Thomas. But Pub-Oven's real specialty menu is the fish cake.";
@@ -1484,48 +1474,46 @@ lasagna,227,187,1	script	Vongolo#dorcon01	4_CAT_SAILOR1,{
 	close;
 }
 
-lasagna,220,172,6	script	Master of Property#do_h	4_M_BABYCAT,{
+lasagna,220,172,6	script	Элементалист#do_h	4_M_BABYCAT,{
 	.@r = rand(0,4);
 	if (.@r == 0)
-		npctalk "Earth element defeats Wind element.", "", bc_self;
+		npctalk "Элемент земля сильнее ветра.", "", bc_self;
 	else if (.@r == 1)
-		npctalk "Water element is superior to Fire element.", "", bc_self;
+		npctalk "Элемент вода побеждает огонь.", "", bc_self;
 	else if (.@r == 2)
-		npctalk "Wind element outperforms Water element.", "", bc_self;
+		npctalk "Элемент ветер сильнее воды.", "", bc_self;
 	else if (.@r == 3)
-		npctalk "Fire element beats Earth element.", "", bc_self;
+		npctalk "Элемент огонь поеждает землю.", "", bc_self;
 	else
-		npctalk "Holy element and Dark element are in stark contrast to each other.", "", bc_self;
+		npctalk "Элементы тень и свет находятся в оппозиции друг к другу.", "", bc_self;
 	mes "[Property Cat]";
-	mes "Every life in this world comes with a property.";
-	mes "There are numerous kinds of elements from neutral to four major natural elements, alongside the holy and dark elements.";
+	mes "Во всём в этом мире -- обьектах живой и неживой природы, а так же действиях, например атаках, -- в той или иной степени выражен тот или иной элемент. В настоящее время выделяют десять элементов.";
 	next;
 	mes "[Property Cat]";
-	mes "Most representative elements are the natural ones.";
-	mes "Put simply, these are the elements of Water, Wind, Earth, and Fire.";
-	mes "Besides, there are elements of Undead, Holiness and Darkness.";
+	mes "Наиболее очевидны элементы природной группы, или так называемые ''стихии''. Это Вода, Ветер, Земля и Огонь.";
+	mes "Кроме них существует пара Свет и Тень, а так же одиночные элементы: Нежить, Яд и Дух. Когда имеет место очень слабая выраженность каждого из них, говорят об обьекте Нейтрального элемента.";
 	next;
 	mes "[Property Cat]";
-	mes "Each element is intertwined with each other. So be smart and use the opposing elements.";
+	mes "Элементы связаны между собой и имеют разную эффективность друг против друга.";
 	next;
 	mes "[Property Cat]";
-	mes "That way, you can get the upper hand of a battle.";
-	mes "Let me give you a brief example on their correlation.";
+	mes "Основная роль теории элементов состоит в том, что использование этих связей в бою даёт большое преимущество.";
+	mes "Сейчас я обьясню, как именно извлекается это преимущество.";
 	next;
 	mes "[Property Cat]";
-	mes "Fire element is highly resistant to Earth element.";
-	mes "Meanwhile, Earth element definitely outperforms Wind element.";
+	mes "Имея материальный обьект с выраженным элементом, мы можем нанести ему урон разного свойства. Урон одним элементом причинит ему больше вреда (это называется уязвимостью), другим меньше (сопротивляемость). Сравнение всегда ведётся относительно обьекта и урона Нейтрального элемента.";
 	next;
 	mes "[Property Cat]";
-	mes "Wind element beats Water element.";
-	mes "Yet, Water element defeats Fire element.";
+	mes "Внутри группы природных элементов имеет место циклическая связь: Земля уязвима к Огню, Огонь к Воде, Вода уязвима к Ветру (электричеству), Ветер -- к Земле.";
+	mes "Сопротивляемость обратная: Земля устойчива к Ветру, Ветер -- к Воде, Вода к Огню, а Огонь -- к Земле.";
 	next;
 	mes "[Property Cat]";
-	mes "Holy element and Dark element directly oppose each other, and you should keep that in mind.";
+	mes "Пара Свет и Тень уязвима друг к другу и устойчива к элементам природной группы.";
 	next;
 	mes "[Property Cat]";
-	mes "Other than that, there are also Neutral and Undead elements. You'll soon know what they are about.";
-	mes "You will have to see it for yourself.";
+	mes "Яд, Нежить и Дух являются особыми случаями, каждый из которых нужно рассматривать отдельно. К сожалению, сейчас у нас нет такой возможности. Нейтральный является эталонным элементом и никогда не имеет преимущества, зато почти никогда не имеет и сопротивляемости.";
+	next;
+	mes "Это всегда звучит сложно в теории. Полное понимание взаимосвязей элементов приходит с практикой.";
 	close;
 }
 
@@ -1540,20 +1528,17 @@ lasagna,208,188,3	script	Cat Paw Service#lasagna	4_M_MERCAT1,4,4,{
 			close;
 		}
 		mes "[Cat Paw Commerce Group]";
-		mes "Hey, little fellow!";
-		mes "Are you headed to the Midgard Continent?";
-		mes "Then, you'd better listen to me!";
+		mes "Эй, малыш! Направляешься на Мидгард? Тогда тебе стоит меня послушать!";
 		next;
 		mes "[Cat Paw Commerce Group]";
-		mes "Like our Cat Paw Commerce Group, there are other groups who provide the ^4d4dffLocation sharing service^000000 and the ^4d4dffWarehouse service^000000.";
+		mes "С нами, Кошачьей лапой, ты уже знаком, но существуют и другие компании, дающие возможность Like our Cat Paw Commerce Group, there are other groups who provide the ^4d4dffLocation sharing service^000000 and the ^4d4dffWarehouse service^000000.";
 		next;
 		mes "[Cat Paw Commerce Group]";
-		mes "They are: ^4d4dffKafra^000000 and ^4d4dffZonda^000000.";
-		mes "Of course, don't forget about the Cat Paw Commerce Group!";
+		mes "Это ^4d4dffКафра^000000 и ^4d4dffЗонда^000000.";
 		next;
 		mes "[Cat Paw Commerce Group]";
 		mes "^4d4dffLocation sharing^000000 is to save the location for you to return to.";
-		mes "If you fall down due to fatigue during an adventure, you should return to the village. That's what you can do with this service.";
+		mes "Если в путешествии перестанут ноги держать от усталости, тебе нужно вернуться в деревню. Вот для чего эта услуга.";
 		next;
 		mes "[Cat Paw Commerce Group]";
 		mes "Use the ^4d4dffButterfly Wings^000000 item to fly straight to that location.";
@@ -1579,9 +1564,9 @@ lasagna,208,188,3	script	Cat Paw Service#lasagna	4_M_MERCAT1,4,4,{
 		getexp 50,50;
 		next;
 		mes "[Cat Paw Commerce Group]";
-		mes "Oh, do you want me to explain it again?";
+		mes "Всё понятно или обьяснить ещё раз?";
 		next;
-		if (select( "No.", "Please." ) == 2) {
+		if (select( "Нет.", "Да, пожалуйста." ) == 2) {
 			mes "[Cat Paw Commerce Group]";
 			mes "Like our Cat Paw Commerce Group, there are other groups who provide the ^4d4dffLocation sharing service^000000 and the ^4d4dffWarehouse service^000000.";
 			next;
@@ -1676,7 +1661,7 @@ OnInit:
 
 lasagna,171,105,5	script	Emergency Patient#dorco	4_M_DIEMAN,5,5,{
 	emotion 26;
-	npctalk "S-someone help me... Dorams, they're so cute I'm going to die...", "", bc_self;
+	npctalk "Помогите... Я просто помираю, они такие милые...", "", bc_self;
 	end;
 OnTouch:
 	emotion 26;
@@ -1732,36 +1717,33 @@ OnInit:
 	end;
 }
 
-lasa_fild01,356,374,7	script	Cow#dorcon01	4_BULL,{
-	npctalk "Moo -", "", bc_self;
+lasa_fild01,356,374,7	script	Корова#dorcon01	4_BULL,{
+	npctalk "Му-у -", "", bc_self;
 	end;
 }
-lasa_fild01,352,376,5	script	Cow#dorcon02	4_WHITE_COW,{
-	npctalk "Moo - Moo -", "", bc_self;
+lasa_fild01,352,376,5	script	Корова#dorcon02	4_WHITE_COW,{
+	npctalk "Му - муу -", "", bc_self;
 	end;
 }
-lasa_fild01,361,372,3	script	Cow#dorcon03	4_BULL,{
-	npctalk "Bba -", "", bc_self;
+lasa_fild01,361,372,3	script	Корова#dorcon03	4_BULL,{
+	npctalk "Бба -", "", bc_self;
 	end;
 }
 
-lasagna,217,192,5	script	Kittie#do_hint01	4_CAT_SAILOR1,{
+lasagna,217,192,5	script	Котёнок#do_hint01	4_CAT_SAILOR1,{
 	npctalk "F12! F12!", "", bc_self;
-	mes "[Kittie]";
-	mes "^4d4dffPress the F12 key and it will bring up the shortcut key slots.^000000";
+	mes "[Котёнок]";
+	mes "^4d4dffНажми клавишу F12, и увидишь строку ячеек быстрого доступа.^000000";
 	next;
 	cutin "tutorial05.BMP",4;
-	mes "!- Notice -!";
-	mes "^4d4dffTo prepare an item or skill icon to use, drag it to the shortcut key slot.";
+	mes "!- NB -!";
+	mes "^4d4dffЧтобы поставить в ячейку умение или предмет, просто перетащи его туда.";
 	next;
-	mes "!- Notice -!";
-	mes "^4d4dffTo use or equip an item or equipment registered in the slot, press the key that corresponds to each slot from F1 to F9.";
+	mes "!- NB -!";
+	mes "^4d4dffНажми соответствующую клавишу, и умение или предмет будут использованы.";
 	next;
-	mes "!- Notice -!";
-	mes "^4d4dffIn the shortcut key settings, you can select the corresponding shortcut key as you desire.";
-	next;
-	mes "!- Notice -!";
-	mes "^4d4dffPrepare an item and/or skill that you often use for faster use.";
+	mes "!- NB -!";
+	mes "^4d4dffУдобнее всего назначать на быстрые клавиши умения и предметы, которые могут пригодиться внезапно или которыми ты пользуешься постоянно.";
 	cutin "",255;
 	close;
 }
@@ -1876,39 +1858,39 @@ lasagna,134,113,3	script	Hair Designer#dr	4_DR_F_02,{
 	}
 }
 
-lasagna,260,134,3	script	Rasmus#dorcon01	4_CAT_SAILOR3,{
-	npctalk "Red yarn will take you to the place you want to go, and the yellow road will take you home. don't forget. If you get lost, follow the red yarn.", "", bc_self;
+lasagna,260,134,3	script	Расмус#dorcon01	4_CAT_SAILOR3,{
+	npctalk "Красный клубок поможет добраться куда нужно, а жёлтая дорога всегда выведет домой. Запомни. Если вдруг потеряешься, беги за красным клубком.", "", bc_self;
 	end;
 }
 
 lasagna,244,231,3	script	Crewman of Anchovy Fish	4_CAT_SAILOR1,{
-	npctalk "Follow this yellow cheese road and you'll reach my hometown. I want to go back there one day.", "", bc_self;
+	npctalk "По этой сырной дороге попадёшь прямо в мой родной город. Эх, вот бы однажды туда вернуться...", "", bc_self;
 	end;
 }
 
 lasagna,190,239,5	script	Youngster meow#dorcon01	4_CAT_ADV1,{
-	npctalk "I'm the boss of this playground-", "", bc_self;
+	npctalk "Я царь песочницы!", "", bc_self;//песочницы??
 	end;
 }
 
 lasagna,180,230,7	script	Youngster meow#dorcon02	4_CAT_ADV2,{
-	npctalk "Whew, you little kids... You guys are too young for me.", "", bc_self;
+	npctalk "Пф, малышня... Вы все слишком мелкие для меня.", "", bc_self;
 	end;
 }
 
 lasagna,192,245,7	script	Youngster meow#dorcon03	4_CAT_REST,{
-	npctalk "There are one ten two ten three ten yarn balls... So many!", "", bc_self;
+	npctalk "Ух ты, сколько клубочков! Раз-цать, двадцать, тридцать...", "", bc_self;
 	end;
 }
 
 lasagna,184,234,5	script	Youngster meow#dorcon04	4_M_BABYCAT,{
-	npctalk "Anyone who wants to ride the seesaw- come here-", "", bc_self;
+	npctalk "Эй, кто со мной на качели! Сюда!", "", bc_self;
 	end;
 }
 
 lasagna,186,231,3	script	Youngster meow#dorcon05	4_DR_KID_01,{
 	emotion 28;
-	npctalk "Why Isn't this rolling- Make it roll-", "", bc_self;
+	npctalk "Почему ты не катишься! Ну катииись!..", "", bc_self;
 	end;
 }
 
@@ -1979,40 +1961,40 @@ lasagna,229,197,5	script	Tos#dorcon01	4_DR_M_02,{
 
 lasagna,226,199,5	script	Employee#dorcon01	HIDDEN_WARP_NPC,{ end; }
 
-lasagna,230,192,3	script	Perky Doram#do_hint03	4_CAT_ADV2,{
-	npctalk "Always right-click when it comes to information! Right-click a human, item and cat to know more about them!", "", bc_self;
+lasagna,230,192,3	script	Дерзкий дорам#do_hint03	4_CAT_ADV2,{
+	npctalk "Если тебе нужно больше информации, кликай правой! Кликай правой по человеку, предмету, коту, чему угодно!", "", bc_self;
 	end;
 }
 
-lasagna,235,193,3	script	Customer#dorcon02	4_DR_TORTEL,{
-	npctalk "Always right-click when it comes to information! Right-click a human, item and cat to know more about them!", "", bc_self;
+lasagna,235,193,3	script	Посетитель#dorcon02	4_DR_TORTEL,{
+	npctalk "...", "", bc_self;//здесь была строка про кликай правой
 	sleep2 1000;
 	emotion 3;
-	npctalk "Ha- ppi- ness-", "", bc_self;
+	npctalk "Щща - сь - тье!", "", bc_self;
 	sleep2 2000;
 	emotion 45;
-	npctalk "We're full, so there's only one thing to do. Sleep.", "", bc_self;
+	npctalk "Ууф, так налопался. Больше вообще ничего не хочется. Остаётся только одно... *хррр*", "", bc_self;
 	end;
 }
 
-lasagna,220,190,5	script	Customer#dorcon01	4_CAT_ADV1,{
-	npctalk "Have you ever seen the crazy seagull nearby the south bridge over there? It was hopping like crazy. What's going on?", "", bc_self;
+lasagna,220,190,5	script	Посетитель#dorcon01	4_CAT_ADV1,{
+	npctalk "Видел бешеную чайку над южным мостом? Носится, как угорелая. К чему бы это?", "", bc_self;
 	end;
 }
 
-lasagna,220,194,3	script	Serious Doram#do_hint08	4_M_MERCAT1,{
-	npctalk "Humans say their weapons become stronger through refinement. What's refinement anyway?", "", bc_self;
+lasagna,220,194,3	script	Серьёзный дорам#do_hint08	4_M_MERCAT1,{
+	npctalk "Люди говорят, их оружие становится лучше от заточки. Что это вообще за ''заточка'' такая?", "", bc_self;
 	end;
 }
 
 
-lasagna,221,175,5	script	Smart Doram#do_hint06	4_CAT_SAILOR2,{
-	npctalk "DEX (Dexterity) is about accuracy and casting speed.", "", bc_self;
+lasagna,221,175,5	script	Умный дорам#do_hint06	4_CAT_SAILOR2,{
+	npctalk "Сноровка (DEX) влияет на меткость и скорость сотворения заклинаний.", "", bc_self;
 	end;
 }
 
-lasagna,219,178,3	script	Kittie#do_hint02	4_CAT_SAILOR3,{
-	npctalk "Double-click a consumable item to use.", "", bc_self;
+lasagna,219,178,3	script	Котёнок#do_hint02	4_CAT_SAILOR3,{
+	npctalk "Чтобы сьесть что-нибудь сьедобное, два раза кликни по нему.", "", bc_self;
 	end;
 }
 
@@ -2091,18 +2073,18 @@ lasagna,235,178,5	script	Goon meow#dorcon01	4_DR_M_02,{
 	close;
 }
 
-lasagna,232,187,6	script	Fettuccina#dorcon01	4_CAT_SAILOR2,{
-	mes "[Fettuccina]";
-	mes "I've worked here for a while, but I'm still the youngest so I do all the dishes.";
+lasagna,232,187,6	script	Феттуччине#dorcon01	4_CAT_SAILOR2,{
+	mes "[Феттуччине]";
+	mes "Я работаю здесь уже не первый год, но я всё ещё самая младшая, поэтому мне достаётся вся посуда.";
 	next;
-	mes "[Fettuccina]";
-	mes "A glass before sailing out, a glass on land after a long voyage, a glass for everyone who came from out of town to make an oven resolution, a glass for every regular customers, a glass for everyone who drinks because others drink it..";
+	mes "[Феттуччине]";
+	mes "Стакан перед отплытием, стакан по прибытии за окончание далёкого пути, стакан за каждого, пришедшего заключить oven resolution, стакан каждому постоянному посетителю, стакан каждому, кто пьёт просто за компанию...";
 	next;
-	mes "[Fettuccina]";
-	mes "So basically, It's beyond your imagination how many glasses I have to wash each day. Not only that, I have to listen to vigilance corps and merchants' low-ranking dorams whine, and counsel rookie adventurers.";
+	mes "[Феттуччине]";
+	mes "В голове не уместится, сколько стаканов я перемываю каждый день. И ладно бы, но кто выслушивает бесконечные байки дружинников? Нытьё торгашей? Снова я. А кто поможет советом зелёному приключенцу? Угадай!";
 	next;
-	mes "[Fettuccina]";
-	mes "Really, 24 hours are too short. We should hire one more person!";
+	mes "[Феттуччине]";
+	mes "Нет, правда, для всего этого и 24 часов мало! Давно пора нанять ещё кого-нибудь!";
 	close;
 }
 
@@ -2119,7 +2101,7 @@ lasagna,131,245,5	script	The diligent second son	4_CAT_3COLOR,{
 	mes "Father, mother. Please come back home safely.";
 	mes "(He's making something, mumbling.)";
 	next;
-	if (select( "Craft Amulet", "About the Family" ) == 2) {
+	if (select( "Сделай для меня амулет.", "Расскажи о семье." ) == 2) {
 		mes "[Yota Chara]";
 		mes "...My parents keep going out into the dangerous areas. I'm still a child to help them, so what I do is to make these amulets for them.";
 		next;
@@ -3467,7 +3449,7 @@ lasagna,222,187,3	script	Chef#dorcon	4_CAT_CHEF,{
 				mes "Pub-Oven has its own special network where it receives ingredients within ten minutes. So customers don't need to wait infinitely.";
 				next;
 				mes "[Chef]";
-				mes "But as you know, there's no such thing as ў®ЎЖneverў®Ўѕ in life. Yet, we always make the effort to achieve ў®ЎЖnever.ў®Ўѕ";
+				mes "But as you know, there's no such thing as ?°never?± in life. Yet, we always make the effort to achieve ?°never.?±";
 				next;
 				mes "[Chef]";
 				mes "And right now, that effort is being challenged.";
@@ -3479,7 +3461,7 @@ lasagna,222,187,3	script	Chef#dorcon	4_CAT_CHEF,{
 				mes "You must've heard about the cave in Raviol Forest. There are unspeakable things as well as creatures that are delicious food ingredients.";
 				next;
 				mes "[Chef]";
-				mes "You know the Trans Spores? Their ў®ЎЖmushroom sporesў®Ўѕ are an essential ingredient for our fish cake.";
+				mes "You know the Trans Spores? Their ?°mushroom spores?± are an essential ingredient for our fish cake.";
 				next;
 				mes "[Chef]";
 				mes "But for some reason, they live with the basilisks, but so this is a serious problem for us.";
@@ -3818,7 +3800,7 @@ lasagna,85,93,5	script	Shaman meow#dorcon	4_DR_KID_01,{
 		npctalk "Meow meow", "", bc_self;
 		next;
 		mes "[Shaman meow]";
-		mes "When I told him that Ў°a noble person from a new place solves the problem,Ў± I meant that the the problem will move onto ^0000cda new person^000000. Seems like he misunderstood me and sent you.";
+		mes "When I told him that “a noble person from a new place solves the problem,” I meant that the the problem will move onto ^0000cda new person^000000. Seems like he misunderstood me and sent you.";
 		next;
 		mes "[" + strcharinfo(0) + "]";
 		mes "T-then, you've also...";
@@ -3934,7 +3916,7 @@ lasagna,85,93,5	script	Shaman meow#dorcon	4_DR_KID_01,{
 			mes "[Shaman meow]";
 			mes "I'll tell you today's talisman. It is...";
 			next;
-			specialeffect EF_HITLINE;
+			specialeffect 330;
 			mes "[Shaman meow]";
 			.@quest_id = rand(14560,14562);
 			switch( .@quest_id ) {
@@ -4785,7 +4767,7 @@ lasagna,205,325,5	script	Eggling#dorcon	4_M_MERCAT1,2,2,{
 		mes "Well, well. You seem to know how things work around here. You can bring it to the Sous Chef. However, the Sous Chef is kind of eccentric. You have to say something when you hand over things to him.";
 		next;
 		mes "[Eggling]";
-		mes "You should toss this to him, saying Ў°^0000cd[Here comes the newbie!]^000000 He believes that a Doram should say this on his or her first voyage for good luck. Anyways, he seems to think that it is the right way to do.";
+		mes "You should toss this to him, saying “^0000cd[Here comes the newbie!]^000000 He believes that a Doram should say this on his or her first voyage for good luck. Anyways, he seems to think that it is the right way to do.";
 		next;
 		mes "[Eggling]";
 		mes "You know what I mean, right?";
@@ -6910,7 +6892,7 @@ conch_in,181,61,5	script	Boatswain#dorcon	4_M_BOSSCAT,{
 		next;
 		mes "[Boatswain]";
 		mes "This... This is...";
-		specialeffect EF_CURE;
+		specialeffect 66;
 		next;
 		mes "[" + strcharinfo(0) + "]";
 		mes "What do you think?";
@@ -6991,7 +6973,7 @@ conch_in,181,61,5	script	Boatswain#dorcon	4_M_BOSSCAT,{
 			mes "This is the amulet for today! Give me all the Basilrocks you have.";
 			next;
 			mes "[Boatswain]";
-			specialeffect EF_CURE;
+			specialeffect 66;
 			if (isbegin_quest(14560) == 1) {
 				mes "It feels like watching the blue horizon on a clear and windless day. It is refreshing.";
 				next;
@@ -7423,11 +7405,11 @@ conch_in,186,57,3	script	Sous Chef#dorcon	4_CAT_CHEF,{
 				mes "[Sous Chef]";
 				mes "The ingredients are ^0000cd1 Clover, 1 Green Herb and 1 Red Herb^000000.";
 				next;
-				cutin "·зіЄЖЅД«µе.bmp",3;
+				cutin "?????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Clovers and Red Herbs from Leaf Lunatic or Grass Fabre in the field outside.";
 				next;
-				cutin "ЖДєкёЈД«µе.bmp",3;
+				cutin "?????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Green Herbs from Grass Fabre.";
 				next;
@@ -7446,11 +7428,11 @@ conch_in,186,57,3	script	Sous Chef#dorcon	4_CAT_CHEF,{
 				mes "[Sous Chef]";
 				mes "The ingredients are ^0000cd1 Apple and 2 Carrots^000000.";
 				next;
-				cutin "їЎ±ЧёµД«µе.bmp",3;
+				cutin "?????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Apples from the Eggring jumping in the outer field of Izlude.";
 				next;
-				cutin "ё®ЗБ·зіЄЖЅД«µе.bmp",3;
+				cutin "???????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get the Carrots from Leaf Lunatic.";
 				next;
@@ -7466,15 +7448,15 @@ conch_in,186,57,3	script	Sous Chef#dorcon	4_CAT_CHEF,{
 				mes "[Sous Chef]";
 				mes "The ingredients are ^0000cd1 Jellopy , 1 Fluff, and 1 Feather^000000.";
 				next;
-				cutin "їЎ±ЧёµД«µе.bmp",3;
+				cutin "?????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Jellopies from the Eggring jumping in the outer field.";
 				next;
-				cutin "±Ч·ЎЅєЖДєкёЈД«µе.bmp",3;
+				cutin "????????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Fluffs from Grass Fabre or Leaf Lunatic.";
 				next;
-				cutin "ё®ЗБ·зіЄЖЅД«µе.bmp",3;
+				cutin "???????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Feathers from Grass Fabre or Leaf Lunatic.";
 				next;
@@ -7493,11 +7475,11 @@ conch_in,186,57,3	script	Sous Chef#dorcon	4_CAT_CHEF,{
 				mes "[Sous Chef]";
 				mes "The ingredients are ^0000cd1 Apple and 1 Clover^000000.";
 				next;
-				cutin "їЎ±ЧёµД«µе.bmp",3;
+				cutin "?????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Apples from the Eggring in the outer field.";
 				next;
-				cutin "±Ч·ЎЅєЖДєкёЈД«µе.bmp",3;
+				cutin "????????.bmp",3;
 				mes "[Sous Chef]";
 				mes "You can get Clovers from Grass Fabre or Leaf Lunatic.";
 				next;
@@ -8228,7 +8210,7 @@ lasa_dun03,161,292,5	script	Lord Imuk#dorcon	4_NFWISP,{
 		next;
 		mes "[???]";
 		mes "How dare you treat me like a ghost! I have lived for ^0000cd2,500 years^000000!";
-		specialeffect2 EF_LIGHTBOLT;
+		specialeffect2 29;
 		next;
 		mes "[" + strcharinfo(0) + "]";
 		mes "Oww...that hurts. I'm sorry if I've offended you, but are you Imoogi, the chief of the Basilisk?";
@@ -9048,7 +9030,7 @@ lasagna,226,181,3	script	Kalu#dorcon	4_CAT_CHEF,{
 			close;
 		case 2:
 			mes "[Kalu]";
-			mes "Right on time. Two people are here already and waiting.";
+			mes "Right on time. Two people are her already and waiting.";
 			next;
 			mes "[Gopara]";
 			mes "Yes, we've been waiting.";
@@ -9953,216 +9935,4 @@ lasagna,222,180,7	script	Daldal#dorcon05	HIDDEN_WARP_NPC,5,5,{
 	}
 	end;
 OnTouch:
-	if (lasagna_quest[2] == 7 || lasagna_quest[2] > 8) {
-		classchange( 4_SEA_OTTER, "Daldal#dorcon05", bc_self );
-		classchange( 4_GALAPAGO, "Gopara#dorcon05", bc_self );
-	}
-	end;
-}
-
-lasagna,224,178,7	script	Gopara#dorcon05	HIDDEN_WARP_NPC,{
-	if (lasagna_quest[2] == 7) {
-		mes "[Gopara]";
-		mes "Didn't you say you had something to say to Kalu? Go ahead.";
-		close;
-	}
-	if (lasagna_quest[2] == 9) {
-		mes "[Gopara]";
-		mes "Too late. Go and report to Kalu.";
-		close;
-	}
-	if (lasagna_quest[2] == 10) {
-		mes "[Gopara]";
-		mes "You're here already. We hate waiting, so we're thinking about just settling here.";
-		close;
-	}
-	end;
-}
-
-lasa_dun02,52,153,5	script	Gopara#dorcon06	HIDDEN_WARP_NPC,5,5,{
-	if (lasagna_quest[2] == 8 || lasagna_quest[2] == 10) {
-		mes "[Gopara]";
-		mes "Hurry, go and deliver his lunchbox. He looks like he's about to starve to death.";
-		close;
-	}
-	end;
-OnTouch:
-	if (lasagna_quest[2] == 8 || lasagna_quest[2] == 10) {
-		classchange( 4_SEA_OTTER, "Daldal#dorcon06", bc_self );
-		classchange( 4_GALAPAGO, "Gopara#dorcon06", bc_self );
-	}
-	end;
-}
-
-lasa_dun02,53,150,7	script	Daldal#dorcon06	HIDDEN_WARP_NPC,{
-	if (lasagna_quest[2] == 8 || lasagna_quest[2] == 10) {
-		mes "[Daldal]";
-		mes "Give that vigilante a lunchbox. I'm curious as to what's inside.";
-		close;
-	}
-	end;
-}
-
-lasa_dun02,55,153,3	script	Panna#dorcon	4_DR_SOLDIER,{
-	if (isbegin_quest(14574) > 0 || isbegin_quest(14577) > 0) {
-		mes "[Panna]";
-		mes "Oh, I'm so hungry. When is the food coming? Food.";
-		next;
-		mes "[" + strcharinfo(0) + "]";
-		if (countitem(25048) < 1) {
-			mes "Panna?";
-			next;
-			mes "[Panna]";
-			mes "Where's the lunchbox? Where's mine? there's none for me! Where did you drop it? My food! My food!!!";
-			next;
-			mes "[" + strcharinfo(0) + "]";
-			mes "Calm down. I'll go find it right now.";
-			next;
-			mes "[Gopara]";
-			mes "He lost his mind.";
-			next;
-			mes "[Daldal]";
-			mes "I can understand, though. Let's go find the lunchbox.";
-			close2;
-			classchange( HIDDEN_WARP_NPC, "Daldal#dorcon06", bc_self );
-			classchange( HIDDEN_WARP_NPC, "Gopara#dorcon06", bc_self );
-			end;
-		}
-		mes "Panna? Here's your lunchbox...";
-		next;
-		mes "[Panna]";
-		mes "Food!!!";
-		next;
-		mes "[Gopara]";
-		mes "What a rude, ungrateful doram.";
-		next;
-		mes "[Daldal]";
-		mes "How am I supposed to talk when I'm eating?";
-		next;
-		mes "[Panna]";
-		mes "Chomp chomp chomp.";
-		next;
-		mes "[Daldal]";
-		mes "That looks delicious...";
-		npctalk "Give me a bite...", "Daldal#dorcon06", bc_self;
-		npctalk "How can you even think about taking his food? Hang on just a bit longer.", "Gopara#dorcon06", bc_self;
-		next;
-		mes "[Panna]";
-		mes "Hah, I feel much better now. I was so hungry that I was about to eat a basilisk, and you couldn't come at a better time. I almost became a doram who failed to remain as one and turn into an animal.";
-		next;
-		mes "[" + strcharinfo(0) + "]";
-		mes "I'll take the empty dishes.";
-		next;
-		mes "[Panna]";
-		mes "It's okay, just leave them. I'll take them with me when I go back to town later.";
-		next;
-		mes "[Gopara]";
-		mes "I'm going.";
-		classchange( HIDDEN_WARP_NPC, "Gopara#dorcon06", bc_self );
-		next;
-		mes "[Daldal]";
-		mes "I'm leaving.";
-		classchange( HIDDEN_WARP_NPC, "Daldal#dorcon06", bc_self );
-		delitem 25048,1;// Hearty Lunchbox
-		if (lasagna_quest[2] == 8) {
-			erasequest 14574;// Meal Box Delivery
-			setquest 14575;// Delivery Complete Report
-			lasagna_quest[2] = 9;
-		}
-		else {
-			erasequest 14577;// Meal Box Delivery
-			setquest 14578;// Delivery Complete Report
-		}
-		close;
-	}
-	if (isbegin_quest(14575) == 1 || isbegin_quest(14578) == 1) {
-		mes "[Panna]";
-		mes "Thanks to you, I was able to eat a hearty meal. Please tell Kalu that I'm grateful for the delicious lunch. Hopefully, today will be another safe...";
-		close;
-	}
-	mes "[Panna]";
-	mes "Oh, I'm so hungry. When is the food coming? Food.";
-	close;
-}
-
-conch_in,122,61,5	script	Crewman#dorcon01	4_CAT_ADV1,{
-	npctalk "Thank you for boarding on Con-Chliina. Please enjoy a safe and comfortable trip to your destination!", "", bc_self;
-	end;
-}
-
-// in C_D
-conch_in,59,29,5	script	Engineer#dorcon01	4_CAT_SAILOR5,{
-	// pcblocknpc
-	npctalk "Are you an adventurer heading to the new world? Welcome. Have you heard about how our ship moves?", "", bc_self;
-	sleep2 2000;
-	unittalk getcharid(3), "" + strcharinfo(0) + " : No, I have not.", bc_self;
-	sleep2 2000;
-	npctalk "Our ship has a different power system compared to other ships. And only few people know this.", "", bc_self;
-	sleep2 2000;
-	npctalk "Hundreds of hamsters are running on treadmills on the bottom of this ship. The ship moves forward because this area is connected to the main part of the engine.", "", bc_self;
-	sleep2 1000;
-	emotion 23;
-	unittalk getcharid(3), "" + strcharinfo(0) + " : Pardon???", bc_self;
-	sleep2 1000;
-	emotion 4;
-	npctalk "Oh, wait. You're not taking me seriously, are you? It's a joke, a joke!", "", bc_self;
-	end;
-}
-
-// in E_F
-conch_in,59,91,5	script	Passenger#dorcon04	4_F_ALCHE_A,{
-	npctalk "Heading to Midgard? It's my first time in Lasagna and It's great, really! So I'm just going to stay here for good. I found a place to live and signed the papers, too!", "", bc_self;
-	sleep2 2000;
-	npctalk "I'm on my way to pack up my stuff in Midgard. It's great, really.", "", bc_self;
-	end;
-}
-
-// in_I_J
-conch_in,97,96,5	script	Merchant#dorcon01	4_M_MERCAT2,{
-	npctalk "You can tell from this bundle, right? I'm not a rookie adventurer. I'm a merchant who travels to different places and sells stuff.", "", bc_self;
-	sleep2 2000;
-	npctalk "I heard that Igdrasil is rare in the new world since there are none. So I'm going to try selling it over there.", "", bc_self;
-	sleep2 2000;
-	npctalk "If there is anything else that might sell, I'm going to buy some and sell them there. I'm going be a millionaire.", "", bc_self;
-	end;
-}
-
-// in_N_M
-conch_in,135,91,5	script	Passenger#dorcon01	4_CAT_ADV2,{
-	npctalk "What does a new world person want with me?", "", bc_self;
-	end;
-}
-conch_in,135,93,5	script	Passenger#dorcon03	4_DR_TORTEL,{
-	npctalk "Is this your first time on Con-Chliina? I was on this ship before to get to the new world once my training was over. Back then, the food was really good, so...", "", bc_self;
-	sleep2 2000;
-	npctalk "The minute I landed on the new world, I went right back to the boat. Just loved the food...", "", bc_self;
-	end;
-}
-conch_in,137,98,3	script	Passenger#dorcon02	4_DR_F_01,{
-	npctalk "It's my first time in the new world and I'm really excited. Did you decide what you'll do first when you get there? I want to go to the Mjolnir Mountains first!", "", bc_self;
-	sleep2 2000;
-	npctalk "The minute I saw it on [A Guide for New Adventurers to the New World], I promised myself that I would go! I heard It's got wonderful landscapes!", "", bc_self;
-	end;
-}
-
-// in_P_O
-conch_in,169,70,3	script	Crewman#dorcon02	4_CAT_SAILOR2,{
-	npctalk "Midgard has been discovered, so I wonder if there's any other place out there. Place where we've never been to and not on the map.", "", bc_self;
-	sleep2 2000;
-	npctalk "You think there's such a place?", "Crewman#dorcon03", bc_self;
-	sleep2 2000;
-	npctalk "Before it was discovered, we had no idea Midgard even existed. I'm sure there's a place out there and we just don't know it.", "", bc_self;
-	sleep2 2000;
-	npctalk "Do you think It's looking for us too?", "Crewman#dorcon03", bc_self;
-	sleep2 2000;
-	npctalk "Oh, my heart is beating just from the thought of it.", "", bc_self;
-	end;
-}
-conch_in,166,68,6	script	Crewman#dorcon03	4_CAT_SAILOR1,{
-	npctalk "You know, I think First Officer Stello may be able to find another sea route to the new world That's not on the map.", "", bc_self;
-	sleep2 2000;
-	npctalk "Indeed, if it does exist then we can find it and sail on it someday!", "Crewman#dorcon02", bc_self;
-	sleep2 2000;
-	npctalk "I should stay on Con-Chliina for a long time and witness the moment when we make a discovery.", "", bc_self;
-	end;
-}
+	if (lasagna_quest[2]
