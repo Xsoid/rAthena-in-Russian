@@ -1,0 +1,1168 @@
+//===== rAthena Script ======================================= 
+//= Hazy Forest
+//===== By: ================================================== 
+//= Euphy
+//===== Current Version: ===================================== 
+//= 1.1
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//===== Description: ========================================= 
+//= [Official Conversion]
+//= Cross through the Hazy Forest to reach the Bifrost.
+//= Contains the "Wandering Guardian" quest.
+//===== Additional Comments: ================================= 
+//= 1.0 First version. [Euphy]
+//= 1.1 Instance system rewrite. [Euphy]
+//============================================================ 
+//= Translated en > ru [Akaineko] [Kellait]
+//= Encoding: cp1251
+//= NOTE: instance name = "Mistwood Maze" 
+//============================================================
+
+// Instance Creation :: md_mistwoods_enter
+//============================================================
+bif_fild01,158,340,5	script	Страж Лафин#mist	447,{
+
+	set .@party_id,getcharid(1);
+	set .@md_name$,"Mistwood Maze";
+
+	mes "[Страж]";
+	mes "Вы направляетесь в Лес?";
+	next;
+	if (!.@party_id) {
+		mes "[Страж]";
+		mes "Ладно, ладно, зачем так спешить?";
+		mes "Сначала вам следует как минимум организовать группу.";
+		close;
+	}
+	set .@playtime, checkquest(7211,PLAYTIME);
+	if (getcharid(0) == getpartyleader(.@party_id,2)) {
+		if (.@playtime == 0 || .@playtime == 1) {
+			mes "[Страж]";
+			mes "...Вы уверены, что не берёте на себя слишком много?";
+			mes "Думаю, вам стоит хоть немного отдохнуть.";
+			mes "Иначе в таком темпе вы себя просто загоните.";
+			next;
+			mes "[Страж]";
+			mes "Впрочем, я сомневаюсь, что вам дадут доступ.";
+			mes "...Даже Сафам не разрешают входить в Лес.";
+			next;
+			select("Вы прекрасно владеете нашим языком.");
+			mes "[Страж]";
+			mes "...Спасибо.";
+			mes "Но на самом деле я не владею вашим языком.";
+			mes "Я говорю на родном языке.";
+			next;
+			mes "[Страж]";
+			mes "Это одно из чудес Бифрёста.";
+			mes "Все понимают друг друга так, будто говорят на одном языке.";
+			next;
+			mes "[Страж]";
+			mes "Хм, иметь возможность общаться с любым существом...";
+			mes "Может, в этом и есть суть моста Бифрёст.";
+			close;
+		} else if (.@playtime == 2) {
+			mes "[Страж]";
+			mes "Очень хорошо.";
+			mes "Теперь Лес вас не отвергнет.";
+			mes "Что собираетесь делать?";
+			erasequest 7211;
+		} else {
+			mes "[Страж]";
+			mes "Вы, люди-авантюристы, просто удивительные.";
+			mes "Вы так стремитесь в чащу Леса, куда никто больше не смеет соваться.";
+			next;
+			mes "[Страж]";
+			mes "*качает головой*";
+			mes "Но я всё равно должен сообщить командованию о том, кто идёт в Лес, так нужно.";
+			next;
+			mes "[Страж]";
+			mes "Вам будет дан доступ, когда вы зарегистрируетесь.";
+			mes "Итак, идёте ли вы в Туманный лес?";
+		}
+		next;
+		switch(select("В Туманный лес!:Отступить.")) {
+		case 1:
+			mes "[Страж]";
+			mes "Отряд "+getpartyname(.@party_id)+"...";
+			mes "Командир отряда "+strcharinfo(0)+"...";
+			if (instance_create(.@md_name$) < 0) {
+				mes "Хмм...";
+				next;
+				mes "[Страж]";
+				if (.@playtime == -1)
+					mes "В Лесу слишком опасно.";
+				else
+					mes "Я чувствую необьяснимую угрозу, исходящую из чащи.";
+					mes "...Лучше приходите завтра.";
+				close;
+			}
+			mes "Принято. Записал ваши данные в отчёт.";
+			next;
+			mes "[Страж]";
+			mes "Сейчас вам будет дано право входа.";
+			mes "Единственный путь в Лес -- через тот туннель в упавшем стволе.";
+			mes "Вопросы есть?";
+			next;
+			mes "[Страж]";
+			mes "Мы не в силах идти против Леса.";
+			mes "Но может вам, люди, это удастся.";
+			mes "Удачи!";
+			close;
+		case 2:
+			mes "[Страж]";
+			mes "Вы сделали правильный выбор.";
+			if (.@playtime == -1)
+				mes "Отдых пойдет вам на пользу.";
+			close;
+		}
+	} else {
+		mes "[Страж]";
+		mes "Где ваш командир? В Лесу очень опасно.";
+		next;
+		if (.@playtime == 2) {
+			mes "[Страж]";
+			mes "Я вижу, вы уже бывали в Лесу раньше.";
+			mes "Что ж, значит, Лес, скорее всего, не отвергнет вас.";
+			mes "Но...";
+			erasequest 7211;
+			next;
+		}
+		mes "[Страж]";
+		mes "Поймите меня, я часовой. Мне нужно вначале обсудить кое-что с лидером вашего отряда.";
+		mes "";
+		close;
+	}
+}
+
+bif_fild01,161,355,0	script	Отверстие в стволе	844,{
+	mes "^666666Из отверстия с той стороны в туннель проникает слабый свет.";
+	mes "Похоже, по нему можно попасть в Туманный Лес.^000000";
+	next;
+	if(select("Забраться внутрь.:Отступить.") == 2)
+		close;
+	switch(instance_enter("Mistwood Maze")) {
+	case IE_OTHER:
+		mes "[Страж]";
+		mes "Что-то не так. Ситуация слишком непонятна, я не могу позволить вам так рисковать.";
+		close;
+	case IE_NOINSTANCE:
+		mes "^666666Вы залезаете в трубу, оставшуюся от огромного ствола, но как только вы продвигаетесь вперёд, мощный поток воздуха категорически выталкивает вас.";
+		mes "Похоже, вам не удастся проникнуть в Лес, пока он сам вас не впустит.^000000";
+		close;
+	case IE_NOMEMBER:
+		mes "[Страж]";
+		mes "Эй, слушай!";
+		mes "Ты что, в одиночку собрал"+ (Sex?"ся":"ась")+"?";
+		mes "Это невозможно. Это не смело, это просто безрассудно.";
+		mes "Обьединись с кем-нибудь!";
+		close;
+	case IE_OK:
+		if (checkquest(7211,PLAYTIME) == 2) erasequest 7211;
+		if (checkquest(7211,PLAYTIME) == -1) setquest 7211;
+		mapannounce "bif_fild01",strcharinfo(0)+" в составе отряда "+ getpartyname(getcharid(1)) +" входит в Туманный Лес.",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+		//warp "1@mist",89,29;
+		close;
+	default:
+		mes "^666666С той стороны не видно ничего, кроме тусклой мути, в давящей тишине не слышно ни шороха.";//Аваланна
+		mes "Ваши инстинкты вопят о том, что там безумно, невыразимо опасно.^000000";
+		close;
+	}
+}
+
+// Instance Scripts :: md_mistwoods_in
+//============================================================
+1@mist,89,29,0	script	#Whisper_mist	844,1,1,{
+	end;
+OnInstanceInit:
+	enablenpc instance_npcname("#Whisper_mist");
+	end;
+OnTouch_:
+	disablenpc instance_npcname("#Whisper_mist");
+	initnpctimer;
+	end;
+OnTimer10000:
+OnTimer20000:
+	mapannounce instance_mapname("1@mist"),"Шёпот: Кто это? Кто это?! Лес расступился! Том и Томба! Рем усталый! Реми! Вставайте!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer60000:
+	mapannounce instance_mapname("1@mist"),"Громкий шёпот: Где же садовники? Что делают Хранители?",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer120000:
+	mapannounce instance_mapname("1@mist"),"Громкий шёпот: Не уходи, не ищи выхода, останься с нами навечно!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer180000:
+	mapannounce instance_mapname("1@mist"),"Громкий шёпот: Бессмысленно. Бесполезно! Броди кругами, плутай по следам, конец твой близок! Конец твой близок!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+}
+
+// callfunc "F_Mora_Mist",<warp to enable>,<success message>,<fail message>{,<end flag>}
+function	script	F_Mora_Mist	{
+	set .@map$, instance_mapname("1@mist");
+	if (mobcount(.@map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0) {
+		mes "^666666Похоже, за растением уже давно никто не ухаживает.";
+		mes "Его можно срубить.^000000";
+		next;
+		if(select("Срубить дерево.:Отступить.") == 2)
+			close;
+		mes "^666666Вы срубаете дерево"+((getarg(3,0))?", и за ним обнаруживается проход.":" и получаете возможность продвигаться дальше.")+"^000000";
+		mapannounce .@map$,getarg(1),bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+		enablenpc instance_npcname(getarg(0));
+		disablenpc instance_npcname(strnpcinfo(0));
+		if (getarg(4,0))
+			initnpctimer;
+		close;
+	} else
+		mapannounce .@map$,((getarg(3,0))?getarg(2):getarg(2)+" : Кто посмел притронуться к моему дереву?!"),bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+}
+
+1@mist,251,121,3	script	Удел Тома	858,{ end; }
+1@mist,247,123,0	script	Дерево Тома	527,{
+	callfunc "F_Mora_Mist",
+		"a25_a18-1",
+		"Рыдания: Том -- повержен! Берегись, Томба! Берегись, Томба!",
+		"Том";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),249,120,"Том",2136,1,instance_npcname("Дерево Тома")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,226,95,3	script	Удел Томбы	858,{ end; }
+1@mist,225,98,0	script	Дерево Томбы	527,{
+	callfunc "F_Mora_Mist",
+		"a27-2_af1-2",
+		"Рыдания: Нет больше Томбы, нет её древа. Как ты поступишь, садовница Реми?",
+		"Томба";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),200,64,"Томба",2136,1,instance_npcname("Дерево Томбы")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,157,183,3	script	Удел Реми	858,{ end; }
+1@mist,159,184,0	script	Дерево Реми	527,{
+	callfunc "F_Mora_Mist",
+		"a15-2_a4-1",
+		"Рыдания: Реми, о, Реми! Дерев всё меньше. Пришло время ответствовать Рему!",
+		"Реми";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),154,184,"Реми Уставшая",2137,1,instance_npcname("Дерево Реми")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,58,39,3	script	Удел Рема	858,{ end; }
+1@mist,61,39,0	script	Дерево Рема	527,{
+	callfunc "F_Mora_Mist",
+		"a4-2_a11",
+		"Рыдания Рема: Ах... Наконец-то! Я усну, усну и никогда больше не проснусь!..",
+		"Рем",
+		0,1;
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),101,107,"Рем Уставший",2137,1,instance_npcname("Дерево Рема")+"::OnMyMobDead";
+	end;
+OnTimer10000:
+	mapannounce instance_mapname("1@mist"),"Шёпот Леса: Так что же, дерево Тома и дерево Томбы, и Рема, и Реми, все они пали?",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer15000:
+	mapannounce instance_mapname("1@mist"),"Шёпот Леса: Беды-напасти. Вот так несчастье.",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer20000:
+	mapannounce instance_mapname("1@mist"),"Громкий шёпот: Пришельцы уже у врат самой чащи! Хранители Леса, вставайте, вставайте!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,227,179,3	script	Удел Рона	858,{ end; }
+1@mist,230,179,0	script	Дерево Рона	527,{
+	callfunc "F_Mora_Mist",
+		"b4-2_b2",
+		"Плач Рона Садовника: Я больше не могу! Отныне меня не зовите, не ищите Садовника Рона!",
+		"Рон";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),227,178,"Рон Садовник",2134,1,instance_npcname("Дерево Рона")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,288,226,3	script	Удел Руви	858,{ end; }
+1@mist,285,225,0	script	Дерево Руви	527,{
+	callfunc "F_Mora_Mist",
+		"b7_bf1-2",
+		"Неистовый шёпот: древа Рона и Руви пали. Кто пробивается в самую чащу? Кто прорубает путь в сердце Леса?",
+		"Руви";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),304,237,"Руви Задавака",2134,1,instance_npcname("Дерево Руви")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,159,318,3	script	Удел Моны	858,{ end; }
+1@mist,161,316,0	script	Дерево Моны	527,{
+	callfunc "F_Mora_Mist",
+		"b31_b16",
+		"Возбуждённый шёпот: Дерево Моны срублено тоже! Семяискатель Мона повержен! Но будет в порядке наш смелый Намон... Правда? Намон? Ты будешь в порядке?",
+		"Мона";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),239,253,"Мона Семяискатель",2133,1,instance_npcname("Дерево Моны")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,205,300,3	script	Удел Намона	858,{ end; }
+1@mist,204,299,0	script	Дерево Намона	527,{
+	callfunc "F_Mora_Mist",
+		"b27-3_bN-1",
+		"Нарастающий шёпот: Встретил судьбу свою не так уж смело Смелый Намон... *хихиканье*",
+		"Намон";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),89,173,"Смелый Намон",2134,1,instance_npcname("Дерево Намона")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,219,232,3	script	Удел Грустного Неорона	858,{ end; }
+1@mist,221,236,0	script	Дерево Грустного Неорона	527,{
+	callfunc "F_Mora_Mist",
+		"b6-1_b33",
+		"Плачущий шёпот: Неорон Грустный развеселился! Что будешь делать, Паук Многоногий? Что будешь делать? Что будешь делать?..",
+		"Неорон";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),143,265,"Грустный Неорон",2137,1,instance_npcname("Дерево Грустного Неорона")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,206,202,3	script	Удел Паука	858,{ end; }
+1@mist,206,200,0	script	Дерево Паука	527,{
+	callfunc "F_Mora_Mist",
+		"b5_b14",
+		"Подавленный шёпот: Вот и покончено с чащею Леса. Хранители пали...",
+		"Паук",
+		0,1;
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),209,200,"Паук Восьминогий",2132,1,instance_npcname("Дерево Паука")+"::OnMyMobDead";
+	end;
+OnTimer5000:
+	mapannounce instance_mapname("1@mist"),"Нарастающий шёпот: Путь проявился... Скрепы упали!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer9000:
+	mapannounce instance_mapname("1@mist"),"Нарастающий шёпот: Лес распахнулся, чаща открылась, вот и последний оплот достигнут! Тито и Пумба уже вас встречают!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer13000:
+	mapannounce instance_mapname("1@mist"),"Нарастающий шёпот: Куда приведёт вас... Кружите, бродите, кого повидали, кого повстречали...",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer17000:
+	mapannounce instance_mapname("1@mist"),"Нарастающий шёпот: Хранители в сборе, они будут ждать вас, они уже ждут с ножницами наготове!",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,96,288,3	script	Удел Тито	858,{ end; }
+1@mist,95,287,0	script	Дерево Тито	527,{
+	callfunc "F_Mora_Mist",
+		"c1_c13-1",
+		"Плач Тито: Тито повержен! Тито погублен! *плач*",
+		"Тито";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),264,291,"Перепончатый Тито",2133,1,instance_npcname("Дерево Тито")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,326,325,3	script	Удел Пумбы	858,{ end; }
+1@mist,324,325,0	script	Дерево Пумбы	527,{
+	callfunc "F_Mora_Mist",
+		"c13-3_c4",
+		"Нарастающий шёпот: Пумба Усердный больше не с нами! Тете, к работе! Хватит болтаться!",
+		"Пумба";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),309,165,"Пумба Усердный",2134,1,instance_npcname("Дерево Пумбы")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,278,345,3	script	Удел Тете	858,{ end; }
+1@mist,280,344,0	script	Дерево Тете	527,{
+	callfunc "F_Mora_Mist",
+		"c19_c4",
+		"Шёпот: Да, они сильны. Да, очень сильны. Остался ли кто-то? Садовников больше нет?",
+		"Тете";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),277,343,"Беспечный Тете",2136,1,instance_npcname("Дерево Тете")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,345,186,0	script	Дерево Хранителей	527,{
+	callfunc "F_Mora_Mist",
+		"#to_bif02",
+		"Нарастающий шёпот: Лес вас запомнит! Он вас узнает! Вас, что сломали ножницы стражей!",
+		"Хранители: Мы ещё живы!!!",1;
+	end;
+OnInstanceInit:
+	set .@map$, instance_mapname("1@mist");
+	monster .@map$,318,137,"Малыш Том",2136,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,321,137,"Малышка Томба",2136,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,324,137,"Измождённая Реми",2137,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,319,135,"Измождённый Рем",2136,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,323,135,"Рон-бывший-Садовник",2134,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,320,133,"Руви Задавака",2134,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,323,133,"Мона Собиратель семян",2133,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,317,132,"Робкий Намон",2134,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,326,132,"Безразличный Неорон",2137,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,317,129,"Паук Семиногий",2132,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,320,129,"Крушитель Тито",2133,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,324,129,"Ленивый Пумба",2134,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	monster .@map$,327,129,"Небрежный Тете",2136,1,instance_npcname("Дерево Хранителей")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,73,290,0	script	Загадочный цветок#1	844,{
+	specialeffect EF_LEVEL99_4;
+	disablenpc instance_npcname(strnpcinfo(0));
+	getitem 12561,1; //Mysterious_Seed
+	end;
+}
+1@mist,69,295,0	duplicate(Загадочный цветок#1)	Загадочный цветок#2	844
+1@mist,62,291,0	duplicate(Загадочный цветок#1)	Загадочный цветок#3	844
+1@mist,54,293,0	duplicate(Загадочный цветок#1)	Загадочный цветок#4	844
+1@mist,48,286,0	duplicate(Загадочный цветок#1)	Загадочный цветок#5	844
+1@mist,54,277,0	duplicate(Загадочный цветок#1)	Загадочный цветок#6	844
+1@mist,52,270,0	duplicate(Загадочный цветок#1)	Загадочный цветок#7	844
+1@mist,62,268,0	duplicate(Загадочный цветок#1)	Загадочный цветок#8	844
+1@mist,72,271,0	duplicate(Загадочный цветок#1)	Загадочный цветок#9	844
+1@mist,72,276,0	duplicate(Загадочный цветок#1)	Загадочный цветок#10	844
+1@mist,118,194,0	duplicate(Загадочный цветок#1)	Загадочный цветок#11	844
+1@mist,122,204,0	duplicate(Загадочный цветок#1)	Загадочный цветок#12	844
+1@mist,137,209,0	duplicate(Загадочный цветок#1)	Загадочный цветок#13	844
+1@mist,144,203,0	duplicate(Загадочный цветок#1)	Загадочный цветок#14	844
+1@mist,146,186,0	duplicate(Загадочный цветок#1)	Загадочный цветок#15	844
+1@mist,142,182,0	duplicate(Загадочный цветок#1)	Загадочный цветок#16	844
+1@mist,132,179,0	duplicate(Загадочный цветок#1)	Загадочный цветок#17	844
+1@mist,123,184,0	duplicate(Загадочный цветок#1)	Загадочный цветок#18	844
+1@mist,194,118,0	duplicate(Загадочный цветок#1)	Загадочный цветок#19	844
+1@mist,188,109,0	duplicate(Загадочный цветок#1)	Загадочный цветок#20	844
+1@mist,193,94,0	duplicate(Загадочный цветок#1)	Загадочный цветок#21	844
+1@mist,205,92,0	duplicate(Загадочный цветок#1)	Загадочный цветок#22	844
+1@mist,213,96,0	duplicate(Загадочный цветок#1)	Загадочный цветок#23	844
+1@mist,216,103,0	duplicate(Загадочный цветок#1)	Загадочный цветок#24	844
+1@mist,212,116,0	duplicate(Загадочный цветок#1)	Загадочный цветок#25	844
+1@mist,207,120,0	duplicate(Загадочный цветок#1)	Загадочный цветок#26	844
+1@mist,169,310,0	duplicate(Загадочный цветок#1)	Загадочный цветок#27	844
+1@mist,172,296,0	duplicate(Загадочный цветок#1)	Загадочный цветок#28	844
+1@mist,191,301,0	duplicate(Загадочный цветок#1)	Загадочный цветок#30	844
+1@mist,195,301,0	duplicate(Загадочный цветок#1)	Загадочный цветок#31	844
+1@mist,192,316,0	duplicate(Загадочный цветок#1)	Загадочный цветок#32	844
+1@mist,187,320,0	duplicate(Загадочный цветок#1)	Загадочный цветок#33	844
+1@mist,174,318,0	duplicate(Загадочный цветок#1)	Загадочный цветок#34	844
+1@mist,308,136,0	duplicate(Загадочный цветок#1)	Загадочный цветок#35	844
+1@mist,314,122,0	duplicate(Загадочный цветок#1)	Загадочный цветок#36	844
+1@mist,321,118,0	duplicate(Загадочный цветок#1)	Загадочный цветок#37	844
+1@mist,331,123,0	duplicate(Загадочный цветок#1)	Загадочный цветок#38	844
+1@mist,335,126,0	duplicate(Загадочный цветок#1)	Загадочный цветок#39	844
+1@mist,332,141,0	duplicate(Загадочный цветок#1)	Загадочный цветок#40	844
+1@mist,328,144,0	duplicate(Загадочный цветок#1)	Загадочный цветок#41	844
+1@mist,314,144,0	duplicate(Загадочный цветок#1)	Загадочный цветок#42	844
+1@mist,238,224,0	duplicate(Загадочный цветок#1)	Загадочный цветок#43	844
+1@mist,244,231,0	duplicate(Загадочный цветок#1)	Загадочный цветок#44	844
+1@mist,257,232,0	duplicate(Загадочный цветок#1)	Загадочный цветок#45	844
+1@mist,262,229,0	duplicate(Загадочный цветок#1)	Загадочный цветок#46	844
+1@mist,265,216,0	duplicate(Загадочный цветок#1)	Загадочный цветок#47	844
+1@mist,260,214,0	duplicate(Загадочный цветок#1)	Загадочный цветок#48	844
+1@mist,252,206,0	duplicate(Загадочный цветок#1)	Загадочный цветок#49	844
+1@mist,244,211,0	duplicate(Загадочный цветок#1)	Загадочный цветок#50	844
+
+// Wandering Guardian Quest
+//============================================================
+
+// ----------------- Part of md_mistwoods_in -----------------
+1@mist,2,2,0	script	#Dragon Herder	844,{
+	end;
+OnInstanceInit:
+	switch(rand(1,6)) {
+		case 1: setarray .@c[0],77,240; break;
+		case 2: setarray .@c[0],147,261; break;
+		case 3: setarray .@c[0],182,263; break;
+		case 4: setarray .@c[0],194,350; break;
+		case 5: setarray .@c[0],268,183; break;
+		case 6: setarray .@c[0],65,278; break;
+	}
+	monster instance_mapname("1@mist"),.@c[0],.@c[1],"Пурпурный Дракон",2131,1,instance_npcname("#Dragon Herder")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	if (mobcount(.@map$,instance_npcname("#Dragon Herder")+"::OnMyMobDead") == 0) {
+		donpcevent instance_npcname("Лежащая девушка#mist")+"::OnEnable";
+		donpcevent instance_npcname("Загадочный юноша#mis")+"::OnDisable";
+		donpcevent instance_npcname("Локи#mist")+"::OnEnable";
+		mapannounce .@map$,"Вопль Дракона: Вот, это ли не наказание мне.... за то, что я.... оставила долг Хранителя?....",bc_map,"0xffff00"; //FW_NORMAL 12 0 0
+		disablenpc instance_npcname("#Dragon Herder");
+		initnpctimer;
+	}
+	end;
+OnTimer3000:
+	stopnpctimer;
+	mapannounce instance_mapname("1@mist"),"Голос в вашей голове: Пожа...луйста... спаси....... меня.......",bc_map,"0xffff00"; //FW_NORMAL 12 0 0
+	end;
+}
+
+1@mist,97,30,3	script	Загадочный юноша#mis	512,{
+	if (BaseLevel < 98) {
+		mes "[Загадочный юноша]";
+		mes "Хм? Планируешь перейти Бифрёст?";
+		mes ".....Боюсь, это за пределами твоих возможностей, но не буду мешать.";
+		mes "Встретимся, если выживешь.";
+		close;
+	}
+	if (ep14_1_mistwoods == 0) {
+		if (ep13_3_secret > 23) {
+			mes "[Загадочный юноша]";
+			mes "Ты... Помню тебя по лагерю.";
+			mes "Информация, что ты дал"+(Sex?"":"а")+" об Ахате, оказалась очень полезной.";
+			mes "Спасибо!";
+			next;
+			mes "[Загадочный юноша]";
+			mes "Но что ты забыл"+(Sex?"":"а")+" в этом лесу?";
+			mes "Какой поживы можно найти на Бифрёсте?";
+			next;
+		} else {
+			mes "[Загадочный юноша]";
+			mes "Планируешь перейти Бифрёст?";
+			mes "Я бы не советовал, если это лишь любопытство.";
+			mes "В данном случае оно приведёт лишь к твоей преждевременной смерти...";
+			next;
+		}
+		mes "[Загадочный юноша]";
+		mes "Если ты тв"+(Sex?"ёрд":"ерда")+" в своём намерении пересечь Бифрёст,";
+		mes "я бы попросил тебя помочь кое в чём.";
+		next;
+		select("Кто ты?");
+		mes "[Локи]";
+		mes "Локи... Из Гильдии Убийц.";
+		mes "Так меня зовут.";
+		mes "Тебя?";
+		next;
+		mes "["+strcharinfo(0)+"]";
+		mes "....";
+		mes "...."+strcharinfo(0)+".";
+		next;
+		mes "[Локи]";
+		mes "Ясно. "+strcharinfo(0)+".";
+		mes "Повторю свой вопрос.";
+		mes "Планируешь ли ты пройти сквозь Лес?";
+		next;
+		switch(select("Да.:Нет.")) {
+		case 1:
+			mes "[Локи]";
+			mes "Тогда у меня к тебе есть вопрос.";
+			mes "Встречалась ли тебе Хран... девушка с пурпурными волосами?";
+			next;
+			switch(select("Нет.:Может быть...")) {
+			case 1:
+				mes "[Локи]";
+				mes "Нет, значит.";
+				mes "Ты не врёшь.";
+				next;
+				break;
+			case 2:
+				mes "[Локи]";
+				mes "Стой.";
+				mes "(Локи приближается к вам вплотную.)";
+				mes "... Нет.";
+				mes "Ты не врёшь.";
+				next;
+				break;
+			}
+			mes "[Локи]";
+			mes "До встречи.";
+			mes "Если выживешь в Лесу, конечно.";
+			set ep14_1_mistwoods,2;
+			setquest 7212;
+			close;
+		case 2:
+			mes "[Локи]";
+			mes "Понятно.";
+			mes "Отступай, если чувствуешь, что не готов"+(Sex?"":"а")+".";
+			mes "Лес не любит чужаков.";
+			set ep14_1_mistwoods,1;
+			close;
+		}
+	} else if (ep14_1_mistwoods == 1) {
+		mes "[Локи]";
+		mes "Я же тебе говорил -- назад, если не спешишь умирать.";
+		mes "Пройти через Лес нелегко.";
+		mes "Это действительно может стоить тебе жизни.";
+		next;
+		switch(select("Ладно.:Что тебе здесь нужно?")) {
+		case 1:
+			mes "^666666Вы отступаете, и";
+			mes "Локи с лёгким кивком отворачивается.^000000";
+			close;
+		case 2:
+			mes "[Локи]";
+			mes "Ищу кое-кого.";
+			mes "Встречал"+(Sex?"":"а")+" ли ты Хран... девушку с пурпурными волосами?";
+			next;
+			switch(select("Нет.:Может быть...")) {
+			case 1:
+				mes "[Локи]";
+				mes "Нет, значит.";
+				mes "Ты не врёшь.";
+				next;
+				break;
+			case 2:
+				mes "[Локи]";
+				mes "Стой.";
+				mes "(Локи приближается к вам вплотную.)";
+				mes "... Нет.";
+				mes "Ты не врёшь.";
+				next;
+				break;
+			}
+			mes "[Локи]";
+			mes "До встречи.";
+			mes "Надеюсь, увидимся в Море.";
+			set ep14_1_mistwoods,2;
+			setquest 7212;
+			close;
+		}
+	} else if (ep14_1_mistwoods == 2) {
+		mes "[Локи]";
+		mes "Не горю желанием присоединяться к твоей группе.";
+		mes "Надеюсь, увидимся в Море.";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[Локи]";
+		mes "Вот мы и встретились.";
+		mes "Как тебе Лес? Уже не такой враждебный?";
+		mes "Приходи в гостиницу в Море.";
+		mes "У меня для тебя кое-что есть.";
+		close;
+	} else {
+		mes "[Локи]";
+		mes "Мы встречаемся всё чаще и чаще.";
+		mes "Привык"+(Sex?"":"ла")+" к этому месту?";
+		mes "Не очень-то гордись этим.";
+		close;
+	}
+	end;
+OnEnable:
+	enablenpc instance_npcname("Загадочный юноша#mis");
+	end;
+OnDisable:
+	disablenpc instance_npcname("Загадочный юноша#mis");
+	end;
+}
+
+1@mist,183,304,3	script	Локи#mist	512,{
+	if (ep14_1_mistwoods < 2) {
+		mes "[Локи]";
+		mes "О, авантюрист.";
+		mes ".....";
+		mes "Через этот лес лежит путь в Мору.";
+		close;
+	} else if (ep14_1_mistwoods == 2) {
+		mes "[Локи]";
+		mes "Это ты позаботил"+(Sex?"ся":"ась")+" о буйной девчонке?";
+		mes "Полагаю, я должен поблагодарить тебя.";
+		mes "Тебе удалось её успокоить.";
+		next;
+		select("Что происходит?:Девушка..?");
+		mes "[Локи]";
+		mes "Можно полностью изменить внешность, но никто не в силах скрыть свой особенный внутренний свет.";
+		mes "Аромат столь сильный, что обжигает ноздри.";
+		next;
+		mes "[Локи]";
+		mes "Та, кого я искал,";
+		mes "это и есть Нидхёгг, Хранитель Иггдрасиля.";
+		mes "Больше ей не скитаться в безумии.";
+		next;
+		select("Что ты теперь собираешься делать?");
+		mes "[Локи]";
+		mes "Дождусь, когда она очнётся, и пойду выбираться прочь из этого леса.";
+		mes "Я справлюсь.";
+		mes "Увидимся в Море.";
+		set ep14_1_mistwoods,3;
+		erasequest 7212;
+		setquest 7213;
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[Локи]";
+		mes "Я не горю желанием вступать в твою группу.";
+		mes "Я справлюсь сам.";
+		mes "Если тебе есть, что сказать, прибереги это на потом, когда мы все выберемся отсюда.";
+		close;
+	} else {
+		mes "[Локи]";
+		mes "Я не горю желанием вступать в твою группу.";
+		mes "Если тебе есть, что сказать, прибереги это на потом, когда мы все выберемся отсюда.";
+		close;
+	}
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Локи#mist");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Локи#mist");
+	end;
+}
+
+1@mist,181,303,3	script	Лежащая девушка#mist	511,{
+	mes "^666666Вы видите лежащую на земле девушку с загадочно выглядящими волосами.";
+	mes "Когда вы приближаетесь, вас настигает цветочный аромат, столь сильный, что кружит голову.^000000";
+	close;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("Лежащая девушка#mist");
+	end;
+OnEnable:
+	enablenpc instance_npcname("Лежащая девушка#mist");
+	end;
+}
+
+// --------------- Part of md_mistwoods_enter ----------------
+mora,46,152,5	script	Цветочная девушка	510,{
+	if (ep14_1_mistwoods < 3) {
+		mes "[Цветочная девушка]";
+		mes "Мне нужен отдых.";
+		mes "У меня сейчас совсем нет сил разговаривать.";
+		mes "Прошу прощения...";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[Хранительница Нидхёгг]";
+		mes "Я ждала тебя.";
+		mes "Я в смущении, но теперь хотя бы понимаю, что я делала не так.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Если бы не ты, я до сих пор скиталась бы во тьме.";
+		mes "Я благодарю тебя от всего сердца.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Мне стыдно за себя, за то, что я поверила сладким, но пустым словам, настигших меня в этом одиночестве.";
+		mes "....";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Я больше не заслуживаю быть Хранителем.";
+		mes "Сумасшедший дракон не может так называться.";
+		next;
+		mes "[Локи]";
+		mes "Иггдрасиль думает иначе.";
+		mes "Ниди, не забывай о своём долге.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Ты...";
+		mes "Да...";
+		mes "Я считала себя отвергнутой...";
+		next;
+		mes "^666666Взгляд Хранительницы устремляется куда-то далеко, словно мысли уносят её в другую реальность.^000000";
+		set ep14_1_mistwoods,4;
+		close2;
+	} else if (ep14_1_mistwoods == 4) {
+		mes "^666666Похоже, она в глубокой задумчивости.^000000";
+		close;
+	} else {
+		mes "[Хранительница Нидхёгг]";
+		mes "Ко мне ещё не полностью вернулась сила.";
+		mes "Боюсь, я не могу защитить тебя.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Локи говорит...";
+		mes "Что мне больше не придётся плакать от одиночества,";
+		mes "потому что у меня всегда будут новые друзья, такие, как ты...";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "...Я всё потеряла, но... ";
+		mes "Я так счастлива.";
+		close;
+	}
+}
+
+mora,48,152,3	script	Бдительный юноша	512,{
+	if (checkweight(1201,1) == 0 || MaxWeight - Weight < 1000) {
+		mes "- У вас переполнен инвентарь. -";
+		close;
+	}
+	if (ep14_1_mistwoods < 3) {
+		mes "Юноша не обращает на вас внимания. Кажется, вы его совсем не интересуете.";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[Локи]";
+		mes "Значит, Лесу не удалось охмурить тебя.";
+		mes "Похоже, Ниди хочет тебе что-то сказать.";
+		close;
+	} else if (ep14_1_mistwoods == 4) {
+		mes "[Локи]";
+		mes "Нидхёгг была одной из Хранителей древа Иггдрасиль.";
+		mes "Но оставила свой пост, поддавшись искушению Моррока.";
+		next;
+		mes "[Локи]";
+		mes "Какие-то идиоты совершили ритуал и попытались сломать печати, которые его сдерживали.";
+		mes "Но ритуал прошёл не так, как они задумывали. Им не удалось полностью разбить печати.";
+		next;
+		mes "[Локи]";
+		mes "Они просто ослабли настолько, что вот-вот лопнут.";
+		mes "Их сдерживает только сила Иггдрасиля, Древа Жизни.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Это правда. Иггдрасиль связан с этим миром.";
+		mes "А когда связь между ним и его Хранителями исчезла, Иггдрасиль ослаб.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Вот почему с ним всё это случилось.";
+		mes "Эти... болезни. Вот и печати стали слабеть.";
+		next;
+		mes "[Локи]";
+		mes "И Моррок вырвался.";
+		mes "Хотя, похоже, ему это стоило едва ли не всех сил...";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Это всё моя вина.";
+		mes "Я не смогла устоять перед его искушением.";
+		mes "Слишком... долго...";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "...Я так хотела, чтобы эти тысячи, тысячи лет одиночества наконец закончились.";
+		mes "Похоже, я была уже не в своём уме.";
+		mes "Связь с Иггдрасилем предал ни кто иной, как я.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Я потеряла власть над собой и сделала то, что не должна была делать.";
+		mes "Какая-то чужая часть меня стала безумным тираном.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Теперь, обретя мир обратно, я осознала...";
+		mes "Я слишком отдалась боли утраты. Я погрузилась в неё целиком. Она была намного сильнее и намного мучительнее, чем одиночество за все эти годы.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Так я назвалась тем, кого этот мир отвергает.";
+		next;
+		mes "[Локи]";
+		mes "Ещё не поздно.";
+		mes "Ты всё ещё Хранитель.";
+		mes "У тебя ещё остался долг.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Ох... Да. Я должна исполнить свой долг как Хранитель.";
+		mes "Теперь я знаю, как. Я уничтожу Моррока своими собственными руками.";
+		mes "Так я выполню свою обязанность защищать и хранить Иггдрасиль.";
+		next;
+		switch(select("Ты больше не одинока.:Это великий долг.")) {
+		case 1:
+			mes "[Хранительница Нидхёгг]";
+			mes "Ты прав"+(Sex?"":"а")+".";
+			mes "Вот что поможет мне оставаться собой. Я не одна.";
+			mes "Я счастлива встретить такого доброго человека, как ты.";
+			next;
+			break;
+		case 2:
+			mes "[Хранительница Нидхёгг]";
+			mes "Да, он велик, но это смысл моей жизни.";
+			mes "И я счастлива, что он у меня есть.";
+			mes "Больше мне не нужно впустую бороться с одиночеством.";
+			next;
+			break;
+		}
+		mes "[Хранительница Нидхёгг]";
+		mes strcharinfo(0)+"...";
+		mes "Спасибо, что выслушал"+(Sex?"":"а")+" мою историю.";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Это то, что навсегда останется со мной.";
+		mes "Уверена, когда-нибудь и я смогу защитить тебя.";
+		next;
+		mes "[Локи]";
+		mes "^666666(Снимает шарф, обмотанный вокруг шеи, и протягивает его вам.)^000000";
+		next;
+		mes "[Хранительница Нидхёгг]";
+		mes "Да пребудет с тобой благословение Матери Иггдрасиль...";
+		set ep14_1_mistwoods,10;
+		completequest 7213;
+		getitem 2568,1; //Muffler_Of_Roki
+		getitem 2858,1; //Pendant_Of_Guardian
+		getexp 400000,400000;
+		close;
+	} else {
+		mes "[Локи]";
+		mes "Я останусь тут ещё на какое-то время.";
+		mes "Может, мы ещё встретимся.";
+		next;
+		mes "[Локи]";
+		mes "Тот день, когда Моррок явит свою подлую сущность...";
+		mes "Я его дождусь.";
+		close;
+	}
+}
+
+// Monster Spawns :: md_mist_mob
+//============================================================
+1@mist,1,1,0	script	#Mist Mobs Respawn1	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"Миминг",2137,15,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 15 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"Миминг",2137,.@num_mobs,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,2,0	script	#Mist Mobs Respawn2	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"Паук Пом",2132,35,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"Паук Пом",2132,.@num_mobs,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,3,0	script	#Mist Mobs Respawn3	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"Ангра Мантис",2133,35,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"Ангра Мантис",2133,.@num_mobs,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,4,0	script	#Mist Mobs Respawn4	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"Парус",2134,35,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"Парус",2134,.@num_mobs,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,5,0	script	#Mist Mobs Respawn5	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"Малыш Фатум",2136,15,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 15 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"Малыш Фатум",2136,.@num_mobs,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,6,0	script	#Fragments of Memory	844,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#Fragments of Memory");
+	monster instance_mapname("1@mist"),0,0,"Воспоминания Хранителей",2138,15;
+	end;
+}
+
+// Warp Portals :: md_mist_in_link
+//============================================================
+bif_fild01,38,374,0	script	Загадочный цветок#ep14_1	844,{
+	mes "^666666Вы видите огромный цветок, от которого исходит таинственная энергия.^000000";
+	if (countitem(12561)) {
+		mes "^666666Он реагирует на семена, которые у вас с собой.^000000";
+		next;
+		switch(select("Наблюдать реакцию.:Остановить реакцию.")) {
+		case 1:
+			mes "^666666Цветок начинает трястись в безумном ритме, крутясь и размахивая лепестками, как будто стараясь отправить семена в полёт!!!^000000";
+			close2;
+			delitem 12561,1; //Mysterious_Seed
+			warp "bif_fild02",160,230;
+			end;
+		case 2:
+			mes "^666666Вы крепко сжимаете семена. Цветок начинает судорожно трястись и раскачиваться, но через некоторе время замирает вновь.^000000";
+			close;
+		}
+	}
+	mes "^666666Похоже, эти цветы очень полезные, вот только вы не уверены, для чего.^000000";
+	close;
+}
+
+1@mist,104,23,0	warp	#to_bif01	1,1,bif_fild01,160,352
+
+1@mist,109,70,0	script	a1_a2	45,1,1,{
+	end;
+OnTouch_:
+	if (checkquest(7211,PLAYTIME) == -1)
+		setquest 7211;
+	warp instance_mapname("1@mist"),116,40;
+	end;
+}
+
+1@mist,113,40,0	warp	a2_a7	1,1,1@mist,90,81
+1@mist,93,81,0	warp	a7_a14	1,1,1@mist,108,152
+1@mist,111,154,0	warp	a14_a24	1,1,1@mist,236,108
+1@mist,236,110,0	warp	a24_a1	1,1,1@mist,106,69
+1@mist,161,67,0	warp	a18-1_a22	1,1,1@mist,159,85
+1@mist,180,116,0	warp	a23_a18-1	1,1,1@mist,164,66
+1@mist,180,63,0	warp	a18-2_a9	1,1,1@mist,141,90
+1@mist,116,84,0	warp	a8_a26	1,1,1@mist,222,133
+1@mist,220,133,0	warp	a26_a27-1	1,1,1@mist,200,64
+1@mist,197,64,0	warp	a27-1_a23	1,1,1@mist,177,116
+1@mist,146,194,0	warp	af1-2_a27-2	1,1,1@mist,225,96
+1@mist,133,195,0	warp	af1-1_af2-1	1,1,1@mist,202,110
+1@mist,202,107,0	warp	af2-1_af1-1	1,1,1@mist,134,189
+1@mist,217,110,0	warp	af2-2_a20-1	1,1,1@mist,240,56
+1@mist,240,54,0	warp	a20-1_af2-2	1,1,1@mist,214,110
+1@mist,234,67,0	warp	a20-2_a21	1,1,1@mist,239,80
+1@mist,242,77,0	warp	a21_a15-1	1,1,1@mist,153,137
+1@mist,156,139,0	warp	a15-1_a3	1,1,1@mist,123,55
+1@mist,124,51,0	warp	a3_a20-1	1,1,1@mist,240,56
+1@mist,48,41,0	warp	a4-1_a17	1,1,1@mist,174,165
+1@mist,171,165,0	warp	a17_a16	1,1,1@mist,168,143
+1@mist,169,141,0	warp	a16_a10	1,1,1@mist,101,107
+1@mist,99,107,0	warp	a10_a4-2	1,1,1@mist,57,38
+1@mist,65,113,0	warp	a11_a28	1,1,1@mist,218,151
+1@mist,221,151,0	warp	a28_a13	1,1,1@mist,117,126
+1@mist,114,126,0	warp	a13_a5	1,1,1@mist,36,62
+1@mist,61,88,0	warp	a6_a19	1,1,1@mist,189,139
+1@mist,186,140,0	warp	a19_a12	1,1,1@mist,98,126
+1@mist,101,126,0	warp	a12_a29-1	1,1,1@mist,238,151
+1@mist,235,152,0	warp	a29-1_af1-2	1,1,1@mist,144,194
+1@mist,254,151,0	warp	a29-2E_b1	1,1,1@mist,271,164
+1@mist,275,211,0	warp	b1_b13	1,1,1@mist,277,112
+1@mist,301,141,0	warp	b14_b24	1,1,1@mist,99,232
+1@mist,99,230,0	warp	b24_b25	1,1,1@mist,103,255
+1@mist,102,253,0	warp	b25_b4-1	1,1,1@mist,215,177
+1@mist,212,177,0	warp	b4-1_b1	1,1,1@mist,276,208
+1@mist,289,167,0	warp	b2_b19	1,1,1@mist,152,219
+1@mist,149,219,0	warp	b19_b20	1,1,1@mist,119,227
+1@mist,115,227,0	warp	b20_b23	1,1,1@mist,230,353
+1@mist,233,353,0	warp	b23_b7	1,1,1@mist,289,225
+1@mist,76,273,0	warp	bf1-2_b7	1,1,1@mist,289,225
+1@mist,61,282,0	warp	bf1-1_bf2-1	1,1,1@mist,256,220
+1@mist,252,220,0	warp	bf2-1_bf1-1	1,1,1@mist,65,282
+1@mist,267,213,0	warp	bf2-2_b28	1,1,1@mist,214,268
+1@mist,212,265,0	warp	b28_b12	1,1,1@mist,288,266
+1@mist,285,266,0	warp	b12_b21	1,1,1@mist,143,234
+1@mist,143,231,0	warp	b21_b29	1,1,1@mist,222,281
+1@mist,223,279,0	warp	b29_b31	1,1,1@mist,158,317
+1@mist,134,287,0	warp	b30_b3	1,1,1@mist,293,195
+1@mist,295,197,0	warp	b3_b10	1,1,1@mist,239,253
+1@mist,236,253,0	warp	b10_b12	1,1,1@mist,288,266
+1@mist,111,203,0	warp	b16_b34	1,1,1@mist,202,333
+1@mist,199,333,0	warp	b34_b27-1	1,1,1@mist,203,251
+1@mist,206,249,0	warp	b27-1_b22	1,1,1@mist,168,239
+1@mist,165,239,0	warp	b22_b15	1,1,1@mist,89,173
+1@mist,177,265,0	warp	b27-2_a14	1,1,1@mist,108,152
+1@mist,166,314,0	warp	bN-1_b27-3	1,1,1@mist,206,297
+1@mist,197,299,0	warp	bN-2_b17	1,1,1@mist,167,200
+1@mist,165,200,0	warp	b17_bN-2	1,1,1@mist,193,299
+1@mist,86,173,0	warp	b15_b32	1,1,1@mist,218,313
+1@mist,215,313,0	warp	b32_b28	1,1,1@mist,214,268
+1@mist,230,324,0	warp	b33_b6-1	1,1,1@mist,221,233
+1@mist,230,230,0	warp	b6-2_b11	1,1,1@mist,263,261
+1@mist,263,258,0	warp	b11_b9	1,1,1@mist,272,246
+1@mist,269,246,0	warp	b9_b26	1,1,1@mist,143,265
+1@mist,140,265,0	warp	b26_b5	1,1,1@mist,209,200
+1@mist,195,206,0	warp	b18_b35	1,1,1@mist,169,341
+1@mist,166,341,0	warp	b35_b36	1,1,1@mist,198,354
+1@mist,201,354,0	warp	b36_b37-1	1,1,1@mist,83,224
+1@mist,87,224,0	warp	b37-1_b35	1,1,1@mist,169,341
+1@mist,84,273,0	warp	b37-2_c1	1,1,1@mist,98,287
+1@mist,111,298,0	warp	c2_c3	1,1,1@mist,82,307
+1@mist,79,307,0	warp	c3_c7	1,1,1@mist,284,89
+1@mist,281,89,0	warp	c7_c12	1,1,1@mist,264,291
+1@mist,261,291,0	warp	c12_c2	1,1,1@mist,115,298
+1@mist,326,275,0	warp	c13-1_b13	1,1,1@mist,277,112
+1@mist,294,293,0	warp	c13-2_c5	1,1,1@mist,78,330
+1@mist,81,330,0	warp	c5_c17	1,1,1@mist,308,330
+1@mist,308,327,0	warp	c17_c10	1,1,1@mist,309,165
+1@mist,306,165,0	warp	c10_c13-2	1,1,1@mist,298,293
+1@mist,46,316,0	warp	c4_c6	1,1,1@mist,113,328
+1@mist,95,328,0	warp	c6_c9	1,1,1@mist,342,157
+1@mist,339,157,0	warp	c9_c16	1,1,1@mist,343,328
+1@mist,343,325,0	warp	c16_c8-2	1,1,1@mist,346,120
+1@mist,344,123,0	warp	c8-2_c19	1,1,1@mist,277,343
+1@mist,256,313,0	warp	c18_c15	1,1,1@mist,343,307
+1@mist,342,305,0	warp	c15_cKEY	1,1,1@mist,332,121
+1@mist,335,120,0	warp	cKEY_c18	1,1,1@mist,259,313
+1@mist,317,89,0	warp	c8-1_c14	1,1,1@mist,339,284
+1@mist,339,281,0	warp	c14_c11-1	1,1,1@mist,332,172
+1@mist,329,171,0	warp	c11-1_c8-2	1,1,1@mist,346,120
+1@mist,301,237,0	warp	b8_b2	1,1,1@mist,289,170
+
+// Disable Garden Tree warps.
+// Custom, but saves processing and lines.
+1@mist,1,1,0	script	#mist_warp_init	844,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("a25_a18-1");
+	disablenpc instance_npcname("a27-2_af1-2");
+	disablenpc instance_npcname("a15-2_a4-1");
+	disablenpc instance_npcname("a4-2_a11");
+	disablenpc instance_npcname("b4-2_b2");
+	disablenpc instance_npcname("b7_bf1-2");
+	disablenpc instance_npcname("b31_b16");
+	disablenpc instance_npcname("b27-3_bN-1");
+	disablenpc instance_npcname("b6-1_b33");
+	disablenpc instance_npcname("b5_b14");
+	disablenpc instance_npcname("c1_c13-1");
+	disablenpc instance_npcname("c13-3_c4");
+	disablenpc instance_npcname("c19_c4");
+	disablenpc instance_npcname("#to_bif02");
+	disablenpc instance_npcname("#mist_warp_init");
+	end;
+}
+1@mist,247,123,0	warp	a25_a18-1	1,1,1@mist,164,66	//Том
+1@mist,225,98,0	warp	a27-2_af1-2	1,1,1@mist,144,194	//Томба
+1@mist,159,184,0	warp	a15-2_a4-1	1,1,1@mist,49,37	//Реми
+1@mist,61,39,0	warp	a4-2_a11	1,1,1@mist,68,113	//Рем
+1@mist,230,179,0	warp	b4-2_b2	1,1,1@mist,289,170	//Рон
+1@mist,285,225,0	warp	b7_bf1-2	1,1,1@mist,72,274	//Руви
+1@mist,161,316,0	warp	b31_b16	1,1,1@mist,108,203	//Мона
+1@mist,204,299,0	warp	b27-3_bN-1	1,1,1@mist,169,314	//Намон
+1@mist,221,236,0	warp	b6-1_b33	1,1,1@mist,233,324	//Неорон
+1@mist,206,200,0	warp	b5_b14	1,1,1@mist,298,142	//Паук
+1@mist,95,287,0	warp	c1_c13-1	1,1,1@mist,323,276	//Тито
+1@mist,324,325,0	warp	c13-3_c4	1,1,1@mist,49,316	//Пумба
+1@mist,280,344,0	warp	c19_c4	1,1,1@mist,49,316	//Tете
+1@mist,345,186,0 warp #to_bif02 1,1,bif_fild02,151,121 //Дерево Хранителей
