@@ -328,7 +328,7 @@ einbroch,40,116,1	script	Airship Engineer#ein-1	855,{
 			mes "совсем не особенный.";
 			mes "Наверное, Вы тронулись, бедняга.";
 			next;
-			emotion e_an;
+			emotion ET_FRET;
 			mes "[Механик Дирижабля]";
 			mes "Ч-чтоо...?!";
 			close;

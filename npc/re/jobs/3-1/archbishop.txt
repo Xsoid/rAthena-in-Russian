@@ -174,7 +174,7 @@ umbala,139,227,3	script	Priest#arch	60,{
 		mes "Как же... там?";
 		mes "Хмм... ну...";
 		mes "Ум...ма? Ума...ума?";
-		emotion e_swt;
+		emotion ET_SWEAT;
 		next;
 		mes "[Утанский мальчик]";
 		mes "...............";
@@ -1186,7 +1186,7 @@ OnTouch:
 	mes "- Шшшшш -";
 	specialeffect EF_CLOAKING,AREA,"Valkyrie Anguhilde#end";
 	hideonnpc "Valkyrie Anguhilde#end";
-	emotion e_omg,1;
+	emotion ET_HUK, playerattached();
 	next;
 	mes "[Небесная валькирия]";
 	mes "Не принимай произошедшее слишком близко к сердцу. Она ушла туда, где и должна быть.";

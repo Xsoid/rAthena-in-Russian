@@ -1412,8 +1412,8 @@ OnEnable:
 	unittalk $@mobid[0],"За Пайон !!";
 	monster .@map$,161,217,"Пайонский воин",2544,1,instance_npcname("#BossSara01")+"::OnMyMobDead";
 	unittalk $@mobid[0],"За Пайон !!";
-	areamobuseskill .@map$,155,225,10,2544,"NPC_EMOTION",1,0,0,e_go,0;
-	areamobuseskill .@map$,159,236,1,2543,"NPC_EMOTION",1,0,0,e_swt,0;
+	areamobuseskill .@map$,155,225,10,2544,"NPC_EMOTION",1,0,0,ET_GO,0;
+	areamobuseskill .@map$,159,236,1,2543,"NPC_EMOTION",1,0,0,ET_SWEAT,0;
 	set 'Sara_Mobs,8;
 	end;
 

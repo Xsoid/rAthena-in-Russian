@@ -27,7 +27,7 @@
 
 // Common NPCs :: lv_tre
 //============================================================
-moc_para01,27,35,5	script	Secretary Lime Evenor	952,{
+moc_para01,27,35,5	script	Secretary Lime Evenor	4_F_EDEN_OFFICER,{
 	if (checkweight(1201,1) == 0 || (MaxWeight - Weight) < 2000) {
 		mes "- Минуточку !! -";
 		mes "- В данный момент вы перегружены.-";
@@ -93,7 +93,7 @@ moc_para01,27,35,5	script	Secretary Lime Evenor	952,{
 					mes "Вас зовут ^3131FFХo"+.@input$+"гa^000000...? Правильно?";
 					mes "Да??";
 					next;
-					emotion e_swt;
+					emotion ET_SWEAT;
 					mes "[Лаим Ивенор]";
 					mes "Хм, вы не так писали?..";
 					mes "Хм, немного неразборчиво.";
@@ -106,7 +106,7 @@ moc_para01,27,35,5	script	Secretary Lime Evenor	952,{
 					mes "Ах~ ха. Вас зовут ^3131FF"+strcharinfo(0)+"^000000.";
 					mes "На этот раз я прочла правильно.";
 					next;
-					emotion e_no1;
+					emotion ET_BEST;
 					mes "[Лаим Ивенор]";
 					mes "Ваше имя внесено в списки. Добро пожаловать в Райский уголок!";
 					next;
@@ -163,11 +163,11 @@ moc_para01,27,35,5	script	Secretary Lime Evenor	952,{
 				mes "[Лаим Ивенор]";
 				mes "Хм.. Хмм??..................";
 				next;
-				emotion e_dots;
+				emotion ET_THINK;
 				mes "[Лаим Ивенор]";
 				mes "Знаете, прежде чем регистрировать новые, Вам совершенно неоходимо выполнить одну миссию...";
 				next;
-				emotion e_pif;
+				emotion ET_HNG;
 				mes "[Лаим Ивенор]";
 				mes "^3131FFЗаказчик: Лаим Ивенор^000000";
 				mes "^3131FFЗадание: Упражнения в чистописании в течение одного месяца.^000000";
@@ -263,6 +263,7 @@ izlude_c,131,148,4	duplicate(eto)	Eden Teleport Officer#30::eto_iz_c	729
 izlude_d,131,148,4	duplicate(eto)	Eden Teleport Officer#30::eto_iz_d	729
 umbala,105,158,3	duplicate(eto)	Eden Teleport Officer#31	729
 malaya,238,206,6	duplicate(eto)	Eden Teleport Officer#32	729
+verus04,116,243,0	duplicate(eto)	Eden Teleport Officer#33	729
 
 moc_para01,30,10,0	script	#eden_out	45,1,1,{
 OnTouch:
@@ -299,6 +300,7 @@ OnTouch:
 		case 30: warp "izlude",134,118; end;	// Old coordinates: (127,142)
 		case 31: warp "umbala",94,154; end;
 		case 32: warp "malaya",234,199; end;
+		case 33: warp "verus04",115,243; end;
 		default: warp "prontera",116,72; end;
 	}
 	end;
@@ -344,15 +346,15 @@ moc_para01,182,48,3	script	Eden's Chief#eden	886,{
 	mes "[Эдемский повар]";
 	mes ""+.@eggf+".. "+.@eggf_1+"... "+.@eggf_2+".... "+.@eggf_6+"..?";
 	next;
-	emotion e_sob;
+	emotion ET_CRY;
 	mes "[Эдемский повар]";
 	mes "Ох, чёрт! Сколько яиц я вбухнул?.. Арр!!! Опять сбился!";
 	next;
-	emotion e_sob;
+	emotion ET_CRY;
 	mes "[Эдемский повар]";
 	mes "На кой чёрт мне сказали это делать! Что за чёртово задание такое!";
 	next;
-	emotion e_sob;
+	emotion ET_CRY;
 	mes "[Эдемский повар]";
 	mes "Какие черти настолько проголодались? Никто столько не сьест. Наверное, думают, что мне заняться больше нечем!";
 	close;
@@ -386,7 +388,7 @@ moc_para01,20,35,5	script	Office Assistant Neede	814,{
 	mes "[Нидэ]";
 	mes "А видел"+(Sex?"":"а")+" ^3131FFтренировочный зал^000000 в кресте ^3131FFсевернее холла^000000? Там иногда такой шум стоит, что у нас тут стены ходуном ходят!";
 	next;
-	emotion e_ag;
+	emotion ET_ANGER;
 	mes "[Нидэ]";
 	mes "А девка со ^3131FFвторого этажа^000000 всё время воет. Я скоро с ума сойду.";
 	next;
@@ -396,20 +398,20 @@ moc_para01,20,35,5	script	Office Assistant Neede	814,{
 	mes "[Нидэ]";
 	mes "Не представляю себе, кто она. Всё время кричит-ругается. А однажды я слышала: ''Бах!'' и звуки как будто ударов... Не хочу даже думать, что это было.";
 	next;
-	emotion e_omg;
+	emotion ET_HUK;
 	mes "[Нидэ]";
 	mes "Ой!";
 	mes "Тсс! Только никому не говори, это тайна!";
 	next;
 	mes "[Нидэ]";
-	emotion e_sigh;
+	emotion ET_OHNO;
 	mes "А этой Ивенор я не доверяю. Никогда не поймёшь, что у неё на уме... Наверняка доносит всё боссу.";
 	next;
-	emotion e_pif,0,"Secretary Lime Evenor";
+	emotion ET_HNG, getnpcid(0, "Secretary Lime Evenor");
 	mes "[Лаим Ивенор]";
 	mes "Я не такая.";
 	next;
-	emotion e_wah;
+	emotion ET_KEK;
 	mes "[Нидэ]";
 	mes "Ах? Она слышала? Что же делать~!";
 	close;

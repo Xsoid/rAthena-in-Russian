@@ -146,14 +146,14 @@ ayothaya,171,152,5	script	Лолита#Lalitha	838,{
 		next;
 		mes "[Лолита]";
 		mes "Ты знаешь, как леди носят платья и украшения в других странах, правда ли, что мужчины хорошо выглядят, какие песни у вас есть, какие у вас девушки, что нравится парням...";
-		emotion e_what;
+		emotion ET_QUESTION;
 		next;
 		mes "[" +strcharinfo(0)+ "]";
 		mes ".........";
 		next;
 		mes "[Лолита]";
 		mes "..........";
-		emotion e_swt;
+		emotion ET_SWEAT;
 		next;
 		mes "[Лолита]";
 		mes "Хорошо~!";
@@ -175,7 +175,7 @@ ayothaya,171,152,5	script	Лолита#Lalitha	838,{
 		mes "Ах...";
 		mes "Интересно,";
 		mes "где же мой черный рыцарь~";
-		emotion e_lv;
+		emotion ET_THROB;
 		next;
 		mes "["+strcharinfo(0)+"]";
 		mes "Вы имеете в виду...";
@@ -285,12 +285,12 @@ ayothaya,241,264,5	script	Еик#5ayothaya2	843,{
 		next;
 		mes "[Еик]";
 		mes "Я не настолько груб, чтобы драться с незнакомцами без причины!";
-		emotion e_wah;
+		emotion ET_KEK;
 		close;
 	}
 	mes "[Еик]";
 	mes "Настощая сила развивается после тысячи матчей с другими людьми. Так что не бойся боев, хорошо?";
-	emotion e_pif;
+	emotion ET_HNG;
 	close;
 }
 

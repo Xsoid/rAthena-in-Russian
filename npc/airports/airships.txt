@@ -187,7 +187,7 @@ airplane,100,69,3	script	Airship Crew#ein-1	852,{
 }
 
 airplane,64,94,1	script	Umbala Kid#ein_p	787,{
-	emotion e_swt2;
+	emotion ET_PROFUSELY_SWEAT;
 	mes "[Киндер]";
 	if (event_umbala >= 3) {
 		mes "Воу! Только посмотри на это! Мы летим! Мы на седьмом небе!";
@@ -202,7 +202,7 @@ airplane,64,94,1	script	Umbala Kid#ein_p	787,{
 }
 
 airplane,66,93,3	script	Umbala Lady#ein_p	783,{
-	emotion e_dots;
+	emotion ET_THINK;
 	mes "[Lady]";
 	if (event_umbala >= 3) {
 		mes "Ш-ш-ш...";
@@ -224,7 +224,7 @@ airplane,71,91,7	script	Umbala Man#ein_p	789,{
 		mes "Эй ты~";
 		mes "Не отворачивайся. Судя по твоему лицу ты меня понимаешь.";
 		next;
-		emotion e_pif;
+		emotion ET_HNG;
 		mes "[Chrmlim]";
 		mes "Я помогаю членам экипажа преодолеть боязнь высоты.";
 		next;
@@ -241,7 +241,7 @@ airplane,71,91,7	script	Umbala Man#ein_p	789,{
 		mes "...";
 		mes "......";
 		next;
-		emotion e_pif;
+		emotion ET_HNG;
 		mes "[Chrmlim]";
 		mes "Shabala moow bajama";
 		mes "Airship kulaha googoona ";
@@ -321,7 +321,7 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 		mes "[Pilot]";
 		mes "Но! Пить на работе непозволительно.";
 		mes "Но! Из-за этого мне только больше хочется выпить!";
-		emotion e_sob;
+		emotion ET_CRY;
 		next;
 		select("Знаете ли вы посажира по имени Thierry?");
 		mes "[Pilot]";
@@ -334,7 +334,7 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 		mes "Да и капитан северный олень.";
 		mes "Я вполне мог бы раздеться до трусов.";
 		next;
-		emotion e_omg;
+		emotion ET_HUK;
 		mes "[Pilot]";
 		mes "Вах! Кто тут?";
 		next;
@@ -351,7 +351,7 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 		mes "Всегда пейте ответственно!";
 		mes "Тем не менее я не могу вспомнить, когда у меня был реальный отпуск или хоты бы выходной.";
 		mes "Дааа, немного выпивки, азартных игр, немного телевизора и всё, пришёл бы в полный порядок.";
-		emotion e_sob;
+		emotion ET_CRY;
 		close;
 	case 2:
 		mes "[Pilot]";
@@ -368,7 +368,7 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 		mes "[Pilot]";
 		mes "Вы знаете? Всё это плавание в воздухе... То есть пилотирование корабля. Всё это довольно новое дело. Я получил эту работу в ужасной спешке.";
 		next;
-		emotion e_omg;
+		emotion ET_HUK;
 		mes "[Pilot]";
 		mes "Но мои наниматели были абсолютно серьёзны! И нас хорошо тренировали!";
 		close;
@@ -877,7 +877,7 @@ airplane_01,221,158,2	script	Pilot#airplane_01	852,{
 		mes "And the captain IS a reindeer.";
 		mes "I could just strip to my boxers.";
 		next;
-		emotion e_omg;
+		emotion ET_HUK;
 		mes "[Pilot]";
 		mes "Oh...! Hello there!";
 		mes "E-e-enjoying your flight?!";
@@ -896,7 +896,7 @@ airplane_01,83,61,2	script	Dianne#01airplane_01	72,2,2,{
 	close;
 
 OnTouch_:
-	emotion e_sob;
+	emotion ET_CRY;
 	end;
 }
 

@@ -1072,7 +1072,7 @@ morocc,27,112,4	script	Wickebine#BLS	725,{
 		mes "Передай ему, что я довольна качеством товара.";
 		next;
 		getitem 1073,1; //Merchant_Voucher_1
-		emotion e_lv;
+		emotion ET_THROB;
 		mes "[Wickebine]";
 		mes "Вот квитанция.";
 		mes "Думаю ты проделал";
@@ -1083,7 +1083,7 @@ morocc,27,112,4	script	Wickebine#BLS	725,{
 		end;
 	}
 	else if (BSMITH_Q == 14) {
-		emotion e_lv;
+		emotion ET_THROB;
 		cutin "Job_Black_hucke02",2;
 		mes "[Wickebine]";
 		mes "Спасибо за доставку.";
@@ -1109,7 +1109,7 @@ morocc,27,112,4	script	Wickebine#BLS	725,{
 		mes "[Wickebine]";
 		mes "Как долго ждать Geschupenschte? Обычно Геффенская Гильдия Кузнецов пунктуальна...";
 		next;
-		emotion e_lv;
+		emotion ET_THROB;
 		mes "[Wickebine]";
 		mes "Оооохх...";
 		mes "Это очень";
@@ -1371,7 +1371,7 @@ hugel,168,183,1	script	Bismarc#BLS	118,{
 
 ein_in01,24,41,5	script	Blacksmith Guildsman#moc	726,{
 	if (BSMITH_Q == 16) {
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Mitehmaeeuh]";
 		mes "Аа, так ты один из тех кто хочет стать Кузнецом?";
 		mes "Хорошо, хе хе.";
@@ -1559,7 +1559,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	726,{
 		close;
 	}
 	else if (BSMITH_Q == 17) {
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Mitehmaeeuh]";
 		mes "Да, ты только что прошёл тест на профессию Кузнеца~";
 		next;
@@ -1574,7 +1574,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	726,{
 		close;
 	}
 	else {
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Mitehmaeeuh]";
 		mes "Я имел дело с жарой когда был в Morroc'е,";
 		mes "и теперь мне приходится иметь дело с дымом в Einbroch'е!";

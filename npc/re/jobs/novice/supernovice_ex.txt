@@ -75,17 +75,17 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "Чего рыбачить мешаешь?";
 		next;
 		select("Я прин"+(Sex?"ёс":"есла")+" кое-что от Эссерэя...");
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Рыбачащий новичок]";
 		mes "Чего? Эссерэй? Эссерэй?";
 		mes "Хмм! Я его знаю?..";
 		mes "Эссерэй... Эссерэй... хмм.";
 		next;
-		emotion e_dots,1;
-		emotion e_dots;
+		emotion ET_THINK, playerattached();
+		emotion ET_THINK;
 		mes "..................";
 		next;
-		emotion e_gasp;
+		emotion ET_SURPRISE;
 		mes "[Рыбачащий новичок]";
 		mes "Ахххх --- !!";
 		mes "Вспомнил! --- Вспомнил!";
@@ -104,8 +104,8 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 			mes "Нет?! Не он?";
 			mes "Что это за Эссерэй тогда??";
 			next;
-			emotion e_dots,1;
-			emotion e_dots;
+			emotion ET_THINK, playerattached();
+			emotion ET_THINK;
 			mes ".... .... .... ....";
 			next;
 			mes "[Рыбачащий новичок]";
@@ -119,13 +119,13 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		next;
 		mes "- Вы рассказываете ему свою историю. -";
 		next;
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Рыбачащий новичок]";
 		mes "Хмм... Этот вопрос одновременно и сложен, и прост.";
 		next;
 		mes "- Слышно какое-то обсуждение. -";
 		next;
-		emotion e_an;
+		emotion ET_FRET;
 		mes "[Рыбачащий новичок]";
 		mes "Эссерэй! %@&$# сын, весь отпуск испортил...";
 		next;
@@ -134,7 +134,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "Жизнь моя, жестянка~";
 		mes "Аххх~ столько проблем.";
 		next;
-		emotion e_what;
+		emotion ET_QUESTION;
 		mes "[Рыбачащий новичок]";
 		mes "Че~ересчур. Хэй, мелюзга! Как тебя зовут?";
 		next;
@@ -205,7 +205,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "Ты в упор не понимаешь, как дальше развиваться, я прав?";
 		next;
 		select("Да, не могу я просто.");
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Нодор]";
 		mes "Хмхмхмм ~!";
 		mes "Есть один выход...";
@@ -221,7 +221,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 			next;
 			mes "[Нодор]";
 			mes "Я дам тебе подсказку. Ты не сможешь всегда оказываться прав"+(Sex?"":"а")+". Однажды придётся засунуть своё эго подальше и прислушаться к остальным.";
-			emotion e_an;
+			emotion ET_FRET;
 			close;
 		}
 		mes "[Нодор]";
@@ -255,7 +255,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "["+strcharinfo(0)+"]";
 		mes "Эй, Нодор!";
 		next;
-		emotion e_omg;
+		emotion ET_HUK;
 		mes "[Нодор]";
 		mes "Боже! Чего пугаешь... Чего тебе?";
 		next;
@@ -284,7 +284,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 			close;
 		}
 		changequest 5094+.@i,5098;
-		emotion e_heh;
+		emotion ET_SMILE;
 		mes "[Нодор]";
 		mes "Кехехехехехе~";
 		next;
@@ -305,7 +305,7 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 			mes "Разве у тебя не были какие-то дела? Страсти у тебя дофига... А вот терпению бы ещё поучиться.";
 			close;
 		}
-		emotion e_gg;
+		emotion ET_KIK;
 		mes "[Нодор]";
 		mes "Эххххххх~";
 		next;
@@ -408,16 +408,16 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "[Нодор]";
 		mes "Э-кхем! Я не просто терял время, когда тебя отослал!!";
 		next;
-		emotion e_omg;
+		emotion ET_HUK;
 		mes "[Нодор]";
 		mes "Что за?! --- а? --- !!";
 		next;
 		select("??????");
-		emotion e_swt;
+		emotion ET_SWEAT;
 		mes "[Нодор]";
 		mes "Осторожно!! На нас набегают големы! Нам... Надо бежать...!!!";
 		next;
-		emotion e_omg,1;
+		emotion ET_HUK, playerattached();
 		if(select("Чего?!:М?") == 2) {
 			mes "- Вы оглядываетесь, но -";
 			mes "- позади никого нет. -";
@@ -446,14 +446,14 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		callfunc "F_ClearJobVar"; // -- Clears all job variables for the current player
 		jobchange roclass(eaclass()|EAJL_THIRD);
 		set EXSUPNOV_Q,5;	
-		emotion e_heh;
+		emotion ET_SMILE;
 		mes "[Нодор]";
 		mes "Муаххахахахахаха!!";
 		mes "Прекрасно! Испугал"+(Sex?"ся":"ась")+"?";
 		next;
 		select("... ... ...");
-		emotion e_dots,1;
-		emotion e_sry;
+		emotion ET_THINK, playerattached();
+		emotion ET_SORRY;
 		mes "[Нодор]";
 		mes "Извини, что напугал!";
 		mes "Мне просто кажется, что наш долг и миссия, миссия Новичков -- это делать жизнь весёлой.";
@@ -464,11 +464,11 @@ beach_dun2,119,92,4	script	Fishing Novice#sp2	567,{
 		mes "Сила течёт по венам?";
 		next;
 		select("...? ...? ...?");
-		emotion e_what,1;
+		emotion ET_QUESTION, playerattached();
 		mes "[Нодор]";
 		mes "Ой--- Ё--- (ха,ха,ха)!!";
 		next;
-		emotion e_hmm;
+		emotion ET_SCRATCH;
 		mes "[Нодор]";
 		mes (Sex?"Приятель":"Подруга")+" --";
 		mes "Не хочу тебя обидеть, но ты немного тормоз... Как себя чувствуешь?";

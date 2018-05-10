@@ -369,7 +369,7 @@ amatsu,269,221,1	script	Propose Girl#ama	758,{
 	mes "После предложения, ответ должен быть дан";
 	mes "не позднее воскресного вечера. Это наиболее важная часть.";
 	next;
-	emotion e_lv2;
+	emotion ET_BIGTHROB;
 	mes "[Хутари Шиоко]";
 	mes "Если вам кто-то нравится...";
 	mes "Вы должны попытать счастье";
@@ -401,7 +401,7 @@ amatsu,243,202,3	script	Drama Teacher#ama	760,{
 		mes "способных играть в нашем театре...'";
 		close;
 	}
-	emotion e_gasp;
+	emotion ET_SURPRISE;
 	mes "[Учитель Гаракаме]";
 	mes "Интересуетесь актёрством?";
 	mes "Мне нужны люди играющие";
@@ -429,19 +429,19 @@ amatsu,283,203,1	script	Bonubonu#ama1	1323,{
 
 amatsu,283,203,1	script	Bonubonu#ama2	111,{
 	set jap_tree,3;
-	emotion e_swt2;
+	emotion ET_PROFUSELY_SWEAT;
 	mes "[Bonubonu]";
 	mes "Это дерево на холме";
 	mes "очень старое. Это большое вишневое,";
 	mes "вечно-цветущее дерево.";
 	next;
-	emotion e_swt2;
+	emotion ET_PROFUSELY_SWEAT;
 	mes "[Bonubonu]";
 	mes "Что-то есть в том дереве,";
 	mes "что заставляет забыть о всех бедах";
 	mes "в моей жизни, когда я сижу под ним.";
 	next;
-	emotion e_swt2;
+	emotion ET_PROFUSELY_SWEAT;
 	mes "[Bonubonu]";
 	mes "Все в этом дереве";
 	mes "прекрасно...";
@@ -449,7 +449,7 @@ amatsu,283,203,1	script	Bonubonu#ama2	111,{
 	mes "то, что чувствую смотря на него...";
 	mes "Оно заставляет затаить дыхание...";
 	next;
-	emotion e_swt2;
+	emotion ET_PROFUSELY_SWEAT;
 	mes "[Bonubonu]";
 	mes "Вы должны потратить немного";
 	mes "времени и сходить к дереву.";
@@ -483,7 +483,7 @@ amatsu,274,178,7	script	Ветеринар#ama	735,{
 		mes "Ку-ух... Они могут быть...";
 		mes "Кстати, вы хотите сделать ставку на него...?";
 		next;
-		emotion e_dots;
+		emotion ET_THINK;
 		mes "[Сакура Сейичи]";
 		mes "Если я..........";
 		mes "............";
@@ -496,7 +496,7 @@ amatsu,274,178,7	script	Ветеринар#ama	735,{
 	mes "[Сакура Сейичи]";
 	mes "Ничего не могу с собой поделать. Но в один прекрасный день вы тоже будете похоронены под...";
 	next;
-	emotion e_dots;
+	emotion ET_THINK;
 	mes "[Сакура Сейичи]";
 	mes "Хаха... Хахаха.....";
 	mes "...............";

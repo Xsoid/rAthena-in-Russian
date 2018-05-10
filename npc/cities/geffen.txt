@@ -104,7 +104,7 @@ geffen,147,26,0	script	Ralphie	97,{
 	mes "С таким предметом любой станет сильным как Геракл...Даже такой хлюпик, как я!Хахахахаха,";
 	mes "Я просто обязан его заполучить!";
 	next;
-	emotion e_gasp;
+	emotion ET_SURPRISE;
 	mes "[Ральфи]";
 	mes "Силы небесные!";
 	mes "И сколько уже времени";
@@ -158,7 +158,7 @@ geffen,111,48,0	script	Stacey	101,{
 			mes "Как будто...";
 			mes "Как будто тебя окружает такая невероятно мужественная аура! Оооооо~! Все девушки теперь твои!";
 			next;
-			emotion e_lv;
+			emotion ET_THROB;
 			mes "[Стейси]";
 			mes "Включая и меня.";
 		}
@@ -462,7 +462,7 @@ geffen_in,22,125,1	script	Crumpler	52,{
 			mes "[Крамплер]";
 			mes "Ооооооо";
 			mes "чёёёёёёёрт!";
-			emotion e_gasp;
+			emotion ET_SURPRISE;
 			next;
 			mes "[Крамплер]";
 			mes "Пппппомогитееееееее!";
@@ -500,7 +500,7 @@ geffen_in,22,125,1	script	Crumpler	52,{
 		mes "[Крамплер]";
 		mes "М...";
 		mes "Мудрец?";
-		emotion e_what;
+		emotion ET_QUESTION;
 		next;
 		mes "[Крамплер]";
 		mes "Знать не знаю, кто такие. Но уж наверняка не хуже Мага.";

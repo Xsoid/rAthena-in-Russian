@@ -412,7 +412,7 @@ moscovia,223,191,3	script	Kafra Employee::kaf_mosk	114,{
 	cutin "kafra_04",2;
 	callfunc "F_Kafra",0,3,0,80,700;
 	savepoint "moscovia",221,194,1,1;
-	callfunc "F_KafEnd",0,3,"в черте Московии";
+	callfunc "F_KafEnd",0,1,"в черте Московии";
 }
 
 // Amatsu
@@ -660,5 +660,5 @@ alb2trea,59,69,5	script	Kafra Employee::kaf_alb2trea	117,{
 	mes "Чем я могу помочь?";
 	callfunc "F_Kafra",5,2,1,50,0;
 	savepoint "alb2trea",92,64,1,1;
-	callfunc "F_KafEnd",0,1,0,"на Затонувшем Корабле";
+	callfunc "F_KafEnd",0,1,"на Затонувшем Корабле";
 }
