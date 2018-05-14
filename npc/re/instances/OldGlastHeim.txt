@@ -23,7 +23,7 @@
 // .@md_name$ = "Старый Гластхейм"
 //============================================================ 
 
-glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
+glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 	if (BaseLevel < 130) {
 		mes "[Хугин]";
 		mes "Может, заглянете, когда станете постарше?";
@@ -147,7 +147,7 @@ glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
 		mes "Вы всё ещё находитесь под влиянием путешествия во времени. Вы не можете продолжать в таком состоянии.";
 		next;
 		mes "[Хугин]";
-		mes "Не стоит пренебрегать своим здоровьем. Отдохните и возвращайся позже.";
+		mes "Не стоит пренебрегать своим здоровьем. Отдохните и возвращайтесь позже.";
 		close;
 	case 2:
 		mes "^0000ffДоступ к Гластхейму был сброшен. Теперь вы можете поговорить с Хугином.^000000";
@@ -261,7 +261,7 @@ glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
 
 1@gl_k,145,89,6	script	Белый рыцарь#7	4_WHITEKNIGHT,{
 	mes "[Белый рыцарь]";
-	mes "Пожулайста, держитесь в рамках приличий.";
+	mes "Пожалуйста, держитесь в рамках приличий.";
 	close;
 }
 1@gl_k,154,89,3	duplicate(Белый рыцарь#7)	Белый рыцарь#8	4_WHITEKNIGHT
@@ -336,7 +336,7 @@ glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
 	next;
 	mes "[Генрих]";
 	mes "Чем я могу Вам помочь? Что-то случилось?";
-	npctalk "Генрих: Чем я могу Вам помочь? Что-то случилось?";
+	npctalk "Генрих : Чем я могу Вам помочь? Что-то случилось?";
 	next;
 	select("Сердце Имира. Химмельмез...");
 	mes "["+.@player_name$+"]";
@@ -574,31 +574,31 @@ OnTimer112500:
 	npctalk "Генрих : Я своими руками перебил своих же людей!", 'npc_heinrich3$;
 	end;
 OnTimer115500:
-	npctalk "Вармунт: Генрих, сэр! У нас нет времени!", 'npc_varmundt1$;
+	npctalk "Вармунт : Генрих, сэр! У нас нет времени!", 'npc_varmundt1$;
 	end;
 OnTimer118500:
-	npctalk "Вармунт: Если мы поспешим, ещё останется шанс!", 'npc_varmundt1$;
+	npctalk "Вармунт : Если мы поспешим, ещё останется шанс!", 'npc_varmundt1$;
 	end;
 OnTimer121500:
-	npctalk "Генрих: ... Вармунт прав. Не время для скорби.", 'npc_heinrich3$;
+	npctalk "Генрих : ... Вармунт прав. Не время для скорби.", 'npc_heinrich3$;
 	end;
 OnTimer124500:
-	npctalk "Генрих: Вы, подойдите и следуйте моим приказам.", 'npc_heinrich3$;
+	npctalk "Генрих : Вы, подойдите и следуйте моим приказам.", 'npc_heinrich3$;
 	end;
 OnTimer127500:
-	npctalk "Генрих: Химмельмез превращает живых людей в чудовищ.", 'npc_heinrich3$;
+	npctalk "Генрих : Химмельмез превращает живых людей в чудовищ.", 'npc_heinrich3$;
 	end;
 OnTimer130500:
-	npctalk "Генрих: Я не знаю, есть ли здесь другие выжившие.", 'npc_heinrich3$;
+	npctalk "Генрих : Я не знаю, есть ли здесь другие выжившие.", 'npc_heinrich3$;
 	end;
 OnTimer134500:
-	npctalk "Генрих: Но если хоть кто-то пережил это злодеяние, пожалуйста, спасите их.", 'npc_heinrich3$;
+	npctalk "Генрих : Но если хоть кто-то пережил это злодеяние, пожалуйста, спасите их.", 'npc_heinrich3$;
 	end;
 OnTimer138500:
-	npctalk "Генрих: Мы с Вармунтом начнём преследование.", 'npc_heinrich3$;
+	npctalk "Генрих : Мы с Вармунтом начнём преследование.", 'npc_heinrich3$;
 	end;
 OnTimer143500:
-	npctalk "Генрих: Хорошо, Вармунт. Давайте найдём эту Химмельмез.", 'npc_heinrich3$;
+	npctalk "Генрих : Хорошо, Вармунт. Давайте найдём эту Химмельмез.", 'npc_heinrich3$;
 	end;
 OnTimer147500:
 	disablenpc 'npc_heinrich3$;
@@ -664,7 +664,7 @@ OnMyMobDead:
 	next;
 	mes "[Прислужник Домун]";
 	mes "Управляющий... и монахи... Они стали монстрами. Я не смог ничего сделать.";
-	npctalk "Прислужник Домун: Гофмейстер... и монах... Они стали монстрами. Я не смог ничего сделать.";
+	npctalk "Прислужник Домун: Управляющий... и монахи... Они стали монстрами. Я не смог ничего сделать.";
 	next;
 	mes "[Прислужник Домун]";
 	mes "Я просто спрятался... И ничего, ничего не сделал...";
@@ -839,12 +839,12 @@ OnMyMobDead:
 		enablenpc instance_npcname("Вармунт#2");
 		enablenpc instance_npcname("Генрих#4");
 		disablenpc instance_npcname("#ghmemorialmob03");
-		mapannounce 'map_name$[0], "Химмельмез: Неплохо. Я ожидала, что к этому моменту мои создания уже вас сожрут~", bc_map,0xFFFFFF;
+		mapannounce 'map_name$[0], "Химмельмез : Неплохо. Я ожидала, что к этому моменту мои создания уже вас сожрут~", bc_map,0xFFFFFF;
 		initnpctimer;
 	}
 	end;
 OnTimer5000:
-	mapannounce 'map_name$[0], "Химмельмез: Я буду ждать вас в северном крыле. Посмотрим, насколько вы удачливы.", bc_map,0xFFFFFF;
+	mapannounce 'map_name$[0], "Химмельмез : Я буду ждать вас в северном крыле. Посмотрим, насколько вы удачливы.", bc_map,0xFFFFFF;
 	stopnpctimer;
 	end;
 }
@@ -897,37 +897,37 @@ OnTouch_:
 	'npc_heinrich4$ = instance_npcname("Генрих#4");
 	end;
 OnTimer3000:
-	npctalk "Химмельмез: Вы ужасно удачливы, раз смогли добраться сюда.", 'npc_himelmez2$;
+	npctalk "Химмельмез : Вы ужасно удачливы, раз смогли добраться сюда.", 'npc_himelmez2$;
 	end;
 OnTimer6000:
-	npctalk "Химмельмез: Но это не имеет значения.", 'npc_himelmez2$;
+	npctalk "Химмельмез : Но это не имеет значения.", 'npc_himelmez2$;
 	end;
 OnTimer9000:
-	npctalk "Химмельмез: Сейчас все вы умрёте.", 'npc_himelmez2$;
+	npctalk "Химмельмез : Сейчас все вы умрёте.", 'npc_himelmez2$;
 	end;
 OnTimer12000:
-	npctalk "Генрих: Химмельмез! Я больше не позволю тебе сделать ни единого шага!", 'npc_heinrich4$;
+	npctalk "Генрих : Химмельмез! Я больше не позволю тебе сделать ни единого шага!", 'npc_heinrich4$;
 	end;
 OnTimer15000:
-	npctalk "Химмельмез: Хахаха, о себе лучше беспокойтесь. Вы что, подумали, что я пришла одна?", 'npc_himelmez2$;
+	npctalk "Химмельмез : Хахаха, о себе лучше беспокойтесь. Вы что, подумали, что я пришла одна?", 'npc_himelmez2$;
 	end;
 OnTimer18000:
-	npctalk "Вармунт: Сэр Генрих! Я ощущаю, как приближается нечто с невероятной, мощной силой!", instance_npcname("Вармунт#2");
+	npctalk "Вармунт : Сэр Генрих! Я ощущаю, как приближается нечто с невероятной, мощной силой!", instance_npcname("Вармунт#2");
 	end;
 OnTimer21000:
-	npctalk "Генрих: Что... это такое?!", 'npc_heinrich4$;
+	npctalk "Генрих : Что... это такое?!", 'npc_heinrich4$;
 	end;
 OnTimer24000:
-	npctalk "Химмельмез: Всего лишь моя новая игрушка, чтобы вам не было скучно, пока я продолжу свой путь.", 'npc_himelmez2$;
+	npctalk "Химмельмез : Всего лишь моя новая игрушка, чтобы вам не было скучно, пока я продолжу свой путь.", 'npc_himelmez2$;
 	end;
 OnTimer27000:
-	npctalk "Химмельмез: Искренне~ надеюсь, что у меня появится возможность снова увидеться с тобой, Генрих.", 'npc_himelmez2$;
+	npctalk "Химмельмез : Искренне~ надеюсь, что у меня появится возможность снова увидеться с тобой, Генрих.", 'npc_himelmez2$;
 	end;
 OnTimer28000:
 	disablenpc 'npc_himelmez2$;
 	end;
 OnTimer31000:
-	npctalk "Генрих: Сэр Вармунт! Помогите путешественникам, а я продолжу преследование!", 'npc_heinrich4$;
+	npctalk "Генрих : Сэр Вармунт! Помогите путешественникам, а я продолжу преследование!", 'npc_heinrich4$;
 	end;
 OnTimer32000:
 	disablenpc 'npc_heinrich4$;
@@ -952,7 +952,7 @@ OnStart:
 OnMyMobDead:
 	if (mobcount('map_name$[0], instance_npcname("#ghmemorialmob04") + "::OnMyMobDead") < 1) {
 		mapannounce 'map_name$[0], "Проход на второй этаж появился в направлении на 12 часов.", bc_map,0xFFFF00;
-		npctalk "Вармунт: Я подобрал интересную вещь с этого монстра. Если кому-то понадобится - скажите мне.", instance_npcname("Вармунт#2");
+		npctalk "Вармунт : Я подобрал интересную вещь с этого монстра. Если кому-то понадобится - скажите мне.", instance_npcname("Вармунт#2");
 
 		enablenpc instance_npcname("#2F Entrance");
 		enablenpc instance_npcname("#1 Control");
@@ -1000,71 +1000,71 @@ OnTouch_:
 	'npc_varmundt$ = instance_npcname("Вармунт#21");
 	end;
 OnTimer3000:
-	npctalk "Генрих: Этого никогда не было в замке!", 'npc_heinrich$;
+	npctalk "Генрих : Этого никогда не было в замке!", 'npc_heinrich$;
 	end;
 OnTimer6000:
-	npctalk "Вармунт: Её заклинания полностью заблокировали все проходы.", 'npc_varmundt$;
+	npctalk "Вармунт : Её заклинания полностью заблокировали все проходы.", 'npc_varmundt$;
 	end;
 OnTimer9000:
-	npctalk "Генрих: Оружием эту силу не развеять. Я пытался.", 'npc_heinrich$;
+	npctalk "Генрих : Оружием эту силу не развеять. Я пытался.", 'npc_heinrich$;
 	end;
 OnTimer12000:
-	npctalk "Вармунт: Отойдите-ка на секунду. Я попытаюсь обезвредить заклятье с помощью магии.", 'npc_varmundt$;
+	npctalk "Вармунт : Отойдите-ка на секунду. Я попытаюсь обезвредить заклятье с помощью магии.", 'npc_varmundt$;
 	end;
 OnTimer15000:
 	specialeffect EF_LORD,AREA, instance_npcname("#Servanton_effect");
 	disablenpc instance_npcname("#Servanton_effect");
 	end;
 OnTimer18000:
-	npctalk "Вармунт: Кажется, мне удалось пробиться.", 'npc_varmundt$;
+	npctalk "Вармунт : Кажется, мне удалось пробиться.", 'npc_varmundt$;
 	end;
 OnTimer21000:
-	npctalk "Вармунт: Никогда прежде не видел такого.", 'npc_varmundt$;
+	npctalk "Вармунт : Никогда прежде не видел такого.", 'npc_varmundt$;
 	end;
 OnTimer24000:
-	npctalk "Вармунт: Химмельмез не нужна печать на теле жертвы, чтобы превратить её в нежить.", 'npc_varmundt$;
+	npctalk "Вармунт : Химмельмез не нужна печать на теле жертвы, чтобы превратить её в нежить.", 'npc_varmundt$;
 	end;
 OnTimer27000:
-	npctalk "Вармунт: Она использует зачарованные камни. Похоже, с помощью них и поддерживаются заклинания.", 'npc_varmundt$;
+	npctalk "Вармунт : Она использует зачарованные камни. Похоже, с помощью них и поддерживаются заклинания.", 'npc_varmundt$;
 	end;
 OnTimer30000:
-	npctalk "Вармунт: Чтобы снять заклинание, мы должны убить тех, кто их хранит.", 'npc_varmundt$;
+	npctalk "Вармунт : Чтобы снять заклинание, мы должны убить тех, кто их хранит.", 'npc_varmundt$;
 	end;
 OnTimer33000:
-	npctalk "Вармунт: Но мы не знаем, у кого они. Придётся проверять всех.", 'npc_varmundt$;
+	npctalk "Вармунт : Но мы не знаем, у кого они. Придётся проверять всех.", 'npc_varmundt$;
 	end;
 OnTimer36000:
-	npctalk "Генрих: Это непростительно.", 'npc_heinrich$;
+	npctalk "Генрих : Это непростительно.", 'npc_heinrich$;
 	end;
 OnTimer39000:
-	npctalk "Генрих:  Я уже организовал геноцид. Но сколько ещё жертв несёт будущее...", 'npc_heinrich$;
+	npctalk "Генрих :  Я уже организовал геноцид. Но сколько ещё жертв несёт будущее...", 'npc_heinrich$;
 	end;
 OnTimer42000:
-	npctalk "Вармунт: Комендант...", 'npc_varmundt$;
+	npctalk "Вармунт : Комендант...", 'npc_varmundt$;
 	end;
 OnTimer45000:
-	npctalk "Вармунт: Комендант! Будьте тверды.", 'npc_varmundt$;
+	npctalk "Вармунт : Комендант! Будьте тверды.", 'npc_varmundt$;
 	end;
 OnTimer48000:
-	npctalk "Вармунт: Наш враг не человек, и даже не люди.", 'npc_varmundt$;
+	npctalk "Вармунт : Наш враг не человек, и даже не люди.", 'npc_varmundt$;
 	end;
 OnTimer51000:
-	npctalk "Вармунт: Даже если вы не готовы признавать это, их не вернуть.", 'npc_varmundt$;
+	npctalk "Вармунт : Даже если вы не готовы признавать это, их не вернуть.", 'npc_varmundt$;
 	end;
 OnTimer54000:
-	npctalk "Генрих: ...", 'npc_heinrich$;
+	npctalk "Генрих : ...", 'npc_heinrich$;
 	end;
 OnTimer57000:
-	npctalk "Вармунт: Пора приступать.", 'npc_varmundt$;
+	npctalk "Вармунт : Пора приступать.", 'npc_varmundt$;
 	end;
 OnTimer60000:
-	npctalk "Вармунт: Вы очень помогли нам. Можете сделать привал, но постарайтесь не отставать.", 'npc_varmundt$;
+	npctalk "Вармунт : Вы очень помогли нам. Можете сделать привал, но постарайтесь не отставать.", 'npc_varmundt$;
 	end;
 OnTimer63000:
-	npctalk "Вармунт: Нам предстоит тяжёлая битва.", 'npc_varmundt$;
+	npctalk "Вармунт : Нам предстоит тяжёлая битва.", 'npc_varmundt$;
 	end;
 OnTimer66000:
-	npctalk "Вармунт: Нам пора выдвигаться, сэр.", 'npc_varmundt$;
+	npctalk "Вармунт : Нам пора выдвигаться, сэр.", 'npc_varmundt$;
 	end;
 OnTimer69000:
 	mapannounce 'map_name$[1], "Проход в первую зону появился по направлению на 9 часов. Он расположен в центральном коридоре.", bc_map,0xFFFF00;
@@ -1135,7 +1135,7 @@ OnMyMobDead:
 
 		.@r = rand(4) * 2;
 		setarray .@coord[0], 41,146, 58,44, 122,148, 131,64;
-		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "Разрушающийся Первый Капитан",2473,1, instance_npcname("#ghmemorialmob05") + "::OnBossDead";
+		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "1-й Капитан Разрушения",2473,1, instance_npcname("#ghmemorialmob05") + "::OnBossDead";
 	}
 	end;
 
@@ -1214,7 +1214,7 @@ OnMyMobDead:
 
 		.@r = rand(4) * 2;
 		setarray .@coord[0], 166,119, 211,45, 227,139, 245,74;
-		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "Разрушающийся Второй Капитан",2474,1, instance_npcname("#ghmemorialmob06") + "::OnBossDead";
+		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "2-й Капитан Разрушения",2474,1, instance_npcname("#ghmemorialmob06") + "::OnBossDead";
 	}
 	end;
 
@@ -1351,55 +1351,55 @@ OnTimer3000:
 	npctalk "Химмельмез : Великолепно~ Я уже думала, что вы не поспеете к концу...", 'npc_himelmez$;
 	end;
 OnTimer6000:
-	npctalk "Gerhalt: Проклятье! Бегите! Я не могу больше сопротивляться...", 'npc_gerhalt$;
+	npctalk "Герхард : Проклятье! Бегите! Я не могу больше сопротивляться...", 'npc_gerhalt$;
 	end;
 OnTimer9000:
-	npctalk "Генрих: Герхард!", 'npc_heinrich$;
+	npctalk "Генрих : Герхард!", 'npc_heinrich$;
 	end;
 OnTimer15000:
-	npctalk "Генрих: Что ты творишь с моими людьми, Химмельмез?!", 'npc_heinrich$;
+	npctalk "Генрих : Что ты творишь с моими людьми, Химмельмез?!", 'npc_heinrich$;
 	end;
 OnTimer18000:
-	npctalk "Химмельмез: Хохо, я успела найти осколок Сердца Имира, Генрих.", 'npc_himelmez$;
+	npctalk "Химмельмез : Хохо, я успела найти осколок Сердца Имира, Генрих.", 'npc_himelmez$;
 	end;
 OnTimer21000:
-	npctalk "Химмельмез: Если б он не мешался под ногами, всё прошло бы ещё быстрее.", 'npc_himelmez$;
+	npctalk "Химмельмез : Если б он не мешался под ногами, всё прошло бы ещё быстрее.", 'npc_himelmez$;
 	end;
 OnTimer24000:
 	npctalk "Герхард : Комендант... вам нужно бежать отсюда... Кх.", 'npc_gerhalt$;
 	end;
 OnTimer27000:
-	npctalk "Химмельмез: Правда? Почему ты так думаешь?", 'npc_himelmez$;
+	npctalk "Химмельмез : Правда? Почему ты так думаешь?", 'npc_himelmez$;
 	end;
 OnTimer30000:
-	npctalk "Генрих: Химмельмез! Ты уже получила, что хотела, не надо больше жертв!", 'npc_heinrich$;
+	npctalk "Генрих : Химмельмез! Ты уже получила, что хотела, не надо больше жертв!", 'npc_heinrich$;
 	end;
 OnTimer33000:
-	npctalk "Генрих: Отпусти его! Хватит пострадавших!", 'npc_heinrich$;
+	npctalk "Генрих : Отпусти его! Хватит пострадавших!", 'npc_heinrich$;
 	end;
 OnTimer36000:
-	npctalk "Химмельмез: Отпустить? Как насчёт... нет.", 'npc_himelmez$;
+	npctalk "Химмельмез : Отпустить? Как насчёт... нет.", 'npc_himelmez$;
 	end;
 OnTimer39000:
-	npctalk "Химмельмез: Ах, да, Генрих, это же твой последний солдат.", 'npc_himelmez$;
+	npctalk "Химмельмез : Ах, да, Генрих, это же твой последний солдат.", 'npc_himelmez$;
 	end;
 OnTimer42000:
-	npctalk "Химмельмез: К тому же он затруднил моё продвижение.", 'npc_himelmez$;
+	npctalk "Химмельмез : К тому же он затруднил моё продвижение.", 'npc_himelmez$;
 	end;
 OnTimer45000:
-	npctalk "Химмельмез: Он идеально подходит для моего нового творения... Амдараиса.", 'npc_himelmez$;
+	npctalk "Химмельмез : Он идеально подходит для моего нового творения... Амдараиса.", 'npc_himelmez$;
 	end;
 OnTimer48000:
-	npctalk "Генрих: Я никогда не прощу тебя.", 'npc_heinrich$;
+	npctalk "Генрих : Я никогда не прощу тебя.", 'npc_heinrich$;
 	end;
 OnTimer51000:
-	npctalk "Химмельмез: Ууух~ Как страшно.", 'npc_himelmez$;
+	npctalk "Химмельмез : Ууух~ Как страшно.", 'npc_himelmez$;
 	end;
 OnTimer54000:
-	npctalk "Химмельмез: Но~ мне было приятно поговорить с тобой. Может нам удастся встретиться в следующий раз.", 'npc_himelmez$;
+	npctalk "Химмельмез : Но~ мне было приятно поговорить с тобой. Может быть, нам удастся встретиться в следующий раз.", 'npc_himelmez$;
 	end;
 OnTimer57000:
-	npctalk "Химмельмез: До скорого.", 'npc_himelmez$;
+	npctalk "Химмельмез : До скорого.", 'npc_himelmez$;
 	end;
 OnTimer60000:
 	specialeffect EF_BARRIER, AREA, 'npc_gerhalt$;
@@ -1414,14 +1414,14 @@ OnTimer66000:
 	specialeffect EF_CHAINCOMBO, AREA, 'npc_gerhalt$;
 	end;
 OnTimer67000:
-	npctalk "Генрих: Тебе не уйти, Химмельмез!!", 'npc_heinrich$;
+	npctalk "Генрих : Тебе не уйти, Химмельмез!!", 'npc_heinrich$;
 	specialeffect EF_MAPPILLAR, AREA, 'npc_gerhalt$;
 	end;
 OnTimer70000:
 	specialeffect EF_MAPPILLAR2, AREA, 'npc_gerhalt$;
 	specialeffect EF_MAPPILLAR, AREA, 'npc_gerhalt$;
 	disablenpc 'npc_heinrich$;
-	npctalk "Вармунт: У нас нет выбора. Придётся сразиться с этим Амдараисом!", 'npc_varmundt$;
+	npctalk "Вармунт : У нас нет выбора. Придётся сразиться с Амдараисом!", 'npc_varmundt$;
 	end;
 OnTimer73000:
 	mapannounce 'map_name$[1], "Тело Герхарда начинает меняться.", bc_map,0xFFFFFF;
@@ -1429,7 +1429,7 @@ OnTimer73000:
 OnTimer76000:
 	specialeffect EF_LORD, AREA, 'npc_gerhalt$;
 	disablenpc 'npc_varmundt$;
-	mapannounce 'map_name$[1], "Вармунт: Я помогу иллюзией. Делай, что она скажет.", bc_map,0xFFFF00;
+	mapannounce 'map_name$[1], "Вармунт : Я помогу. Делай, что скажет моя иллюзия.", bc_map,0xFFFF00;
 	end;
 OnTimer80000:
 	disablenpc 'npc_gerhalt$;
@@ -1570,13 +1570,13 @@ OnEvent:
 	enablenpc instance_npcname( strnpcinfo(0) );
 	.@num = atoi( replacestr(strnpcinfo(2), "Buff", "") );
 	if (.@num == 1)
-		npctalk "Призрак Вармунта: Амдараис обладает собственной магией! Держитесь ближе ко мне, я вас прикрою!";
+		npctalk "Призрак Вармунта : Амдараис обладает собственной магией! Держитесь ближе ко мне, я вас прикрою!";
 	else if (.@num == 2)
-		npctalk "Призрак Вармунта: Время для удара! Встаньте около меня и атакуйте!";
+		npctalk "Призрак Вармунта : Время для удара! Встаньте около меня и атакуйте!";
 	else if (.@num == 3)
-		npctalk "Призрак Вармунта: Если не хотите, чтобы вас атаковали зомби Амдараиса, подойдите ко мне и зачерпните силы!";
+		npctalk "Призрак Вармунта : Если не хотите, чтобы вас атаковали зомби Амдараиса, подойдите ко мне и зачерпните силы!";
 	else
-		npctalk "Призрак Вармунта: Если не хотите, чтобы вас атаковали зомби Амдараиса, подойдите ко мне и зачерпните силы! ";
+		npctalk "Призрак Вармунта : Если не хотите, чтобы вас атаковали зомби Амдараиса, подойдите ко мне и зачерпните силы! ";
 	end;
 OnTimer10000:
 	stopnpctimer;
