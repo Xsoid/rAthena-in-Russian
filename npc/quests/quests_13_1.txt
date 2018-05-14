@@ -4465,7 +4465,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 			next;
 			switch(select("Go check Rumis if it's true.:Do not trust his word.")) {
 			case 1:
-				emotion e_heh;
+				emotion ET_SMILE;
 				mes "[Botanist]";
 				mes "Hahaha!";
 				mes "Muhahaha!";
