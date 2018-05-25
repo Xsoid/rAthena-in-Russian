@@ -1,0 +1,2247 @@
+//===== rAthena Script =======================================
+//= Devil Tower
+//===== Description: =========================================
+//= [Walkthrough Conversion]
+//= Devil Tower Instance
+//===== Changelogs: ==========================================
+//= 1.0 First version. [Capuche]
+//============================================================
+//= Translation en > ru [Akaineko]
+//= cp-1251
+//= 18+
+//============================================================
+
+dali02,134,119,5	script	Историк Шеп#tnm01	4_F_NOVICE,{
+	if (BaseLevel < 130) {
+		mes "[Шеп]";
+		mes "Ты волонтёр? Хочешь записаться на исследование Башни Демона?";
+		mes "Это очень опасно, тебе нужно быть как минимум^4d4dff 130 уровня^000000.";
+		next;
+		mes "[Шеп]";
+		mes "Приходи, когда будешь сильнее.";
+		mes "Ну, ты меня понял"+(Sex?"":"а")+", да?";
+		close;
+	}
+	if (isbegin_quest(7576) > 0) {// instance completed
+		mes "[Шеп]";
+		mes "Значит, там время и пространство сходятся?";
+		mes "Это прекрасно! Я в восторге от возможности путешествий во времени.";
+		next;
+		mes "[Шеп]";
+		mes "Это всё?";
+		mes "Ты проделал"+(Sex?"":"а")+" отличную работу.";
+		mes "Буду ждать новых открытий!";
+		setquest 7577;// Space distortion
+		erasequest 7568;// Explore the tower
+		erasequest 7571;// Tower Expedition
+		erasequest 7574;// Thanatos Tower
+		erasequest 7576;// Morocc castle seal
+		getexp 450000,450000;
+		devil_tower_can_reenter = 0;
+		devil_tower_enter = 0;
+		mes "До завтра!";
+		close;
+	}
+	if (isbegin_quest(7574) > 0) {// failed after seal
+		mes "[Шеп]";
+		mes "Ох, ты так быстро вернул"+(Sex?"ся":"ась")+"...";
+		mes "Что случилось?";
+		next;
+		mes "[Шеп]";
+		mes "... Ясно.";
+		mes "Ты хорошо постарал"+(Sex?"ся":"ась")+".";
+		mes "Жду не дождусь новых открытий!";
+		setquest 7577;// Space distortion
+		erasequest 7568;// Explore the tower
+		erasequest 7571;// Tower Expedition
+		erasequest 7574;// Thanatos Tower
+		getexp 300000,300000;
+		devil_tower_can_reenter = 0;
+		devil_tower_enter = 0;
+		mes "Заходи завтра!";
+		close;
+	}
+	if (isbegin_quest(7571) > 0) {// failed at stair 2 tnm1
+		mes "[Шеп]";
+		mes "Ох, это ты.";
+		mes "Ясно... То есть, эта башня связана с миром демонов.";
+		next;
+		mes "[Шеп]";
+		mes "Неплохо.";
+		mes "Ты проделал"+(Sex?"":"ла")+" достойную работу.";
+		mes "Жду не дождусь новых открытий!";
+		setquest 7577;// Space distortion
+		erasequest 7568;// Explore the tower
+		erasequest 7571;// Tower Expedition
+		if (isbegin_quest(7572)) erasequest 7572;// Lucile...?
+		if (isbegin_quest(7573)) erasequest 7573;// Magic Swordman Thanatos
+		getexp 200000,200000;
+		devil_tower_can_reenter = 0;
+		devil_tower_enter = 0;
+		mes "Жду тебя завтра!";
+		close;
+	}
+
+
+
+
+
+	switch( checkquest(7568,PLAYTIME) ) {// entrance timer - 1h30 to enter
+	case -1:
+		mes "[Шеп]";
+		mes "Ты волонтёр на исследование Башни? Мне нужны такие люди!";
+		next;
+		mes "[Шеп]";
+		mes "Наконец-то кто-то сможет раскрыть для меня загадки этой башни.";
+		mes "Никто не брался, я уж начала думать, что дело швах.";
+		next;
+		mes "[Шеп]";
+		mes "Пожалуйста, расскажи всё, что увидишь в Башне.";
+		mes "Чем больше информации... тем больше награда!";
+		next;
+		mes "[Шеп]";
+		mes "Вон тот учёный фей откроет для тебя портал.";
+		mes "Он нестабилен, поэтому время на исследования будет ограничено.";
+		next;
+		mes "[Шеп]";
+		mes "Если тебя вдруг выкинет обратно, ты даже сможешь вернуться, если поспешишь.";
+		next;
+		mes "[Шеп]";
+		mes "Но если закопаешься... окно закроется.";
+		mes "Ну что? Возьмёшься?";
+		next;
+		if (select( "Подписаться.", "Нет, спасибо..." ) == 2) {
+			mes "[Шеп]";
+			mes "Ох, плохо-плохо,";
+			mes "Что же я могу сделать, наверное, уже ничего.";
+			mes "Найду кого-нибудь другого...";
+			close;
+		}
+		mes "[Шеп]";
+		mes "Спасибо.";
+		mes "Ну, собирай отряд и готовься запоминать всё, что увидишь.";
+		next;
+		mes "[Шеп]";
+		mes "^4d4dffНе забудь о временном ограничении, это ради твоей же безопасности!^000000";
+		setquest 7568;// Explore the tower
+		close;
+	case 0:
+	case 1:
+		if (devil_tower_can_reenter == 0)// player can re-enter
+			break;
+		// fall through
+	case 2:
+		mes "[Шеп]";
+		mes "Похоже, ты опоздал"+(Sex?"":"а")+".";
+		mes "У тебя это заняло как-то ну очень много времени.";
+		mes ".....";
+		mes "Твоя информация недостоверна.";
+		next;
+		mes "[Шеп]";
+		mes "Ничего не поделаешь.";
+		mes "Всегда есть возможности для других экспедиций.";
+	//	setquest 7577;// Space distortion
+		erasequest 7568;
+		if (isbegin_quest(7569)) erasequest 7569;// Treat the injured
+		if (isbegin_quest(7570)) erasequest 7570;// Destroy the demons
+		devil_tower_can_reenter = 0;
+		devil_tower_enter = 0;
+		close;
+	}
+	switch( checkquest(7577,PLAYTIME) ) {// daily timer
+	case -1:
+		break;
+	case 0:
+	case 1:
+		mes "[Шеп]";
+		mes "Хочешь продолжить исследования так скоро?";
+		mes "Твоему телу нужно восстановиться от путешествия во времени.";
+		next;
+		mes "[Шеп]";
+		mes "Отдохни хотя бы сутки и приходи завтра!";
+		mes "Всё понятно?";
+		close;
+	case 2:
+		mes "[Шеп]";
+		mes "Отдохнул"+(Sex?"":"а")+"?";
+		mes "Сегодня моя смена!";
+		mes "Я так давно жду кого-нибудь, кого можно будет послать в экспедицию!";
+		erasequest 7577;// Space distortion
+		devil_tower_can_reenter = 0;
+		devil_tower_enter = 0;
+		next;
+		mes "!- NB -!";
+		mes "Теперь вы можете перезайти в Башню Демона.";
+		close;
+	}
+
+	mes "[Шеп]";
+	mes "Сначала тебе нужно зарезервировать свою очередь у портала.";
+	mes "Фей-учёный Арти тебя запишет.";
+	next;
+	mes "[Шеп]";
+	mes "Время будет ограничено, потому что разлом всё ещё нестабилен.";
+	mes "Так что постарайся сделать свои исследования приятными и быстрыми.";
+	next;
+	mes "[Шеп]";
+	mes "Награда будет зависеть от времени, которое займёт экспедиция.";
+	mes "Ну, удачи!";
+	next;
+	if (select( "Я справлюсь!", "Отменить резервацию" ) == 1) {
+		mes "[Шеп]";
+		mes "Уверена, ты справишься.";
+		mes "Я верю в тебя!";
+		close;
+	}
+	if (devil_tower_enter == 1) {
+		mes "[Шеп]";
+		mes "Ты, похоже, устал"+(Sex?"":"а")+" от исследований.";
+		mes "^4d4dffЕсли ты выййдешь сейчас, ты сможешь вернуться только завтра.^000000";
+		mes "Тебя устроит?";
+		next;
+		if (select( "Да, отменить.", "Подожди, нет!" ) == 2) {
+			mes "[Шеп]";
+			mes "Хорошо, не буду.";
+			close;
+		}
+		mes "[Шеп]";
+		mes "Хорошо.";
+		mes "Тогда до завтра.";
+	//	setquest 7577;// Space distortion
+		erasequest 7568;
+		if (isbegin_quest(7569)) erasequest 7569;// Treat the injured
+		if (isbegin_quest(7570)) erasequest 7570;// Destroy the demons
+		devil_tower_enter = 0;
+		devil_tower_can_reenter = 0;
+		close;
+	}
+	mes "[Шеп]";
+	mes "Правда?";
+	mes "И охота было тебе всё это слушать?";
+	erasequest 7568;// Explore the tower
+	close;
+}
+
+dali02,137,121,3	script	Волшебник Арти#tnm	4_M_FAIRYKID6,{
+	.@party_id = getcharid(1);
+	if (.@party_id == 0) {
+		mes "[Арти]";
+		mes "Мы покинули Бифрёст! Давай веселиться!";
+		mes "Нет?";
+		mes "Ты волонтёр?";
+		mes "Тебе бы не помешал отряд.";
+		next;
+		mes "[Арти]";
+		mes "Это, не рискуй понапрасну.";
+		close;
+	}
+	if (getpartyleader(.@party_id,2) != getcharid(0)) {
+		mes "[Арти]";
+		mes "Пусть ко мне подойдёт ваш командир.";
+		mes "Башня Демона не самое подходящее место для одинокой прогулки.";
+		close;
+	}
+	if (devil_tower_enter == 1) {
+		mes "[Арти]";
+		mes "Ты же уже, считай, там. Ты связан"+(Sex?"":"а")+" с тем временем и местом.";
+		mes "Связать повторно то, что и так связано? Что за бред.";
+		close;
+	}
+	switch( checkquest(7568,PLAYTIME) ) {
+	case 0:
+	case 1:
+		break;
+	case -1:
+	case 2:
+		mes "[Арти]";
+		mes "Хм... Связаться с тем временем сложно, когда это делаешь в неподходящее время.";
+		mes "Не говоря уже об опасности подобных экзерсисов.";
+		close;
+	}
+	mes "[Арти]";
+	mes "Ты волонтёр? Экспедиция в Башню Демона?";
+	mes "Хочешь, чтобы я запустил портал?";
+	next;
+	mes "[Арти]";
+	mes "Решай прямо сейчас, у тебя не так много времени.";
+	next;
+	if (select( "Да, активируй.", "Подожди минутку." ) == 2) {
+		mes "[Арти]";
+		mes "Ты теряешь время на исследования.";
+		mes "А время очень важно.";
+		mes "Чего ждать-то?";
+		close;
+	}
+	mes "[Арти]";
+	mes "Пространственно-временное устройство активировано.";
+	mes "Если повезёт, уложишься в считанные минуты.";
+	mes "Жду хороших новостей.";
+	setquest 7577;// Space distortion
+	instance_create("Башня Демона");
+	close;
+}
+
+dali02,141,120,3	script	Портал#tnm0	PORTAL,{
+	if (devil_tower_can_reenter == 1) {// can't re-enter
+		mes "[Арти]";
+		mes "Хэй, хэй!";
+		mes "Сейчас тебя туда забросить будет сложновато.";
+		mes "Давай в другой день продолжим.";
+		close;
+	}
+	switch( checkquest(7568,PLAYTIME) ) {
+	case 0:
+	case 1:
+		break;
+	case -1:
+	case 2:
+		mes "[Арти]";
+		mes "Слушай, извини конечно, но не стоит туда лезть в неподходящее время, это просто опасно.";
+		close;
+	}
+	mes "[Арти]";
+	mes "Да, это портал, или ''Пространственно-временное устройство''.";
+	mes "Оно используется для путешествий во времени.";
+	mes "И запомни, тебе будет очень сложно вернуться.";
+	next;
+	mes "[Арти]";
+	mes "Но не беспокойся! Я специалист в таких вещах~";
+	mes "Готов"+(Sex?"":"а")+"?";
+	next;
+	if (select( "Войти.", "Нет." ) == 2) {
+		mes "[Арти]";
+		mes "Хорошо.";
+		mes "Похоже, в последний раз тебе доводилось таким пользоваться неведомо когда, я прав?";
+		close;
+	}
+	.@md_name$ = "Башня Демона";
+	switch( instance_enter(.@md_name$) ) {
+	case IE_OTHER:
+		mes "Произошло что-то неведомое.";
+		close;
+	case IE_NOINSTANCE:
+		mes "[Шеп]";
+		mes "Прежде, чем куда-то соваться, портал нужно активировать.";
+		mes "Не похоже, чтобы он был активирован.";
+		next;
+		mes "[Шеп]";
+		mes "Разрешение на активацию даст Арти.";
+		close;
+	case IE_NOMEMBER:
+		mes "[Арти]";
+		mes "Исследование Башни демонов разрешено только отрядам.";
+		mes "Советую подготовиться надлежащим образом.";
+		close;
+	case IE_OK:
+		mapannounce "dali02", "" + strcharinfo(0) + ", член отряда " + getpartyname( getcharid(1) ) + ", входит в Башню Демонов.", bc_map,0xFF99;
+		// warp "1@tnm1",50,104;
+		devil_tower_enter = 1;
+		end;
+	}
+}
+
+dali02,134,112,3	script	#tnmtks01	HIDDEN_WARP_NPC,3,3,{
+	end;
+OnTouch_:
+	disablenpc "#tnmtks01";
+	initnpctimer;
+	end;
+OnTimer1000:
+	npctalk "Арти: Эй, ты! Как поживают твои исследования?", "Волшебник Арти#tnm";
+	end;
+OnTimer3000:
+	npctalk "Шеп: Кого это ты называешь ''Эй, ты''? Пыльное насекомое!", "Историк Шеп#tnm01";
+	end;
+OnTimer6000:
+	npctalk "Арти: Пыльное что? Я тебе, так и быть, сообщу, что мы, лафины, высшая раса. Слышала, обезьянка!", "Волшебник Арти#tnm";
+	end;
+OnTimer9000:
+	npctalk "Шеп: Говори, что хочешь. Наши дети и те больше вас. Пикси!", "Историк Шеп#tnm01";
+	end;
+OnTimer12000:
+	npctalk "Шеп: Думаешь, ты такой большой, потому что великий волшебник, а?", "Историк Шеп#tnm01";
+	end;
+OnTimer14000:
+	npctalk "Арти: Ты ничего не знаешь, смертная. Напомни-ка, кто нашёл этот вход?", "Волшебник Арти#tnm";
+	end;
+OnTimer18000:
+	npctalk "Шеп: *Вздох*... Т... Ты.", "Историк Шеп#tnm01";
+	end;
+OnTimer21000:
+	npctalk "Арти: Что ты бормочешь? Не расслышал. А кто решил уравнение соединения пространственного разрыва к Башне Демона?", "Волшебник Арти#tnm";
+	end;
+OnTimer24000:
+	npctalk "Шеп: Ладно, ладно, ты!", "Историк Шеп#tnm01";
+	end;
+OnTimer27000:
+	npctalk "Арти: Ну что, ты осознала, насколько я прекрасен?", "Волшебник Арти#tnm";
+	end;
+OnTimer30000:
+	npctalk "Шеп: Ладно, ладно. Ты и правда прекрасен. А мне нужен приключенец, который мог бы пойти исследовать башню вместо нас.", "Историк Шеп#tnm01";
+	end;
+OnTimer33000:
+	npctalk "Шеп: Никто не подписывается. Все говорят, что это слишком опасно!", "Историк Шеп#tnm01";
+	end;
+OnTimer36000:
+	npctalk "Арти: Совсем никто?.. Ну, ты сможешь. Вооружись своими мотивационными умениями и найди уже кого-нибудь.", "Волшебник Арти#tnm";
+	end;
+OnTimer37000:
+	emotion ET_KIK, getnpcid(0, "Волшебник Арти#tnm");
+	end;
+OnTimer39000:
+	npctalk "Шеп: Идёт набор в исследовательскую группу в Башню Дьявола!", "Историк Шеп#tnm01";
+	end;
+OnTimer42000:
+	npctalk "Шеп: Не проходите мимо! Уникальный шанс столкнуться лицом к лицу со знаменитыми прислужниками самого Демона Моррока! Только сегодня!", "Историк Шеп#tnm01";
+	end;
+OnTimer45000:
+	npctalk "Арти: Ты уверена, что это правильные слова? По-моему, тебе есть куда совершенствоваться...", "Волшебник Арти#tnm";
+	stopnpctimer;
+	enablenpc "#tnmtks01";
+	end;
+}
+
+// Entrance
+1@tnm1,59,111,0	script	#event01	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#event01");
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "Офицер Хайм: Там у нас теперь госпиталь. Как идут дела?", instance_npcname("Офицер Хайм#heim0");
+	end;
+OnTimer5000:
+	npctalk "Стрелок: Следующий этаж -- последний. Но там столько демонов...", instance_npcname("Стрелок#tnm01");
+	end;
+OnTimer6000:
+	emotion ET_THINK, getnpcid(0, instance_npcname("Офицер Хайм#heim0"));
+	end;
+OnTimer8000:
+	npctalk "Стрелок: Таким числом прорваться нереально.", instance_npcname("Стрелок#tnm01");
+	emotion ET_PROFUSELY_SWEAT, getnpcid(0, instance_npcname("Стрелок#tnm01"));
+	end;
+OnTimer11000:
+	npctalk "Офицер Хайм: Сколько у нас выживших? И когда прибудет подкрепление?", instance_npcname("Офицер Хайм#heim0");
+	end;
+OnTimer12000:
+	emotion ET_THINK, getnpcid(0, instance_npcname("Помощник#tnm02"));
+	end;
+OnTimer16000:
+	npctalk "Помощник: Выживших слишком мало для сбора...", instance_npcname("Помощник#tnm02");
+	end;
+OnTimer17000:
+	npctalk "Помощник: Хорошо хоть атаки прекратились.", instance_npcname("Помощник#tnm02");
+	end;
+OnTimer21000:
+	npctalk "Офицер Хайм: Мы не можем сидеть тут и ждать! Почему они не атакуют?", instance_npcname("Офицер Хайм#heim0");
+	end;
+OnTimer24000:
+	npctalk "Стрелок: Похоже, наверху что-то происходит...", instance_npcname("Стрелок#tnm01");
+	end;
+OnTimer26000:
+	disablenpc instance_npcname("Офицер Хайм#heim0");
+	enablenpc instance_npcname("Офицер Хайм#heim");
+	npctalk "Офицер Хайм: Кто ты такой?", instance_npcname("Офицер Хайм#heim");
+	stopnpctimer;
+	end;
+}
+
+1@tnm1,57,112,5	script	Офицер Хайм#heim0	4_TOWER_05,{ end; }
+
+1@tnm1,56,110,3	script	Офицер Хайм#heim	4_TOWER_05,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "[Офицер Хайм]";
+		mes "С кем вы пришли?";
+		mes "Пусть ваш представитель поговорит со мной.";
+		close;
+	}
+	switch('devil_tower) {
+	case 0:
+		mes "[Офицер Хайм]";
+		mes "Подкрепление? Наконец-то! Что вы стоите?";
+		npctalk "Офицер Хайм: Подкрепление? Наконец-то! Что вы стоите?";
+		next;
+		select("Задачи?");
+		enablenpc instance_npcname("Лекарь Феима#feima");
+		'devil_tower = 1;
+		mes "[Лекарь Феима]";
+		mes "Командир, мне нужна помощь! Я не справляюсь!";
+		npctalk "Лекарь Феима: Командир, мне нужна помощь! Я не справляюсь!", instance_npcname("Лекарь Феима#feima");
+		next;
+		mes "[Офицер Хайм]";
+		mes "Слышали?";
+		mes "Помогите Феиме позаботиться о раненых.";
+		mes "Она выдаст перевязочный материал и всё, что нужно.";
+		// close2;// still attached
+		npctalk "Офицер Хайм: Слышали?";
+		sleep2 2000;
+		npctalk "Офицер Хайм: Помогите Феиме позаботиться о раненых.";
+		sleep2 2000;
+		npctalk "Лекарь Феима: Помощник? Отлично! Подойди, я выдам тебе аптечку.", instance_npcname("Лекарь Феима#feima");
+		end;
+	case 1:
+		mes "[Офицер Хайм]";
+		mes "Главная задача для вас сейчас это помочь Феиме позаботиться о раненых.";
+		mes "Условия не самые лучшие, поэтому сделайте всё, что в ваших силах.";
+		close;
+	default:
+		mes "[Офицер Хайм]";
+		mes "К счастью, все раненые стабилизированы.";
+		mes "Не хватало мне ещё потерь.";
+		close;
+	}
+}
+
+1@tnm1,47,109,3	script	Лекарь Феима#feima	4_TOWER_10,{
+	if ('devil_tower == 1) {
+		if (countitem(7641) < 1) {
+			mes "[Лекарь Феима]";
+			mes "Возьми вот это и окажи раненым помощь.";
+			mes "Это не сложно, просто следуй инструкции.";
+			next;
+			mes "[Лекарь Феима]";
+			mes "Аптечек осталось мало, поэтому я буду выдавать их по мере необходимости.";
+			mes "Обращайся, когда понадобится следующая.";
+			getitem 7641,1;// Medical_Cure_Box
+			close;
+		}
+		mes "[Лекарь Феима]";
+		mes "Извини... Сам"+(Sex?"":"а")+" понимаешь, с материалами ситуация не праздник, и я не могу выдать тебе много аптечек сразу...";
+		mes "Обращайся, когда понадобится следующая.";
+		close;
+	}
+	mes "[Лекарь Феима]";
+	mes "Фуф... Ну вот, можно чуть-чуть передохнуть.";
+	mes "Огромное тебе спасибо!";
+	close;
+}
+
+1@tnm1,39,114,3	script	Раненый#1_1	4_TOWER_01,3,3,{
+	if ('devil_tower != 1)
+		end;
+	if (countitem(7641) < 1) {
+		mes "Мне нужны средства оказания первой помощи.";
+		close;
+	}
+	mes "Вы слышите хрипы и стоны. Похоже, воин без сознания.";
+	mes "Следует ли использовать аптечку?";
+	next;
+	if (select( "Да.", "Наблюдать за состоянием." ) == 2) {
+		mes "Вы решили продолжить наблюдение за раненым.";
+		close;
+	}
+	mes "Вы открываете аптечку и оказываете воину первую помощь.";
+	close2;
+	specialeffect EF_SPHERE;
+	progressbar "000000",4;
+	delitem 7641,1;
+	specialeffect EF_ENTRY;
+	disablenpc instance_npcname( strnpcinfo(0) );
+	enablenpc instance_npcname( strnpcinfo(1) + "#" + replacestr( strnpcinfo(2), "_1", "" ) );
+	specialeffect EF_ENTRY,AREA, instance_npcname( strnpcinfo(1) + "#" + replacestr( strnpcinfo(2), "_1", "" ) );
+	mes "У вас всё получилось.";
+	'heal_count++;
+	if ('heal_count == 7) {
+		'devil_tower = 2;
+		npctalk "Лекарь Феима: Ассасины?!", instance_npcname("Лекарь Феима#feima");
+		enablenpc instance_npcname("Люсиль#tnm01");
+		enablenpc instance_npcname("Искусник#tnm01");
+		enablenpc instance_npcname("Ассасин Хью#tnm01");
+		enablenpc instance_npcname("Ассасин Луи#tnm01");
+	}
+	close;
+
+OnTouch:
+	.@num = atoi( replacestr( strnpcinfo(2), "_1", "" ) );
+	if (.@num == 1)
+		npctalk "Раненый: *стонет*";
+	else if (.@num == 2)
+		npctalk "Раненый: О-о-о...";
+	else if (.@num == 3)
+		npctalk "Раненый: .... кххх.. кхххх..";
+	else if (.@num == 4)
+		npctalk "Раненый: Охххх...";
+	else if (.@num == 5)
+		npctalk "Раненый: Я не хочу помирать...";
+	else if (.@num == 6)
+		npctalk "Раненый: Оххх~";
+	else
+		npctalk "Раненый: О-оххх...";
+	end;
+}
+
+1@tnm1,30,120,3	duplicate(Раненый#1_1)	Раненый#2_1	4_TOWER_03,3,3
+1@tnm1,25,117,5	duplicate(Раненый#1_1)	Раненый#3_1	4_TOWER_06,3,3
+1@tnm1,19,118,4	duplicate(Раненый#1_1)	Раненый#4_1	4_TOWER_08,3,3
+1@tnm1,18,110,4	duplicate(Раненый#1_1)	Раненый#5_1	4_TOWER_11,3,3
+1@tnm1,24,104,7	duplicate(Раненый#1_1)	Раненый#6_1	4_TOWER_13,3,3
+1@tnm1,31,110,3	duplicate(Раненый#1_1)	Раненый#7_1	4_TOWER_03,3,3
+
+1@tnm1,39,114,3	script	Раненый#1	4_TOWER_02,{
+	mes "[Раненый]";
+	mes "Фуф... Мне полегчало.";
+	mes "Спасибо.";
+	close;
+}
+
+1@tnm1,30,120,3	script	Раненый#2	4_TOWER_04,{
+	mes "[Раненый]";
+	mes "Мммм... Дайте умереть...";
+	mes "Слишком больно......";
+	close;
+}
+
+1@tnm1,25,117,5	script	Раненый#3	4_TOWER_07,{
+	mes "[Раненый]";
+	mes "..........";
+	mes "*Похоже, сознание только возвращается.*";
+	close;
+}
+
+1@tnm1,19,118,4	script	Раненый#4	4_TOWER_09,{
+	mes "[Раненый]";
+	mes "Я уж совсем помирать приготовился.";
+	mes "Но нет, я жив!";
+	close;
+}
+
+1@tnm1,18,110,4	script	Раненый#5	4_TOWER_12,{
+	mes "[Раненый]";
+	mes "Мне нельзя умирать, у меня свадьба через две недели...";
+	close;
+}
+
+1@tnm1,24,104,7	script	Раненый#6	4_TOWER_14,{
+	mes "[Раненый]";
+	mes "Мне вроде полегчало... Хотя нет сил даже руку поднять.";
+	mes "Повезло мне.";
+	close;
+}
+
+1@tnm1,31,110,3	script	Раненый#7	4_TOWER_04,{
+	mes "[Раненый]";
+	mes "Спасибо... Спасибо...";
+	close;
+}
+
+1@tnm1,61,110,3	script	Помощник#tnm02	4_M_MOCASS2,{
+	mes "[Помощник]";
+	mes "Надеюсь, катастрофы не повторится.";
+	mes "И почему столько демонов вдруг вылезло?";
+	close;
+}
+
+1@tnm1,61,113,3	script	Стрелок#tnm01	4_M_MOCASS1,{
+	mes "[Стрелок]";
+	mes "Ты из команды подкрепления?";
+	mes "Хорошо. Ситуация нестабильна.";
+	mes "Рад видеть.";
+	close;
+}
+
+1@tnm1,46,105,5	script	Люсиль#tnm01	4_F_LUCILE,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		cutin "tnm_lucile01.bmp",2;
+		mes "[Люсиль]";
+		mes "Кто командир группы подкрепления?";
+		close3;
+	}
+	if ('devil_tower == 2) {
+		.@lucile$ = instance_npcname("Люсиль#tnm01");
+		.@heim$ = instance_npcname("Офицер Хайм#heim");
+		'devil_tower = 3;
+		pcblockmove getcharid(3),1;
+		cutin "tnm_lucile01.bmp",2;
+		sleep2 1500;
+		npctalk "Люсиль: Я Люсиль из гильдии ассасинов.", .@lucile$;
+		sleep2 2000;
+		npctalk "Офицер Хайм: О, так наше подкрепление от ассасинов? Вы вовремя.", .@heim$;
+		sleep2 3000;
+		npctalk "Люсиль: Вижу, ситуация складывается не лучшим образом.", .@lucile$;
+		sleep2 3000;
+		npctalk "Люсиль: Что случилось с бравыми рыцарями всея Пронтеры?", .@lucile$;
+		sleep2 3000;
+		npctalk "Офицер Хайм: Это наезд?", .@heim$;
+		sleep2 3000;
+		npctalk "Люсиль: Да нет, конечно. Мне просто любопытно. Что с демонами?", .@lucile$;
+		sleep2 2500;
+		emotion ET_OHNO, getnpcid(0, .@heim$);
+		sleep2 1000;
+		npctalk "Офицер Хайм: Некоторое время назад их атаки прекратились.", .@heim$;
+		sleep2 3000;
+		emotion ET_SMILE, getnpcid(0, .@lucile$);
+		npctalk "Люсиль: Что ты думаешь обо этом?", .@lucile$;
+		cutin "tnm_lucile01.bmp",0;
+		sleep2 3000;
+		npctalk "Искусник: Хмм, надо разведать.", instance_npcname("Искусник#tnm01");
+		cutin "tnm_loki.bmp",2;
+		sleep2 2000;
+		cutin "",255;
+		disablenpc instance_npcname("Искусник#tnm01");
+		sleep2 1000;
+		npctalk "Люсиль: Вот это скорость!", .@lucile$;
+		cutin "tnm_lucile01.bmp",2;
+		sleep2 2000;
+		npctalk "Офицер Хайм: Вы самоубийцы, по одиночке ходить?!", .@heim$;
+		sleep2 3000;
+		npctalk "Люсиль: Ну, здесь ещё вон сколько солдат!", .@lucile$;
+		sleep2 2500;
+		npctalk "Люсиль: Ладно, будешь моим подкреплением, да, Дьюи?", .@lucile$;
+		sleep2 500;
+		enablenpc instance_npcname("Ассасин Дьюи#tnm01");
+		enablenpc instance_npcname("#tnm1stepmob");
+		npctalk "Дьюи: Хорошо.", instance_npcname("Ассасин Дьюи#tnm01");
+		'devil_tower = 4;
+		sleep2 500;
+		cutin "",255;
+		disablenpc .@lucile$;
+		disablenpc instance_npcname("Ассасин Хью#tnm01");
+		disablenpc instance_npcname("Ассасин Луи#tnm01");
+		sleep2 2000;
+		npctalk "Офицер Хайм: Невозможно с ними, слишком непредсказуемые...", .@heim$;
+		sleep2 2500;
+		npctalk "Офицер Хайм: Вы знаете, что делать. Прикройте их на лестнице!", .@heim$;
+		pcblockmove getcharid(3),0;
+		end;
+	}
+}
+
+1@tnm1,52,104,2	duplicate(Офицер Хайм#heim0)	Искусник#tnm01	4_M_ROKI
+1@tnm1,42,104,4	duplicate(Офицер Хайм#heim0)	Ассасин Хью#tnm01	4_TOWER_15
+1@tnm1,44,101,5	duplicate(Офицер Хайм#heim0)	Ассасин Луи#tnm01	4_M_ACROSS
+
+1@tnm1,70,108,3	script	Ассасин Дьюи#tnm01	4_M_ACROSS,{
+	if ('devil_tower < 4)
+		end;
+	if (isbegin_quest(7569) == 0)
+		setquest 7569;// Treat the injured
+	if (isbegin_quest(7570) == 0)
+		setquest 7570;// Destroy the demons
+	mes "[Дьюи]";
+	mes "Я проведу тебя на этаж выше.";
+	mes "Не забудь зачистить лестницу от демонов.";
+	next;
+	if (select( "Вперёд!", "Мне нужно подготовиться." ) == 2) {
+		mes "[Дьюи]";
+		mes "Будь готов"+(Sex?"":"а")+" ко всему.";
+		close;
+	}
+	mes "[Дьюи]";
+	mes "Будь осторож"+(Sex?"ен":"на")+".";
+	close2;
+	warp 'map_tnm1$,91,23;
+	devil_tower_can_reenter = 1;// nb. different from official (condition overcomplicated)
+	end;
+}
+
+// Stairs tnm1
+// spawn inaccurate
+1@tnm1,91,23,0	script	#tnm1stepmob	HIDDEN_WARP_NPC,1,1,{
+	end;
+OnTouch:
+	if ('devil_tower != 4)
+		end;
+	disablenpc instance_npcname("#tnm1stepmob");
+	enablenpc instance_npcname("Ассасин Луи#tnm02");
+	enablenpc instance_npcname("Люсиль#tnm02");
+	initnpctimer;
+	monster 'map_tnm1$,99,24,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	'mob_id = $@mobid[0];
+	end;
+OnTimer2000:
+	if (unitexists('mob_id) == true)
+		unittalk 'mob_id, "Что?! Они с ума сошли? Как они посмели!";
+	end;
+OnTimer5000:
+	monster 'map_tnm1$,103,21,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	unittalk $@mobid[0], "Уже завершил"+(Sex?"":"а")+" все дела?";
+	monster 'map_tnm1$,103,26,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	unittalk $@mobid[0], "Муах-ха-ха! Сразимся же!!!";
+	end;
+OnTimer11000:
+	monster 'map_tnm1$,106,25,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,106,27,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,110,20,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,112,24,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,107,22,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,114,24,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer13000:
+	monster 'map_tnm1$,106,25,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,106,27,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,110,20,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,112,24,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,107,22,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,114,24,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer17000:
+	monster 'map_tnm1$,120,20,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,122,23,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	end;
+OnTimer19000:
+	monster 'map_tnm1$,120,20,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,122,23,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	end;
+OnTimer23000:
+	monster 'map_tnm1$,116,25,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,116,21,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	end;
+OnTimer25000:
+	monster 'map_tnm1$,116,25,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,116,21,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	end;
+OnTimer29000:
+	monster 'map_tnm1$,134,21,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,130,25,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,129,27,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,120,27,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,118,22,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer32000:
+	monster 'map_tnm1$,134,21,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,130,25,"Зловещая тень",2939,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,129,27,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,120,27,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,118,22,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer35000:
+	monster 'map_tnm1$,138,27,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,144,23,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,129,20,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	end;
+OnTimer39000:
+	monster 'map_tnm1$,138,27,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,144,23,"Зловещая тень",2939,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,129,20,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	end;
+OnTimer41000:
+	monster 'map_tnm1$,140,24,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,144,20,"Зловещая тень",2940,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,130,27,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,127,24,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,142,27,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,140,22,"Зловещая тень",2941,2, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer47000:
+	monster 'map_tnm1$,140,24,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,144,20,"Зловещая тень",2940,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,130,27,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,127,24,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,142,27,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,140,22,"Зловещая тень",2941,1, instance_npcname("#tnm1stepmob") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	stopnpctimer;
+	end;
+OnMobDead:
+	end;
+}
+
+1@tnm1,158,24,3	script	Ассасин Луи#tnm02	4_M_ACROSS,{
+	if ('devil_tower < 4)
+		end;
+	if (checkquest(7570,HUNTING) != 2) {
+		mes "[Луи]";
+		mes "Командир говорит, чтобы мы зачистили помещение от демонов...";
+		mes "Так что не будем медлить.";
+		close;
+	}
+	mes "[Луи]";
+	mes "Многим солдатам удалось остаться в живых.";
+	mes "Благодаря им здесь больше нет демонов.";
+	next;
+	mes "[Луи]";
+	mes "Я проверял, не ушёл ли кто вверх по лестнице. Как бы опять не случилось каких неожиданностей.";
+	next;
+	mes "[Луи]";
+	mes "Вот бы ты мне помог"+(Sex?"":"ла")+".";
+	mes "Пойдем.";
+	if (isbegin_quest(7571) == 0) {
+		erasequest 7569;// Treat the injured
+		erasequest 7570;// Destroy the demons
+		setquest 7571;// Tower Expedition
+	}
+	next;
+	mes "[Луи]";
+	mes "Я уже давно изучаю ходы и коридоры этой башни.";
+	close2;
+	warp 'map_tnm1$,124,86;
+	end;
+}
+
+// Stairs 2 tnm1
+1@tnm1,138,96,3	script	Люсиль#tnm02	4_F_LUCILE,{
+	if (isbegin_quest(7571) == 0)
+		end;
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "Вы машете рукой прямо у неё перед носом, но она не реагирует.";
+		close;
+	}
+	if ('devil_tower < 4)
+		end;
+	if ('devil_tower < 6) {
+		if ('devil_tower == 4) {
+			mes "[Люсиль]";
+			mes "Извини, помахала бы тебе ручкой, но не могу пошевелиться.";
+			npctalk "Люсиль: Извини, помахала бы тебе ручкой, но не могу пошевелиться.";
+			cutin "tnm_lucile02.bmp",2;
+			next;
+			select("Я могу помочь?");
+			mes "[Люсиль]";
+			mes "Я могу запустить процесс самовосстановления, но у меня нет столько времени.";
+			mes "Ты не поделишься со мной своими силами?";
+			npctalk "Люсиль: Я могу запустить процесс самовосстановления, но у меня нет времени. Ты не поделишься со мной своими силами?";
+			next;
+			mes "[Люсиль]";
+			mes "Без твоей помощи мне не запустить систему быстрого восстановления.";
+			mes "Держись крепче.";
+			npctalk "Люсиль: Без твоей помощи мне не запустить систему быстрого восстановления.";
+			next;
+			sleep2 750;
+			npctalk "Люсиль: Держись крепче.";
+			donpcevent instance_npcname("Хью#hui02") + "::OnEnable";
+			'devil_tower = 5;
+			percentheal -30,0;
+		}
+		cutin "tnm_lucile03.bmp",2;
+		mes "Похоже, Люсиль робот.";
+		mes "Теперь я начинаю понимать, откуда эти механические звуки.";
+		close2;
+		specialeffect EF_LEVEL99_3;
+		progressbar "000000",40;
+		if (isbegin_quest(7572) == 0)
+			setquest 7572;// Lucile...?
+		mes "Модули восстановлены.";
+		'devil_tower = 6;
+		next;
+		mes "[Люсиль]";
+		mes "О! Как быстро починилась.";
+		mes "Что, удивл"+(Sex?"ён":"ена")+"?";
+		mes "У меня не обычное тело, и иногда приходится чиниться.";
+		cutin "tnm_lucile02.bmp",2;
+		next;
+		mes "[Люсиль]";
+		mes "Это тело было подарком богов.";
+		mes "Видишь вон те врата в центре?";
+		cutin "tnm_lucile01.bmp",2;
+		next;
+		mes "[Люсиль]";
+		mes "Поспешим, или мир будет в опасности.";
+		close2;
+		cutin "",255;
+		// continue
+	}
+	if ('devil_tower == 6) {
+		sleep 1500;
+		npctalk "Люсиль: Если вы позволите... Следуйте за мной.";
+		sleep 2000;
+		npctalk "Хью: Сестрёнка...", instance_npcname("Хью#hui02");
+		disablenpc instance_npcname("Люсиль#tnm02");
+		enablenpc instance_npcname("Люсиль#tnm03");
+		enablenpc instance_npcname("Искусник#tnm02");
+		enablenpc instance_npcname("Демон Моррок#tnm01");
+		'devil_tower = 7;
+	}
+	end;
+}
+	
+1@tnm1,135,99,5	script	Хью#hui02	4_TOWER_15,{
+	if ('devil_tower < 5)
+		end;
+	if ('devil_tower == 5 || 'devil_tower == 6) {
+		mes "[Хью]";
+		mes "Я за неё волнуюсь.";
+		mes "Такое бывает, когда она ранена.";
+		mes "Она ведь почти полностью конструкт...";
+		close;
+	}
+	if ('mob_count > 0) {
+		mes "[Хью]";
+		mes "Я знаю путь наверх...";
+		mes "Но сначала нужно зачистить всё от демонов!";
+		close;
+	}
+	mes "[Хью]";
+	mes "Интересно, как дела у остальных...";
+	mes "Пока что я видел на крыше только Люсиль и Танатоса...";
+	next;
+	mes "[Хью]";
+	mes "Если хочешь им помочь, поспеши.";
+	mes "Я тебя проведу.";
+	next;
+	if (select( "Отправиться немедленно.", "Не идти." ) == 2) {
+		mes "[Хью]";
+		mes "...Хорошо.";
+		close;
+	}
+	mes "[Хью]";
+	mes "Сюда.";
+	mes "Осторожней.";
+	close2;
+	warp 'map_tnm2$,152,130;
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("Хью#hui02");
+	initnpctimer;
+	end;
+OnTimer3000:
+	npctalk "Хью: О нет, сестрёнка, осторожнее! Демоны!";
+	'mob_count = 16;
+	monster 'map_tnm1$,142,90,"Зловещая тень",2939,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,139,91,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,130,86,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,143,95,"Зловещая тень",2941,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	monster 'map_tnm1$,134,90,"Зловещая тень",2941,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	end;
+OnTimer6000:
+	npctalk "Хью: Откуда они только берутся...";
+	end;
+OnTimer8000:
+	monster 'map_tnm1$,137,103,"Зловещая тень",2939,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,140,102,"Зловещая тень",2939,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,132,103,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,146,100,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,142,105,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,135,107,"Зловещая тень",2941,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW3
+	end;
+OnTimer11000:
+	npctalk "Хью: О, нет...";
+	end;
+OnTimer12000:
+	monster 'map_tnm1$,135,107,"Зловещая тень",2939,1, instance_npcname("Хью#hui02") + "::OnMobDead";	// MM_EVIL_SHADOW1
+	monster 'map_tnm1$,146,100,"Зловещая тень",2939,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,130,86,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";		// MM_EVIL_SHADOW2
+	monster 'map_tnm1$,137,103,"Зловещая тень",2940,1, instance_npcname("Хью#hui02") + "::OnMobDead";
+	monster 'map_tnm1$,143,95,"Зловещая тень",2941,1, instance_npcname("Хью#hui02") + "::OnMobDead";		// MM_EVIL_SHADOW3
+	stopnpctimer;
+	end;
+OnMobDead:
+	'mob_count--;
+	if ('mob_count == 0)
+		npctalk "Хью: Сюда, сюда! Проберёмся наверх, пока монстров нет!";
+	end;
+}
+
+// Morocc - Thanatos Battle
+1@tnm2,136,139,3	script	Искусник#tnm02	THANATOS_KEEP,{
+	mes "[Искусник Танатос]";
+	mes "Прости. Сейчас не время для бесед...";
+	close;
+}
+
+1@tnm2,133,139,5	duplicate(Офицер Хайм#heim0)	Демон Моррок#tnm01	1916
+
+1@tnm2,144,137,3	script	Люсиль#tnm03	4_F_LUCILE,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "[Люсиль]";
+		mes "Я разговариваю с командиром вашей группы. Подожди немного, пожалуйста.";
+		cutin "tnm_lucile01.bmp",2;
+		close3;
+	}
+	if ('devil_tower == 7) {
+		mes "[Люсиль]";
+		mes "О. Ты вовремя.";
+		mes "Хочешь осмотреться?";
+		cutin "tnm_lucile01.bmp",2;
+		next;
+		mes "[Люсиль]";
+		mes "Нужно остановить демона...";
+		mes "Сможешь?";
+		npctalk "Люсиль: Нужно остановить демона... Сможете?";
+		if (isbegin_quest(7573) == 0)
+			setquest 7573;// Magic Swordman Thanatos
+		'demon$ = instance_npcname("Демон Моррок#tnm01");
+		'thanatos$ = instance_npcname("Искусник#tnm02");
+		initnpctimer;
+		'devil_tower = 8;
+		close3;
+	}
+	mes "[Люсиль]";
+	mes "Нужно удерживать эту точку, пока Искусник не закончит с ловушкой.";
+	cutin "tnm_lucile01.bmp",2;
+	close3;
+
+OnTimer2000:
+	npctalk "Демон Моррок: Человечишко! Тебе меня не сдержать!", 'demon$;
+	end;
+OnTimer5000:
+	npctalk "Демон Моррок: Тени! Восстаньте и истребите врагов тьмы!", 'demon$;
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("#devil_seal_timer") + "::OnStart";
+	end;
+OnTimer8000:
+	npctalk "Танатос: Умоляй о пощаде, ты, кусок отчаяния.", 'thanatos$;
+	end;
+OnTimer11500:
+	npctalk "Люсиль: Сэр Танатос, зачем же так блефовать?";
+	end;
+OnTimer12000:
+	npctalk "Демон Моррок: Устрашись разрушений, что принесу я, сломав эти путы!", 'demon$;
+	end;
+OnTimer15000:
+	npctalk "Танатос: Молчать! Тебе не выйти, пока я сам не убью тебя!", 'thanatos$;
+	end;
+OnTimer16500:
+	npctalk "Танатос: Люсиль! Прикрой меня, пока я воплощаю щит!", 'thanatos$;
+	end;
+OnTimer19500:
+	npctalk "Люсиль: Да, сэр.";
+	end;
+OnTimer22500:
+	npctalk "Люсиль: Итак, всем ясно, что делать? Нельзя допустить Печать до сэра Танатоса!";
+	stopnpctimer;
+	end;
+}
+
+1@tnm2,1,1,0	script	#devil_flamecross	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	npctalk "Демон Моррок: Вам не победить!", 'demon$;
+	mapannounce 'map_tnm2$, "Демон Моррок: Вам не победить!", bc_map,0xFF0000;
+	initnpctimer;
+	end;
+OnTimer1000:
+	setarray .@north[0], 138,151, 138,160, 140,165, 140,176, 140,170, 140,181, 140,186, 140,191;
+	setarray .@north_west[0], 126,149, 122,151, 118,153, 113,154, 107,156, 101,158, 96,160, 91,161, 86,162, 81,163;
+	setarray .@south_west[0], 128,130, 125,127, 122,124, 118,121, 115,118, 112,115, 109,114, 106,106, 102,102, 99,98;
+	setarray .@south_east[0], 145,130, 148,126, 151,122, 156,120, 160,117, 164,113, 168,109, 172,105, 176,101, 180,97;
+	setarray .@north_east[0], 146,149, 148,149, 150,151, 155,152, 162,153, 167,154, 173,156, 179,158, 185,160, 191,161;
+	.@label$ = instance_npcname("#devil_flamecross") + "::OnFlameDead";
+	for ( .@i = 0; .@i < 20; .@i += 2 ) {
+		if (.@north[.@i] > 0)	// 8 mobs for north
+			monster 'map_tnm2$,.@north[.@i],.@north[.@i+1], "",2960,1, .@label$;
+		monster 'map_tnm2$,.@north_west[.@i],.@north_west[.@i+1], "",2960,1, .@label$;
+		monster 'map_tnm2$,.@south_west[.@i],.@south_west[.@i+1], "",2960,1, .@label$;	
+		monster 'map_tnm2$,.@south_east[.@i],.@south_east[.@i+1], "",2960,1, .@label$;	
+		monster 'map_tnm2$,.@north_east[.@i],.@north_east[.@i+1], "",2960,1, .@label$;	
+		sleep 200;
+	}
+	end;
+OnTimer6000:
+	killmonster 'map_tnm2$, instance_npcname("#devil_flamecross") + "::OnFlameDead";
+	end;
+OnTimer20000:
+	stopnpctimer;
+	donpcevent instance_npcname("#devil_flamecross") + "::OnStart";
+	end;
+OnStop:
+	stopnpctimer;
+	killmonster 'map_tnm2$, instance_npcname("#devil_flamecross") + "::OnFlameDead";
+	end;
+OnFlameDead:
+	end;
+}
+
+1@tnm2,1,1,0	script	#devil_seal_timer	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#devil_seal_timer");
+	enablenpc instance_npcname("#devil_flamecross");
+	for ( .@i = 1; .@i < 6; .@i++ ) {
+		enablenpc instance_npcname("devil_seal_spawn#" + .@i);
+		enablenpc instance_npcname("devil_seal_reach_center#" + .@i);
+	}
+	enablenpc instance_npcname("#devil_seal_dead");
+	donpcevent instance_npcname("#devil_seal_spawn_global") + "::OnCoord";
+	initnpctimer;
+	end;
+OnTimer5000:
+	mapannounce 'map_tnm2$, "Печать проявилась к юго-востоку от Башни.", bc_map,0xFFFFFF;
+	donpcevent instance_npcname("#devil_seal_spawn_global") + "::OnFirstSpawn";
+	end;
+OnTimer10000:
+	donpcevent instance_npcname("#devil_flamecross") + "::OnStart";
+	end;
+OnTimer25000:
+	mapannounce 'map_tnm2$, "Люсиль: Нужно остановить Печать!", bc_map,0xFFFFFF;
+	end;
+OnTimer65000:
+	mapannounce 'map_tnm2$, "Люсиль: Мы должны не допустить Печать до центра!", bc_map,0xFFFFFF;
+	end;
+OnTimer95000:
+	mapannounce 'map_tnm2$, "Люсиль: Печать опять пришла в движение!", bc_map,0xFFFFFF;
+	end;
+OnTimer125000:
+	mapannounce 'map_tnm2$, "Люсиль: Уже близко... Нет. Это слишком опасно.", bc_map,0xFFFFFF;
+	end;
+OnTimer155000:
+	mapannounce 'map_tnm2$, "Люсиль: Печать почти достигла центра!", bc_map,0xFFFFFF;
+	end;
+OnTimer180000:
+	donpcevent instance_npcname("#devil_flamecross") + "::OnStop";
+	end;
+OnTimer185000:
+	mapannounce 'map_tnm2$, "Люсиль: Остановим её!!", bc_map,0xFFFFFF;
+	end;
+OnTimer191000:
+	npctalk "Танатос: Что вы творите!!!", 'thanatos$;
+	mapannounce 'map_tnm2$, "Танатос: Что вы творите!!!", bc_map,0xFF00;
+	end;
+OnTimer193000:
+	specialeffect EF_MAGNUMBREAK,AREA, 'thanatos$;
+	specialeffect EF_LORD,AREA, 'thanatos$;
+	donpcevent instance_npcname("devil_seal_spawn#1") + "::OnStop";
+	donpcevent instance_npcname("devil_seal_spawn#2") + "::OnStop";
+	donpcevent instance_npcname("devil_seal_spawn#3") + "::OnStop";
+	donpcevent instance_npcname("devil_seal_spawn#4") + "::OnStop";
+	donpcevent instance_npcname("devil_seal_spawn#5") + "::OnStop";
+	end;
+OnTimer195000:
+	npctalk "Демон Моррок: Как же вы мне надоели!!!", 'demon$;
+	mapannounce 'map_tnm2$, "Демон Моррок: Как же вы мне надоели!!!", bc_map,0xFF0000;
+	end;
+OnTimer198000:
+	npctalk "Демон Моррок: Посмотрим, кто победит! Выходи!", 'demon$;
+	mapannounce 'map_tnm2$, "Демон Моррок: Посмотрим, кто победит! Выходи!", bc_map,0xFF0000;
+	end;
+OnTimer201000:
+	npctalk "Танатос: Так будет всегда, сколько бы ты ни пытался! Возвращайся обратно в свой ад!!", 'thanatos$;
+	mapannounce 'map_tnm2$, "Танатос: Так будет всегда, сколько бы ты ни пытался! Возвращайся обратно в свой ад!!", bc_map,0xFF00;
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	donpcevent instance_npcname("#devil_flamecross") + "::OnStop";
+	disablenpc instance_npcname("#devil_flamecross");
+	disablenpc instance_npcname("#devil_seal_timer");
+	end;
+}
+
+1@tnm2,1,1,0	script	#devil_seal_spawn_global	HIDDEN_WARP_NPC,{
+	end;
+OnCoord:
+	enablenpc instance_npcname("#devil_seal_spawn_global");
+	// setarray 'coord_seal_1[0],  68,167,	 78,165,	88,163,		98,160,		108,156,	118,152,	127,147;
+	setarray 'coord_seal_1[0],  68,167,	 78,165,	88,163,		98,160,		108,156,	118,152,	118,152;// officially
+	setarray 'coord_seal_2[0],  90, 86,	 96, 95,	103,103,	110,110,	116,116,	122,122,	129,130;
+	setarray 'coord_seal_3[0], 191,86,	183, 94,	174,103,	165,112,	156,120,	147,128,	143,131;
+	setarray 'coord_seal_4[0], 197,162,	188,161,	179,158,	170,155,	161,152,	152,149,	144,148;
+	setarray 'coord_seal_5[0], 142,214,	140,205,	140,195,	140,185,	140,173,	139,161,	138,150;
+	end;
+OnFirstSpawn:
+	'round[0] = 'round[1] = 'round[2] = 'round[3] = 'round[4] = 0;
+	donpcevent instance_npcname("devil_seal_spawn#1") + "::OnFirstSpawn";
+	donpcevent instance_npcname("devil_seal_spawn#2") + "::OnFirstSpawn";
+	donpcevent instance_npcname("devil_seal_spawn#3") + "::OnFirstSpawn";
+	donpcevent instance_npcname("devil_seal_spawn#4") + "::OnFirstSpawn";
+	donpcevent instance_npcname("devil_seal_spawn#5") + "::OnFirstSpawn";
+	initnpctimer;
+	end;
+OnTimer2000:
+	donpcevent instance_npcname("devil_seal_spawn#1") + "::OnSlaves";
+	donpcevent instance_npcname("devil_seal_spawn#2") + "::OnSlaves";
+	donpcevent instance_npcname("devil_seal_spawn#3") + "::OnSlaves";
+	donpcevent instance_npcname("devil_seal_spawn#4") + "::OnSlaves";
+	donpcevent instance_npcname("devil_seal_spawn#5") + "::OnSlaves";
+	end;
+OnTimer20000:
+	donpcevent instance_npcname("devil_seal_spawn#1") + "::OnStart";// upper left
+	donpcevent instance_npcname("devil_seal_spawn#3") + "::OnStart";// bottom right
+	donpcevent instance_npcname("devil_seal_spawn#5") + "::OnStart";// upper
+	end;
+OnTimer30000:
+	donpcevent instance_npcname("devil_seal_spawn#2") + "::OnStart";// bottom left
+	donpcevent instance_npcname("devil_seal_spawn#4") + "::OnStart";// upper right
+	end;
+OnStop:
+	stopnpctimer;
+	disablenpc instance_npcname("#devil_seal_spawn_global");
+	end;
+}
+
+1@tnm2,1,1,0	script	devil_seal_spawn#1	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	.@num = atoi(strnpcinfo(2)) - 1;
+	if ('seal_id[.@num] == 0 || unitexists('seal_id[.@num]) == 0)
+		stopnpctimer;
+	else {
+		getunitdata 'seal_id[.@num], .@data;
+		'seal_hp[.@num] = .@data[UMOB_HP];
+		killmonster 'map_tnm2$, instance_npcname("#devil_seal_dead") + "::OnSealDead" + strnpcinfo(2);
+		initnpctimer;
+	}
+	end;
+OnFirstSpawn:
+OnTimer5000:
+	.@num = atoi(strnpcinfo(2)) - 1;
+	.@index = 'round[.@num] * 2;
+	if (.@index == 0 || 'seal_id[.@num]) {
+		.@x = getd( "'coord_seal_" + (.@num+1) + "[" + .@index + "]" );
+		.@y = getd( "'coord_seal_" + (.@num+1) + "[" + (.@index+1) + "]" );
+
+		monster 'map_tnm2$,.@x,.@y,"Магическая печать",2938,1, instance_npcname("#devil_seal_dead") + "::OnSealDead" + (.@num+1);	// MM_MAGIC_SEAL
+		'seal_id[.@num] = $@mobid[0];
+		if (.@index == 0)
+			setunitdata 'seal_id[.@num], UMOB_HP, 3000000;
+		else if ('seal_hp[.@num] > 0)
+			setunitdata 'seal_id[.@num], UMOB_HP, 'seal_hp[.@num];
+		else
+			stopnpctimer;
+		'round[.@num]++;
+		if ('round[.@num] == 7)
+			donpcevent instance_npcname("devil_seal_reach_center#" + (.@num+1)) + "::OnStart";
+	}
+	end;
+OnSlaves:
+OnTimer7000:
+	killmonster 'map_tnm2$, instance_npcname(strnpcinfo(0)) + "::OnMobDead";
+	.@num = atoi(strnpcinfo(2)) - 1;
+	if ('seal_id[.@num] && unitexists('seal_id[.@num])) {
+		.@index = ('round[.@num] - 1) * 2;
+		.@x = getd( "'coord_seal_" + (.@num+1) + "[" + .@index + "]" );
+		.@y = getd( "'coord_seal_" + (.@num+1) + "[" + (.@index+1) + "]" );
+		areamonster 'map_tnm2$,(.@x-1),(.@y-1),(.@x+1),(.@y+1),"Зловещая тень",2939,2, instance_npcname(strnpcinfo(0)) + "::OnMobDead";	// MM_EVIL_SHADOW1
+		areamonster 'map_tnm2$,(.@x-1),(.@y-1),(.@x+1),(.@y+1),"Зловещая тень",2940,2, instance_npcname(strnpcinfo(0)) + "::OnMobDead";	// MM_EVIL_SHADOW2
+		if ('round[.@num] == 7)
+			stopnpctimer;
+	}
+	end;
+OnTimer30000:
+	donpcevent instance_npcname("devil_seal_spawn#" + strnpcinfo(2)) + "::OnStart";
+	end;
+
+OnDisable:
+	stopnpctimer;
+	killmonster 'map_tnm2$, instance_npcname(strnpcinfo(0)) + "::OnMobDead";	// note : officially still alive
+	killmonster 'map_tnm2$, instance_npcname("#devil_seal_dead") + "::OnSealDead" + strnpcinfo(2);	// note : officially still alive
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnStop:
+	stopnpctimer;
+	killmonster 'map_tnm2$, instance_npcname(strnpcinfo(0)) + "::OnMobDead";
+	killmonster 'map_tnm2$, instance_npcname("#devil_seal_dead") + "::OnSealDead" + strnpcinfo(2);
+	end;
+OnMobDead:
+	end;
+}
+1@tnm2,1,1,0	duplicate(devil_seal_spawn#1)	devil_seal_spawn#2	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_spawn#1)	devil_seal_spawn#3	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_spawn#1)	devil_seal_spawn#4	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_spawn#1)	devil_seal_spawn#5	HIDDEN_WARP_NPC
+
+1@tnm2,1,1,0	script	devil_seal_reach_center#1	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname(strnpcinfo(0));
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "Демон Моррок: Муа-ха-ха! Осколки моей силы! Собирайтесь!!!", 'demon$;
+	mapannounce 'map_tnm2$, "Демон Моррок: Муа-ха-ха! Осколки моей силы! Собирайтесь!!!", bc_map,0xFF0000;
+	end;
+OnTimer4000:
+	npctalk "Танатос: Стоять!!! Остановить их!", 'thanatos$;
+	mapannounce 'map_tnm2$, "Танатос: Стоять!!! Остановить их!", bc_map,0xFF00;
+	stopnpctimer;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@tnm2,1,1,0	duplicate(devil_seal_reach_center#1)	devil_seal_reach_center#2	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_reach_center#1)	devil_seal_reach_center#3	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_reach_center#1)	devil_seal_reach_center#4	HIDDEN_WARP_NPC
+1@tnm2,1,1,0	duplicate(devil_seal_reach_center#1)	devil_seal_reach_center#5	HIDDEN_WARP_NPC
+
+1@tnm2,1,1,0	script	#devil_seal_dead	HIDDEN_WARP_NPC,{
+	end;
+OnSealDead1: callsub S_Sealdead,0;
+OnSealDead2: callsub S_Sealdead,1;
+OnSealDead3: callsub S_Sealdead,2;
+OnSealDead4: callsub S_Sealdead,3;
+OnSealDead5: callsub S_Sealdead,4;
+
+S_Sealdead:
+	'seal_id[ getarg(0) ] = 0;
+	'seal_dead[ getarg(0) ] = 1;
+	.@total_seal = 'seal_dead[0] + 'seal_dead[1] + 'seal_dead[2] + 'seal_dead[3] + 'seal_dead[4];
+	if (.@total_seal == 3)
+		mapannounce 'map_tnm2$, "Люсиль: Расслабляться рано. Будут ещё Печати.", bc_map,0xFF00;
+	else if (.@total_seal != 5)
+		mapannounce 'map_tnm2$, "Это не последняя Печать.", bc_map,0xFF00;
+	else {
+		donpcevent instance_npcname("#devil_seal_spawn_global") + "::OnStop";
+		donpcevent instance_npcname("#devil_seal_timer") + "::OnStop";	// stop timer of npc #devil_flamecross as well
+		for ( .@i = 0; .@i < 5; .@i++ )
+			donpcevent instance_npcname("devil_seal_spawn#" + (.@i+1)) + "::OnDisable";// note: on official seals and slaves are alive
+		mapannounce 'map_tnm2$, "Демон Моррок: Нет... Не может быть... Кто... ты такой!", bc_map,0xFF0000;
+		npctalk "Демон Моррок: Нет... Не может быть... Кто... ты такой!", 'demon$;
+		initnpctimer;
+	}
+	end;
+OnTimer3000:
+	mapannounce 'map_tnm2$, "Танатос: Вот и настал твой последний час! Прощай!!!", bc_map,0xFF0000;
+	npctalk "Танатос: Вот и настал твой последний час! Прощай!!!", 'thanatos$;
+	end;
+OnTimer5000:
+	specialeffect EF_LORD,AREA, 'thanatos$;
+	end;
+OnTimer7000:
+	stopnpctimer;
+	disablenpc 'demon$;
+	disablenpc 'thanatos$;
+	disablenpc instance_npcname("Люсиль#tnm03");
+	enablenpc instance_npcname("Люсиль#tnm04");
+	enablenpc instance_npcname("#tnm3event01");
+	enablenpc instance_npcname("Девушка#tnm01");
+	'devil_tower = 9;
+
+	'demon$ = 'thanatos$ = "";
+	'round[0] = 'round[1] = 'round[2] = 'round[3] = 'round[4] = 0;
+	'seal_id[0] = 'seal_id[1] = 'seal_id[2] = 'seal_id[3] = 'seal_id[4] = 0;
+	'seal_hp[0] = 'seal_hp[1] = 'seal_hp[2] = 'seal_hp[3] = 'seal_hp[4] = 0;
+	'seal_dead[0] = 'seal_dead[1] = 'seal_dead[2] = 'seal_dead[3] = 'seal_dead[4] = 0;
+	deletearray 'coord_seal_1[0],14;
+	deletearray 'coord_seal_2[0],14;
+	deletearray 'coord_seal_3[0],14;
+	deletearray 'coord_seal_4[0],14;
+	deletearray 'coord_seal_5[0],14;
+	end;
+}
+
+1@tnm2,144,137,3	script	Люсиль#tnm04	4_F_LUCILE,{
+	if ('devil_tower < 9)
+		end;
+	if (isbegin_quest(7574) == 0) {
+		if (isbegin_quest(7572) == 1)
+			erasequest 7572;// Lucile...?
+		if (isbegin_quest(7573) == 1)	// leader
+			erasequest 7573;// Magic Swordman Thanatos
+		setquest 7574;// Thanatos Tower
+		mes "[Люсиль]";
+		mes "Похоже, энергия, направленная Морроком на разрушение щита, столкнулась с силой Танатоса...";
+		cutin "tnm_lucile01.bmp",2;
+		next;
+		mes "[Люсиль]";
+		mes "...где-то далеко к югу...";
+		mes "Пойдёшь туда?";
+	}
+	else {
+		mes "[Люсиль]";
+		mes "Столкновение таких энергий не шутка.";
+		mes "Наверное, оно повлияло на юг Мидгарда.";
+	}
+	next;
+	if (select( "Пойти.", "Закончить исследование." ) == 2) {
+		mes "[Люсиль]";
+		mes "...Так вот где пролегают твои границы?";
+		cutin "tnm_lucile02.bmp",2;
+		close3;
+	}
+	mes "[Люсиль]";
+	mes "Удачи.";
+	close2;
+	warp 'map_tnm3$,21,171;
+	end;
+}
+
+// tnm3 Stairs 1
+1@tnm3,21,171,0	script	#tnm3event01	HIDDEN_NPC,1,1,{
+	end;
+OnTouch:
+	if ('devil_tower != 9)
+		end;
+	pcblockmove getcharid(3),1;
+	disablenpc instance_npcname("#tnm3event01");
+	enablenpc instance_npcname("Девушка#tnm01");
+	sleep2 4000;
+	mapannounce 'map_tnm3$, "Девушка: Один, сохрани! Демон! Помогите!", bc_map,0xFF00;
+	pcblockmove getcharid(3),0;
+	'mob_count = 12;
+	initnpctimer;
+	end;
+OnTimer1000:
+	monster 'map_tnm3$,33,171,"Зловещая тень",2939,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW1
+	end;
+OnTimer2000:
+	monster 'map_tnm3$,39,172,"Зловещая тень",2939,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW1
+	end;
+OnTimer3000:
+	monster 'map_tnm3$,34,177,"Зловещая тень",2940,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW2
+	end;
+OnTimer4000:
+	monster 'map_tnm3$,36,176,"Зловещая тень",2940,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW2
+	end;
+OnTimer5000:
+	monster 'map_tnm3$,37,175,"Зловещая тень",2940,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW2
+	end;
+OnTimer6000:
+	monster 'map_tnm3$,37,173,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	monster 'map_tnm3$,36,172,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	end;
+OnTimer7000:
+	monster 'map_tnm3$,29,178,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	monster 'map_tnm3$,35,172,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	end;
+OnTimer8000:
+	monster 'map_tnm3$,34,173,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	monster 'map_tnm3$,35,172,"Зловещая тень",2939,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW1
+	end;
+OnTimer9000:
+	monster 'map_tnm3$,34,173,"Зловещая тень",2941,1, instance_npcname("Девушка#tnm01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	stopnpctimer;
+	end;
+}
+
+1@tnm3,43,175,3	script	Девушка#tnm01	4_F_DST_CHILD,{
+	if ('devil_tower < 9)
+		end;
+	if ('devil_tower == 9) {
+		mes "[Девушка]";
+		mes "Как демоны попали в замок?!";
+		mes "На помощь!!!";
+		close;
+	}
+	if ('devil_tower == 10) {
+		if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+			mes "[Девушка]";
+			mes "*вопит*";
+			mes "Они ужасны!..";
+			close;
+		}
+		mes "[Девушка]";
+		mes "Почему набежало столько демонов!";
+		mes "Охранникам пришлось несладко.";
+		npctalk "Девушка: Почему набежало столько демонов! Охранникам пришлось несладко.";
+		next;
+		select("Где они?");
+		unittalk getcharid(3), "" + strcharinfo(0) + " :Где они?";
+		mes "[Девушка]";
+		mes "В Моррокском замке. Мой отец рыцарь.";
+		npctalk "В Моррокском замке. Мой отец рыцарь.";
+		next;
+		mes "[Девушка]";
+		mes "Творится что-то странное. Я слышала с лестницы непонятный шум.";
+		npctalk "Девушка: Творится что-то странное. Я слышала с лестницы непонятный шум.";
+		next;
+		mes "[Девушка]";
+		mes "Я видела, как в замок входят какие-то люди в чёрном. Что происходит?";
+		npctalk "Девушка: Я видела, как в замок входят какие-то люди в чёрном. Что происходит?";
+		next;
+		mes "[Девушка]";
+		mes "Папа... Папа, пожалуйста, будь жив. *плак*";
+		mes "Пойдёмте, я проведу вас туда! Здесь есть скрытый проход!";
+		npctalk "Девушка: Пойдёмте, я проведу вас туда! Здесь есть скрытый проход!";
+		close2;
+		enablenpc instance_npcname("#tnm3gate01");
+		enablenpc instance_npcname("#tnm3event02ect");
+		'devil_tower = 11;
+		end;
+	}
+	if ('devil_tower == 11) {
+		mes "[Девушка]";
+		mes "За вон тем шкафом есть скрытый проход в подвал!";
+		mes "Пожалуйста, пожалуйста, убедитесь, что с моим папой всё в порядке!";
+		close;
+	}
+	end;
+
+OnMobDead:
+	'mob_count--;
+	if ('mob_count == 0) {
+		'devil_tower = 10;
+		npctalk "Девушка: Спасибо, что заступились за меня... Но откуда здесь столько демонов?";
+	}
+	end;
+}
+
+1@tnm3,51,176,0	warp	#tnm3gate01	2,2,1@tnm3,85,178
+
+// tnm3 Stairs 2
+1@tnm3,85,178,0	script	#tnm3event02ect	HIDDEN_NPC,1,1,{
+	end;
+OnTouch:
+	if ('devil_tower != 11)
+		end;
+	disablenpc instance_npcname("#tnm3event02ect");
+	enablenpc instance_npcname("Девушка#tnm02");
+	npctalk "Девушка: Смотрите! Ещё демоны! Они так замок захватят!", instance_npcname("Девушка#tnm02");
+	'mob_count = 18;
+	initnpctimer;
+	end;
+OnTimer1000:
+	.@label$ = instance_npcname("Девушка#tnm02") + "::OnMobDead";
+	monster 'map_tnm3$,97,174,"Зловещая тень",2939,1, .@label$;
+	monster 'map_tnm3$,98,175,"Зловещая тень",2939,1, .@label$;
+	monster 'map_tnm3$,100,166,"Зловещая тень",2939,1, .@label$;
+	monster 'map_tnm3$,108,171,"Зловещая тень",2940,1, .@label$;
+	monster 'map_tnm3$,104,172,"Зловещая тень",2940,1, .@label$;
+	end;
+OnTimer3000:
+	.@label$ = instance_npcname("Девушка#tnm02") + "::OnMobDead";
+	monster 'map_tnm3$,109,169,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,111,173,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,113,167,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,101,176,"Зловещая тень",2939,1, .@label$;
+	monster 'map_tnm3$,116,170,"Зловещая тень",2941,1, .@label$;
+	end;
+OnTimer5000:
+	.@label$ = instance_npcname("Девушка#tnm02") + "::OnMobDead";
+	monster 'map_tnm3$,107,175,"Зловещая тень",2940,1, .@label$;
+	monster 'map_tnm3$,106,174,"Зловещая тень",2940,1, .@label$;
+	monster 'map_tnm3$,106,169,"Зловещая тень",2939,1, .@label$;
+	monster 'map_tnm3$,103,177,"Зловещая тень",2940,1, .@label$;
+	end;
+OnTimer7000:
+	stopnpctimer;
+	.@label$ = instance_npcname("Девушка#tnm02") + "::OnMobDead";
+	monster 'map_tnm3$,121,171,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,119,173,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,127,166,"Зловещая тень",2941,1, .@label$;
+	monster 'map_tnm3$,125,166,"Зловещая тень",2941,1, .@label$;
+	end;
+}
+
+1@tnm3,89,179,4	script	Девушка#tnm02	4_F_DST_CHILD,{
+	end;
+OnMobDead:
+	'mob_count--;
+	if ('mob_count == 0) {
+		mapannounce 'map_tnm3$, "Девушка: Путь в подвал здесь!", bc_map,0xFF00;
+		disablenpc instance_npcname("Девушка#tnm02");
+		enablenpc instance_npcname("Девушка#tnm03");
+		npctalk "Девушка: Путь в подвал здесь!", instance_npcname("Девушка#tnm03");
+		enablenpc instance_npcname("#tnm3gate02");
+		enablenpc instance_npcname("Зловещая тень#tnm3mob01");
+	}
+	end;
+}
+
+1@tnm3,128,164,3	script	Девушка#tnm03	4_F_DST_CHILD,{
+	mes "[Девушка]";
+	mes "Дальше я плохо знаю...";
+	mes "Вроде бы там очень длинная лестница...";
+	mes "Ах, смотрите, там всё в демонах! И папа там!";
+	mes "Спасите его!";
+	close;
+}
+
+1@tnm3,134,156,0	warp	#tnm3gate02	1,1,1@tnm3,169,165
+
+// tnm3 Stairs 3
+1@tnm3,179,172,3	script	Зловещая тень#tnm3mob01	2941,4,4,{
+	end;
+OnTouch_:
+	if ('devil_tower == 11) {
+		'devil_tower = 12;
+		pcblockmove getcharid(3),1;
+		sleep2 1000;
+		npctalk "Зловещая тень: Думала я, что чую крыс! И мне не показалось!";
+		sleep2 3000;
+		npctalk "Зловещая тень: Ты проклянёшь своё любопытство и вмешательство!";
+		sleep2 3000;
+		npctalk "Зловещая тень: Я призываю Тьму!!";
+		pcblockmove getcharid(3),0;
+		disablenpc instance_npcname("Зловещая тень#tnm3mob01");
+		donpcevent instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnSummon";
+	}
+	end;
+}
+
+1@tnm3,1,1,0	script	Зловещая тень убийства#tnm3mob01	HIDDEN_WARP_NPC,{
+	end;
+OnSummon:
+	enablenpc instance_npcname("Зловещая тень убийства#tnm3mob01");
+	'mob_count = 5;
+	initnpctimer;
+	monster 'map_tnm3$,179,172, "Зловещая тень",2941,1, instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnMobDead";// MM_EVIL_SHADOW3
+	end;
+OnTimer1000:
+	monster 'map_tnm3$,181,172, "Зловещая тень",2940,1, instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnMobDead";// MM_EVIL_SHADOW2
+	monster 'map_tnm3$,178,172, "Зловещая тень",2940,1, instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnMobDead";
+	end;
+OnTimer2000:
+	monster 'map_tnm3$,179,172, "Зловещая тень",2939,1, instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnMobDead";// MM_EVIL_SHADOW1
+	monster 'map_tnm3$,176,173, "Зловещая тень",2939,1, instance_npcname("Зловещая тень убийства#tnm3mob01") + "::OnMobDead";
+	stopnpctimer;
+	end;
+OnMobDead:
+	'mob_count--;
+	if ('mob_count == 0) {
+		enablenpc instance_npcname("#tnm3gate03");
+		enablenpc instance_npcname("Демоническая тень#mobmaster");
+		enablenpc instance_npcname("Моррокский рыцарь#mocl");
+		enablenpc instance_npcname("Локи#tnmloki01");
+	}
+	end;
+}
+
+1@tnm3,183,177,0	warp	#tnm3gate03	1,1,1@tnm3,97,6
+
+// Demonic Shade (Boss room)
+1@tnm3,97,18,3	script	Демоническая тень#mobmaster	2939,5,5,{
+	end;
+OnTouch_:// possibility to skip this step
+	if ('devil_tower < 12)
+		end;
+	if ('shade == 0) {
+		'shade = 1;
+		pcblockmove getcharid(3),1;
+		sleep2 1000;
+		npctalk "Демоническая тень: А вот и вы, те, что вечно мешают!";
+		sleep2 2000;
+		npctalk "Демоническая тень: Тц. Вы даже не способны уберечь... впрочем, не важно. Вам всем конец.";
+		sleep2 3000;
+		npctalk "Демоническая тень: Узрите ИСТИНУ: кровью сердец ваших смерти ваши обратятся в Его жизнь!!!";
+		pcblockmove getcharid(3),0;
+		disablenpc instance_npcname("Демоническая тень#mobmaster");
+		donpcevent instance_npcname("#mobmaster_kill") + "::OnSummon";
+	}
+	end;
+}
+
+1@tnm3,1,1,0	script	#mobmaster_kill	HIDDEN_WARP_NPC,{
+	end;
+OnSummon:
+	enablenpc instance_npcname("#mobmaster_kill");
+	initnpctimer;
+	monster 'map_tnm3$,97,18, "Демоническая тень",2939,1, instance_npcname("#mobmaster_kill") + "::OnMobDead";
+	end;
+OnTimer1000:
+	.@label$ = instance_npcname("#mobmaster_kill") + "::OnMobDead";
+	stopnpctimer;
+	monster 'map_tnm3$,94,18, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,96,18, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,113,18, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,119,22, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,116,18, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,116,18, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,114,12, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,116,21, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,74,18, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,75,12, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,76,21, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,69,16, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,57,43, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,58,44, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,59,46, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,60,48, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,56,45, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,57,44, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,80,71, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,59,77, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,77,73, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,77,72, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,59,70, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,81,66, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,60,69, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,57,73, "Демоническая тень",2940,1, .@label$;
+	monster 'map_tnm3$,62,74, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,78,67, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,75,22, "Демоническая тень",2941,1, .@label$;
+	monster 'map_tnm3$,81,69, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,77,11, "Демоническая тень",2939,1, .@label$;
+	monster 'map_tnm3$,58,74, "Демоническая тень",2941,1, .@label$;
+	end;
+
+OnMobDead:
+	end;
+}
+
+1@tnm3,93,52,4	script	Моррокский рыцарь#mocl	1_M_MOC_LORD,{
+	mes "[Моррокский рыцарь]";
+	mes "Так вот, кто тут вынюхивал!";
+	close;
+}
+
+1@tnm3,97,48,3	script	Локи#tnmloki01	4_M_ROKI2,{
+	if ('devil_tower == 12) {
+		'devil_tower = 13;
+		donpcevent instance_npcname("#morroc_lord_talk") + "::OnStart";
+		end;
+	}
+	mes "[Локи]";
+	mes "Здесь ты бессилен.";
+	close;
+}
+
+1@tnm3,94,51,4	duplicate(Офицер Хайм#heim0)	Девушка#tnm04	4_F_DST_CHILD
+
+1@tnm2,1,1,0	script	#morroc_lord_talk	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#morroc_lord_talk");
+	'morroc$ = instance_npcname("Моррокский рыцарь#mocl");
+	'loki$ = instance_npcname("Локи#tnmloki01");
+	npctalk "Моррокский рыцарь: Значит, наша крыса ещё и убийца? Пришёл в поисках смерти?", 'morroc$;
+	initnpctimer;
+	end;
+OnTimer3000:
+	npctalk "Локи: Чего ты добьёшься, освободив Того-Что-в-Оковах?", 'loki$;
+	end;
+OnTimer6000:
+	npctalk "Локи: Меня привела сюда моя миссия: закопать его поглубже.", 'loki$;
+	end;
+OnTimer9000:
+	npctalk "Моррокский рыцарь: Правда... И это Гильдия ассасинов, а я-то думал, вы следите за балансом сил в мире!", 'morroc$;
+	end;
+OnTimer12000:
+	npctalk "Моррокский рыцарь: Возрождение Демона принесёт равновесие! Потому что даже сильнейшие становятся рабами богов...", 'morroc$;
+	end;
+OnTimer15000:
+	npctalk "Моррокский рыцарь: У богов свои планы. Откуда ты знаешь, что они задумали о тебе, обо мне?", 'morroc$;
+	end;
+OnTimer18000:
+	npctalk "Моррокский рыцарь: Они хотят, чтобы этот мир был всего лишь... образом их же самих. Разве для нас там есть место?!", 'morroc$;
+	end;
+OnTimer20000:
+	npctalk "Локи: Заткнись!", 'loki$;
+	end;
+OnTimer22000:
+	npctalk "Локи: Я на катаре вертел твоих богов, демонов и их планы. Мне нужно только одно: убить тебя.", 'loki$;
+	end;
+OnTimer25000:
+	npctalk "Локи: Такова моя миссия!", 'loki$;
+	end;
+OnTimer28000:
+	npctalk "Моррокский рыцарь: Неужели всё, что тебя интересует, это исполнить свою чёртову миссию?..", 'morroc$;
+	end;
+OnTimer31000:
+	npctalk "Локи: *Оскал* Ну да!!", 'loki$;
+	specialeffect EF_BEGINSPELL3,AREA, 'loki$;
+	end;
+OnTimer33000:
+	npctalk "Локи: Взрыв мозга~!!!", 'loki$;
+	end;
+OnTimer34000:
+	enablenpc instance_npcname("Девушка#tnm04");
+	npctalk "Девушка: Нет..!! Не трогайте папу!!!", instance_npcname("Девушка#tnm04");
+	specialeffect EF_HIT3,AREA, instance_npcname("Девушка#tnm04");
+	end;
+OnTimer34500:
+	specialeffect EF_HIT2,AREA, instance_npcname("Девушка#tnm04");
+	end;
+OnTimer35500:
+	specialeffect EF_ICECRASH,AREA, instance_npcname("Девушка#tnm04");
+	end;
+OnTimer36500:
+	npctalk "!!!", 'loki$;
+	end;
+OnTimer38500:
+	npctalk "Моррокский рыцарь: Ох-хо. Следовало послать кого-то получше, убийца.", 'morroc$;
+	end;
+OnTimer41500:
+	npctalk "Девушка: Здесь что-то не так...", instance_npcname("Девушка#tnm04");
+	end;
+OnTimer44500:
+	npctalk "Девушка: Мой папа никогда бы так себя не повёл... Ах...", instance_npcname("Девушка#tnm04");
+	end;
+OnTimer47500:
+	npctalk "Моррокский рыцарь: Жертвоприношение... Настолько глупая идея... человек.", 'morroc$;
+	end;
+OnTimer50500:
+	npctalk "Моррокский рыцарь: Правда в том, что ваши детские игры бесполезны.", 'morroc$;
+	end;
+OnTimer53500:
+	npctalk "Моррокский рыцарь: Муа-ха-ха! Глупые людишки, я всех вас принесу в жертву!!!", 'morroc$;
+	specialeffect EF_COUPLECASTING,AREA, 'morroc$;
+	specialeffect EF_VOLCANO,AREA, 'morroc$;
+	end;
+OnTimer54500:
+	npctalk "Локи: Тц... Бесполезно!", 'loki$;
+	end;
+OnTimer55500:
+	enablenpc instance_npcname("Локи#tnmloki02");
+	mapwarp 'map_tnm3$, 'map_tnm3$,136,62;// todo area 1x1
+	'devil_tower = 13;
+	stopnpctimer;
+	disablenpc instance_npcname("#morroc_lord_talk");
+	disablenpc instance_npcname("Моррокский рыцарь#mocl");
+	disablenpc instance_npcname("Локи#tnmloki01");
+	disablenpc instance_npcname("Девушка#tnm04");
+	end;
+}
+
+1@tnm3,137,65,3	script	Локи#tnmloki02	4_M_ROKI2,{
+	if ('devil_tower != 13)
+		end;
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "[Локи]";
+		mes "Я с твоим боссом разговариваю.";
+		close;
+	}
+	if (getmercinfo(0) > 0) {
+		mes "[Локи]";
+		mes "...Хм.";
+		mes "^4d4dffЗаверши контракт с наёмником^000000, если хочешь помочь мне на миссии.";
+		close;
+	}
+	mes "[Локи]";
+	mes "Откуда ты?";
+	mes "Мне может понадобиться помощь.";
+	npctalk "Локи: Откуда ты? Мне может понадобиться помощь.", instance_npcname("Локи#tnmloki02");
+	next;
+	mes "[Локи]";
+	mes "Рыцарь больше не человек. Мне придётся устроить ему встречу с его персональной вечностью.";
+	npctalk "Локи: Рыцарь больше не человек. Мне придётся устроить ему встречу с его персональной вечностью.", instance_npcname("Локи#tnmloki02");
+	next;
+	mes "[Локи]";
+	mes "^4d4dff Те, кто несёт на себе благословение ада, неуязвимы. Но это благословение можно снять с помощью взрыва мозга.^000000";
+	npctalk "Локи: Те, кто несёт на себе благословение ада, неуязвимы. Но это благословение можно снять с помощью взрыва мозга.", instance_npcname("Локи#tnmloki02");
+	next;
+	mes "[Локи]";
+	mes "Ты будешь следить, когда его активировать.";
+	npctalk "Локи: Ты будешь следить, когда его активировать.", instance_npcname("Локи#tnmloki02");
+	next;
+	disablenpc instance_npcname("Локи#tnmloki02");
+	mes "^4d4dffК вашему отряду присоединился Локи, Исполнитель Гильдии Ассасинов.";
+	mes "Нам нужно избавиться от Моррокского рыцаря с помощью умения Локи ''Взрыв мозга''.^000000";
+	'devil_tower = 14;
+	mercenary_create 2937,1800000;// M_LOKI
+	mapannounce 'map_tnm3$, "Одержимый: Эй, мусор! Ты куда спрятался?", bc_map,0xFF00;
+	initnpctimer;
+	close;
+OnTimer500:
+	monster 'map_tnm3$,93,52,"Одержимый",2942,1, instance_npcname("#boss_skills_timer") + "::OnBossDead";// MM_EVIL_FANATICS
+	'boss_id = $@mobid[0];
+	end;
+OnTimer2000:
+	mapannounce 'map_tnm3$, "Одержимый: Вы все пойдёте в жертву!!!", bc_map,0xFF00;
+	end;
+OnTimer12000:
+	donpcevent instance_npcname("#boss_skills_timer") + "::OnStart";
+	stopnpctimer;
+	end;
+}
+
+1@tnm3,1,1,0	script	#boss_skills_timer	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#boss_skills_timer");
+	'label$ = instance_npcname("#boss_skills_timer") + "::OnMobDead";
+	initnpctimer;
+	end;
+OnTimer1000:// + form
+	getunitdata 'boss_id, .@data;
+	'x_boss = .@data[UMOB_X];
+	'y_boss = .@data[UMOB_Y];
+	monster 'map_tnm3$, 'x_boss, 'y_boss, "",2943,1, 'label$;// MM_ICE_MINE
+	monster 'map_tnm3$, ('x_boss-5), 'y_boss, "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss+5), 'y_boss, "",2943,1, 'label$;
+	monster 'map_tnm3$, 'x_boss, ('y_boss-5), "",2943,1, 'label$;
+	monster 'map_tnm3$, 'x_boss, ('y_boss+5), "",2943,1, 'label$;
+	end;
+OnTimer3000:
+	monster 'map_tnm3$, ('x_boss-10), 'y_boss, "",2943,1, 'label$;// MM_ICE_MINE
+	monster 'map_tnm3$, ('x_boss+10), 'y_boss, "",2943,1, 'label$;
+	monster 'map_tnm3$, 'x_boss, ('y_boss-10), "",2943,1, 'label$;
+	monster 'map_tnm3$, 'x_boss, ('y_boss+10), "",2943,1, 'label$;
+	end;
+OnTimer6000:
+	killmonster 'map_tnm3$, 'label$;
+	end;
+OnTimer21000:// X form
+	getunitdata 'boss_id, .@data;
+	'x_boss = .@data[UMOB_X];
+	'y_boss = .@data[UMOB_Y];
+	monster 'map_tnm3$, ('x_boss+3), ('y_boss+3), "",2960,1, 'label$;// MM_FLAMECROSS
+	monster 'map_tnm3$, ('x_boss+3), ('y_boss-3), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-3), ('y_boss+3), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-3), ('y_boss-3), "",2960,1, 'label$;
+	end;
+OnTimer21350:
+	monster 'map_tnm3$, ('x_boss+6), ('y_boss+6), "",2960,1, 'label$;// MM_FLAMECROSS
+	monster 'map_tnm3$, ('x_boss+6), ('y_boss-6), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-6), ('y_boss+6), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-6), ('y_boss-6), "",2960,1, 'label$;
+	end;
+OnTimer21700:
+	monster 'map_tnm3$, ('x_boss+9), ('y_boss+9), "",2960,1, 'label$;// MM_FLAMECROSS
+	monster 'map_tnm3$, ('x_boss+9), ('y_boss-9), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-9), ('y_boss+9), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-9), ('y_boss-9), "",2960,1, 'label$;
+	end;
+OnTimer22050:
+	monster 'map_tnm3$, ('x_boss+13), ('y_boss+13), "",2960,1, 'label$;// MM_FLAMECROSS
+	monster 'map_tnm3$, ('x_boss+13), ('y_boss-13), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-13), ('y_boss+13), "",2960,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-13), ('y_boss-13), "",2960,1, 'label$;
+	end;
+OnTimer30000:
+	killmonster 'map_tnm3$, 'label$;
+	end;
+OnTimer51000:// X form
+	getunitdata 'boss_id, .@data;
+	'x_boss = .@data[UMOB_X];
+	'y_boss = .@data[UMOB_Y];
+	monster 'map_tnm3$, 'x_boss, 'y_boss, "",2943,1, 'label$;// MM_ICE_MINE
+	monster 'map_tnm3$, ('x_boss+5), ('y_boss+5), "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-5), ('y_boss-5), "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss+10), ('y_boss+10), "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-10), ('y_boss-10), "",2943,1, 'label$;
+	end;
+OnTimer53000:
+	monster 'map_tnm3$, ('x_boss-5), ('y_boss+5), "",2943,1, 'label$;// MM_ICE_MINE
+	monster 'map_tnm3$, ('x_boss+5), ('y_boss-5), "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss-10), ('y_boss+10), "",2943,1, 'label$;
+	monster 'map_tnm3$, ('x_boss+10), ('y_boss-10), "",2943,1, 'label$;
+	end;
+OnTimer56000:
+	killmonster 'map_tnm3$, 'label$;
+	end;
+OnTimer81000:// S form
+	getunitdata 'boss_id, .@data;
+	'x_boss = .@data[UMOB_X];
+	'y_boss = .@data[UMOB_Y];
+	monster 'map_tnm3$, ('x_boss-2), ('y_boss+5), "",2960,1, 'label$;// MM_FLAMECROSS
+	end;
+OnTimer81300:
+	monster 'map_tnm3$, ('x_boss+4), ('y_boss+8), "",2960,1, 'label$;
+	end;
+OnTimer81600:
+	monster 'map_tnm3$, ('x_boss+10), ('y_boss+2), "",2960,1, 'label$;
+	end;
+OnTimer82000:
+	monster 'map_tnm3$, ('x_boss+10), ('y_boss-1), "",2960,1, 'label$;
+	end;
+OnTimer82300:
+	monster 'map_tnm3$, ('x_boss+7), ('y_boss-7), "",2960,1, 'label$;
+	end;
+OnTimer82600:
+	monster 'map_tnm3$, ('x_boss+1), ('y_boss-10), "",2960,1, 'label$;
+	end;
+OnTimer83000:
+	monster 'map_tnm3$, ('x_boss-11), ('y_boss-1), "",2960,1, 'label$;
+	end;
+OnTimer83300:
+	monster 'map_tnm3$, ('x_boss-11), ('y_boss+5), "",2960,1, 'label$;
+	end;
+OnTimer83600:
+	monster 'map_tnm3$, ('x_boss-8), ('y_boss+11), "",2960,1, 'label$;
+	end;
+OnTimer84000:
+	monster 'map_tnm3$, ('x_boss-2), ('y_boss+17), "",2960,1, 'label$;
+	end;
+OnTimer84300:
+	monster 'map_tnm3$, ('x_boss+7), ('y_boss+20), "",2960,1, 'label$;
+	end;
+OnTimer90000:
+	killmonster 'map_tnm3$, 'label$;
+	initnpctimer;
+	end;
+OnMobDead:
+	end;
+OnBossDead:
+	stopnpctimer;
+	killmonster 'map_tnm3$, 'label$;
+	'x_boss = 'y_boss = 'boss_id = 0;
+	'label$ = "";
+	mapannounce 'map_tnm3$, "Одержимый: Нет! Невозможно... Эта сила... Ты...", bc_map,0xFF0000;
+	sleep2 1000;
+	warpparty 'map_tnm3$,71,70, getcharid(1), 'map_tnm3$,1,1;
+	enablenpc instance_npcname("Локи#tnmloki03");
+	enablenpc instance_npcname("box#tnmbosang");
+	disablenpc instance_npcname("#boss_skills_timer");
+	'devil_tower = 15;
+	end;
+}
+
+1@tnm3,69,70,3	script	box#tnmbosang	4_TREASURE_BOX,{
+	if ('devil_tower != 15)
+		end;
+	specialeffect EF_COIN;
+	disablenpc instance_npcname("box#tnmbosang");
+	makeitem 7293,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5));	// Rose Quartz
+	makeitem 749,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5));	// Frozen Rose
+	makeitem 7511,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5));	// Rune of Darkness
+	if (rand(100) < 75)
+		makeitem 616,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5));	// Old Card Album
+	if (rand(100) < 50)
+		makeitem 748,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5));	// Witherless_Rose
+
+	setarray .@item_id_list[0],
+		1671,	// Devil_Won_Staff
+		13094,	// Devil_Pierced_Dagger
+		16027,	// Hammer_Of_Evil_Slayer
+		18120, 	// Bow_Of_Evil_Slayer
+		21010, 	// Tw_Sword_Of_Evil_Slayer
+		28001; 	// Katar_Of_Evil_Slayer
+	setarray .@bonus_list1[0],
+		4800,	// SP50
+		4811,	// Fighting_Spirit1
+		4810,	// Fighting_Spirit2
+		4809,	// Fighting_Spirit3
+		4808,	// Fighting_Spirit4
+		4820,	// Fighting_Spirit5
+		4821,	// Fighting_Spirit6
+		4815,	// Spell1
+		4814,	// Spell2
+		4813,	// Spell3
+		4812,	// Spell4
+		4786;	// Mdef2
+	setarray .@bonus_list2[0],
+		4815,	// Spell1
+		4814,	// Spell2
+		4813,	// Spell3
+		4812,	// Spell4
+		4826,	// Spell5
+		4811,	// Fighting_Spirit1
+		4810,	// Fighting_Spirit2
+		4809,	// Fighting_Spirit3
+		4808,	// Fighting_Spirit4
+		4820,	// Fighting_Spirit5
+		4786;	// Mdef2
+	setarray .@bonus_list3[0],
+		4815,	// Spell1
+		4814,	// Spell2
+		4813,	// Spell3
+		4812,	// Spell4
+		4811,	// Fighting_Spirit1
+		4810,	// Fighting_Spirit2
+		4809,	// Fighting_Spirit3
+		4808,	// Fighting_Spirit4
+		4820,	// Fighting_Spirit5
+		4821,	// Fighting_Spirit6
+		4791,	// DEF+3
+		4786;	// Mdef2
+	.@item_id = .@item_id_list[ rand( getarraysize(.@item_id_list) ) ];
+	.@refine = rand(1,6);
+	.@bonus1 = .@bonus_list1[ rand( getarraysize(.@bonus_list1) ) ];
+	.@bonus2 = .@bonus_list1[ rand( getarraysize(.@bonus_list2) ) ];
+	.@bonus3 = .@bonus_list1[ rand( getarraysize(.@bonus_list3) ) ];
+
+	makeitem2 .@item_id,1, 'map_tnm3$, (69 + rand(-5,5)), (70 + rand(-5,5)), 0, .@refine,0, 0,.@bonus1,.@bonus2,.@bonus3;
+	end;
+}
+
+//1@tnm3,69,72,3	script	Локи#tnmloki03	4_M_ROKI2,5,5,{
+1@tnm3,69,72,3	script	Локи#tnmloki03	4_M_ROKI2,{
+	if ('devil_tower != 15)
+		end;
+	if (isbegin_quest(7576) == 0) {
+		mes "[Локи]";
+		mes "Достал.";
+		mes "Мы успели забить демонюгу раньше, чем ритуал был завершён.";
+		mes "На время это бурление поутихнет.";
+		setquest 7576;// Morocc castle seal
+		next;
+		mes "[Локи]";
+		mes "А я узнал кое-что реально неожиданное, пока шарился по Башне.";
+		next;
+		mes "[Локи]";
+		mes "Пожалуй, поживу ещё немного без совести.";
+		mes "Когда-нибудь, когда я вновь разрешу себе чувствовать... Эти дни заполнят мои мысли.";
+		close;
+	}
+	mes "[Локи]";
+	mes "Интересно. Осталась ещё дочь...";
+	mes "Что делать с ней?";
+	mes "Какой следующий шаг...";
+	next;
+	mes "[Локи]";
+	mes "Впрочем, неважно, тебе здесь точно больше нечего делать.";
+	mes "Хочешь ещё побродить по пустому подвалу?";
+	mes "Или я могу отправить тебя в то время и место, которому ты принадлежишь.";
+	next;
+	if (select( "Выбраться отсюда.", "Осмотреться." ) == 2) {
+		mes "[Локи]";
+		mes "Пинать балду в местах искривления времени не слишком-то разумно.";
+		close;
+	}
+	mes "[Локи]";
+	mes "Может быть, наши миссии когда-нибудь сведут нас ещё раз...";
+	close2;
+	warp "dali02",134,112;
+	end;
+
+OnInstanceInit:
+	'heal_count = 0;
+	'devil_tower = 0;
+	'mob_count = 0;
+	'shade = 0;
+
+	'map_tnm1$ = instance_mapname("1@tnm1");
+	'map_tnm2$ = instance_mapname("1@tnm2");
+	'map_tnm3$ = instance_mapname("1@tnm3");
+
+	// Entrance
+	disablenpc instance_npcname("Офицер Хайм#heim");
+	disablenpc instance_npcname("Лекарь Феима#feima");
+	for ( .@i = 1; .@i < 8; .@i++ )
+		disablenpc instance_npcname( "Раненый#" + .@i );
+	disablenpc instance_npcname("Люсиль#tnm01");
+	disablenpc instance_npcname("Искусник#tnm01");
+	disablenpc instance_npcname("Ассасин Хью#tnm01");
+	disablenpc instance_npcname("Ассасин Луи#tnm01");
+	disablenpc instance_npcname("Ассасин Дьюи#tnm01");
+
+	// Stairs tnm1
+	disablenpc instance_npcname("#tnm1stepmob");
+	disablenpc instance_npcname("Ассасин Луи#tnm02");
+
+	// Stairs 2 tnm1
+	disablenpc instance_npcname("Люсиль#tnm02");
+	disablenpc instance_npcname("Хью#hui02");
+
+	// Morocc - Thanatos Battle
+	disablenpc instance_npcname("Искусник#tnm02");
+	disablenpc instance_npcname("Демон Моррок#tnm01");
+	disablenpc instance_npcname("Люсиль#tnm03");
+	disablenpc instance_npcname("Люсиль#tnm04");
+	disablenpc instance_npcname("#devil_flamecross");
+	disablenpc instance_npcname("#devil_seal_timer");
+	disablenpc instance_npcname("#devil_seal_spawn_global");
+	for ( .@i = 1; .@i < 6; .@i++ ) {
+		disablenpc instance_npcname("devil_seal_spawn#" + .@i);
+		disablenpc instance_npcname("devil_seal_reach_center#" + .@i);
+	}
+	disablenpc instance_npcname("#devil_seal_dead");
+
+	'demon$ = 'thanatos$ = "";
+	'round[0] = 'round[1] = 'round[2] = 'round[3] = 'round[4] = 0;
+	'seal_id[0] = 'seal_id[1] = 'seal_id[2] = 'seal_id[3] = 'seal_id[4] = 0;
+	'seal_hp[0] = 'seal_hp[1] = 'seal_hp[2] = 'seal_hp[3] = 'seal_hp[4] = 0;
+	'seal_dead[0] = 'seal_dead[1] = 'seal_dead[2] = 'seal_dead[3] = 'seal_dead[4] = 0;
+	deletearray 'coord_seal_1[0],14;
+	deletearray 'coord_seal_2[0],14;
+	deletearray 'coord_seal_3[0],14;
+	deletearray 'coord_seal_4[0],14;
+	deletearray 'coord_seal_5[0],14;
+
+	// tnm3 Stairs 1
+	disablenpc instance_npcname("#tnm3event01");
+	disablenpc instance_npcname("Девушка#tnm01");
+	disablenpc instance_npcname("#tnm3gate01");
+
+	// tnm3 Stairs 2
+	disablenpc instance_npcname("#tnm3event02ect");
+	disablenpc instance_npcname("Девушка#tnm02");
+	disablenpc instance_npcname("Девушка#tnm03");
+	disablenpc instance_npcname("#tnm3gate02");
+
+	// tnm3 Stairs 3
+	disablenpc instance_npcname("Зловещая тень#tnm3mob01");
+	disablenpc instance_npcname("Зловещая тень убийства#tnm3mob01");
+	disablenpc instance_npcname("#tnm3gate03");
+
+	// Demonic Shade (Boss room)
+	disablenpc instance_npcname("Демоническая тень#mobmaster");
+	disablenpc instance_npcname("#mobmaster_kill");
+
+	// Boss
+	disablenpc instance_npcname("Моррокский рыцарь#mocl");
+	disablenpc instance_npcname("#morroc_lord_talk");
+	disablenpc instance_npcname("Локи#tnmloki01");
+	disablenpc instance_npcname("Девушка#tnm04");
+	disablenpc instance_npcname("Локи#tnmloki02");
+	disablenpc instance_npcname("#boss_skills_timer");
+	'x_boss = 'y_boss = 'boss_id = 0;
+	'label$ = "";
+
+	// Final
+	disablenpc instance_npcname("Локи#tnmloki03");
+	disablenpc instance_npcname("Сундуль#tnmbosang");
+	end;
+}
+
+1@tnm1	mapflag	nomemo
+1@tnm2	mapflag	nomemo
+1@tnm3	mapflag	nomemo
+
+1@tnm1	mapflag	noteleport
+1@tnm2	mapflag	noteleport
+1@tnm3	mapflag	noteleport
+
+1@tnm1	mapflag	monster_noteleport
+1@tnm2	mapflag	monster_noteleport
+1@tnm3	mapflag	monster_noteleport
