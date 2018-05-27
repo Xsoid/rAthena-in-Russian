@@ -1,0 +1,995 @@
+//===== rAthena Script =======================================
+//= Ghost Palace
+//===== Description: =========================================
+//= [Walkthrough Conversion]
+//= Ghost Palace Instance
+//===== Changelogs: ==========================================
+//= 1.0 First version. [Capuche]
+//============================================================
+//= Translated en > ru [akaineko]
+//= cp-1251
+//= .@md_name$ = "Дворец Призраков";
+//============================================================
+
+dali02,43,129,5	script	Мрачный гвардеец#	4_M_SAKRAYROYAL,{
+	if (BaseLevel < 120) {
+		mes "[Мрачный гвардеец]";
+		mes "Мне, конечно, требуется помощь, но тебе бы подрасти сначала, мелюзга~!";
+		next;
+		mes "[Мрачный гвардеец]";
+		mes "Как закончишь хотя бы какое-то подобие тренировок и будешь 120 уровня, приходи!";
+		close;
+	}
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2) || .@party_id < 1) {
+		mes "[Мрачный гвардеец]";
+		mes "Я могу открыть путь только по запросу командира отряда. Пусть он обратится ко мне.";
+		close;
+	}
+	switch( checkquest(1261,PLAYTIME) ) {
+	case -1:
+		break;
+	case 0:
+	case 1:
+		mes "[Мрачный гвардеец]";
+		mes "Удалось найти принцессу? Она в безопасности?";
+		close;
+	case 2:
+		mes "[Мрачный гвардеец]";
+		mes "Чудовища вокруг тайного прохода разошлись. Это твой шанс спасти принцессу!";
+		erasequest 1261;// Cursed Swordman
+		close;
+	}
+	mes "[Мрачный гвардеец]";
+	mes "Мне нужна помощь, я готов просить даже таких, как ты.";
+	next;
+	mes "[Мрачный гвардеец]";
+	mes "Прямо во время битвы, пока я был занят обороной дворца, пропала принцесса.";
+	next;
+	mes "[Мрачный гвардеец]";
+	mes "Беги вперёд, я за тобой. Нам нужно её спасти.";
+	next;
+	if (select( "Я помогу.", "Не самое удачное время." ) == 2) {
+		mes "[Мрачный гвардеец]";
+		mes "Прямо сейчас гвардейцы сражаются с чудовищами и умирают.";
+		next;
+		mes "[Мрачный гвардеец]";
+		mes "Это наш долг, несмотря на то, что страх сковывает сердце, мы должны спасти принцессу!";
+		close;
+	}
+	instance_create("Дворец Призраков");
+	mes "[Мрачный гвардеец]";
+	mes "Спасибо..";
+	mes "Я открой секретный проход ко^0000ff Дворцу Призраков^000000.";
+	mes "Готовься!";
+	close;
+}
+
+dali02,40,134,5	script	Портал#dk	PORTAL,{
+	if (BaseLevel < 120) {
+		mes "[Мрачный гвардеец]";
+		mes "Мне, конечно, требуется помощь, но тебе бы подрасти сначала, мелюзга~!";
+		next;
+		mes "[Мрачный гвардеец]";
+		mes "Как закончишь хотя бы какое-то подобие тренировок и будешь 120 уровня, приходи!";
+		close;
+	}
+	mes "[Мрачный гвардеец]";
+	mes "Вот он, секретный проход во дворец. Ты готов"+Sex?"":"а"+" попытаться спасти принцессу?!";
+	next;
+	if (select( "Войти.", "Остановиться." ) == 2) {
+		mes "[Мрачный гвардеец]";
+		mes "Прямо сейчас гвардейцы сражаются с чудовищами и умирают.";
+		next;
+		mes "[Мрачный гвардеец]";
+		mes "Это наш долг, несмотря на то, что страх сковывает сердце, мы должны спасти принцессу!";
+		close;
+	}
+	switch( checkquest(1261,PLAYTIME) ) {
+	case -1:
+		break;
+	case 0:
+	case 1:
+		mes "[Мрачный гвардеец]";
+		mes "Чудовища, которые напали на дворец, окружают проход с той стороны. Нам не сдобровать, если они нас заметят... Нужно подождать.";
+		next;
+		mes "Давай попробуем пробраться";
+		mes "спустя какое-то время.";
+		close;
+	case 2:
+		mes "^0000ff Прошло достаточно времени, и теперь можно войти во Дворец. Обратитесь к Гвардейцу снова.^000000";
+		erasequest 1261;// Cursed Swordman
+		close;
+	}
+	.@party_id = getcharid(1);
+	if (getcharid(0) != getpartyleader(.@party_id,2) || .@party_id < 1) {
+		mes "[Мрачный гвардеец]";
+		mes "Я могу открыть секретный проход только тому, кто является лидером отряда. Пусть ко мне подойдёт ваш командир.";
+		close;
+	}
+
+	.@md_name$ = "Дворец Призраков";
+	switch( instance_enter(.@md_name$) ) {
+	case IE_OTHER:
+		mes "Неизвестная ошибка.";
+		close;
+	case IE_NOINSTANCE:
+		mes "^ff0000 В центре устройства вы видите тёмное пятно или дыру. Поговорите с Гвардейцем, если хотите войти.^000000";
+		close;
+	case IE_NOMEMBER:
+		mes "Только те, с кем я договорился, могут пройти во Дворец.";
+		close;
+	case IE_OK:
+		mapannounce "dali", "" + strcharinfo(0) + " в составе отряда ''" + getpartyname(.@party_id) + "'' входит в Призрачный Дворец.", bc_map, 0x00ff99;
+		// warp "1@spa",42,196;
+		setquest 1261;// Cursed Swordman
+		end;
+	}
+}
+
+// 1st floor
+1@spa,41,204,5	script	Король#dk	4_M_RUSKING,{
+	mes "[Король]";
+	mes "Назначаю тебя телохранителем принцессы Тиары. Ты самый верный из моих людей.";
+	npctalk "Король : Назначаю тебя телохранителем принцессы Тиары. Ты самый верный из моих людей.";
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Я буду защищать принцессу ценой своей жизни.";
+	npctalk "Возбуждённый гвардеец : Я буду защищать принцессу ценой своей жизни.", instance_npcname("Возбуждённый гвардеец#dk");
+	next;
+	mes "[Король]";
+	mes "Подготовка к свадьбе идёт, как запланировано. Принц уже здесь и готов встретиться с ней.";
+	npctalk "Король : Подготовка к свадьбе идёт, как запланировано. Принц уже здесь и готов встретиться с ней.";
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "... Да, Ваше Величество.";
+	npctalk "Возбуждённый гвардеец : ... Да, Ваше Величество.", instance_npcname("Возбуждённый гвардеец#dk");
+	next;
+	mes "[Король]";
+	mes "Боги, во дворце чудовища! Избавиться от них!";
+	npctalk "Король : Боги, во дворце чудовища! Избавиться от них!";
+	close2;
+	donpcevent instance_npcname("#gp_control_1") + "::OnStart";
+	end;
+
+OnInstanceInit:
+	// 1: enabled potential double spawn (official), 0: disabled
+	'bool_double_spawn = 1;
+
+	'map_spa$ = instance_mapname("1@spa");
+
+	// warps
+	disablenpc instance_npcname("The second floor of Palace");
+	disablenpc instance_npcname("3rd floor in the palace");
+	disablenpc instance_npcname("4th floor in the palace");
+	disablenpc instance_npcname("5th floor of Palace");
+	disablenpc instance_npcname("Way out of Palace");
+
+	// first floor
+	disablenpc instance_npcname("#gp_control_1");
+
+	// second floor
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk1");
+	disablenpc instance_npcname("Принцесса Тиара#dk");
+	disablenpc instance_npcname("#gp_control_2");
+
+	// 3rd floor
+	disablenpc instance_npcname("Король#dk1");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk2");
+	disablenpc instance_npcname("Капитан Гвардии#dk");
+	disablenpc instance_npcname("Солдат#dk1");
+	disablenpc instance_npcname("Солдат#dk2");
+	disablenpc instance_npcname("Солдат#dk3");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk3");
+	disablenpc instance_npcname("След Магии Танатоса#dk1");
+	disablenpc instance_npcname("#gp_control_3");
+
+	// 4th floor
+	disablenpc instance_npcname("#gp_control_4");
+	disablenpc instance_npcname("#gp_control_5");
+	disablenpc instance_npcname("След Магии Танатоса#dk2");
+	disablenpc instance_npcname("Принц#dk");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk4");
+	disablenpc instance_npcname("Тело Короля#dk");
+	disablenpc instance_npcname("Тело Капитана#dk");
+	disablenpc instance_npcname("Тело солдата#dk");
+	disablenpc instance_npcname("Тело солдата#dk1");
+	disablenpc instance_npcname("Тело солдата#dk2");
+	disablenpc instance_npcname("Тело солдата#dk3");
+	disablenpc instance_npcname("Тело солдата#dk4");
+
+	// 5th floor
+	disablenpc instance_npcname("#gp_control_6");
+	disablenpc instance_npcname("Принцесса Тиара#dk1");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk5");
+	disablenpc instance_npcname("Король#dk11");
+	disablenpc instance_npcname("Сакрай#dk");
+	disablenpc instance_npcname("След Магии Танатоса#dk3");
+	disablenpc instance_npcname("#tb");
+	disablenpc instance_npcname("#sv");
+	disablenpc instance_npcname("#tv");
+	end;
+}
+
+1@spa,42,201,1	script	Возбуждённый гвардеец#dk	4_M_SAKRAYROYAL,{ end; }
+
+1@spa,1,1,1	script	#gp_control_1	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_1");
+	disablenpc instance_npcname("Король#dk");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk");
+	initnpctimer;
+	end;
+OnTimer2000:
+	.@label$ = instance_npcname("#gp_control_1") + "::OnMyMobDead1";
+	monster 'map_spa$,50,194,"Солдатская верность",2948,1, .@label$;		// CURSED_SOLDIER
+	monster 'map_spa$,34,208,"Солдатская верность",2948,1, .@label$;		// CURSED_SOLDIER
+	monster 'map_spa$,32,194,"Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	monster 'map_spa$,52,209,"Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	stopnpctimer;
+	end;
+OnMyMobDead1:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead1") < (1 + 'bool_double_spawn)) {
+		deltimer instance_npcname("#gp_control_1") + "::OnSpawn1";	// stop double spawn if timer is running
+		addtimer 2000, instance_npcname("#gp_control_1") + "::OnSpawn1";
+	}
+	end;
+OnSpawn1:
+	.@label$ = instance_npcname("#gp_control_1") + "::OnMyMobDead2";
+	monster 'map_spa$,37,182,"Солдатская верность",2948,1, .@label$;		// CURSED_SOLDIER
+	monster 'map_spa$,46,182,"Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	end;
+OnMyMobDead2:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead2") < 1) {
+		deltimer instance_npcname("#gp_control_1") + "::OnSpawn1";	// stop double spawn if timer is running
+		deltimer instance_npcname("#gp_control_1") + "::OnSpawn2";
+		addtimer 2000, instance_npcname("#gp_control_1") + "::OnSpawn2";
+	}
+	end;
+OnSpawn2:
+	.@label$ = instance_npcname("#gp_control_1") + "::OnMyMobDead3";
+	monster 'map_spa$,30,200,"Солдатская верность",2948,1, .@label$;		// CURSED_SOLDIER
+	monster 'map_spa$,51,200,"Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	monster 'map_spa$,53,199,"Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	end;
+OnMyMobDead3:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead3") < 1) {
+		mapannounce 'map_spa$, "Проход во вторую часть Дворца Призраков открыт.", bc_map,0xFFFF00;
+		enablenpc instance_npcname("The second floor of Palace");
+		enablenpc instance_npcname("Возбуждённый гвардеец#dk1");
+		enablenpc instance_npcname("Принцесса Тиара#dk");
+	}
+	end;
+}
+
+// 2nd floor
+1@spa,132,122,7	script	Возбуждённый гвардеец#dk1	4_M_SAKRAYROYAL,{
+	.@tiara$ = instance_npcname("Принцесса Тиара#dk");
+	cutin "npc-tiara.bmp",3;
+	mes "[Возбуждённый гвардеец]";
+	mes "Ваше Высочество, Король пригласил принца из соседних земель стать Вашим наречённым. Пожалуйста, приготовьтесь ко встрече с ним...";
+	npctalk "Возбуждённый гвардеец : Ваше Высочество, Король пригласил принца из соседних земель стать Вашим наречённым. Пожалуйста, приготовьтесь ко встрече с ним...";
+	next;
+	mes "[Принцесса Тиара]";
+	mes "Если... Если всё уже решено, что мне делать?";
+	npctalk "Принцесса Тиара : Если... Если всё уже решено, что мне делать?", .@tiara$;
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Всё, что я могу - защитить вас от физического вреда.";
+	npctalk "Возбуждённый гвардеец : Всё, что я могу - защитить вас от физического вреда.";
+	next;
+	mes "[Принцесса Тиара]";
+	mes "Тогда что я могу сделать?";
+	npctalk "Принцесса Тиара : Тогда что я могу сделать?", .@tiara$;
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Вам придётся решать самой, Ваше Высочество.";
+	npctalk "Возбуждённый гвардеец : Вам придётся решать самой, Ваше Высочество.";
+	next;
+	mes "[Принцесса Тиара]";
+	mes "Если я выйду замуж и уеду в чужие земли, будет ли тебе легче?";
+	npctalk "Принцесса Тиара : Если я выйду замуж и уеду в чужие земли, будет ли тебе легче?", .@tiara$;
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Я никогда не покину Вас своей защитой.";
+	npctalk "Возбуждённый гвардеец : Я никогда не покину Вас своей защитой.";
+	cutin "npc-tiara.bmp",255;
+	next;
+	mes "[Принцесса Тиара]";
+	mes "Что? Во дворец пробрались чудовища? Пожалуйста, охрани меня!";
+	npctalk "Принцесса Тиара : Что? Во дворец пробрались чудовища? Пожалуйста, охрани меня!", .@tiara$;
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Спрячьтесь за меня. Бежим!";
+	npctalk "Возбуждённый гвардеец : Спрячьтесь за меня. Бежим!";
+	close2;
+	donpcevent instance_npcname("#gp_control_2") + "::OnStart";
+	end;
+}
+
+1@spa,135,125,3	duplicate(Возбуждённый гвардеец#dk)	Принцесса Тиара#dk	4_F_MAYSEL
+
+1@spa,1,1,1	script	#gp_control_2	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_2");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk1");
+	disablenpc instance_npcname("Принцесса Тиара#dk");
+	disablenpc instance_npcname("The second floor of Palace");
+
+	killmonster 'map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead1";
+	killmonster 'map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead2";
+	killmonster 'map_spa$, instance_npcname("#gp_control_1") + "::OnMyMobDead3";
+	disablenpc instance_npcname("#gp_control_1");
+	initnpctimer;
+	end;
+OnTimer2000:
+	.@label$ = instance_npcname("#gp_control_2") + "::OnMyMobDead1";
+	monster 'map_spa$,135,116,"Нарушенное обещание",2950,1, .@label$;	// BROKEN_MIND
+	monster 'map_spa$,110,120,"Нарушенное обещание",2950,1, .@label$;	// BROKEN_MIND
+	monster 'map_spa$,122,112,"Витающая тоска",2951,1, .@label$;	// FLOATING_WORD
+	monster 'map_spa$,121,129,"Безответная любовь",2952,1, .@label$;	// LIKE_LOVE
+	stopnpctimer;
+	end;
+OnMyMobDead1:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_2") + "::OnMyMobDead1") < 1) {
+		sleep 2000;
+		.@label$ = instance_npcname("#gp_control_2") + "::OnMyMobDead2";
+		monster 'map_spa$,120,103,"Нарушенное обещание",2950,1, .@label$;	// BROKEN_MIND
+		monster 'map_spa$,115,137,"Витающая тоска",2951,1, .@label$;	// FLOATING_WORD
+		monster 'map_spa$,103,130,"Безответная любовь",2952,1, .@label$;	// LIKE_LOVE
+	}
+	end;
+OnMyMobDead2:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_2") + "::OnMyMobDead2") < 1) {
+		sleep 2000;
+		.@label$ = instance_npcname("#gp_control_2") + "::OnMyMobDead3";
+		monster 'map_spa$,98,119,"Витающая тоска",2951,1, .@label$;	// FLOATING_WORD
+		monster 'map_spa$,98,120,"Витающая тоска",2951,1, .@label$;	// FLOATING_WORD
+		monster 'map_spa$,103,109,"Безответная любовь",2952,1, .@label$;	// LIKE_LOVE
+	}
+	end;
+OnMyMobDead3:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_2") + "::OnMyMobDead3") < 1) {
+		mapannounce 'map_spa$, "Проход в третью часть Дворца Призраков открыт.", bc_map,0xFFFF00;
+		enablenpc instance_npcname("3rd floor in the palace");
+		enablenpc instance_npcname("Король#dk1");
+		enablenpc instance_npcname("Возбуждённый гвардеец#dk2");
+		enablenpc instance_npcname("Капитан Гвардии#dk");
+		enablenpc instance_npcname("Солдат#dk1");
+		enablenpc instance_npcname("Солдат#dk2");
+		enablenpc instance_npcname("Солдат#dk3");
+		disablenpc instance_npcname("#gp_control_2");
+	}
+	end;
+}
+
+// 3rd floor
+1@spa,32,54,1	script	Король#dk1	4_M_RUSKING,{
+	mes "[Король]";
+	mes "Так это ты привёл чудовищ! Ты хотел, чтобы я погиб, а Принцесса досталась тебе!";
+	npctalk "Король : Так это ты привёл чудовищ! Ты хотел, чтобы я погиб, а Принцесса досталась тебе!";
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Ваше Величество, это ловушка! Вы должны мне поверить!";
+	npctalk "Возбуждённый гвардеец : Ваше Величество, это ловушка! Вы должны мне поверить!", instance_npcname("Возбуждённый гвардеец#dk2");
+	next;
+	mes "[Король]";
+	mes "Молчать! Ты предал меня! А ведь я доверял тебе... Ты заплатишь за свою неблагодарность!";
+	npctalk "Король : Молчать! Ты предал меня! А ведь я доверял тебе... Ты заплатишь за свою неблагодарность!";
+	next;
+	mes "[Король]";
+	mes "Ты проведёшь остаток жизни в мучениях.";
+	npctalk "Король : Ты проведёшь остаток жизни в мучениях.";
+	close2;
+	disablenpc instance_npcname("3rd floor in the palace");
+	disablenpc instance_npcname("Король#dk1");
+	disablenpc instance_npcname("Капитан Гвардии#dk");
+	disablenpc instance_npcname("Солдат#dk1");
+	disablenpc instance_npcname("Солдат#dk2");
+	disablenpc instance_npcname("Солдат#dk3");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk2");
+	donpcevent instance_npcname("След Магии Танатоса#dk1") + "::OnStart";
+	end;
+}
+
+1@spa,35,56,5	script	След Магии Танатоса#dk1	4_TRACE,{
+	end;
+OnStart:
+	enablenpc instance_npcname("След Магии Танатоса#dk1");
+	enablenpc instance_npcname("Возбуждённый гвардеец#dk3");
+	initnpctimer;
+	end;
+OnTimer5000:
+	npctalk "Зловещий голос : Ох, преданный, верный гвардеец, тебя схватили.";
+	end;
+OnTimer8000:
+	npctalk "Зловещий голос : Во Дворце заговор, и Принцесса в смертельной опасности...";
+	end;
+OnTimer12000:
+	npctalk "Возбуждённый гвардеец : Кто здесь? Покажись!", instance_npcname("Возбуждённый гвардеец#dk3");
+	end;
+OnTimer15000:
+	npctalk "Зловещий голос : Ах... Так ты меня слышишь?";
+	end;
+OnTimer20000:
+	npctalk "Возбуждённый гвардеец : ..?", instance_npcname("Возбуждённый гвардеец#dk3");
+	end;
+OnTimer23000:
+	npctalk "Зловещий голос : Я могу даровать тебе бесконечную силу. Если мы заключим пакт.";
+	end;
+OnTimer28000:
+	npctalk "Возбуждённый гвардеец : Я... Я...", instance_npcname("Возбуждённый гвардеец#dk3");
+	end;
+OnTimer33000:
+	npctalk "След магии Танатоса : У-ху-ху, чего ты желаешь, мальчик мой?..";
+	end;
+OnTimer34000:
+	stopnpctimer;
+	disablenpc instance_npcname("След Магии Танатоса#dk1");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk3");
+	donpcevent instance_npcname("#gp_control_3") + "::OnStart";
+	end;
+}
+
+1@spa,28,52,7	duplicate(Возбуждённый гвардеец#dk)	Капитан Гвардии#dk	4_M_KY_KNT
+1@spa,25,53,7	duplicate(Возбуждённый гвардеец#dk)	Солдат#dk1	4_M_CRU_SOLD
+1@spa,34,53,1	duplicate(Возбуждённый гвардеец#dk)	Солдат#dk2	4_M_CRU_SOLD
+1@spa,30,52,7	duplicate(Возбуждённый гвардеец#dk)	Солдат#dk3	4_M_KY_SOLD
+1@spa,30,58,5	duplicate(Возбуждённый гвардеец#dk)	Возбуждённый гвардеец#dk2	4_M_SAKRAY_TIED
+1@spa,31,57,5	duplicate(Возбуждённый гвардеец#dk)	Возбуждённый гвардеец#dk3	4_M_SAKRAY_TIED
+
+1@spa,1,1,1	script	#gp_control_3	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_3");
+	initnpctimer;
+	end;
+OnTimer2000:
+	.@label$ = instance_npcname("#gp_control_3") + "::OnMyMobDead1";
+	monster 'map_spa$,31,57, "Муки совести",2953,1, .@label$; 	// CURSED_MEMORY
+	monster 'map_spa$,59,24, "Муки совести",2953,1, .@label$; 	// CURSED_MEMORY
+	monster 'map_spa$,23,40, "Забытая дружба",2955,1, .@label$; 	// OLD_FRIENDSHIP
+	monster 'map_spa$,54,45, "Разорванная клятва",2954,1, .@label$; 	// COLORLESS_VOW
+	monster 'map_spa$,26,20, "Разорванная клятва",2954,1, .@label$; 	// COLORLESS_VOW
+	stopnpctimer;
+	end;
+OnMyMobDead1:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_3") + "::OnMyMobDead1") < 1)
+		addtimer 2000, instance_npcname("#gp_control_3") + "::OnSpawn1";
+	end;
+OnSpawn1:
+	.@label$ = instance_npcname("#gp_control_3") + "::OnMyMobDead2";
+	monster 'map_spa$,30,52, "Разорванная клятва",2954,1, .@label$; 	// COLORLESS_VOW
+	monster 'map_spa$,58,58, "Забытая дружба",2955,1, .@label$; 	// OLD_FRIENDSHIP
+	monster 'map_spa$,54,24, "Муки совести",2953,1, .@label$; 	// CURSED_MEMORY
+	end;
+OnMyMobDead2:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_3") + "::OnMyMobDead2") < (1 + 'bool_double_spawn)) {
+		deltimer instance_npcname("#gp_control_3") + "::OnAnnounce";
+		addtimer 500, instance_npcname("#gp_control_3") + "::OnAnnounce";
+	}
+	end;
+OnAnnounce:
+	mapannounce 'map_spa$, "Проход в четвёртую часть Дворца Призраков открыт.", bc_map,0xFFFF00;
+	enablenpc instance_npcname("4th floor in the palace");
+	deltimer instance_npcname("#gp_control_3") + "::OnSpawn2";	// stop double spawn if timer is running
+	addtimer 2000, instance_npcname("#gp_control_3") + "::OnSpawn2";
+	end;
+OnSpawn2:
+	donpcevent instance_npcname("#gp_control_4") + "::OnStart";
+	// 35 mobs
+	.@label$ = instance_npcname("#gp_control_3") + "::OnMyMobDead3";
+	monster 'map_spa$,67,46, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,62,48, "Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,57,46, "Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,51,48, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Эх, преданный, верный гвардеец...";
+	monster 'map_spa$,56,55, "Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,62,56, "Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,66,58, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Из-за тебя Принцесса в смертельной опасности...";
+	monster 'map_spa$,66,64, "Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Эх, преданный, верный гвардеец...";
+	monster 'map_spa$,62,65, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,57,67, "Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,49,66, "Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,44,66, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,45,20, "Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,38,20, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,32,20, "Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,51,22, "Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,26,34,"Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,21,37,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Эх, преданный, верный гвардеец...";
+	monster 'map_spa$,18,39,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,21,45,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,23,49,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,25,54,"Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,29,54,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Из-за тебя Принцесса в смертельной опасности...";
+	monster 'map_spa$,56,39,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,61,36,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Эх, преданный, верный гвардеец...";
+	monster 'map_spa$,66,38,"Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Убегай!";
+	monster 'map_spa$,42,54,"Забытая дружба",2955,1, .@label$;	// OLD_FRIENDSHIP
+	unittalk $@mobid[0], "Беги!";
+	monster 'map_spa$,35,54,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,43,60,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Эх, преданный, верный гвардеец...";
+	monster 'map_spa$,30,25,"Разорванная клятва",2954,1, .@label$;		// COLORLESS_VOW
+	unittalk $@mobid[0], "Из-за тебя Принцесса в смертельной опасности...";
+	monster 'map_spa$,30,31,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	unittalk $@mobid[0], "Тебе не уйти...";
+	monster 'map_spa$,65,64, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	monster 'map_spa$,65,67, "Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	monster 'map_spa$,18,43,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	monster 'map_spa$,21,43,"Муки совести",2953,1, .@label$;	// CURSED_MEMORY
+	end;
+OnMyMobDead3:
+	end;
+}
+
+// 4th floor
+1@spa,1,1,1	script	#gp_control_4	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_4");
+	.@label$ = instance_npcname("#gp_control_4") + "::OnMyMobDead1";
+	monster 'map_spa$,215,194, "Сладкое убийство",2956,1, .@label$;		// SWEET_SLAUGHTER
+	monster 'map_spa$,194,178, "Сладкое убийство",2956,1, .@label$;		// SWEET_SLAUGHTER
+	monster 'map_spa$,191,211, "Сладкое убийство",2956,1, .@label$;		// SWEET_SLAUGHTER
+	monster 'map_spa$,185,203, "Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	monster 'map_spa$,209,218, "Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	end;
+OnMyMobDead1:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_4") + "::OnMyMobDead1") < (1 + 'bool_double_spawn)) {
+		deltimer instance_npcname("#gp_control_4") + "::OnSpawn1";
+		addtimer 2000, instance_npcname("#gp_control_4") + "::OnSpawn1";
+	}
+	end;
+OnSpawn1:
+	.@label$ = instance_npcname("#gp_control_4") + "::OnMyMobDead2";
+	monster 'map_spa$,189,192, "Проклятие телохранителя",2949,1, .@label$;	// CURSED_SENTINEL
+	monster 'map_spa$,211,209, "Сладкое убийство",2956,1, .@label$;		// SWEET_SLAUGHTER
+	end;
+OnMyMobDead2:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_4") + "::OnMyMobDead2") < 1) {
+		enablenpc instance_npcname("След Магии Танатоса#dk2");
+		enablenpc instance_npcname("Принц#dk");
+		enablenpc instance_npcname("Возбуждённый гвардеец#dk4");
+		enablenpc instance_npcname("Тело Короля#dk");
+		enablenpc instance_npcname("Тело Капитана#dk");
+		enablenpc instance_npcname("Тело солдата#dk");
+		enablenpc instance_npcname("Тело солдата#dk1");
+		enablenpc instance_npcname("Тело солдата#dk2");
+		enablenpc instance_npcname("Тело солдата#dk3");
+		enablenpc instance_npcname("Тело солдата#dk4");
+	}
+	end;
+}
+
+1@spa,199,214,1	script	Возбуждённый гвардеец#dk4	4_M_SAKRAYROYAL,{
+	.@prince$ = instance_npcname("Принц#dk");
+	mes "[Возбуждённый гвардеец]";
+	mes "Где принцесса Тиара?";
+	npctalk "Возбуждённый гвардеец : Где принцесса Тиара?";
+	next;
+	mes "[Гостящий Принц]";
+	mes "Ты опоздал... Но ты доставил то, что я искал. Спасибо за помощь.";
+	npctalk "Гостящий Принц : Ты опоздал... Но ты доставил то, что я искал. Спасибо за помощь.", .@prince$;
+	next;
+	mes "[Гостящий Принц]";
+	mes "Проклятый След Танатоса! Приготовься приветствовать нового хозяина!";
+	npctalk "Гостящий Принц : Проклятый След Танатоса! Приготовься приветствовать нового хозяина!", .@prince$;
+	next;
+	cutin "tartanos.bmp",3;
+	mes "[След магии Танатоса]";
+	mes "Как ты смеешь!";
+	npctalk "След магии Танатоса : Как ты смеешь!", instance_npcname("След Магии Танатоса#dk2");
+	next;
+	mes "[Гостящий Принц]";
+	mes "Аа, ааа~ !!!";
+	npctalk "Гостящий Принц : Аа, ааа~ !!!", .@prince$;
+	donpcevent instance_npcname("#gp_control_5") + "::OnStart";
+	close2;
+	cutin "",255;
+	end;
+}
+1@spa,201,214,1	duplicate(Возбуждённый гвардеец#dk)	След Магии Танатоса#dk2	CLEAR_NPC
+1@spa,197,218,5	duplicate(Возбуждённый гвардеец#dk)	Принц#dk	4_M_KNIGHT_SILVER
+1@spa,194,214,5	duplicate(Возбуждённый гвардеец#dk)	Тело Короля#dk	4_M_TRISTAN
+1@spa,211,194,3	duplicate(Возбуждённый гвардеец#dk)	Тело Капитана#dk	4_M_LIEMAN
+1@spa,201,198,1	duplicate(Возбуждённый гвардеец#dk)	Тело солдата#dk	4_M_DIEMAN
+1@spa,197,190,1	duplicate(Возбуждённый гвардеец#dk)	Тело солдата#dk1	4_M_DIEMAN
+1@spa,191,207,7	duplicate(Возбуждённый гвардеец#dk)	Тело солдата#dk2	4_M_DIEMAN
+1@spa,206,209,7	duplicate(Возбуждённый гвардеец#dk)	Тело солдата#dk3	4_M_DIEMAN
+1@spa,189,195,1	duplicate(Возбуждённый гвардеец#dk)	Тело солдата#dk4	4_M_DIEMAN
+
+1@spa,1,1,1	script	#gp_control_5	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_5");
+	disablenpc instance_npcname("След Магии Танатоса#dk2");
+	disablenpc instance_npcname("Принц#dk");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk4");
+	disablenpc instance_npcname("Тело Короля#dk");
+	disablenpc instance_npcname("Тело Капитана#dk");
+	disablenpc instance_npcname("Тело солдата#dk");
+	disablenpc instance_npcname("Тело солдата#dk1");
+	disablenpc instance_npcname("Тело солдата#dk2");
+	disablenpc instance_npcname("Тело солдата#dk3");
+	disablenpc instance_npcname("Тело солдата#dk4");
+	sleep 1000;
+	.@label$ = instance_npcname("#gp_control_5") + "::OnMyMobDead";
+	monster 'map_spa$,198,218, "Мучительное искупление",2959,1, .@label$;	// TORTUROUS_REDEEMER
+	monster 'map_spa$,198,182, "Сладкое убийство",2956,1, .@label$;		// SWEET_SLAUGHTER
+	end;
+OnMyMobDead:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_5") + "::OnMyMobDead") < 1) {
+		deltimer instance_npcname("#gp_control_4") + "::OnSpawn1";	// stop double spawn if timer is running
+		mapannounce 'map_spa$, "Проход в пятую часть Дворца Призраков открыт.", bc_map,0xFFFF00;
+		disablenpc instance_npcname("4th floor in the palace");
+		enablenpc instance_npcname("5th floor of Palace");
+		enablenpc instance_npcname("Принцесса Тиара#dk1");
+		enablenpc instance_npcname("Возбуждённый гвардеец#dk5");
+
+		killmonster 'map_spa$, instance_npcname("#gp_control_3") + "::OnMyMobDead2";
+		killmonster 'map_spa$, instance_npcname("#gp_control_3") + "::OnMyMobDead3";
+		disablenpc instance_npcname("#gp_control_3");
+	}
+	end;
+}
+
+// 5th floor
+1@spa,216,43,3	script	Принцесса Тиара#dk1	4_F_MAYSEL,{
+	.@guard$ = instance_npcname("Возбуждённый гвардеец#dk5");
+	mes "[Принцесса Тиара]";
+	mes "Ты сдержал клятву.";
+	npctalk "Принцесса Тиара : Ты сдержал клятву.";
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Принцесса!";
+	npctalk "Возбуждённый гвардеец : Принцесса!", .@guard$;
+	next;
+	cutin "npc-tiara.bmp",3;
+	mes "[Принцесса Тиара]";
+	mes "Благодарю тебя... Наконец-то я обрету покой рядом с тобой...";
+	npctalk "Принцесса Тиара : Благодарю тебя... Наконец-то я обрету покой рядом с тобой...";
+	next;
+	mes "[Возбуждённый гвардеец]";
+	mes "Нет... НЕТ!!!";
+	npctalk "Возбуждённый гвардеец : Нет... НЕТ!!!", .@guard$;
+	next;
+	mes "[Голос принцессы Тиары]";
+	mes "Всё, чего я желаю -- это быть с тобой... В мире и согласии... Навсегда...";
+	npctalk "Принцесса Тиара : Всё, чего я желаю -- это быть с тобой... В мире и согласии... Навсегда...";
+	next;
+	cutin "b-tiara.BMP",3;
+	mes "[Возбуждённый гвардеец]";
+	mes "Нет... Ахх... ахх ахх!! ~!";
+	npctalk "Возбуждённый гвардеец : Нет... Ахх... ахх ахх!! ~!", .@guard$;
+	next;
+	mes "[Голос принцессы Тиары]";
+	mes "Я тебя люблю...";
+	npctalk "Принцесса Тиара : Я тебя люблю...";
+	cutin "",255;
+	close2;
+	donpcevent instance_npcname("#gp_control_6") + "::OnStart";
+	end;
+}
+
+1@spa,213,42,7	duplicate(Возбуждённый гвардеец#dk)	Возбуждённый гвардеец#dk5	4_M_SAKRAYROYAL
+
+1@spa,1,1,1	script	#gp_control_6	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#gp_control_6");
+	disablenpc instance_npcname("Принцесса Тиара#dk1");
+	disablenpc instance_npcname("Возбуждённый гвардеец#dk5");
+
+	killmonster 'map_spa$, instance_npcname("#gp_control_4") + "::OnMyMobDead1";
+	killmonster 'map_spa$, instance_npcname("#gp_control_4") + "::OnMyMobDead2";
+	killmonster 'map_spa$, instance_npcname("#gp_control_5") + "::OnMyMobDead";
+	disablenpc instance_npcname("#gp_control_4");
+	disablenpc instance_npcname("#gp_control_5");
+	disablenpc instance_npcname("5th floor of Palace");
+	sleep 2000;
+	.@label$ = instance_npcname("#gp_control_6") + "::OnMyMobDead1";
+	monster 'map_spa$,217,52, "Забытое имя" ,2957,1, .@label$;	// FORGOTTEN_NAME
+	unittalk $@mobid[0], "Очнись! Взгляни на нас... Мы чудовища!";
+	monster 'map_spa$,190,21, "Разорванная клятва" ,2954,1, .@label$;	// COLORLESS_VOW
+	unittalk $@mobid[0], "Сакрай убил Короля и покушался на нас!";
+	monster 'map_spa$,198,49, "Разорванная клятва" ,2954,1, .@label$;	// COLORLESS_VOW
+	unittalk $@mobid[0], "Что это..?!";
+	monster 'map_spa$,212,28, "Роковые дни" ,2958,1, .@label$;		// FATAL_DAYS
+	unittalk $@mobid[0], "Сакрай убил принцессу!";
+	end;
+OnMyMobDead1:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_6") + "::OnMyMobDead1") < 1) {
+		sleep 2000;
+		.@label$ = instance_npcname("#gp_control_6") + "::OnMyMobDead2";
+		monster 'map_spa$,217,43, "Забытое имя" ,2957,1, .@label$;	// FORGOTTEN_NAME
+		unittalk $@mobid[0], "Очнись! Взгляни на нас... Мы чудовища!";
+		monster 'map_spa$,193,24, "Забытое имя" ,2957,1, .@label$;	// FORGOTTEN_NAME
+		unittalk $@mobid[0], "Сакрай? Как же так, Сакрай?!";
+		monster 'map_spa$,216,59, "Разорванная клятва" ,2954,1, .@label$;	// COLORLESS_VOW
+		unittalk $@mobid[0], "Сакрай убил Короля и покушался на нас!";
+		monster 'map_spa$,197,57, "Роковые дни" ,2958,1, .@label$;		// FATAL_DAYS
+		unittalk $@mobid[0], "Сакрай убил принцессу!";
+	}
+	end;
+OnMyMobDead2:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_6") + "::OnMyMobDead2") < 1) {
+		sleep 2000;
+		.@label$ = instance_npcname("#gp_control_6") + "::OnMyMobDead3";
+		monster 'map_spa$,193,39, "Забытое имя" ,2957,1, .@label$;	// FORGOTTEN_NAME
+		unittalk $@mobid[0], "Очнись! Взгляни на нас... Мы чудовища!";
+		monster 'map_spa$,212,34, "Забытое имя" ,2957,1, .@label$;	// FORGOTTEN_NAME
+		unittalk $@mobid[0], "Сакрай? Как же так, Сакрай?!";
+		monster 'map_spa$,201,64, "Разорванная клятва" ,2954,1, .@label$;	// COLORLESS_VOW
+		unittalk $@mobid[0], "Сакрай убил Короля и покушался на нас!";
+		monster 'map_spa$,175,44, "Роковые дни" ,2958,1, .@label$;		// FATAL_DAYS
+		unittalk $@mobid[0], "Сакрай убил принцессу!";
+	}
+	end;
+OnMyMobDead3:
+	if (mobcount('map_spa$, instance_npcname("#gp_control_6") + "::OnMyMobDead3") < 1) {
+		sleep 2000;
+		monster 'map_spa$,200,45, "Мучительное искупление" ,2961,1, instance_npcname("#gp_control_6") + "::OnMyMobDead4";	// E_TORTUROUS_REDEEMER
+		unittalk $@mobid[0], "След магии Танатоса : Не могу обладать -- так уничтожу! Что..? Нет. Как это может быть?";
+		sleep 5000;
+		killmonster 'map_spa$, instance_npcname("#gp_control_6") + "::OnMyMobDead4";
+		enablenpc instance_npcname("Сакрай#dk");
+		enablenpc instance_npcname("След Магии Танатоса#dk3");
+		disablenpc instance_npcname("#gp_control_6");
+	}
+	end;
+OnMyMobDead4:
+	end;
+}
+
+1@spa,196,44,5	script	Сакрай#dk	4_M_SAKRAY,{
+	mes "[Возбуждённый гвардеец]";
+	mes "Ты доволен? След Танатосовой магии?";
+	npctalk "Возбуждённый гвардеец : Ты доволен? След Танатосовой магии?";
+	next;
+	mes "[След магии Танатоса]";
+	mes "Больше крови... Сакрай, преподнеси мне его кровь.";
+	npctalk "След магии Танатоса : Больше крови... Сакрай, преподнеси мне его кровь.", instance_npcname("След Магии Танатоса#dk3");
+	next;
+	mes "[Сакрай]";
+	mes "Хорошо, пусть будет так. Путешественник. Видишь?";
+	npctalk "Сакрай : Хорошо, пусть будет так. Путешественник. Видишь?";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "Сакрай, что тебе нужно? Или это западня?";
+	unittalk getcharid(3), "" + strcharinfo(0) + " : Сакрай, что тебе нужно? Или это западня?";
+	next;
+	mes "[Сакрай]";
+	mes "Нет... Мне не нужно напрягаться, чтобы поймать новичка.";
+	npctalk "Сакрай : Нет... Мне не нужно напрягаться, чтобы поймать новичка.";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "Если так... То зачем..?";
+	unittalk getcharid(3), "" + strcharinfo(0) + " : Если так... То зачем..?";
+	next;
+	cutin "cry-b.bmp",2;
+	mes "[Сакрай]";
+	mes "Через тебя я хотел избавиться от кусочка человечности, который во мне засел.";
+	npctalk "Сакрай : Через тебя я хотел избавиться от кусочка человечности, который во мне засел.";
+	next;
+	mes "[Сакрай]";
+	mes "Я удовлетворён тем, что получилось.";
+	npctalk "Сакрай : Я удовлетворён тем, что получилось.";
+	next;
+	mes "[След магии Танатоса]";
+	mes "Сакрай, немедленно подай мне крови!";
+	npctalk "След магии Танатоса : Сакрай, немедленно подай мне крови!", instance_npcname("След Магии Танатоса#dk3");
+	next;
+	mes "[Сакрай]";
+	mes "Будь ты мной, каков был бы твой выбор?";
+	npctalk "Сакрай : Будь ты мной, каков был бы твой выбор?";
+	next;
+	mes "[Сакрай]";
+	mes "Сможешь ли ты избавиться от этого проклятия?";
+	npctalk "Сакрай : Сможешь ли ты избавиться от этого проклятия?";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "...";
+	unittalk getcharid(3), "" + strcharinfo(0) + " : ...";
+	next;
+	mes "[Сакрай]";
+	mes "Хах-хах. Я буду следить за тобой, пока ты не состаришься.";
+	npctalk "Сакрай : Хах-хах. Я буду следить за тобой, пока ты не состаришься.";
+	next;
+	mes "[Сакрай]";
+	mes "Я желаю приберечь тебя на потом... Для Танатоса.";
+	npctalk "Сакрай : Я желаю приберечь тебя на потом... Для Танатоса.";
+	cutin "",255;
+	next;
+	mes "[Сакрай]";
+	mes "А пока... Прощай.";
+	npctalk "Сакрай : А пока... Прощай.";
+	close2;
+	donpcevent instance_npcname("#tb") + "::OnStart";
+	end;
+}
+
+1@spa,196,46,1	script	#tb	CLEAR_NPC,{
+	end;
+OnStart:
+	disablenpc instance_npcname("Сакрай#dk");
+	disablenpc instance_npcname("След Магии Танатоса#dk3");
+	enablenpc instance_npcname("#tb");
+	enablenpc instance_npcname("#sv");
+	enablenpc instance_npcname("#tv");
+	initnpctimer;
+	end;
+OnTimer3000:
+	npctalk "Голос принцессы Тиары : Что я могу сделать для тебя?";
+	end;
+OnTimer8000:
+	npctalk "Голос Сакрая : Я никогда не покину тебя. Обрети покой подле меня.", instance_npcname("#sv");
+	end;
+OnTimer13000:
+	npctalk "След магии Танатоса : Сакрай, не забывай о пакте между нами, завете крови.", instance_npcname("#tv");
+	end;
+OnTimer17000:
+	npctalk "След магии Танатоса : Твоя душа принадлежит мне до тех пор, пока ты не отыщешь кровь, которая меня удовлетворит...", instance_npcname("#tv");
+	end;
+OnTimer22000:
+	npctalk "Голос Сакрая : Обрети покой в тени моей.", instance_npcname("#sv");
+	end;
+OnTimer25000:
+	npctalk "Голос Сакрая : Вечный покой во тьме...", instance_npcname("#sv");
+	end;
+OnTimer28500:
+	disablenpc instance_npcname("#tb");
+	disablenpc instance_npcname("#sv");
+	disablenpc instance_npcname("#tv");
+	mapannounce 'map_spa$, "Пришло время покинуть Дворец Призраков.", bc_map,0xFFFF00;
+	enablenpc instance_npcname("Way out of Palace");
+	enablenpc instance_npcname("Король#dk11");
+	end;
+}
+
+1@spa,195,41,1	duplicate(Возбуждённый гвардеец#dk)	След Магии Танатоса#dk3	CLEAR_NPC
+1@spa,198,43,1	duplicate(Возбуждённый гвардеец#dk)	#sv	CLEAR_NPC
+1@spa,196,41,1	duplicate(Возбуждённый гвардеец#dk)	#tv	CLEAR_NPC
+
+1@spa,204,29,1	script	Король#dk11	4_M_RUSKING,{
+	disable_items;
+	mes "[Король]";
+	mes "Ого, ты жив"+(Sex?"":"а")+"?";
+	mes "Я уж не чаял встретить здесь кого-то, кто не мёртв.";
+	next;
+	mes "[Король]";
+	mes "Могу ли я поинтересоваться?";
+	mes "Не попадались ли тебе^006400 Серые Осколки^000000?";
+	mes "В них заключена память";
+	mes "верного гвардейца и";
+	mes "тех, кого он любил.";
+	next;
+	mes "[Король]";
+	mes "Не принесёшь ли ты мне^006400 Серые Осколки^000000?";
+	mes "Меня пожирает чувство вины.";
+	mes "Душа моя всё ещё там, во Дворце.";
+	next;
+	mes "[Король]";
+	mes "Я собираю разбитые воспоминания Сакрая из этих осколков.";
+	next;
+	mes "[Король]";
+	mes "Если ты будешь столь любез"+(Sex?"ен":"на")+", что отдашь мне сколько-то^006400 Серых Осколков^000000, я смогу сделать для тебя особое снаряжение.";
+	next;
+	mes "[Король]";
+	mes "Проклятый рыцарь...";
+	mes "Пожалуйста, помоги сохранить душу Сакрая.";
+	next;
+	setarray .@item_name$[0],
+		"Меч Танатоса", "Двуручный меч Танатоса", "Копьё Танатоса", "Длинное копьё Танатоса", "Посох Танатоса",
+		"Двуручный посох Танатоса", "Лук Танатоса", "Кинжал Танатоса", "Катар Танатоса", "Кастет Танатоса",
+		"Молот Танатоса", "Топор Танатоса", "Скрипка Танатоса", "Кнут Танатоса",
+		"Серый щит", "Серая броня", "Серая роба", "Серый плащ", "Серые ботинки", "Серый шлем";
+	setarray .@items_list[0],13441,21009,1438,1496,1669,2023,18119,13093,28000,1836,16028,28100,1933,1988,2187,15090,15091,20721,22033,18820;
+
+	for ( .@i = 0; .@i < 20; .@i++ )
+		.@menu$ += .@item_name$[.@i] + ":";
+	.@menu$ += "Отмена.";
+
+	while(true) {
+		.@s = select(.@menu$) - 1;
+		if (.@s == 20) {
+			mes "[Король]";
+			mes "Когда-нибудь Сакрай";
+			mes "освободится от проклятья.";
+			mes "Я полагаю,";
+			mes "^006400 Серые Осколки^000000";
+			mes "наш единственный шанс...";
+			close;
+		}
+		.@cost = ( .@s > 13 ? 100 : 200 );
+		mes "[Король]";
+		mes "Чтобы сделать ^FF0000" + .@item_name$[.@s] + "^000000,";
+		mes "мне нужно " + .@cost + "^006400 Серых Осколков^000000.";
+		next;
+		if (select( "Отказаться.", "Отдать " + .@cost + " Осколков." ) == 1) {
+			mes "[Король]";
+			mes "Когда-нибудь Сакрай";
+			mes "освободится от проклятья.";
+			next;
+			continue;
+		}
+		if (countitem(6672) < .@cost) {
+			mes "[Король]";
+			mes "У тебя не хватает^006400 Серых Осколков^000000";
+			mes "на ^FF0000" + .@item_name$[.@s] + "^000000.";
+			mes "Мне нужно " + .@cost + " шт.";
+			next;
+			continue;
+		}
+		mes "[Король]";
+		mes "Я сделаю для тебя ^FF0000" + .@item_name$[.@s] + "^000000";
+		mes "за " + .@cost + " ^006400Осколков^000000.";
+		next;
+		mes "Вы наблюдаете, как в сложенных руках Короля зарождается свет и как он плавно принимает форму предмета.";
+		next;
+		mes "[Король]";
+		mes "Ну вот, готово.";
+		mes "Возьми свой ^FF0000" + .@item_name$[.@s] + "^000000,";
+		mes "и пусть он обратится против Сакрая и Танатоса.";
+		next;
+		mes "[Король]";
+		mes "Всякая сила требует жертвы.";
+		mes "Будь осторож"+(Sex?"ен":"на")+"...";
+		delitem 6672,.@cost;// Gray Shard
+		getitem .@items_list[.@s],1;
+		close;
+	}
+}
+
+1@spa,210,28,0	script	Way out of Palace	WARPNPC,2,2,{
+	end;
+OnTouch_:
+	mes "Пришло время покинуть Дворец.";
+	mes "Всё исполнено";
+	mes "и канет в небытие...";
+	close2;
+	if (isbegin_quest(1263) == 2)
+		getitem 6672,1;// Gray Shard
+	else {
+		setquest 1263;// Cursed Swordman
+		completequest 1263;
+		getexp 900000,500000;
+		getitem 6672,2;// Gray Shard
+	}
+	warp "dali02",46,129;
+	end;
+}
+
+1@spa,41,217,0	warp	The second floor of Palace	2,2,1@spa,114,120
+1@spa,117,137,0	warp	3rd floor in the palace	2,2,1@spa,60,43
+1@spa,54,28,0	warp	4th floor in the palace	2,2,1@spa,218,186
+1@spa,178,186,0	warp	5th floor of Palace	2,2,1@spa,186,57
