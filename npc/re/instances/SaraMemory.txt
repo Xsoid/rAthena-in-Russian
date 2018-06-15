@@ -7,6 +7,7 @@
 //= 1.1 Clean-up and monster position fix. [RagnarokNova]
 //============================================================
 //= Translated en -> ru [Kellait] 
+//= md_name = "Sara's Memories" 
 //============================================================ 
 
 //= NPCs
@@ -173,7 +174,7 @@ dali,139,118,4	script	Dimensional Device#sara	10007,{
 
 		set .@party_id,getcharid(1);
 		set .@p_name$,getpartyname(.@party_id);
-		set .@md_name$,"''Воспоминания Сары''";
+		set .@md_name$,"Sara's Memories";
 
 		if (!.@party_id) {
 			mes "[Путешественник Леон]";
@@ -203,13 +204,13 @@ dali,139,118,4	script	Dimensional Device#sara	10007,{
 				close;
 			case IE_NOINSTANCE:
 				mes "Мемориального подземелья "+.@md_name$+" не существует.";
-				mes "Командир отряда ещё не создал подземелье..";
+				mes "Командир отряда ещё не создал подземелье.";
 				close;
 			case IE_NOMEMBER:
-				mes "Войти могут только зарегистрированные участники. "+.@md_name$+".";
+				mes "Войти могут только зарегистрированные участники.";
 				close;
 			case IE_OK:
-				mapannounce "dali",strcharinfo(0)+", член отряда "+.@p_name$+" входит в "+.@md_name$+".",bc_map,"0x00ff99";
+				mapannounce "dali",strcharinfo(0)+", член отряда "+.@p_name$+" входит в Воспоминания Сары.",bc_map,"0x00ff99";
 				setquest 15002;
 				end;
 			}
