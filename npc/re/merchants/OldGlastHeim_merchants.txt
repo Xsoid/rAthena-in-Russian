@@ -1,0 +1,343 @@
+//===== rAthena Script =======================================
+//= Enchants NPCs.
+//===== Description: =========================================
+//= Temporal Boots enchants NPCs.
+//===== Changelogs: ==========================================
+//= 1.0 First Version merged from idathena.
+//=     Credit exneval. [Capuche]
+//============================================================
+//= Translated en > ru [akaineko]
+//============================================================
+
+// Merchant
+//============================================================
+glast_01,210,273,5	script	Ассистентка Хугина#pa0829	1_F_04,{
+	disable_items;
+	if (MaxWeight - Weight < 1000) {
+		mes "У вас переполнен инвентарь. Вам некуда будет положить новые предметы, пожалуйста, освободите немного места и возвращайтесь.";
+		close;
+	}
+	mes "[Ассистентка Хугина]";
+	mes "Принесите Временные кристаллы, и я выдам вам сапоги времени и улучшу их.";
+	next;
+	switch( select( "Отмена", "Купить сапоги (1 кристалл)", "Специализировать сапоги (5 кристаллов)", "Специализировать мод. сапоги (5 кристаллов)" ) ) {
+	case 1:
+		mes "[Ассистентка Хугина]";
+		mes "Обращайтесь, когда пожелаете.";
+		close;
+	case 2:
+		if (countitem(6607) > 0) {
+			mes "[Ассистентка Хугина]";
+			mes "Вот, пожалуйста. Их можно будет специализировать за 5 кристаллов.";
+			delitem 6607,1;// Temporal_Crystal
+			getitem 2499,1;// Temporal_Boots
+			close;
+		}
+		mes "[Ассистентка Хугина]";
+		mes "У вас не хватает кристаллов (<ITEM>"+ getitemname(6607) +"<INFO>6607</INFO></ITEM>). Их можно найти путешествуя по Гластхейму в прошлом.";
+		close;
+	case 3:
+		setarray .@equip_type[0],
+			22000,	// Temporal_STR_Boots
+			22001,	// Temporal_INT_Boots
+			22002,	// Temporal_AGI_Boots
+			22003,	// Temporal_VIT_Boots
+			22004,	// Temporal_DEX_Boots
+			22005;	// Temporal_LUK_Boots
+		break;
+	case 4:
+		setarray .@equip_type[0],
+			22107,	// Modified_STR_Boots
+			22108,	// Modified_INT_Boots
+			22109,	// Modified_AGI_Boots
+			22110,	// Modified_VIT_Boots
+			22111,	// Modified_DEX_Boots
+			22112;	// Modified_LUK_Boots
+		break;
+	}
+	if (!getequipisequiped(EQI_SHOES)) {
+		mes "[Ассистентка Хугина]";
+		mes "Я могу работать только с той обувью, которую вы используете в данный момент.";
+		mes "^0000FF Наденьте Сапоги времени^000000, которые хотите специализировать, и обратитесь ко мне снова.";
+		close;
+	}
+	if (getequipid(EQI_SHOES) != 2499) {
+		mes "[Ассистентка Хугина]";
+		mes "На вас какая-то другая обувь. Я работаю только с Сапогами времени.";
+		close;
+	}
+	if (countitem(6607) < 5) {
+		mes "[Ассистентка Хугина]";
+		mes "У вас не хватает кристаллов (<ITEM>"+ getitemname(6607) +"<INFO>6607</INFO></ITEM>). Их можно найти путешествуя по Гластхейму в прошлом.";
+		close;
+	}
+	mes "[Ассистентка Хугина]";
+	mes "Я могу обменять ваши^0000FF Временные сапоги и 5 временных кристаллов^000000 на одну пару следующей обуви.^FF0000 Если у сапогов были улучшения, зачаровки или карты, всё это пропадёт.^000000";
+	next;
+	.@s = select( "Отмена", "Сапоги силы", "Сапоги интеллекта", "Сапоги ловкости", "Сапоги живучести", "Сапоги сноровки", "Сапоги удачи" ) - 2;
+	if (.@s == -1) {
+		mes "[Ассистентка Хугина]";
+		mes "Обращайтесь, когда пожелаете.";
+		close;
+	}
+	setarray .@type$[0], "силы", "интеллекта", "ловкости", "живучести", "сноровки", "удачи";
+	mes "[Ассистентка Хугина]";
+	mes "Итак, вы решили приобрести Временные сапоги ^FF0000" + .@type$[.@s] + "^000000. Это ваше окончательное решение?";
+	next;
+	if (select( "Нет.", "Да, окончательное." ) == 1) {
+		mes "[Ассистентка Хугина]";
+		mes "Хорошо, не спешите, обращайтесь, когда захотите.";
+		close;
+	}
+	mes "[Ассистентка Хугина]";
+	mes "Вот ваши сапоги, пожалуйста.";
+	if (getequipid(EQI_SHOES) == 2499) {
+		delequip EQI_SHOES;
+		delitem 6607,5;// Temporal_Crystal
+		getitem .@equip_type[.@s],1;
+	}
+	close;
+}
+
+// Enchant and Socket NPC
+//============================================================
+glast_01,212,273,4	script	Мастер зачарований#pa0829	1_F_01,{
+	disable_items;
+	if (MaxWeight - Weight < 1000) {
+		mes "У вас переполнен инвентарь. Вам некуда будет положить новые предметы, пожалуйста, освободите немного места и возвращайтесь.";
+		close;
+	}
+	mes "[Мастер зачарований]";
+	mes "Итак, вы хотите зачаровать Временные сапоги? Пожалуйста, имейте в виду, что сапоги, в которых имеется ячейка для карты, зачаровать невозможно. Также невозможно зачаровать сапоги, которые на вас не надеты.";
+	next;
+	if (select( "Как работает зачарование?", "Дайте моим сапогам новые свойства!" ) == 1) {
+		mes "[Мастер зачарований]";
+		mes "В путешествиях по прошлому Гластхейма вы наверняка встречали такие предметы, как^0000FF сгустки магии^000000 (<ITEM>"+ getitemname(6608) +"<INFO>6608</INFO></ITEM>).";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Я могу зачаровать вам Сапоги времени, используя магическую энергию этих сгустков.^0000FF Но только специализированные, не простые^000000. Те, которые имеют особые свойства, соответствующие выбранной характеристике.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Но помните, что зачаровать их станет невозможно, если вы проделаете в них ячейку для карты.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Мои зачарования, к счастью, не носят случайный характер. Процесс контролируется достаточно, чтобы можно было выбирать свойство и повышать его мощность постепенно.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Зачаровка делается только на последнюю, четвёртую ячейку, и ступеней мощности эффекта также четыре.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Чем сильнее эффект, тем больше магической энергии в него уйдёт, и тем больше понадобится сгустков.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "А полностью раскрыв зачарование в четвёртой ячейке, мы сможем дать некоторый случайный, но очень сильный эффект третьей! Понадобится много сгустков ~";
+		next;
+		mes "[Мастер зачарований]";
+		mes "При неудаче зачарования, к счастью, нет вероятности потерять зачаруемые сапоги. Зачарование также не повлияет на присутствие карт и усиления. Но сбросить такое зачарование будет невозможно.";
+		next;
+		mes "[Мастер зачарований]";
+		mes "Фуф...";
+		mes "Ну вот, для общего развития достаточно. Всё остальное вам лучше увидеть само"+(Sex?"му":"й")+".";
+		close;
+	}
+	if (!getequipisequiped(EQI_SHOES)) {
+		mes "[Мастер зачарований]";
+		mes "Вы точно надели сапоги?";
+		close;
+	}
+	.@equip_id = getequipid(EQI_SHOES);
+
+	setarray .@enchant_1[0],4808,4832,4814,4741,4869,4752;// Fighting_Spirit4	Expert_Archer1	Spell2	Vitality2	DelayafterAttack1Lv	Luck3
+	setarray .@enchant_2[0],4820,4833,4813,4742,4872,4753;// Fighting_Spirit5	Expert_Archer2	Spell3	Vitality3	DelayafterAttack2Lv	Luck4
+	setarray .@enchant_3[0],4821,4834,4812,4861,4873,4754;// Fighting_Spirit6	Expert_Archer3	Spell4	MHP1		DelayafterAttack3Lv	Luck5
+	setarray .@enchant_4[0],4822,4835,4826,4862,4881,4755;// Fighting_Spirit7	Expert_Archer4	Spell5	MHP2		DelayafterAttack4Lv	Luck6
+	setarray .@enchant_cost[0],1,4,15,30,10;
+
+	switch(.@equip_id) {
+	case 22000:	// Temporal_STR_Boots
+	case 22001:	// Temporal_INT_Boots
+	case 22002:	// Temporal_AGI_Boots
+	case 22003:	// Temporal_VIT_Boots
+	case 22004:	// Temporal_DEX_Boots
+	case 22005:	// Temporal_LUK_Boots
+
+	case 22107:	// Modified_STR_Boots
+	case 22108:	// Modified_INT_Boots
+	case 22109:	// Modified_AGI_Boots
+	case 22110:	// Modified_VIT_Boots
+	case 22111:	// Modified_DEX_Boots
+	case 22112:	// Modified_LUK_Boots
+		.@equip_name$ = getequipname(EQI_SHOES);
+		setarray .@card[0],
+			getequipcardid(EQI_SHOES,0),
+			getequipcardid(EQI_SHOES,1),
+			getequipcardid(EQI_SHOES,2),
+			getequipcardid(EQI_SHOES,3);
+		copyarray .@equip_card[0], .@card[0], 4;	// for final check
+		.@equip_refine = getequiprefinerycnt(EQI_SHOES);
+
+		if (.@card[2] > 0) {
+			mes "[Мастер зачарований]";
+			mes "У этих сапогов уже максимальная зачаровка. Их невозможно ещё больше зачаровать.";
+			close;
+		}
+		if (.@card[3] == 0) {// 4th slot 1st try enchanting
+			.@cost = .@enchant_cost[0];
+			mes "[Мастер зачарований]";
+			mes "Хотите зачаровать^0000FF "+ .@equip_name$ +"^000000?";
+			mes "Для зачаровки первой ступени потребуется^0000FF " + .@cost + "^000000 "+( .@cost > 4 ? "сгустков" : ( .@cost > 1 ? "сгустка" : "сгусток" ) )+" магии.";
+			next;
+			.@s = select( "Отмена", "Боевой дух", "Стрельба", "Магия", "Живучесть", "Скорость атаки", "Удачливость" ) - 2;
+			if (.@s == -1) {
+				mes "[Мастер зачарований]";
+				mes "Без проблем. Обращайтесь, когда пожелаете.";
+				close;
+			}
+			.@card[3] = .@enchant_1[.@s];
+			.@string$ = "зачаровка ^630000 1^000000 ступени!";
+		}
+		else {
+			for ( .@enchant_num = 1; .@enchant_num < 5; .@enchant_num++ ) {
+				for ( .@enchant_type = 0; .@enchant_type < 6 && .@card[3] != getd( ".@enchant_" + .@enchant_num + "[" + .@enchant_type + "]" ); .@enchant_type++ )
+					continue;
+				if (.@enchant_type < 6)
+					break;
+			}
+			if (.@enchant_num == 5) {
+				mes "[Мастер зачарований]";
+				mes "Хм, ну дела.";
+				close;
+			}
+			.@cost = .@enchant_cost[.@enchant_num];
+
+			mes "[Мастер зачарований]";
+			if (.@enchant_num == 4) {
+				.@card[2] = callfunc("F_Rand",4875,4876,4877,4878,4879,4880);// Bear's_Power, Runaway_Magic, Speed_Of_Light, Muscle_Fool, Hawkeye, Lucky_Day
+				.@string$ = "присваивание ^990000особого эффекта^000000!";
+				mes "Четвёртая ячейка уже максимально зачарована. Хотите случайный эффект в третью? Для этого понадобится ^0000ff"+ .@cost +"^000000 "+( .@cost > 4 ? "сгустков" : ( .@cost > 1 ? "сгустка" : "сгусток" ) )+" магии.";
+			}
+			else {
+				.@number = .@enchant_num + 1;
+				.@card[3] = getd( ".@enchant_" + (.@enchant_num+1) + "[" + .@enchant_type + "]" );
+				.@string$ = "зачаровка ^630000" + .@number + "^000000 ступени!";
+				mes "Итак, зачаровываем ваши ^0000FF" + .@equip_name$ + "^000000 по четвёртой ячейке эффектом ^0000FF" + .@number + "^000000 ступени. Для этого понадобится ^0000FF" + .@cost + "^000000 "+( .@cost > 4 ? "сгустков" : ( .@cost > 1 ? "сгустка" : "сгусток" ) )+" магии.";
+			}
+			next;
+			if (select("Остановиться.","Вперёд!") == 1) {
+				mes "[Мастер зачарований]";
+				mes "Без проблем, обращайтесь в любое время.";
+				close;
+			}
+		}
+		if (countitem(6608) < .@cost) {
+			mes "[Мастер зачарований]";
+			mes "Хмм, вам не хватает " + (.@cost - countitem(6608)) + " сгустков магии. Раздобудьте все, тогда и поговорим предметно.";
+			close;
+		}
+		specialeffect2 EF_REPAIRWEAPON;
+		delitem 6608,.@cost;// Coagulated_Spell
+
+		// anti-hack
+		if (callfunc("F_IsEquipIDHack", EQI_SHOES, .@equip_id) || callfunc("F_IsEquipCardHack", EQI_SHOES, .@equip_card[0], .@equip_card[1], .@equip_card[2], .@equip_card[3]) || callfunc("F_IsEquipRefineHack", EQI_SHOES, .@equip_refine))
+			close;
+
+		delequip EQI_SHOES;
+		mes "[Мастер зачарований]";
+		mes "Итак, " + .@string$;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,0,0,.@card[2],.@card[3];
+		close;
+	default:
+		mes "[Мастер зачарований]";
+		mes "Я не могу зачаровать такую обувь.";
+		mes "Мы работаем только с Сапогами времени, специализированными по характеристике.";
+		close;
+	}
+}
+
+glast_01,210,270,0	script	Ремесленница#pa0829	4_F_JOB_BLACKSMITH,{
+	disable_items;
+	if (MaxWeight - Weight < 1000) {
+		mes "У вас переполнен инвентарь. Вам некуда будет положить новые предметы, пожалуйста, освободите немного места и возвращайтесь.";
+		close;
+	}
+	mes "[Ремесленница Хугина]";
+	mes "Мастер зачарований говорит, что главное в сапогах времени это зачаровка. Но я считаю иначе.";
+	next;
+	mes "[Ремесленница Хугина]";
+	mes "Мне кажется, сапоги с ячейкой для карты лучше зачарованных. Даже если есть риск испортить их.";
+	next;
+	mes "[Ремесленница Хугина]";
+	mes "Если вы принесёте мне^0000FF 5 временных кристаллов^000000, я могу попробовать проделать в ваших сапогах ячейку. Но есть вероятность^FF0000 испортить сапоги^000000. Вас устроит?";
+	next;
+	if (select( "Отмена.", "Пойти на риск и попробовать." ) == 1) {
+		mes "[Ремесленница Хугина]";
+		mes "Без проблем. Обращайтесь, когда пожелаете.";
+		close;
+	}
+	if (!getequipisequiped(EQI_SHOES)) {
+		mes "[Ремесленница Хугина]";
+		mes "Вы уверены, что надели сапоги?";
+		close;
+	}
+	.@equip_id = getequipid(EQI_SHOES);
+	switch(.@equip_id) {
+	case 22000:	callsub( S_Slot,22006 );	// Temporal_STR_Boots
+	case 22001:	callsub( S_Slot,22009 );	// Temporal_INT_Boots
+	case 22002:	callsub( S_Slot,22010 );	// Temporal_AGI_Boots
+	case 22003:	callsub( S_Slot,22007 );	// Temporal_VIT_Boots
+	case 22004:	callsub( S_Slot,22008 );	// Temporal_DEX_Boots
+	case 22005:	callsub( S_Slot,22011 );	// Temporal_LUK_Boots
+
+	case 22107:	callsub( S_Slot,22113 );	// Modified_STR_Boots
+	case 22108:	callsub( S_Slot,22114 );	// Modified_INT_Boots
+	case 22109:	callsub( S_Slot,22115 );	// Modified_AGI_Boots
+	case 22110:	callsub( S_Slot,22116 );	// Modified_VIT_Boots
+	case 22111:	callsub( S_Slot,22117 );	// Modified_DEX_Boots
+	case 22112:	callsub( S_Slot,22118 );	// Modified_LUK_Boots
+	default:
+		mes "[Ремесленница Хугина]";
+		mes "Эта обувь не подходит! Мы работаем только с сапогами времени,^0000FF специализированными по характеристике^000000! Теми, у которых^0000FF есть особый эффект, зависящий от характеристики, и нет ячейки для карты^000000!";
+		close;
+	}
+
+S_Slot:
+	.@equip_id = getequipid(EQI_SHOES);
+	mes "[Ремесленница Хугина]";
+	mes "Хочу напомнить, что ^FF0000 в случае неудачи вместе с сапогами вы утратите все зачаровки и степени улучшения.^000000";
+	mes "Рискнём?";
+	next;
+	if (select( "Отмена.", "Я осознаю риск." ) == 1) {
+		mes "[Ремесленница Хугина]";
+		mes "Без проблем. Обращайтесь, когда пожелаете.";
+		close;
+	}
+	mes "[Ремесленница Хугина]";
+	mes "И ещё,^FF0000 Мастер зачарований не возьмёт в работу сапоги с ячейкой.^000000";
+	mes "Всё ещё продолжаем?";
+	next;
+	if (select( "Отмена.", "Да. Давайте попробуем сделать ячейку." ) == 1) {
+		mes "[Ремесленница Хугина]";
+		mes "Без проблем. Обращайтесь, когда пожелаете.";
+		close;
+	}
+	if (countitem(6607) < 5) {
+		mes "[Ремесленница Хугина]";
+		mes "Для этого процесса нужно^0000FF 5 временных кристаллов^000000 (<ITEM>"+ getitemname(6607) +"<INFO>6607</INFO></ITEM>). Ничто не возникает из ничего...";
+		close;
+	}
+	delitem 6607,5;// Temporal_Crystal
+	if (getequipid(EQI_SHOES) == .@equip_id) {
+		delequip EQI_SHOES;
+		if (rand(1,100) < 50) {
+			mes "[Ремесленница Хугина]";
+			mes "Ах, не получилось. Ну ничего, может, в следующий раз повезёт.";
+			specialeffect2 EF_PHARMACY_FAIL;
+			close;
+		}
+		mes "[Ремесленница Хугина]";
+		mes "Успех! Возьмите, пожалуйста.";
+		specialeffect2 EF_MAXPOWER;
+		getitem getarg(0),1;
+	}
+	close;
+}
