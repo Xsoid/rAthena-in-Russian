@@ -1,29 +1,24 @@
-//===== rAthena Script ======================================= 
+//===== rAthena Script =======================================
 //= Lutie Town
-//===== By: ================================================== 
-//= rAthena Dev Team
-//===== Current Version: ===================================== 
-//= 1.7
-//===== Compatible With: ===================================== 
-//= rAthena Project
-//===== Description: ========================================= 
+//===== Description: =========================================
 //= Lutie - City NPCs
-//===== Additional Comments: ================================= 
+//===== Additional Comments: =================================
 //= 1.1 Edited some text and updated/enabled some triggers
 //=     for the quest.[kobra_k88]
 //= 1.2 Fixed exploit. Checked for Bard Job Quest compatibility [Lupus]
-//= 1.3 Fixed typos [Nexon] 
+//= 1.3 Fixed typos [Nexon]
 //= 1.4 Fixed exploit [Lupus]
 //= 1.5 Fixed a bug that could reset Lutie quest state [Lupus]
 //= 1.6 Heavy optimization to all the NPCs [DZeroX]
 //= 1.7 Updated to match AEGIS script. [Kisuka]
+//= 1.8 Split Mr. Claus to pre-re and re [Lemongrass]
 //===== Translated into Russian: =============================
 //= Скрипты требует внимательного перевода
 //============================================================
 
 // Teleport to Lutie
 //============================================================
-aldebaran,223,222,4	script	Mr. Claus	718,{
+-	script	Mr. Claus	718,{
 	mes "[Mr. Claus]";
 	mes "Счастливого рождества!!";
 	mes "Всем желаю счастья!";
