@@ -14,11 +14,13 @@
 //= 1.1 Updated script. [Euphy]
 //= 1.2 Added GM management function. [Euphy]
 //= 1.3 Added VIP features. [Euphy]
+//= 2.0 Prontera castle map changed in ep16.1 [Capuche]
 //============================================================
 //= Translated en > ru [Akaineko]
 //============================================================
 
-prt_castle,48,161,3	script	Джентльмен#rg	57,{
+// prt_castle,48,161,3	script	Middle-aged Gentleman#rg	57,{
+prt_cas,172,275,5	script	Middle-aged Gentleman#rg	1_M_LIBRARYMASTER,{
 	if (checkweight(1201,1) == 0 || MaxWeight - Weight < 1000) {
 		mes "- Вы перегружены. -";
 		mes "- Освободитесь от части груза -";
