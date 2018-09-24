@@ -78,7 +78,9 @@ moc_para01,36,38,3	script	Задания [11 - 25]#Tuto	4_BOARD3,{
 	}
 	end;
 L_Quest:
-	if (checkquest(getarg(0)+10,PLAYTIME) == 1) {
+	.@quest_status = checkquest(getarg(0)+10,PLAYTIME);
+	if (.@quest_status == 0 || .@quest_status == 1) {
+
 		mes " - Задание ^4d4dff"+ getarg(1) +"^000000 - ";
 		mes " - на сегодня выполнено. - ";
 		mes " ";
