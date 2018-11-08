@@ -935,11 +935,13 @@ OnMobDead:
 		npctalk "Люсиль: Если вы позволите... Следуйте за мной.";
 		sleep 2000;
 		npctalk "Хью: Сестрёнка...", instance_npcname("Хью#hui02");
-		disablenpc instance_npcname("Люсиль#tnm02");
-		enablenpc instance_npcname("Люсиль#tnm03");
-		enablenpc instance_npcname("Искусник#tnm02");
-		enablenpc instance_npcname("Демон Моррок#tnm01");
-		'devil_tower = 7;
+		if ('devil_tower == 6) {
+			disablenpc instance_npcname("Люсиль#tnm02");
+			enablenpc instance_npcname("Люсиль#tnm03");
+			enablenpc instance_npcname("Искусник#tnm02");
+			enablenpc instance_npcname("Демон Моррок#tnm01");
+			'devil_tower = 7;
+		}
 	}
 	end;
 }
