@@ -93,7 +93,7 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 			mes "Вас следует сформировать отряд из 1 и более человека и подойти ко мне ещё раз.";
 			close;
 		}
-		if (getcharid(0) == getpartyleader(.@party_id,2))
+		if (is_party_leader() == true)
 			.@menu$ = "Открыть разлом";
 		else {
 			mes "[Хугин]";
@@ -179,7 +179,7 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 // Floor 1
 //============================================================
 1@gl_k,149,41,5	script	Вармунт#0	4_M_BARMUND,{
-	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+	if (is_party_leader() == false) {
 		mes "[Вармунт]";
 		mes "Где командир вашего отряда? Мне нужна его помощь.";
 		cutin "gl_barmund2",2;
@@ -317,7 +317,7 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 1@gl_k,154,54,3	duplicate(Рыцарь Калицбург#21)	Рыцарь Калицбург#22	4_F_KHALITZBURG
 
 1@gl_k,149,100,6	script	Генрих#1	4_M_HEINRICH,{
-	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+	if (is_party_leader() == false) {
 		mes "[Генрих]";
 		mes "Где ваш командир? Мне нужно с ним поговорить.";
 		cutin "gl_heinrich2",2;
@@ -647,7 +647,7 @@ OnMyMobDead:
 }
 
 1@gl_k,17,51,3	script	Прислужник Домун#1	4_M_KID1,{
-	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+	if (is_party_leader() == false) {
 		mes "[Прислужник Домун]";
 		mes "Помогите! Помогите!!!";
 		close;
@@ -725,7 +725,7 @@ OnMyMobDead:
 }
 
 1@gl_k,291,145,3	script	Холлгренн#1	4_F_JOB_BLACKSMITH,{
-	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+	if (is_party_leader() == false) {
 		mes "[Разрушительница Холлгренн]";
 		mes "Ты точно человек?";
 		close;

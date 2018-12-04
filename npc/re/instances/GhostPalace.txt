@@ -21,7 +21,7 @@ dali02,43,129,5	script	Мрачный гвардеец#	4_M_SAKRAYROYAL,{
 		close;
 	}
 	.@party_id = getcharid(1);
-	if (getcharid(0) != getpartyleader(.@party_id,2) || .@party_id < 1) {
+	if (is_party_leader() == false || .@party_id < 1) {
 		mes "[Мрачный гвардеец]";
 		mes "Я могу открыть путь только по запросу командира отряда. Пусть он обратится ко мне.";
 		close;
@@ -102,7 +102,7 @@ dali02,40,134,5	script	Портал#dk	PORTAL,{
 		close;
 	}
 	.@party_id = getcharid(1);
-	if (getcharid(0) != getpartyleader(.@party_id,2) || .@party_id < 1) {
+	if (is_party_leader() == false || .@party_id < 1) {
 		mes "[Мрачный гвардеец]";
 		mes "Я могу открыть секретный проход только тому, кто является лидером отряда. Пусть ко мне подойдёт ваш командир.";
 		close;

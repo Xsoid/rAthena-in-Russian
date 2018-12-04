@@ -235,7 +235,7 @@ dali02,137,121,3	script	Волшебник Арти#tnm	4_M_FAIRYKID6,{
 		mes "Это, не рискуй понапрасну.";
 		close;
 	}
-	if (getpartyleader(.@party_id,2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		mes "[Арти]";
 		mes "Пусть ко мне подойдёт ваш командир.";
 		mes "Башня Демона не самое подходящее место для одинокой прогулки.";
@@ -450,7 +450,7 @@ OnTimer26000:
 1@tnm1,57,112,5	script	Офицер Хайм#heim0	4_TOWER_05,{ end; }
 
 1@tnm1,56,110,3	script	Офицер Хайм#heim	4_TOWER_05,{
-	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		mes "[Офицер Хайм]";
 		mes "С кем вы пришли?";
 		mes "Пусть ваш представитель поговорит со мной.";
@@ -641,7 +641,7 @@ OnTouch:
 }
 
 1@tnm1,46,105,5	script	Люсиль#tnm01	4_F_LUCILE,{
-	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		cutin "tnm_lucile01.bmp",2;
 		mes "[Люсиль]";
 		mes "Кто командир группы подкрепления?";
@@ -872,7 +872,7 @@ OnMobDead:
 1@tnm1,138,96,3	script	Люсиль#tnm02	4_F_LUCILE,{
 	if (isbegin_quest(7571) == 0)
 		end;
-	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		mes "Вы машете рукой прямо у неё перед носом, но она не реагирует.";
 		close;
 	}
@@ -1034,7 +1034,7 @@ OnMobDead:
 1@tnm2,133,139,5	duplicate(Офицер Хайм#heim0)	Демон Моррок#tnm01	1916
 
 1@tnm2,144,137,3	script	Люсиль#tnm03	4_F_LUCILE,{
-	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		mes "[Люсиль]";
 		mes "Я разговариваю с командиром вашей группы. Подожди немного, пожалуйста.";
 		cutin "tnm_lucile01.bmp",2;
@@ -1495,7 +1495,7 @@ OnTimer9000:
 		close;
 	}
 	if ('devil_tower == 10) {
-		if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		if (is_party_leader() == false) {
 			mes "[Девушка]";
 			mes "*вопит*";
 			mes "Они ужасны!..";
@@ -1857,7 +1857,7 @@ OnTimer55500:
 1@tnm3,137,65,3	script	Локи#tnmloki02	4_M_ROKI2,{
 	if ('devil_tower != 13)
 		end;
-	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+	if (is_party_leader() == false) {
 		mes "[Локи]";
 		mes "Я с твоим боссом разговариваю.";
 		close;

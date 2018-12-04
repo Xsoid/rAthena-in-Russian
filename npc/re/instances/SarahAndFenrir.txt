@@ -30,7 +30,7 @@ dali02,97,142,3	script	Профессор Бернхардт#a1	4_LGTSCIENCE,{
             mes "Кроме того, я понял, что при создании сверхмощного оружия не обойтись без артефактов славного прошлого.";
 			next;
 			mes "[Профессор Бернхардт]";
-			if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+			if (is_party_leader() == false) {
 				mes "У меня есть один проект... Но для его осуществления мне необходимы определённые материалы.";
 				mes "Это осколки так называемых ''Гигантов'', обьектов или существ, которые участвовали в битве между Сарой Ирен и Фенриром в далёком прошлом.";
 				next;
@@ -116,7 +116,7 @@ dali02,97,142,3	script	Профессор Бернхардт#a1	4_LGTSCIENCE,{
 		next;
 		mes "[Профессор Бернхардт]";
 		mes "О, похоже, подготовительные работы завершены. Не могли бы вы повторить экспедицию и добыть мне ещё осколков? Как и прежде, я лично проконтролирую, чтобы вы не остались без награды.";
-		if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		if (is_party_leader() == true) {
 			next;
 			if (select( "Нет.", "Да." ) == 1) {
 				mes "[Профессор Бернхардт]";
@@ -648,7 +648,7 @@ OnTimer15500:
 1@glast,199,237,0	script	#glast_move_03	WARPNPC,2,2,{
 	end;
 OnTouch:
-	if (getcharid(0) == getpartyleader(getcharid(1),2))
+	if (is_party_leader() == true)
 		warpparty 'map_glast$,197,263, getcharid(1), 'map_glast$,1,1;
 	end;
 }
@@ -657,7 +657,7 @@ OnTouch:
 1@glast,199,294,0	script	#glast_move_03a	WARPNPC,3,3,{
 	end;
 OnTouch:
-	if (getcharid(0) == getpartyleader(getcharid(1),2))
+	if (is_party_leader() == true)
 		warpparty 'map_glast$,188,334, getcharid(1), 'map_glast$,1,1;
 	end;
 }
@@ -674,7 +674,7 @@ OnTouch:
 1@glast,351,269,0	script	#glast_move_04	WARPNPC,3,3,{
 	end;
 OnTouch:
-	if (getcharid(0) == getpartyleader(getcharid(1),2)) {
+	if (is_party_leader() == true) {
 		donpcevent instance_npcname("#sarah_wrath") + "::OnStop";
 		warpparty 'map_glast$,349,282, getcharid(1), 'map_glast$,1,1;
 	}
@@ -732,7 +732,7 @@ OnTouch:
 1@glast,47,270,0	script	#glast_event_7	HIDDEN_WARP_NPC,5,5,{
 	end;
 OnTouch:
-	if (getcharid(0) != getpartyleader(getcharid(1),2))
+	if (is_party_leader() == false)
 		npctalk "Фенрир: Пусть лидер твоего отряда подойдёт и поможет мне!", 'fenrir_3$;
 	else {
 		mes "";

@@ -36,7 +36,7 @@ bif_fild01,158,340,5	script	Страж Лафин#mist	447,{
 		close;
 	}
 	set .@playtime, checkquest(7211,PLAYTIME);
-	if (getcharid(0) == getpartyleader(.@party_id,2)) {
+	if (is_party_leader() == true) {
 		if (.@playtime == 0 || .@playtime == 1) {
 			mes "[Страж]";
 			mes "...Вы уверены, что не берёте на себя слишком много?";
