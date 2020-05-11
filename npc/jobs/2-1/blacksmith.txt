@@ -362,7 +362,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	63,{
 					mes "1. Какое из следующих описаний городов не подходит";
 					mes "под его специализацию?";
 					next;
-					if (select("Morroc - Thief Clothes:Alberta - Two Hand Axe:Comodo - Berserk Potion:Alberta - Swordmace") == 4)
+					if (select("Morocc - Thief Clothes:Alberta - Two Hand Axe:Comodo - Berserk Potion:Alberta - Swordmace") == 4)
 						set .@black_q,.@black_q+10;
 					mes "[Geschupenschte]";
 					mes "2. Каким статусом";
@@ -381,7 +381,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	63,{
 					mes "4. Где можно найти магазинчик";
 					mes "в котором продают Blue Gemstones?";
 					next;
-					if (select("Alberta:Morroc:Geffen:Prontera") == 3)
+					if (select("Alberta:Morocc:Geffen:Prontera") == 3)
 						set .@black_q,.@black_q+10;
 					mes "[Geschupenschte]";
 					mes "5. Где в Geffen'е";
@@ -447,7 +447,7 @@ ein_in01,201,27,3	script	Guildsman#alberta	63,{
 					mes "можно сменить профессию";
 					mes "на Торговца?";
 					next;
-					if (select("Alberta:Morroc:Geffen:Prontera") == 1)
+					if (select("Alberta:Morocc:Geffen:Prontera") == 1)
 						set .@black_q,.@black_q+10;
 					mes "[Geschupenschte]";
 					mes "5. Где находится";
@@ -1509,7 +1509,7 @@ ein_in01,24,41,5	script	Blacksmith Guildsman#moc	726,{
 				mes "встретить больше всего";
 				mes "Кузнецов?";
 				next;
-				if (select("Prontera:Morroc:Alberta:Einbroch") == 4)
+				if (select("Prontera:Morocc:Alberta:Einbroch") == 4)
 					set .@blackss_te,.@blackss_te+20;
 				mes "[Mitehmaeeuh]";
 				mes "5. Какой из следующих";

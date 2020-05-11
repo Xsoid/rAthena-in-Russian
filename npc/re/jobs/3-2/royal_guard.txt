@@ -27,7 +27,7 @@ prt_cas,172,275,5	script	Middle-aged Gentleman#rg	1_M_LIBRARYMASTER,{
 		mes "- и возвращайтесь. -";
 		close;
 	}
-	if (Class == Job_Royal_Guard || Class == Job_Royal_Guard_T || Class == Job_Baby_Guard) {
+	if (Class == Job_Royal_Guard || Class == Job_Royal_Guard_T || Class == Job_Baby_Royal_Guard) {
 		mes "[Джентльмен средних лет]";
 		mes "...";
 		mes "Что я здесь делаю?..";

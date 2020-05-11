@@ -2952,7 +2952,7 @@ mid_campin,106,122,4	script	Receptionist Brink#ep13b	89,{
 	}
 }
 
-mid_camp,264,263,4	script	Diego#ep13bs	931,{
+-	script	Diego#ep13bs_	-1,{
 	if (ep13_newbs < 5) {
 		mes "[Diego]";
 		mes "I'm busy right now!";
@@ -3193,7 +3193,7 @@ mid_campin,295,128,4	script	Lucas#ep13bs	884,{
 			mes "No, just ignore what I said.";
 			mes "......";
 			set ep13_newbs,12;
-			//getitem 12322,1; //Chocolate_Pie
+			getitem 12322,1; //Chocolate_Pie
 			close;
 		case 2:
 			mes "[Lucas]";
@@ -4243,7 +4243,7 @@ mid_camp,188,254,3	script	Monster Scholar#ep13	883,{
 				mes "I hope you'll make yourself known in Ash Vacuum with your great accomplishments.";
 				set ep13_animal,15;
 				completequest 2157;
-				getexp (checkre(3))?100000:1500000,0;
+				getexp (checkre(3))?100000:150000,0;
 				close;
 			}
 			else {
@@ -4340,7 +4340,7 @@ mid_camp,188,254,3	script	Monster Scholar#ep13	883,{
 				mes "- You really hope that Rumis will be able to go back home. -";
 				set ep13_animal,100;
 				delitem 6033,1; //Horn_Of_Tendrilion
-				getexp (checkre(3))?50000:1000000,0;
+				getexp (checkre(3))?50000:100000,0;
 				close;
 			}
 			else {
@@ -4976,7 +4976,7 @@ mid_camp,212,237,5	script	Camp Guard Captain#man1	852,{
 			mes "I'll discuss this more with the expedition management.";
 			mes "Thank you for your valuable information.";
 			completequest 2158;
-			getexp (checkre(3))?90000:900000,0;
+			getexp (checkre(3))?90000:70000,0;
 			close;
 		}
 		else if (checkquest(2158) == -1) {
@@ -4997,7 +4997,7 @@ mid_camp,212,237,5	script	Camp Guard Captain#man1	852,{
 				mes "I'll discuss this more with the expedition management.";
 				mes "Thank you for your valuable information.";
 				completequest 2159;
-				getexp (checkre(3))?90000:900000,0;
+			getexp (checkre(3))?90000:70000,0;
 				close;
 			}
 			else {
@@ -5425,7 +5425,7 @@ OnTouch_:
 			if (checkre(3))
 				getexp 80000,3000;
 			else
-				getexp 300000,10000;
+				getexp 300000,100000;
 			completequest 8210;
 			next;
 			mes "[United Research Official]";
@@ -6135,8 +6135,8 @@ mid_camp,247,255,1	script	Hue#ep131_rhea02	868,{
 			if (.@shu_agree00 == 2) {
 				mes "[Hue]";
 				mes "...Meeting Schedule, on the Xth day, from hh:mm to hh:mm...";
-				mes "Location... Rune-Midgart's camp...";
-				mes "Ha! I knew it. Rune-Midgart's camp again!";
+				mes "Location... Rune-Midgarts' camp...";
+				mes "Ha! I knew it. Rune-Midgarts' camp again!";
 				next;
 				mes "[Hue]";
 				mes "Objectives... to report on the researching progress of tracking Satan Morroc and the Ash-Vacuum!";
@@ -6378,7 +6378,7 @@ mid_camp,247,255,1	script	Hue#ep131_rhea02	868,{
 			next;
 			mes "[Hue]";
 			mes "Could you bring ^0000ffFur^000000 if you get some? I'm not asking it for free.";
-			mes "I'll give you my Pineapple Jubilee from Schwartzvalt, if you bring me ^0000ff2 Furs^000000.";
+			mes "I'll give you my Pineapple Jubilee from Schwarzwald, if you bring me ^0000ff2 Furs^000000.";
 			next;
 			switch(select("I don't have any, right now.:Oh, I'll give you Fur.")) {
 			case 1:
@@ -7583,9 +7583,9 @@ OnMyMobDead:
 	end;
 }
 
-// Cat Hand Trading Post :: cat_yong
+// Cat Paw Trading Post :: cat_yong
 //============================================================ 
-mid_camp,62,125,4	script	Cat Hand Agent	421,{
+mid_camp,62,125,4	script	Cat Paw Agent	421,{
 function Catwarp;
 	if (ep13_yong1 < 1) {
 		mes "[Cat Hand Agent]";
@@ -8918,10 +8918,7 @@ mid_campin,90,121,5	script	Hibba Agip	459,{
 		mes "And please take this small reward.";
 		mes "Thank you for your help so far.";
 		next;
-		if (checkre(3))
-			getexp 300000,0;
-		else
-			getexp 2500000,0;
+		getexp (checkre(3))?300000:250000,0;
 		getitem 12110,3; //First_Aid_Kit
 		set ep13_1_edq,14;
 		completequest 3094;
