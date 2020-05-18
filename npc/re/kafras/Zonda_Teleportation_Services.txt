@@ -1,0 +1,94 @@
+//===== rAthena Script ======================================= 
+//= Zonda Teleportation Services
+//===== Changelogs: ==========================================
+//= 1.0 First Version. [JohnnyPlayy]
+//===== Description: ========================================= 
+// Texts from this script were translated according to KRO
+//============================================================
+
+-	script	ZondaTeleportationServices	HIDDEN_NPC,{
+	cutin "zonda_do01", 2;
+	mes "[Сотрудник Компании ''За горизонт'']";
+	mes "Добро пожаловать.";
+	mes "Наша команда всегда работает над тем, чтобы превзойти ваши ожидания.";
+	mes "Пожалуйста, выберите пункт назначения.";
+	next;
+	switch( select( "Северный Бифрост", "Эрклаж", "Сплендид", "Экспедиционный лагерь Мидгард", "Манук", "Окраина горы Камидаль", "Отмена.") ) {
+	case 1:
+		callsub( S_Zone, "Северный Бифрост", 17000,850, 7213 ); // Teleport value not confirmed
+		warp "bif_fild02",160,230; // Unverified Coordinates
+		end;
+	case 2:
+		callsub( S_Zone, "Эрклаж", 17000,850, 11311 );
+		warp "eclage",111,39;
+		end;
+	case 3:
+		callsub( S_Zone, "Сплендид", 17000,850, 10078 );
+		warp "splendide",171,115;
+		end;
+	case 4:
+		callsub( S_Zone, "Экспедиционный лагерь Мидгард", 19000,950, 10078 );
+		warp "mid_camp",210,288;
+		end;
+	case 5:
+		callsub( S_Zone, "Манук", 22000,1100, 10078 );
+		warp "manuk",263,177;
+		end;
+	case 6:
+		callsub( S_Zone, "Окраина горы Камидаль", 24000,1200, 7184 );
+		warp "dic_fild01",188,187;
+		end;
+	case 7:
+		mes "[Сотрудник Компании ''За горизонт'']";
+		mes "Мы всегда стремимся обеспечить лучшие услуги для наших клиентов.";
+		mes "Спасибо за использование наших услуг.";
+		close3;
+	}
+
+S_Zone:
+	.@zeny_req = getarg(1);
+	.@item_req = getarg(2);
+	.@quest_req = getarg(3);
+	
+	if (isbegin_quest(.@quest_req) == 0) {
+		mes "[Сотрудник Компании ''За горизонт'']";
+		//mes getarg(0);
+		mes "Вы должны завершить миссию по доступу, чтобы телепортироваться в " + getarg(0) + " перед использованием наших услуг телепортации.";
+		close3;
+	}
+	mes "[Сотрудник Компании ''За горизонт'']";
+	mes getarg(0) + " доступен за ^ff0000" + .@zeny_req + " Зеней^000000 или ^ff0000" + .@item_req + " Malang Sp Can^000000.";
+	next;
+	switch( select( .@zeny_req + " Зен", .@item_req + " Malang Sp Can", "Отмена" ) ) {
+	case 1:
+		if (Zeny < .@zeny_req)
+			break;
+		Zeny -= .@zeny_req;
+		return;
+	case 2:
+		if (countitem(12636) < .@item_req)
+			break;
+		delitem 12636,.@item_req; // Malang_Sp_Can
+		return;
+	case 3:
+		mes "[Сотрудник Компании ''За горизонт'']";
+		mes "Может вас заинтересуют другие услуги?";
+		close3;
+	}
+	mes "[Сотрудник Компании ''За горизонт'']";
+	mes "У вас не хватает средств для оплаты услуг.";
+	mes "Приходите когда сможете оплатить наши услуги.";
+	close3;
+}
+
+alberta,35,239,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#alberta	4_M_DRZONDA01
+aldebaran,138,122,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#aldebaran	4_M_DRZONDA01
+einbroch,248,205,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#einbroch	4_M_DRZONDA01
+geffen,117,66,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#geffen	4_M_DRZONDA01
+lighthalzen,169,103,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#lighthalzen	4_M_DRZONDA01
+morocc,157,257,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#morocc	4_M_DRZONDA01
+payon,178,104,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#payon	4_M_DRZONDA01
+prontera,145,87,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#prontera	4_M_DRZONDA01
+rachel,118,139,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#rachel	4_M_DRZONDA01
+veins,198,133,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#veins	4_M_DRZONDA01
+yuno,145,184,3	duplicate(ZondaTeleportationServices)	Zonda Teleportation#yuno	4_M_DRZONDA01

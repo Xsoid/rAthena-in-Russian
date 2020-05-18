@@ -1,0 +1,341 @@
+//===== rAthena Script ======================================= 
+//= Kafra Teleportation Services
+//===== Changelogs: ==========================================
+//= 1.0 First Version. [JohnnyPlayy]
+//===== Description: ========================================= 
+// Texts from this script were translated according to KRO
+//============================================================
+
+function	script	F_KafTeleDoram	{
+	.@menu_choice = getarg(0);
+
+	cutin "kafra_do01", 2;
+	mes "[Сотрудницы Кафры]";
+	mes "Добро пожаловать!";
+	mes "Служба Кафры всегда готова помочь вам.";
+	mes "Пожалуйста, выберите пункт назначения.";
+	next;
+	switch(.@menu_choice) {
+	case 1: // Alberta
+		switch( select( "Юго-восток от Пайона", "Затонувший корабль", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Юго-восток от Пайона", 250,13 );
+			warp "pay_fild06",199,152;
+			end;
+		case 2:
+			callsub( S_Zone, "Затонувший корабль", 50,3 );
+			warp "alb2trea",55,63;
+			end;
+		case 3:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 2: // Aldebaran
+		switch( select( "Граница Альдебарана", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Граница Альдебарана", 50,3 );
+			warp "yuno_fild01",194,150;
+			end;
+		case 2:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 3: // Einbroch
+		switch( select( "Западное поле Долины Бездны", "Северное дполе Лайтхайзина", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Западное поле Долины Бездны", 600,30 );
+			warp "ein_fild06",199,152;
+			end;
+		case 2:
+			callsub( S_Zone, "Северное дполе Лайтхайзина", 1400,70 );
+			warp "lhz_fild01",244,130;
+			end;
+		case 3:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 4: // Geffen
+		switch( select( "Вход в подземелье Геффенской Башни", "Северное поле горы Мьелльнир", "Деревня Орков", "Вход в Гластхейм", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Вход в подземелье Геффенской Башни", 300,15 );
+			warp "gef_tower",153,46;
+			end;
+		case 2:
+			callsub( S_Zone, "Северное поле горы Мьелльнир", 150,8 );
+			warp "mjolnir_02",172,195;
+			end;
+		case 3:
+			callsub( S_Zone, "Деревня Орков", 100,5 );
+			warp "gef_fild10",150,301;
+			end;
+		case 4:
+			callsub( S_Zone, "Вход в Гластхейм", 6666,444 );
+			warp "gef_fild06",34,270;
+			end;
+		case 5:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 5: // Lighthalzen
+		switch( select( "Северное Поле Лайтхайзена", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Северное Поле Лайтхайзена", 200,10 );
+			warp "lhz_fild01",244,130;
+			end;
+		case 2:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 6: // Morocc
+		switch( select( "Руины Пирамиды Моррока", "Сограт Пустынный Сфинкс", "Юго-восток от Моррока", "Пляжи Комодо", "Королевство мертвых", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Руины Пирамиды Моррока", 50,3 );
+			warp "moc_ruins",100,140;
+			end;
+		case 2:
+			callsub( S_Zone, "Сограт Пустынный Сфинкс", 50,3 );
+			warp "moc_fild19",132,100;
+			end;
+		case 3:
+			callsub( S_Zone, "Юго-восток от Моррока", 100,5 );
+			warp "moc_fild11",267,100;
+			end;
+		case 4:
+			callsub( S_Zone, "Пляжи Комодо", 250,13 );
+			warp "cmd_fild02",89,83;
+			end;
+		case 5:
+			callsub( S_Zone, "Королевство мертвых", 12121,666 );
+			warp "niflheim",220,141;
+			end;
+		case 6:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 7: // Payon
+		switch( select( "Деревня лучников", "Юго-восточное поле Пайона", "Южное поле Пронтеры", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Деревня лучников", 50,3 );
+			warp "pay_arche",69,130;
+			end;
+		case 2:
+			callsub( S_Zone, "Юго-восточное поле Пайона", 100,5 );
+			warp "pay_fild10",203,331;
+			end;
+		case 3:
+			callsub( S_Zone, "Южное поле Пронтеры", 150,8 );
+			warp "moc_fild02",109,144;
+			end;
+		case 4:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 8: // Prontera
+		switch( select( "Юго-западное поле Пронтеры", "Северное поле Пронтеры", "Остров Исланд", "Южное поле Пронтеры", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Юго-западное поле Пронтеры", 100,5 );
+			warp "prt_fild07",250,257;
+			end;
+		case 2:
+			callsub( S_Zone, "Северное поле Пронтеры", 150,8 );
+			warp "prt_fild01",194,123;
+			end;
+		case 3:
+			callsub( S_Zone, "Остров Исланд", 150,8 );
+			warp "izlu2dun",63,129;
+			end;
+		case 4:
+			callsub( S_Zone, "Южное поле Пронтеры", 150,8 );
+			warp "moc_fild02",109,144;
+			end;
+		case 5:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 9: // Rachel
+		switch( select( "Южное поле от Ледяных пещер", "Восток Вулкана Тора", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Южное поле от Ледяных пещер", 600,30 );
+			warp "ra_fild04",214,220;
+			end;
+		case 2:
+			callsub( S_Zone, "Восток Вулкана Тора", 600,30 );
+			warp "ve_fild04",198,174;
+			end;
+		case 3:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 10: // Veins
+		switch( select( "Восток Вулкана Тора", "Южное поле Вейнс", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "Восток Вулкана Тора", 400,20 );
+			warp "ra_fild04",198,174;
+			end;
+		case 2:
+			callsub( S_Zone, "Южное поле Вейнс", 200,10 );
+			warp "ve_fild07",85,255;
+			end;
+		case 3:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	case 11: // Yuno
+		switch( select( "Западное поле Долины Бездны", "Раскопки Фантасмагорики в долине Бездны", "Магма подземелье на плато Юно", "Западное поле Долины Бездны", "Отмена.") ) {
+		case 1:
+			callsub( S_Zone, "West Field of the Abyss Valley", 400,20 );
+			warp "ein_fild06",199,152;
+			end;
+		case 2:
+			callsub( S_Zone, "Раскопки Фантасмагорики в долине Бездны", 400,20 );
+			warp "yuno_fild07",225,145;
+			end;
+		case 3:
+			callsub( S_Zone, "Магма подземелье на плато Юно", 400,20 );
+			warp "yuno_fild03",201,152;
+			end;
+		case 4:
+			callsub( S_Zone, "Западное поле Долины Бездны", 800,40 );
+			warp "hu_fild04",186,78;
+			end;
+		case 5:
+			callfunc( "F_KafEnd",0,0 );
+		}
+	}
+
+S_Zone:
+	.@zeny_req = getarg(1);
+	.@item_req = getarg(2);
+
+	mes "[Сотрудница Кафры]";
+	mes getarg(0) + " доступна за ^ff0000" + .@zeny_req + " Зен^000000 или ^ff0000" + .@item_req + " Malang Sp Can^000000.";
+	next;
+	switch( select( .@zeny_req + " Зени", .@item_req + " Malang Sp Can", "Отмена" ) ) {
+	case 1:
+		if (Zeny < .@zeny_req)
+			break;
+		Zeny -= .@zeny_req;
+		return;
+	case 2:
+		if (countitem(12636) < .@item_req)
+			break;
+		delitem 12636,.@item_req; // Malang_Sp_Can
+		return;
+	case 3:
+		mes "[Сотрудница Кафры]";
+		mes "Может быть вас заинтересуют другие направления?";
+		close3;
+	}
+	mes "[Сотрудница Кафры]";
+	mes "У вас не хватает средств для оплаты услуг.";
+	mes "Приходите когда сможете оплатить наши услуги.";
+	close3;
+}
+
+moc_para01,35,23,3	script	Kafra Teleportation#eden	4_F_DRKAFRA01,{
+	cutin "kafra_do01", 2;
+	mes "[Сотрудница Кафры]";
+	mes "Добро пожаловать.";
+	mes "Корпорация кафра всегда готова помочь.";
+	next;
+	mes "[Сотрудница Кафры]";
+	mes "Для того что бы поддержать юных авантюристов, Корпорация Кафры в сотрудничестве с Компанией Эдем предоставляет бесплатные услуги для ^ff0000начинающих путешественников, чей базовый уровень ниже 39-ого^000000.";
+	next;
+	if (BaseLevel > 40) {
+		mes "[Сотрудница Кафры]";
+		mes "Мы не предлагаем бесплатные услуги телепортации для приключенцев выше ^ff000040-ого уровня^000000.";
+		mes "Обратитесь к сотрудникам Кафры в городе.";
+		close3;
+	}
+	mes "[Сотрудница Кафры]";
+	mes "Выберите пункт назначения.";
+	next;
+	switch( select( "Западное поле Пронтеры", "Юго-западное поле Пронтеры", "Озеро Пронтеры", "Вход в подземелье Пайона", "Юго-западное поле Излюда", "Отмена.") ) {
+	case 1:
+		mes "[Сотрудница Кафры]";
+		mes "Поле Пронтеры :";
+		mes "Заподное поле Пронтеры - это горные територии, на которых вы можете так же попасть в ^ff0000канализацию Пронтеры^000000.";
+		mes "Там обитают ^ff0000Hornets^000000 (Шершни), поэтому начинающим авантюристам следует остерегаться!";
+		next;
+		callsub( S_Zone );
+		warp "prt_fild05",276,241;
+		end;
+	case 2:
+		mes "[Сотрудница Кафры]";
+		mes "Поле Пронтеры :";
+		mes "На юго-западе Пронтеры обитают ^ff0000Rockers^000000 (Рокеры).";
+		next;
+		callsub( S_Zone );
+		warp "prt_fild07",250,257;
+		end;
+	case 3:
+		mes "[Сотрудница Кафры]";
+		mes "Поле Пронтеры :";
+		mes "Озеро Пронтера - это место, где живут ^ff0000Ambernites^000000 (Улитки).";
+		next;
+		callsub( S_Zone );
+		warp "prt_fild04",204,109;
+		end;
+	case 4:
+		mes "[Сотрудница Кафры]";
+		mes "Деревня лучников :";
+		mes "Пещера Пайона - страшное место с множеством ^ff0000Zombies^000000 (Зомби) и ^ff0000Skeletons^000000 (Скелетов).";
+		next;
+		callsub( S_Zone );
+		warp "pay_arche",69,130;
+		end;
+	case 5:
+		mes "[Сотрудница Кафры]";
+		mes "Пустыня Сограта :";
+		mes "К юго-западу от Пронтеры и к юго-западу от Излюда, место где обитают ^ff0000Mukas^000000 (Муки) и ^ff0000Peco Pecos^000000 (Пеко-Пеко).";
+		next;
+		callsub( S_Zone );
+		warp "moc_fild01",232,250;
+		end;
+	case 6:
+		callfunc( "F_KafEnd",0,0 );
+	}
+S_Zone:
+	switch( select( "Я пойду.", "Я останусь." ) ) {
+	case 1:
+		return;
+	case 2:
+		mes "[Сотрудница Кафры]";
+		mes "Хотите посмотреть другие предложения?";
+		close3;
+	}	
+}
+
+alberta,33,239,5	script	Kafra Teleportation#alberta	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",1;
+}
+
+aldebaran,136,122,5	script	Kafra Teleportation#aldebaran	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",2;
+}
+
+einbroch,246,205,5	script	Kafra Teleportation#einbroch	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",3;
+}
+
+geffen,115,66,5	script	Kafra Teleportation#geffen	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",4;
+}
+
+lighthalzen,167,103,5	script	Kafra Teleportation#lighthalzen	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",5;
+}
+
+morocc,155,257,6	script	Kafra Teleportation#morocc	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",6;
+}
+
+payon,176,104,5	script	Kafra Teleportation#payon	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",7;
+}
+
+prontera,143,87,5	script	Kafra Teleportation#prontera	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",8;
+}
+
+rachel,116,139,5	script	Kafra Teleportation#rachel	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",9;
+}
+
+veins,196,133,5	script	Kafra Teleportation#veins	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",10;
+}
+
+yuno,143,184,5	script	Kafra Teleportation#yuno	4_F_DRKAFRA01,{
+	callfunc "F_KafTeleDoram",11;
+}
