@@ -27,36 +27,21 @@ yuno,222,116,3	script	Kasis#LhzHat	851,{
 		mes "Milk, Cheese,";
 		mes "Old Frying Pans,";
 		mes "Pieces of Cake...";
-		mes "Th-that's everything";
-		mes "I need to make lunch for";
-		mes "my friends in the Factory!";
+		mes "Это всё что мне нужно, что-бы приготовить обед для моих друзей на фабрике.";
 		next;
-		switch( select( "Well, I did promise to help you.", "What are you talking about?" ) )
+		switch( select( "Ну, я обещал помочь тебе.", "О чем ты говоришь?" ) )
 		{
 			case 1:
 				mes "[Kasis]";
-				mes "Finally, I can treat my";
-				mes "buddies to a wonderful";
-				mes "feast! They'll be so pleased!";
-				mes "Oh, I'd really like to repay you";
-				mes "somehow, but I'm not sure";
-				mes "what I could possibly give...";
+				mes "Наконец, я могу устроить своим друзьям настоящий праздник! Они будут так рады!";
+				mes "Я бы очень хотел как-то отплатить тебе, но я не уверен что смогу...";
 				next;
 				mes "[Kasis]";
-				mes "Of course! Why don't";
-				mes "you treat yourself to";
-				mes "my specialty, Kasis's";
-				mes "Crunch Toast? It looks";
-				mes "simple, but it actually";
-				mes "requires great skill to make.";
+				mes "Конечно же! Я могу изготовить для тебя Kasis's Crunch Toast. Он выглядит просто, но на самом деле его готовка требует большого мастерства.";
 				next;
 				mes "[Kasis]";
-				mes "Here you are!";
-				mes "Please enjoy this and always";
-				mes "remember that breakfast is the";
-				mes "most important meal of the day!";
-				mes "Now, I better prepare those";
-				mes "lunches. Goodbye, my friend~";
+				mes "Держи и помни, что завтрак - самая важная еда за сутки.";
+				mes "Теперь я пожалуй вернусь к готовке. Прощай, друг мой~";
 				delitem 519,50;
 				delitem 7031,50;
 				delitem 548,50;
@@ -65,65 +50,36 @@ yuno,222,116,3	script	Kasis#LhzHat	851,{
 				close;
 			case 2:
 				mes "[Kasis]";
-				mes "Oh...";
-				mes "Oh, I'm so sorry.";
-				mes "I must have confused";
-				mes "you with someone else.";
+				mes "Ох...";
+				mes "Мне так жаль, что я перепутал тебя.";
 				next;
 				mes "[Kasis]";
-				mes "You see, I've been asking";
-				mes "adventurers that have been";
-				mes "passing through to provide";
-				mes "me with food supplies so that";
-				mes "I can make lunch for my friends";
-				mes "that are working in Einbroch.";
+				mes "Видишь ли, я просил аванттюристов, которые приходили, предосттавить мне проовольствие, что бы мог приготовить обед для моих друзей, которые работают в Эйнброхе.";
 				next;
 				mes "[Kasis]";
-				mes "Yes...";
-				mes "So...";
-				mes "Sorry...";
-				mes "To... Bother you.";
+				mes "Да...";
+				mes "Так...";
+				mes "Извини...";
+				mes "Что... Побеспокоил тебя.";
 				next;
-				mes "^3355FFAs if entranced,";
-				mes "Kasis continues to";
-				mes "stare at the Milk, Cheese";
-				mes "Old Frying Pans and Pieces";
-				mes "of Cake that you are carrying.^000000";
+				mes "^3355FFКак зачарованные, Kasis продолжает смотреть на вашу сумку где лежат Milk, Cheese, Old Frying Pans и Pieces of Cake.^000000";
 				next;
-				switch( select( "You can have these if you want.", "Um, why are you staring?" ) )
+				switch( select( "Забирай, если хочешь.", "Почему ты так смотришь?" ) )
 				{
 					case 1:
 						mes "[Kasis]";
-						mes "Really? Is it alright";
-						mes "with you for me to have";
-						mes "all of this Milk, Cheese,";
-						mes "Pieces of Cake and these";
-						mes "Old Frying Pans? Oh, bless";
-						mes "your kind heart, adventurer~";
+						mes "В самом деле? Я возьму только Milk, Cheese, Pieces of Cake и Old Frying Pans. Благослави твоё доброе сердце, искатель приключений~";
 						next;
 						mes "[Kasis]";
-						mes "Finally, I can treat my";
-						mes "buddies to a wonderful";
-						mes "feast! They'll be so pleased!";
-						mes "Oh, I'd really like to repay you";
-						mes "somehow, but I'm not sure";
-						mes "what I could possibly give...";
+						mes "Наконец, я могу устроить своим друзьям настоящий праздник! Они будут так рады!";
+						mes "Я бы очень хотел как-то отплатить тебе, но я не уверен что смогу...";
 						next;
 						mes "[Kasis]";
-						mes "Of course! Why don't";
-						mes "you treat yourself to";
-						mes "my specialty, Kasis's";
-						mes "Crunch Toast? It looks";
-						mes "simple, but it actually";
-						mes "requires great skill to make.";
+						mes "Конечно же! Я могу изготовить для тебя Kasis's Crunch Toast. Он выглядит просто, но на самом деле его готовка требует большого мастерства.";
 						next;
 						mes "[Kasis]";
-						mes "Here you are!";
-						mes "Please enjoy this and always";
-						mes "remember that breakfast is the";
-						mes "most important meal of the day!";
-						mes "Now, I better prepare those";
-						mes "lunches. Goodbye, my friend~";
+						mes "Держи и помни, что завтрак - самая важная еда за сутки.";
+						mes "Теперь я пожалуй вернусь к готовке. Прощай, друг мой~";
 						delitem 519,50;
 						delitem 7031,50;
 						delitem 548,50;
@@ -132,99 +88,54 @@ yuno,222,116,3	script	Kasis#LhzHat	851,{
 						close;
 					case 2:
 						mes "[Kasis]";
-						mes "Oh, let me apologize";
-						mes "again. But I can't help";
-						mes "but admire the quality of";
-						mes "your goods. Er, you know,";
-						mes "the food you're carrying. I'm";
-						mes "a chef by trade, after all.";
+						mes "О, позвольте мне снова извиниться. Но я не могу не восхищаться качеством ваших товаров. Э-э, я про еду, которую вы несете. В конце концов, я повар по профессии.";
 						close;
 			}
 		}
 	}
 	mes "[Kasis]";
-	mes "I'm sorry, but we're closed";
-	mes "right now. Unfortunately, we";
-	mes "don't have any more bread";
-	mes "in stock. ^333333*Siiiiiiiiigh...*^000000";
+	mes "Извините, но мы сейчас закрыты. К сожалению, у нас больше нет хлеба на складе.";
+	mes "^333333*Siiiiiiiiigh...*^000000";
 	next;
-	switch( select( "Is something wrong?", "End Conversation." ) )
+	switch( select( "Что-то не так?", "Закончить разговор." ) )
 	{
 		case 1:
 			mes "[Kasis]";
-			mes "Well, my current contract";
-			mes "with the company that's been";
-			mes "providing me with ingredients";
-			mes "has expired. Of course, it's";
-			mes "bad enough that I don't have";
-			mes "the food to run this business.";
+			mes "Мой текущий контракт с компанией, которая поставляла ингредиенты, истек. И теперь у меня проблемы с поставками. И не из чего готовить еду.";
 			next;
 			mes "[Kasis]";
-			mes "But I also feel like I'm";
-			mes "letting my friends down.";
-			mes "You see, I've been sending";
-			mes "them lunch every day since";
-			mes "they've been working in the";
-			mes "Factory over in Einbroch.";
+			mes "Самое страшное что я подвожу своих друзей. Видишь ли, я посылаю им обед каждый день, так как они работают на фабрике в Эйнброха.";
 			next;
 			mes "[Kasis]";
-			mes "I'm unable to make";
-			mes "lunch for them at the";
-			mes "moment, but I really want to";
-			mes "help my buddies, especially";
-			mes "since their financial situation";
-			mes "seems pretty bad right now.";
+			mes "Сейчас я не могу приготовить им обед, но я действительно хочу помочь своим друзьям, тем более что их финансовое положение сейчас особенно тяжёлое.";
 			next;
-			switch( select( "Do you want me to help you?", "I'm so sorry to hear that." ) )
+			switch( select( "Тебе нужна моя помощь?", "Очень жаль это слышать." ) )
 			{
 				case 1:
 					mes "[Kasis]";
-					mes "Sure, I'm willing to accept";
-					mes "help from wherever I can find";
-					mes "it. If you would, I'd like you to bring me some food supplies";
-					mes "that I can use to make lunches";
-					mes "for my friends at the Factory.";
+					mes "Конечно, я готов принять любую помощь. Я бы хотел, чтобы вы принесли мне несколько продуктов, которые я смогу использовать в приготовление обедов для моих друзей на Фабрике.";
 					next;
 					mes "[Kasis]";
-					mes "Would you";
-					mes "please get me";
+					mes "Мне необходимы";
 					mes "^4D4DFF50 Milk^000000,";
 					mes "^4D4DFF50 Cheese^000000,";
 					mes "^4D4DFF50 Pieces of Cake^000000 and";
 					mes "^4D4DFF50 Old Frying Pans^000000?";
 					next;
 					mes "[Kasis]";
-					mes "I'd really appreciate";
-					mes "your help. My friends seem";
-					mes "so depressed to be working";
-					mes "in the Factory and I want to";
-					mes "do all I can to cheer them up.";
-					mes "Thanks for your kind offer~";
+					mes "Я очень ценю вашу помощь. Кажется, мои друзья так подавлены работой на Фабрике, и я хочу сделать все возможное, чтобы подбодрить их. Спасибо за ваше любезное предложение~";
 					close;
 				case 2:
 					mes "[Kasis]";
-					mes "I'm trying to renew";
-					mes "my contract with the";
-					mes "company that's been";
-					mes "providing me with food";
-					mes "supplies, but it hasn't";
-					mes "been working out so far...";
+					mes "Я пытаюсь возобновить контракт с компанией, которая поставляет мне продукты питания, но пока это не получается...";
 					next;
 					mes "[Kasis]";
-					mes "I don't know what's";
-					mes "happening, but hopefully";
-					mes "I can find a new supplier";
-					mes "soon. There are my friends";
-					mes "to worry about, as well as";
-					mes "the sake of my business.";
+					mes "Я не знаю, что происходит, но, надеюсь, скоро смогу найти нового поставщика. У меня есть друзья, о которых нужно позаботиться, а также ради моего бизнеса.";
 					close;
 			}
 		case 2:
 			mes "[Kasis]";
-			mes "Anyway, please come";
-			mes "again. Hopefully, we'll";
-			mes "have some good bread";
-			mes "in stock next time, okay?";
+			mes "В любом случае, приходите позже. Надеюсь, в следующий раз у нас будет хороший хлеб.";
 			close;
 	}
 }
