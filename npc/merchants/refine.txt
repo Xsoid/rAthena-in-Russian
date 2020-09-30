@@ -17,7 +17,7 @@
 //= 3.3 Some official script updates. [Euphy]
 //= 3.4 Added VIP features. [Euphy]
 //============================================================
-//= Перевод Fenrir
+//= Перевод Xsoid
 //============================================================
 
 // Christopher: Geffen Blacksmith

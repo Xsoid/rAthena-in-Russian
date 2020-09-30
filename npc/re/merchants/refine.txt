@@ -1,0 +1,545 @@
+//===== rAthena Script ======================================= 
+//= Renewal Refining NPCs
+//===== By: ==================================================
+//= rAthena Dev Team
+//===== Current Version: =====================================
+//= 1.4
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= Renewal-specific refining NPCs and material merchants.
+//===== Additional Comments: =================================
+//= 1.0 Moved some scripts to Renewal file, optimized "Austry" NPC. [Euphy]
+//= 1.0a Added 'disable_items' command. [Euphy]
+//= 1.1 Added Malangdo Refiner "Clink". [Euphy]
+//= 1.2 Added official success calculation, thanks to Helvetica.
+//=     The safe/multiple refine feature is now functional. [Euphy]
+//= 1.3 Updated to match the latest official script. [Euphy]
+//= 1.4 Added correct safe refines. [Haruna]
+//============================================================
+//= Перевод Xsoid
+//============================================================
+
+// +11 and above Refiners
+//============================================================
+prt_in,90,72,5	script	Vestri#prt	826,{
+	callfunc "refinenew","Vestri",0;
+	end;
+}
+morocc_in,64,41,5	script	Vestri#moc	826,{
+	callfunc "refinenew","Vestri",0;
+	end;
+}
+payon_in01,18,132,3	script	Vestri#pay	826,{
+	callfunc "refinenew","Vestri",0;
+	end;
+}
+
+//============================================================
+// +11 and above Refiner Function
+//============================================================
+//= To allow auto safe refining/multiple refining set the
+//= second argument to '1' in the function call.
+//= If you enable this function, be sure to edit the value of
+//= .@safe to the max safe refine in refine_db.txt as well.
+//=
+//= On official servers, if an item is unsuccessfully refined
+//= it will break at a 20% rate and downgrade at an 80% rate.
+//============================================================
+function	script	refinenew	{
+	.@npc_name$ = getarg(0);
+	disable_items;
+	mes "["+ .@npc_name$ +"]";
+	mes "Я лучший оружейник на свете!";
+	mes "Я не работаю над обычными, скучными вещами.";
+	mes "Я работаю только над вещами 10 уровня и выше.";
+	next;
+	mes "["+ .@npc_name$ +"]";
+	mes "Нам есть о чём говорить только если у вас есть вещи 10ого уровня и выше.";
+	mes "У вас есть что улучшить?";
+	next;
+
+	setarray .@indices[1], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	for(.@i = 1; .@i<=10; ++.@i) {
+		if (getequipisequiped(.@indices[.@i])) {
+			.@menu$ = .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+			.@equipped = 1;
+		}
+		.@menu$ = .@menu$ + ":";
+	}
+	if (.@equipped == 0) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Мне кажется у вас нет ничего интерестного для меня.";
+		close;
+	}
+	.@part = .@indices[ select(.@menu$) ];
+
+	if (!getequipisequiped(.@part)) { //custom check
+		mes "["+ .@npc_name$ +"]";
+		mes "На вас нет ничего, что я могу улучшить.";
+		emotion ET_FRET;
+		close;
+	}
+	if (!getequipisenableref(.@part)) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Не думаю, что смогу доработать этот предмет.";
+		close;
+	}
+	.@refinerycnt = getequiprefinerycnt(.@part); //save refinery count
+	if (.@refinerycnt < 10) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Я сказал, что не работаю с вещами ниже 10ого уровня.";
+		close;
+	}
+	if (.@refinerycnt >= 20) { //custom check
+		mes "["+ .@npc_name$ +"]";
+		mes "Я больше не могу это улучшить. Это совершенство.";
+		close;
+	}
+	.@refineitemid = getequipid(.@part); // save id of the item
+	setarray .@card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+	.@price = getequiprefinecost(.@part, REFINE_COST_OVER10, REFINE_ZENY_COST);
+	.@material = getequiprefinecost(.@part, REFINE_COST_OVER10, REFINE_MATERIAL_ID);
+	.@safe = 10;
+
+	if (getequipweaponlv(.@part) >= 1 && getequipweaponlv(.@part) <= 4) {
+		.@article$ = "a";
+		.@type$ = "оружие";
+	} else {
+		.@article$ = "1";
+		.@type$ = "броня";
+	}
+	
+	mes "["+ .@npc_name$ +"]";
+	mes "Хммм... " + .@article$ + " " + .@type$ + "?";
+	mes "Если вы хотите улучшить эту броню,";
+	mes "мне понадобится 1 ^003366" + getitemname(.@material) + "^000000 и " + callfunc("F_InsertComma",.@price) + " зен.";
+	mes "Продолжаем?";
+	next;
+	if (select("Да:Нет") == 2) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Нет... Так нет...";
+		close;
+	}
+	if (getarg(1) != 1) {
+		if (getequippercentrefinery(.@part) < 100) {
+			mes "["+ .@npc_name$ +"]";
+			mes "Этот "+.@type$+" уже несколько раз дорабатывался.";
+			mes "Он может быть уничтожен, если я попробую еще раз.";
+			mes "Конечно не факт, но шанс есть.";
+			next;
+			mes "["+ .@npc_name$ +"]";
+			mes "Вы можете ^FF0000понизить уровень улучшения^000000 для "+.@type$+", или если он сломается, потеряете ^FF0000все карты^000000 или особые свойства добавленные к нему.";
+			next;
+			mes "["+ .@npc_name$ +"]";
+			mes "Хотите что бы я продолжил, несмотря на все предупреждения?";
+			next;
+			if(select("Да.:Нет.") == 2) {
+				mes "["+ .@npc_name$ +"]";
+				mes "Чтож, нет проблем...";
+				mes "Не идти на риск... Возможно, мудрое решение.";
+				close;
+			}
+		}
+		if (countitem(.@material) < 1 || Zeny < .@price) {
+			mes "["+ .@npc_name$ +"]";
+			mes "Хм. Похоже, у вас недостаточно денег или "+getitemname(.@material)+".";
+			mes "Пожалуйста, вернись, когда будете готовы.";
+			close;
+		}
+		Zeny = Zeny - .@price;
+		delitem .@material,1;
+
+		// anti-hack
+		if (callfunc("F_IsEquipIDHack", .@part, .@refineitemid) || callfunc("F_IsEquipCardHack", .@part, .@card[0], .@card[1], .@card[2], .@card[3]) ||
+		    callfunc("F_IsEquipRefineHack", .@part, .@refinerycnt)) {
+			mes "["+ .@npc_name$ +"]";
+			emotion ET_FRET;
+			mes "Подожди секунду...";
+			mes "Вы думаете, что я тупой?!";
+			mes "Поменял предмет, пока я отвернулся! Убирайся отсюда, жулик!";
+			close;
+		}
+
+		if (getequippercentrefinery(.@part) > rand(100)) {
+			mes "Лязг! Лязг! Лязг! Лязг!";
+			successrefitem .@part;
+			next;
+			emotion ET_BEST;
+			mes "["+ .@npc_name$ +"]";
+			mes "Хорошо! Успех!!!";
+			mes "Я лучший оружейник.";
+			close;
+		} else {
+			if (rand(100) < 80) {
+				mes "["+ .@npc_name$ +"]";
+				mes "Лязг! Лязг! Лязг! Лязг!";
+				downrefitem .@part,3; // Failed refine attempts decrease the item's refine level by 3
+				next;
+				emotion (!rand(5))?ET_MONEY:ET_HUK;
+				mes "["+ .@npc_name$ +"]";
+				mes "Аааа!!!";
+				next;
+				mes "["+ .@npc_name$ +"]";
+				mes "Бог ты мой!";
+				mes "Уровень апгрейда упал...";
+			} else {
+				mes "["+ .@npc_name$ +"]";
+				mes "Лязг! Лязг! Лязг!";
+				failedrefitem .@part;
+				next;
+				emotion (!rand(5))?ET_MONEY:ET_HUK;
+				mes "["+ .@npc_name$ +"]";
+				mes "Хммм!";
+				next;
+				mes "["+ .@npc_name$ +"]";
+				mes "Боже мой! Я не смог...";
+				mes "Ну, не в том смысле, ну вы поняли!";
+			}
+			mes "Несмотря на то, что я лучший оружейник на свете, даже я могу ошибаться.";
+			mes "Хотя конечно, такого не должно быть.";
+			next;
+			mes "["+ .@npc_name$ +"]";
+			mes "В следующий раз у меня все получиться! Не переживай.";
+			close;
+		}
+	}
+// New +11 and above Refining Functions ========================
+	if (.@refinerycnt < .@safe) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Я могу провести улучшение до безопасного предела или желаемое количество раз, на ваш выбор.";
+		next;
+		.@menu2 = select("До безопасного предела.","Я решу сколько раз.","Я передумал...");
+	} else
+		.@menu2 = 2;
+	switch(.@menu2){
+	case 1: 
+		.@refinecnt = .@safe - .@refinerycnt;
+		break;
+	case 2:
+		mes "["+ .@npc_name$ +"]";
+		mes "Сколько улучшений провести?";
+		next;
+		input .@refinecnt;
+		.@refinecheck = .@refinecnt + .@refinerycnt;
+		if (.@refinecnt < 1 || .@refinecheck > 20) {
+			mes "["+ .@npc_name$ +"]";
+			mes "Это слишком много.";
+			close;
+		}
+		if (.@refinecheck > .@safe) {
+			.@refinecheck = .@refinecheck - .@safe;
+			mes "["+ .@npc_name$ +"]";
+			mes "И так. Мы улучшаем " + .@refinecheck + " раз сверх безопастного придела. Оно может быть уничттожено... вы это осознаёте?";
+			next;
+			if(select("Да...","Нет...") == 2){
+				mes "["+ .@npc_name$ +"]";
+				mes "Как скажете...";
+				close;
+			}
+		}
+		break;
+	case 3:
+		mes "["+ .@npc_name$ +"]";
+		mes "Ваше желание - закон.";
+		close;
+	}
+	.@fullprice = .@price * .@refinecnt;
+	mes "["+ .@npc_name$ +"]";
+	mes "Это будет стоить вам " + .@refinecnt + " " + getitemname(.@material) + " и " + .@fullprice + " Зен. Устраивает?";
+	next;
+	if(select("Да:Нет...") == 2){
+		mes "["+ .@npc_name$ +"]";
+		mes "Как скажете.";
+		close;
+	}
+	if (countitem(.@material) < .@refinecnt || Zeny < .@fullprice) {
+		mes "["+ .@npc_name$ +"]";
+		mes "Судя по всему у вас не достаточно денег "+getitemname(.@material)+".";
+		mes "Пожалуйста, вернись, когда будете готовы.";
+		close;
+	}
+	Zeny = Zeny - .@fullprice;
+	delitem .@material,.@refinecnt;
+	while(.@refinecnt){
+		if (getequipisequiped(.@part) == 0) {
+			mes "["+ .@npc_name$ +"]";
+			mes "Послушайте... у вас же нет никаких вещей...";
+			close;
+		}
+		// anti-hack
+		if (callfunc("F_IsEquipIDHack", .@part, .@refineitemid) || callfunc("F_IsEquipCardHack", .@part, .@card[0], .@card[1], .@card[2], .@card[3]) ||
+		    callfunc("F_IsEquipRefineHack", .@part, .@refinerycnt))
+			close;
+
+		if (getequipid(.@part) != .@refineitemid || (.@menu2 == 1 && getequippercentrefinery(.@part) < 100)) {
+			mes "["+ .@npc_name$ +"]";
+			mes "Вы действительно думаете что я такой тупой?!";
+			mes "Вы подменили его...";
+			mes "Убирайся, пока я не оглушил тебя своим Молотом!!";
+			close;
+		}
+		if (getequippercentrefinery(.@part) > rand(100)) {
+			mes "Лязг! Лязг! Лязг! Лязг!";
+			successrefitem .@part;
+			.@refinecnt = .@refinecnt - 1;
+			next;
+		} else {
+			if (rand(100) < 80) {
+				mes "["+ .@npc_name$ +"]";
+				mes "Лязг! Лязг! Лязг! Лязг!";
+				downrefitem .@part,3; // Failed refine attempts decrease the item's refine level by 3
+				next;
+				emotion (!rand(5))?ET_MONEY:ET_HUK;
+				mes "["+ .@npc_name$ +"]";
+				mes "Аххх!!!";
+				next;
+				mes "["+ .@npc_name$ +"]";
+				mes "Бог мой!";
+				mes "Уровень апгрейда упал...";
+			} else {
+				mes "["+ .@npc_name$ +"]";
+				mes "Лязг! Лязг! Лязг!";
+				failedrefitem .@part;
+				next;
+				emotion (!rand(5))?ET_MONEY:ET_HUK;
+				mes "["+ .@npc_name$ +"]";
+				mes "Хммм!";
+				next;
+				mes "["+ .@npc_name$ +"]";
+				mes "Боже! Я не смог...";
+				mes "Ну... Вы поняли... Не смог улучшить!";
+			}
+			mes "Даже я ошибаюсь, хотя я лучший оружейник на свете.";
+			mes "С другой стороны, со мной такого не должно происходить.";
+			next;
+			mes "["+ .@npc_name$ +"]";
+			mes "Не волнуйтесь! В следующий раз у меня все получится!";
+			close;
+		}
+		.@refinerycnt = getequiprefinerycnt(.@part);
+	}
+	emotion ET_BEST;
+	mes "["+ .@npc_name$ +"]";
+	mes "Хорооош! Успех!!!";
+	mes "Я лучший кузнец на свете.";
+	close;
+}
+
+// Ori/Elu to Carnium/Bradium Refiners
+//============================================================
+-	script	Austri#ref	-1,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Подождите минуту !! -";
+		mes "- Слишком много вещей. -";
+		mes "- Освободите сумку -";
+		mes "- и возвращайтесь. -";
+		close;
+	}
+	mes "[Austri]";
+	mes "Если вы принесете мне 3 Оридекона [Oridecon] или Элуниума [Elunium], я могу обменять их на Брадиум [Bradium] или Карниум [Carnium].";
+	mes "Просто дай мне 50,000 зень.";
+	next;
+	switch(select("Oridecon на Bradium.:Elunium на Carnium.:Purified Bradium на Carnium.:Нет спасибо.")) {
+	case 1:
+		setarray .@i[0],984,3,6224;  //Oridecon -> Bradium
+		break;
+	case 2:
+		setarray .@i[0],985,3,6223;  //Elunium -> Carnium
+		break;
+	case 3:
+		setarray .@i[0],6090,1,6223; //Purified_Bradium -> Carnium
+		break;
+	case 4:
+		mes "[Austri]";
+		mes "Хммм...";
+		close;
+	}
+	if (countitem(.@i[0]) >= .@i[1] && Zeny >= 50000) {
+		delitem .@i[0],.@i[1];
+		Zeny = Zeny - 50000;
+		getitem .@i[2],1;
+		mes "[Austri]";
+		if (.@i[0] == 6090) {
+			mes "Обработка рафинированным Брадиумом [Refined Bradium] может быть немного дороже.";
+			mes "Я могу обменять его на Карниум [Carnium].";
+		} else
+			mes "Ок! Вот твой "+getitemname(.@i[2])+".";
+		mes "Возьмите и используйте с умом.";
+		close;
+	}
+	mes "[Austri]";
+	mes "Не пытайтесь меня обмануть. У вас недостаточно денег или "+getitemname(.@i[0])+".";
+	close;
+}
+prt_in,85,71,5	duplicate(Austri#ref)	Austri#prt	826
+payon_in01,14,125,5	duplicate(Austri#ref)	Austri#pay	826
+morocc_in,60,38,5	duplicate(Austri#ref)	Austri#moc	826
+
+// Malangdo Refiner
+//============================================================
+malangdo,224,172,6	script	Clink#mal_normal	544,{
+	disable_items;
+	mes "[Clink]";
+	mes "Мой классный папа Holink сказал, что у меня самый большой в мире и совершенны молот!!";
+	mes "Мяу Мяу~";
+	mes "За кого ты меня принимаешь?";
+	mes "Да!!! Ты!! Что тебе нужно?";
+	next;
+	setarray .@indices[1], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	for(.@i = 1; .@i<=10; set .@i,.@i+1)
+		.@menu$ = .@menu$ + ( getequipisequiped(.@indices[.@i]) ? getequipname(.@indices[.@i]) : F_getpositionname(.@indices[.@i]) +"-[Empty]" ) +":";
+	.@part = .@indices[ select(.@menu$) ];
+	if (!getequipisequiped(.@part)) {
+		mes "[Clink]";
+		switch(.@part) {
+		case EQI_HEAD_TOP:
+			mes "Как говорит папа: От глупости нет лекарства...";
+			break;
+		case EQI_ARMOR:
+			mes "Не на что, тут смотреть!!";
+			break;
+		case EQI_HAND_L:
+			mes "Левой пяткой сделано!";
+			break;
+		case EQI_HAND_R:
+			mes "Как сильна, моя правая рука!";
+			break;
+		case EQI_GARMENT:
+			mes "Убери эту грязную штуку с глаз долой!!";
+			break;
+		case EQI_SHOES:
+			mes "Кен~! Не провоцируй меня.";
+			break;
+		case EQI_ACC_L:
+		case EQI_ACC_R:
+			mes "Где же аксессуар?";
+			break;
+		case EQI_HEAD_MID:
+		case EQI_HEAD_LOW:
+			mes "Ты говоришь о другой части головы?";
+			break;
+		}
+		close;
+	}
+	if (!getequipisenableref(.@part)) {
+		mes "[Clink]";
+		mes "Это не может быть обработано!!";
+		close;
+	}
+	.@refinerycnt = getequiprefinerycnt(.@part); //save refinery count
+	if (.@refinerycnt >= 10) {
+		mes "[Clink]";
+		mes "Идеальная очистка. Тебя устраивает?";
+		close;
+	}
+	
+	.@refineitemid = getequipid(.@part); // save id of the item
+	setarray .@card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+	.@price = getequiprefinecost(.@part, REFINE_COST_NORMAL, REFINE_ZENY_COST);
+	.@material = getequiprefinecost(.@part, REFINE_COST_NORMAL, REFINE_MATERIAL_ID);
+	
+	mes "[Clink]";
+	switch(getequipweaponlv(.@part)) {
+	default:
+	case 0: // Armor
+		.@type$ = "броня";
+		mes "Хм, доспехи усовершенствовать? Для тебя?";
+		break;
+	case 1: // Level 1 Weapon
+		.@type$ = "оружие";
+		mes "Оружие 1-го уровня?";
+		mes "Урр... Бесит... Ладно, давай попробуем...";
+		break;
+	case 2: // Level 2 Weapon
+		.@type$ = "оружие";
+		mes "Оружие 2-го уровня?";
+		break;
+	case 3: // Level 3 Weapon
+		.@type$ = "оружие";
+		mes "Вау!! Оружие 3-го уровня? Впечатляет~";
+		break;
+	case 4: // Level 4 Weapon
+		.@type$ = "оружие";
+		mes "Воу-Воу!... Оружие 4-го уровня~!!";
+		break;
+	}
+	mes "Вам нужно ^ff9999"+getitemname(.@material)+"^000000 и ^ff9999"+.@price+"^000000 зен. Они у вас есть?";
+	next;
+	if(select("Да, конечно!!:Забудь об этом!!") == 2) {
+		mes "[Clink]";
+		mes "Я так и знал!!";
+		mes "Я знал, что ты не стоишь того, чтобы тратить на тебя время.";
+		close;
+	}
+	if (getequippercentrefinery(.@part) < 100) {
+		mes "[Clink]";
+		mes "Воу!!";
+		mes "Этот "+.@type$+" довольно ильно прокачен?";
+		mes "Ты ведь понимаешь, что он может сломаться?";
+		next;
+		mes "[Clink]";
+		mes "Если "+.@type$+" сломается, я ничего не смогу сделать.";
+		mes "Карты или особые эффекты то же будут ^ff0000утрачены на всегда^000000. ТТак что, продолжаем~?";
+		next;
+		if(select("Да, разумеетмя!!:Конечно нет!!") == 2) {
+			mes "[Clink]";
+			mes "Я так и знал!!";
+			mes "Это серьезный шаг, на который ты не решишься. Забудь об этом...";
+			close;
+		}
+	}
+	if (countitem(.@material) == 0 || Zeny < .@price) {
+		mes "[Clink]";
+		mes "Эй, ты!! Разве я не говорил, что нужно ^ff9999"+getitemname(.@material)+"^000000 и ^ff9999"+.@price+"^000000 зен??!!";
+		close;
+	}
+	delitem .@material,1;
+	Zeny = Zeny-.@price;
+
+	// anti-hack
+	if (callfunc("F_IsEquipIDHack", .@part, .@refineitemid) || callfunc("F_IsEquipCardHack", .@part, .@card[0], .@card[1], .@card[2], .@card[3]) ||
+		callfunc("F_IsEquipRefineHack", .@part, .@refinerycnt)) {
+		mes "[Clink]";
+		emotion ET_FRET;
+		mes "Подожди секунду...";
+		mes "Ты думаешь, я глупец?!";
+		mes "Ты подменил предмет, пока я отвернулся! Убирайся отсюда!";
+		close;
+	}
+
+	if (getequippercentrefinery(.@part) <= rand(100)) {
+		failedrefitem .@part;
+		mes "[Clink]";
+		mes "Звени Молот!! Звени!!!";
+		next;
+		switch(rand(1,5)) {
+			case 1: emotion ET_CRY; break;
+			case 2: emotion ET_PROFUSELY_SWEAT; break;
+			case 3: emotion ET_KEK; break;
+			case 4: emotion ET_SCRATCH; break;
+			case 5: emotion ET_BIGTHROB; break;
+		}
+		mes "[Clink]";
+		mes "А?! Я провалился?!";
+		next;
+		mes "[Clink]";
+		mes "Арргг~ все это~ сломано...? Как жаль~";
+		next;
+		mes "[Clink]";
+		mes "Придется тебе принесит ещё один.";
+		mes "Это невозможно.";
+		mes "Как мог мой молот не справиться?";
+		close;
+	}
+	successrefitem .@part;
+	mes "[Clink]";
+	mes "Звени Молот!! Звени!!!";
+	next;
+	emotion ET_CHUP;
+	mes "[Clink]";
+	mes "Хорошо!! Прекрасно!!";
+	mes "Нет ничего, что я не мог бы усовершенствовать с помощью этого превосходного молота.";
+	mes "Можешь хвалить меня!!";
+	close;
+}

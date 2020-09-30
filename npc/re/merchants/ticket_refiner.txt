@@ -1,0 +1,176 @@
+//===== rAthena Script ======================================= 
+//= Ticket Refiner
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.1
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= [Official Conversion]
+//= Refiner that uses +5~9/+11 refine tickets to refine
+//= equipment with no chance of failure.
+//= NOTE: This NPC is currently disabled on official servers.
+//===== Additional Comments: =================================
+//= 1.0 First version. [Euphy]
+//= 1.1 Do not refine above ticket level. [Euphy]
+//============================================================
+//= Перевод Xsoid
+//============================================================
+
+// Main NPC :: safety_Ref_NPC
+//============================================================
+prontera,184,177,6	script	Refine Master	851,{
+	disable_items;
+	if (countitem(6238) || countitem(6228) || countitem(6229) || countitem(6230) || countitem(6231) || countitem(6456))
+		set .@bWeaponUp,1;
+	if (countitem(6239) || countitem(6232) || countitem(6233) || countitem(6234) || countitem(6235) || countitem(6457))
+		set .@bArmorUp,1;
+	if (!.@bWeaponUp && !.@bArmorUp) {
+		mes "[Refine Master]";
+		mes "Здравствуйте!";
+		mes "Что вам нужно?";
+		mes "Я специалист по доработке предметов, но больше не работаю.";
+		next;
+		switch(select("Хорошо, я пошёл.:Хмм... точно?")) {
+		case 1:
+			mes "[Refine Master]";
+			mes "Береги себя, авантюрист.";
+			close;
+		case 2:
+			mes "[Refine Master]";
+			mes "Ну, иногда я всётаки оказываю услуги, тем у кого есть ^006400Сертификат на улучшение [Refine Ticket]^000000...";
+			mes "Так что, давай, досвиданья~!";
+			close;
+		}
+	}
+	emotion ET_SURPRISE;
+	mes "[Refine Master]";
+	mes "Приветствую!";
+	mes "Я могу улучшить предмет ^006400до уровня указанного на сертификате^000000.";
+	mes "Волноваться не о чем! Ничего не сломается.";
+	next;
+	if(select("Я вернусь позже.:Уточнить предмет.") == 1) {
+		mes "[Refine Master]";
+		mes "Хорошо.";
+		mes "Приходите позже.";
+		close;
+	}
+	mes "[Refine Master]";
+	mes "Какое оборудование вы хотели бы улучшить?";
+	next;
+	setarray .@position$[1],"Шапочка [Head upper]","Броня [Armor]","Левая рука [Left hand]","Правая рука [Right hand]","Накидка [Robe]","Обувь [Shoes]","Аксессуар-1 [Accessory 1]","Аксессуар-2 [Accessory 2]","Середина лица [Head middle]","Нижняя часть лица [Head lower]";
+	setarray .@indices[1], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	for(set .@i,1; .@i<=10; set .@i,.@i+1)
+		set .@menu$, .@menu$+((getequipisequiped(.@indices[.@i]))?getequipname(.@indices[.@i]):.@position$[.@i]+"- [Empty]")+":";
+	set .@part, .@indices[ select(.@menu$) ];
+	if (!getequipisequiped(.@part)) {
+		mes "[Refine Master]";
+		mes "Вы должны экипировать предмет, который хотите улучшить.";
+		close;
+	}
+	if (!getequipisenableref(.@part)) {
+		emotion ET_OTL;
+		mes "[Refine Master]";
+		mes "Прошу прощения.";
+		mes "Этот предмет невозможно улучшить.";
+		close;
+	}
+	.@refineitemid = getequipid(.@part); // save id of the item
+	.@refinerycnt = getequiprefinerycnt(.@part); //save refinery count
+	setarray .@card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+	switch(getequipweaponlv(.@part)) {
+	default:
+	case 0:
+		setarray .@tickets[0],6457,6235,6234,6233,6232,6239;
+		setarray .@levels[0],5,6,7,8,9,11;
+		set .@type$,"Броню";
+		set .@check,.@bArmorUp;
+		break;
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+		setarray .@tickets[0],6456,6231,6230,6229,6228,6238;
+		setarray .@levels[0],5,6,7,8,9,11;
+		set .@type$,"Оружие";
+		set .@check,.@bWeaponUp;
+		break;
+	}
+	if (!.@check) {
+		emotion ET_THINK;
+		mes "[Refine Master]";
+		mes "Если вы хотите улучшить ^006400"+.@type$+"^000000, предоставьте ^006400сертификат на "+.@type$+" [Refine Ticket]^000000.";
+		mes "До скорого!";
+		close;
+	}
+	mes "[Refine Master]";
+	mes "Выберите, какой ^006400сертификат на "+.@type$+" [Refine Ticket]^000000 вы хотите использовать.";
+	next;
+	set .@menu$,"";
+	for(set .@i,0; .@i<getarraysize(.@tickets); set .@i,.@i+1)
+		set .@menu$, .@menu$+getitemname(.@tickets[.@i])+":";
+	set .@select, select(.@menu$)-1;
+	set .@ticket_lv, .@levels[.@select];
+	set .@ticket_id, .@tickets[.@select];
+	if (countitem(.@ticket_id) == 0) {
+		emotion ET_QUESTION;
+		mes "[Refine Master]";
+		mes getitemname(.@ticket_id)+" нет в вашем инвентаре. Возможно вы положили его в хранилище?";
+		mes "Пожалуйста, проверьте свои сумки и возвращайтесь.";
+		close;
+	}
+	if (getequiprefinerycnt(.@part) >= .@ticket_lv) {
+		emotion ET_PROFUSELY_SWEAT;
+		mes "[Refine Master]";
+		mes "^8B4513Этот предмет уже достаточно улучшен.^000000";
+		mes "Принесите лучше тот предмет, который действительно нуждается в улучшении.";
+		close;
+	}
+	mes "[Refine Master]";
+	mes "Я собираюсь улучшить ^006400"+getequipname(.@part)+"^8B4513 до +"+.@ticket_lv+" уровня^000000 в замен на ^006400"+getitemname(.@ticket_id)+"^000000.";
+	mes "Продолжаем?";
+	next;
+	if(select("Нет.:Да.") == 1) {
+		emotion ET_THINK;
+		mes "[Refine Master]";
+		mes "Ты передумал?";
+		mes "Хорошо.";
+		mes "Возвращайтесь когда будете уверены в себе.";
+		close;
+	}
+	mes "[Refine Master]";
+	mes "Превосходно.";
+	mes "Ваше желание закон!";
+	mes "Воспользуемся моим особым способом...";
+	mes ".......ка-бум!";
+	specialeffect EF_SUI_EXPLOSION;
+	if (countitem(.@ticket_id)) {
+		delitem .@ticket_id,1;
+
+		// anti-hack
+		if (callfunc("F_IsEquipIDHack", .@part, .@refineitemid) ||
+			callfunc("F_IsEquipRefineHack", .@part, .@refinerycnt) || callfunc("F_IsEquipCardHack", .@part, .@card[0], .@card[1], .@card[2], .@card[3])) {
+			mes "[Refine Master]";
+			emotion ET_FRET;
+			mes "Одну секунду...";
+			mes "Вы думаете, что я тупой ?!";
+			mes "Ты поменяли предмет, пока я отвлекся! Убирайся отсюда!";
+			close;
+		}
+	} else {
+		next;
+		mes "Ошибка!";
+		mes "Что-то пошло не так.";
+		close;
+	}
+	successrefitem .@part, .@ticket_lv - getequiprefinerycnt(.@part);
+	next;
+	emotion ET_DELIGHT;
+	mes "[Refine Master]";
+	mes "Хорошо, вот оно ~";
+	mes "Вот ваш ^0000FF"+strcharinfo(0)+"^000000!";
+	mes "Поздравляю с обгрэйдом.";
+	mes "Удачи~!";
+	close;
+}
