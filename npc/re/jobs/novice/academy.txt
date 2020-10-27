@@ -1361,65 +1361,65 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 	} else if (isbegin_quest(7474) == 1) {
 		if ((isbegin_quest(7475) + isbegin_quest(7476) + isbegin_quest(7477)) > 2) {
 			mes "[Information Staff]";
-			mes "What's with the long face?";
-			mes "It looks like you found all the locations I marked.";
+			mes "Что это с твоим лицом?";
+			mes "Выглядишь так, будто прошелся по всем точкам, которые я отметил.";
 			next;
 			mes "[Lumin]";
-			mes "Turtle...";
+			mes "Черепаха...";
 			cutin "nov_lumin01.bmp", 2;
 			next;
-			select("What'd you call me?");
+			select("Ну-ка повтори, как ты меня назвал?");
 			mes "[Lumin]";
-			mes "Because you are too slow.";
-			mes "Yes, it is. I have been waiting for you for what seems like forever.";
+			mes "Но ведь ты делал все чертовски медленно!";
+			mes "Тебя только за смертью посылать, честное слово.";
 			next;
 			mes "[Lumin]";
-			mes ".......Shall I share with you?";
+			mes ".......Поделиться с тобой?";
 			cutin "nov_lumin03.bmp", 2;
 			next;
-			if (select("I don't need your sympathy.", "!!!!!") == 1) {
+			if (select("Мне не нужно твое сочувствие.", "!!!!!") == 1) {
 				mes "[Lumin]";
-				mes "Is that so?";
-				mes "Captain always told me to help the poor people.";
-				mes "But you get rid of my chance to help.";
+				mes "И что?";
+				mes "Капитан говорит, что бедным надо помогать.";
+				mes "Но ты отказываешься дать мне шанс помочь.";
 				cutin "nov_lumin02.bmp", 2;
 				next;
 				mes "[Lumin]";
-				mes "Ahhh. Irritating.";
+				mes "Арррр. Бесит.";
 				next;
 			} else {
 				mes "[Lumin]";
-				mes "Well, now we can divide 7 to 3?";
-				mes "I am OK with 6 to 4.";
+				mes "Ну теперь нам надо разделить 7 на 3?";
+				mes "Хотя меня устроит и 6 на 4.";
 				cutin "nov_lumin02.bmp", 2;
 				next;
 				mes "[" + strcharinfo(0) + "]";
-				mes "This guy...";
+				mes "Этот парень...";
 				next;
 			}
 			cutin "", 255;
 			mes "[Information Staff]";
-			mes "Ahhh, you two calm down.";
-			mes "Lumin took them all.";
-			mes ""+ strcharinfo(0) + " I will give you one set separately.";
+			mes "Вам обоим нужно успокоиться!";
+			mes "Lumin заберет все.";
+			mes ""+ strcharinfo(0) + " Я дам тебе отдельный комплект.";
 			next;
 			mes "[Information Staff]";
-			mes "Think of the reason, it was my fault to leave one person's but sent both of you.";
+			mes "В конце концов, это была моя вина, что я отправил вас обоих, вместо того, чтобы одного оставить тут.";
 			next;
 			cutin "nov_lumin03.bmp", 2;
 			mes "[Lumin]";
-			mes "Simple and fair decision.";
-			mes "OK. Now I am going.";
-			mes "See you again, my friend.";
+			mes "Простое и изящное решение.";
+			mes "Отлично. Теперь я отчаливаю.";
+			mes "До встречи, друзья.";
 			next;
 			cutin "", 255;
 			mes "[Information Staff]";
-			mes "Aren't you two friends?";
-			mes "You guys both seemed friendly enough right?";
+			mes "Разве вы не друзья?";
+			mes "Мне показалось, вы достаточно дружелюбны друг к другу?";
 			next;
 			mes "[Information Staff]";
-			mes "Well, this is my present for you.";
-			mes "Hope it will be useful.";
+			mes "Что ж, вот тебе пой подарочек.";
+			mes "Надеюсь, тебе это пригодится.";
 			completequest 7474;
 			erasequest 7475;
 			erasequest 7476;
@@ -1430,13 +1430,13 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 			getitem 569,20;// Novice_Potion
 			next;
 			mes "[Information Staff]";
-			mes "Have a wonderful journey.";
+			mes "Удачи в твоих приключениях.";
 			close;
 		} else {
 			mes "[Information Staff]";
-			mes "You have not found the treasure I hid.";
-			mes "Here are the locations again.";
-			mes "Hurry up!";
+			mes "Ты не нашел сокровища, которые я спрятал.";
+			mes "Отмечу тебе точки еще разок.";
+			mes "Поторопись!";
 			viewpoint 1,179,75,1,0xccffff;
 			viewpoint 1,45,94,2,0x00ff00;
 			viewpoint 1,207,167,3,0xFFEB46;
@@ -1444,31 +1444,31 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 		}
 	} else {
 		mes "[Information Staff]";
-		mes "This is Izlude - the satellite city of Prontera.";
-		mes "Do you need directions?";
+		mes "Это Izlude - город-спутник Prontera.";
+		mes "Указать тебе направление?";
 		next;
 		mes "[Information Staff]";
-		mes "If you click on the ^B9062F[area name]^000000, I can ^B9062Fnavigate^000000 a path for you to follow.";
+		mes "Если ты нажмешь ^B9062F[area name]^000000, Я смогу ^B9062Fуказать^000000 дорогу туда.";
 		next;
 		while(1) {
-			switch(select("[ Main facilities ]", "[ Guide & Helper ]", "Mini map marking removal", "End Conversation")) {
+			switch(select("[ Основные объекты ]", "[ Проводники & Помощники ]", "Удалить все отметки на мини-карте", "Завершить диалог")) {
 			case 1:
 				while (1) {
 					switch(select("[ Criatura Academy ]:[ Wharf ]:[ Airship (International) ]:[ Arena ]:[ Shop ]:[ Swordman Guild ]:[ Enchant Association ]:[ Blacksmith's Workshop ]:Go back to the previous menu")) {
 					case 1:
 						mes "[Information Staff]";
-						mes "If you are the first time adventurer,";
+						mes "Если ты новичок,";
 						mes "<NAVI>[Criatura Academy]<INFO>iz_ac01,100,39,</INFO></NAVI>";
-						mes "can offer a lot of info and help.";
-						mes "Do you need additonal directions?";
+						mes "может предложить тебе свою помощь и полезную информацию.";
+						mes "Хочешь отправиться туда??";
 						viewpoint 1, 128, 260, 0, 0xFFD269;
 						next;
 						continue;
 					case 2:
 						mes "[Information Staff]";
-						mes "Through the <NAVI>[Wharf]<INFO>izlude,197,205,</INFO></NAVI> in the north east,";
-						mes "^8B4513Alberta^000000 or ^8B4513the Byalan Island^000000 can be visted.";
-						mes "you can go.";
+						mes "Через <NAVI>[Wharf]<INFO>izlude,197,205,</INFO></NAVI> на Северо-Восток,";
+						mes "можно поситить ^8B4513Alberta^000000 или ^8B4513the Byalan Island^000000";
+						mes "Ты можешь идти.";
 						next;
 						mes "[Information Staff]";
 						mes "Byalan Island is the scary place with ^8B4513Izlude dungeon^000000 in it.";
