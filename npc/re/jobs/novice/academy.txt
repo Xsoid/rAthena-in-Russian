@@ -161,7 +161,7 @@ int_land,78,103,5	script	Captain Carocc#intro_npc03	4_M_REINDEER,{
 		mes "О! Кстати говоря, у ^4d4dffПорингов^000000 на этом острове есть некоторые материалы, которые мы сможем использовать для ремонта.";
 		next;
 		mes "[Капитан Карокк]";
-		mes "^4d4dffУбивай Порингов и собери 2 Бруса [Lumber] для экипажа на юге^000000.";
+		mes "^4d4dffУбивай Порингов и собери 2 Бруса [Lumber] для экипажа на Юге^000000.";
 		next;
 		mes "[Капитан Карокк]";
 		mes "Это сложное задание, но ты выглядишь как тот, кто запросто с ним справится.";
@@ -674,7 +674,7 @@ izlude,198,213,3	script	Captain Carocc#iz	4_M_REINDEER,5,5,{
 				} else if (isbegin_quest(7472) == 1) {
 					mes "[Карокк]";
 					mes "О, это ты.";
-					mes "Этот парень тоже хочет поступить в Criatura Academy.";
+					mes "Этот парень тоже хочет поступить в Criatura Academy.";.
 					mes "Это может быть отличным поворотом судьбы для тебя. Надеюсь, вы станете отличными друзьями.";
 					next;
 					cutin "nov_lumin01.bmp", 0;
@@ -845,7 +845,7 @@ izlude,122,207,3	script	Criatura Academy Staff#0	4_M_KHKYEL,3,3,{
 			next;
 			mes "!- Информация -!";
 			mes "^4d4dff Экипированные вещи можно проверить с помощью сочетания Alt+ Q";
-			mes "Вещь также можно перетащить на место, предназначенное для экипировки";
+			mes "Вещь также можно перетащить на место, предназначенное для экипировки"I;
 			next;
 			cutin "", 255;
 			mes "[Hun]";
@@ -1099,10 +1099,10 @@ izlude,122,207,3	script	Criatura Academy Staff#0	4_M_KHKYEL,3,3,{
 		}
 	} else {
 		mes "[Hun]";
-		mes "The Royal Criatura Academy was founded to help budding adventurers on their initial journey.";
+		mes "The Royal Criatura Academy была создана для того, чтобы помочь новичкам вроде тебя начать свой путь, полный приключений.";
 		next;
 		mes "[Hun]";
-		mes "Although I'm but a work-hand here, it makes me happy to see students graduate here and become fine members of society.";
+		mes "Не смотря на то, что я всего лишь рабочий, мне нравится наблюдать, как выпускники Академии становятся достойными членами общества.";
 		close;
 	}
 
@@ -1128,139 +1128,139 @@ izlude_d,122,207,3	duplicate(Criatura Academy Staff#0)	Criatura Academy Staff#d	
 // -----------------------------------------------------------------------------
 izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 	if (!checkweight(1304,3)) {
-		mes "Quest cannot be continued due to the invenory being full.";
-		mes "Please try it again after re-organizing your items.";
+		mes "Квест не может быть завершен, пока ваш инвентарь полон.";
+		mes "Пожалуйста, попробуйте еще раз, после того, как очистите инфентарь"
 		close;
 	}
 
 	if (BaseLevel < 15 && !isbegin_quest(7474)) {
 		mes "[Information Staff]";
-		mes "Hi, how are you?";
-		mes "I am in charge of navigation directions for Izlude's key locations";
-		mes "I wish to propose a simple game along with the navigation, would that be ok?";
+		mes "Привет, как жизнь?";
+		mes "Я отвечаю за навигацию по ключевым направлениям Izlude";
+		mes "Хочу предложить тебе поиграть в одну игру, связанную с ориентированием. Как смотришь на это?";
 		next;
-		if (select("Sure, let's play!", "I already know them all.") == 1) {
+		if (select("Конечно, давай сыграем!", "Хочу узнать все, что возможно.") == 1) {
 			mes "[Information Staff]";
-			mes "First of all, how to check the mini-map.";
-			mes "You can check your location through the mini-map at the top right of the screen";
+			mes "Для начала, давай разберемся, как пользоваться мини-картой.";
+			mes "Ты можешь проверять свое местоположение на мини-карте, которая находится в правом верхнем углу экрана.";
 			next;
 			mes "[Information Staff]";
-			mes "If you receive information on a town or a city, a waypoint ^4d4dff+^000000 can be marked on the map.";
+			mes "Чтобы отслеживать информацию о городе или деревне на карте, можно добавить ориентир^4d4dff+^000000";
 			next;
 			mes "[Information Staff]";
-			mes "Press ^4d4dff[Ctrl] and [ ~ ] on your keyboard and you can see the world map^000000.";
+			mes "Нажми ^4d4dff[Ctrl] и [ ~ ] на клавиатуре, чтобы открыть карту мира^000000.";
 			next;
 			mes "[Information Staff]";
-			mes "Through the ^4d4dffworld map you can check the location of you, your party members and the level of monsters in the area.^000000";
+			mes "С помощью^4d4dffкарты мира ты можешь проверять свое местоположение, а также метоположение членов твоей группы и уровень монстров в конкретной зоне.^000000";
 			next;
 			mes "[Information Staff]";
-			mes "This is useful info to remember.";
-			mes "Now then, should we play a simple game?";
+			mes "Вот тебе полезная информация для запоминания.";
+			mes "Ну, а теперь... Как на счет сыграть?";
 			next;
 			mes "[Information Staff]";
-			mes "I will ^4d4dffmark three specific locations on the mini-map.^000000";
-			mes "Please ^4d4dffvisit those locations ^000000using the waypoints as reference.";
+			mes "Я ^4d4dffотмечу три особых места на мини-карте.^000000";
+			mes "Пожалуйста, ^4d4dffпосети их все, ^000000используя ориентиры.";
 			next;
 			mes "[Information Staff]";
-			mes "Think of it as a treasure hunt and go.";
-			mes "I've hidden some useful items there.";
+			mes "Воспринимай это как поиск сокровищ.";
+			mes "Тем более, что я спрятал несколько полезных вещей на этих точках.";
 			viewpoint 1,179,75,1,0xCCFFFF;
 			viewpoint 1,45,94,2,0x00FF00;
 			viewpoint 1,207,167,3,0xFFEB46;
 			setquest 7474;
 			next;
 			mes "[Information Staff]";
-			mes "Vist me again after going by all three locations.";
-			mes "I will check up on it.";
+			mes "Возвращайся ко мне, когда посетишь все три точки.";
+			mes "Будь уверен, я проверю.";
 			next;
 			mes "[Information Staff]";
-			mes "Ah, there' somebody who started out right before you!";
-			mes "If you don't hurry that person will take all the items!";
-			mes "So, run!";
+			mes "О, а вот и кое-кто, кто начал игру раньше тебя!";
+			mes "Неужели тебя не волнует, что кто-то заберет твои сокровища?";
+			mes "Давай, беги!";
 			npcskill "AL_INCAGI", 10, 10, 10;
 			close;
 		}
 		mes "[Information Staff]";
-		mes "Do you need information on all the locations of Izlude?";
-		mes "By clicking on the introduced ^B9062F[base camp name]^000000, I will offer you guidance so follow the ^B9062FRed Arrows^000000.";
+		mes "Тебе нужна информация о всех локациях в Izlude?";
+		mes "Нажми на предложенное название ^B9062F[base camp name]^000000, и я предложу тебе ее. Нужно будет следовать за ^B9062FКрасными Стрелками^000000.";
 		next;
 		while(1) {
-			switch(select("[ Main facilities ]", "[ Guide & Helper ]", "Mini map marking removal", "End Conversation")) {
+			switch(select("[ Основные объекты ]", "[ Проводники & Помощники ]", "Очистить метки на мини-карте", "Завершить разговор")) {
 			case 1:
 				while (1) {
-					switch(select("[ Criatura Academy ]", "[ Wharf ]", "[ Airship (International) ]", "[ Arena ]", "[ Shop ]", "[ Swordman Guild ]", "[ Enchant Association ]", "[ Blacksmith's Workshop ]", "Go back to the previous menu")) {
+					switch(select("[ Criatura Academy ]", "[ Wharf ]", "[ Airship (International) ]", "[ Arena ]", "[ Shop ]", "[ Swordman Guild ]", "[ Enchant Association ]", "[ Blacksmith's Workshop ]", "Вернуться в предыдущее меню")) {
 					case 1:
 						mes "[Information Staff]";
-						mes "If you are the first time adventurer,";
+						mes "Если ту новичок,";
 						mes "<NAVI>[Criatura Academy]<INFO>iz_ac01,100,39,</INFO></NAVI>";
-						mes "can offer a lot of info and help.";
-						mes "Do you need additonal directions?";
+						mes "может предложить тебе множесто информации, а также помощь.";
+						mes "Указать тебе направление?";
 						viewpoint 1, 128, 260, 0, 0xFFD269;
 						next;
 						continue;
 					case 2:
 						mes "[Information Staff]";
-						mes "Through the <NAVI>[Wharf]<INFO>izlude,197,205,</INFO></NAVI> in the north east,";
-						mes "^8B4513Alberta^000000 or ^8B4513the Byalan Island^000000 can be visted.";
-						mes "you can go.";
+						mes "Что ж <NAVI>[Wharf]<INFO>izlude,197,205,</INFO></NAVI> находится на Северо-Востоке,";
+						mes "Можно посетить ^8B4513Alberta^000000 или ^8B4513the Byalan Island^000000";
+						mes "Ты можешь идти.";
 						next;
 						mes "[Information Staff]";
-						mes "Byalan Island is the scary place with ^8B4513Izlude dungeon^000000 in it.";
-						mes "Do you need additional directions?";
+						mes "Byalan Island страшное место с кучей ^8B4513Подземелий Izlude^000000.";
+						mes "Указать тебе направление?";
 						viewpoint 1, 197, 205, 1, 0xFFFF00;
 						next;
 						continue;
 					case 3:
 						mes "[Information Staff]";
-						mes "To the southeast, the <NAVI>[Airship]<INFO>izlude,206,75,</INFO></NAVI>";
-						mes "will be connected with the Capital of the republic of Schwarzwald -^8B4513 Juno^000000, and";
-						mes "The capital of the Arunapeltsdom -^8B4513 Rachel ^000000.";
-						mes "Do you need additional directions?";
+						mes "На Юго-Востоке располагается <NAVI>[Airship]<INFO>izlude,206,75,</INFO></NAVI>";
+						mes "он отправляется в столицу Республики Schwarzwald -^8B4513 Juno^000000, и";
+						mes "столицу Arunapeltsdom -^8B4513 Rachel ^000000.";
+						mes "Указать тебе направление??";
 						viewpoint 1, 210, 73, 2, 0xFF0A82;
 						next;
 						continue;
 					case 4:
 						mes "[Information Staff]";
-						mes "The <NAVI>[Arena]<INFO>izlude,213,161,</INFO></NAVI> located in the east";
-						mes "is for testing your battle ability.";
-						mes "It's an excellent place.";
-						mes "I will mark the location on the mini map.";
-						mes "Do you need additional directions?";
+						mes "<NAVI>[Arena]<INFO>izlude,213,161,</INFO></NAVI> располагается на Востоке";
+						mes "и предназначена для проверки твоих боевых навыков.";
+						mes "Восхитительное место!";
+						mes "Я отмечу тебе его на мини-карте.";
+						mes "Тебе же нужно указать направление?";
 						viewpoint 1, 213, 161, 3, 0xFFFF54;
 						next;
 						continue;
 					case 5:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Я отмечу расположение";
 						mes "<NAVI>[Shop]<INFO>izlude,110,182,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Ты же за этим пришел, правильно?";
 						viewpoint 1, 108, 179, 4, 0xFFAAFF;
 						next;
 						continue;
 					case 6:
 						mes "[Information Staff]";
-						mes "<NAVI>[Swordman guild]<INFO>izlude,51,172,</INFO></NAVI> is the place to manage the job transfer to a swordman.";
-						mes "I will mark the location of the swordman guild on the mini map.";
-						mes "Do you need additional directions?";
+						mes "<NAVI>[Swordman guild]<INFO>izlude,51,172,</INFO></NAVI> - это место, где можно получить профессию фехтовальщика.";
+						mes "Я отмечу расположение гильдии на мини-карте.";
+						mes "Тебе же нужно туда попасть?";
 						viewpoint 1, 52, 172, 5, 0xFFDA70;
 						next;
 						continue;
 					case 7:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Я отмечу расположение ";
 						mes "<NAVI>[Enchant Association]<INFO>izlude,97,125,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Тебя же это интересует, правильно?";
 						viewpoint 1, 97, 125, 6, 0xFFDA70;
 						next;
 						continue;
 					case 8:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Я отмечу расположение ";
 						mes "<NAVI>[Blacksmith's Workshop]<INFO>izlude,153,126,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Тебе же нужно туда попасть?";
 						viewpoint 1, 153, 126, 7, 0xFFAAFF;
 						next;
 						continue;
@@ -1275,54 +1275,54 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 					switch(select("[ Eden Group Teleporter ]", "[ Kafra Employee ]", "[ Mesmerizer ]", "[ Wedding Secretary ]", "[ Mercenary Guild Official ]", "[ Taming Merchant ]", "Go back to the previous menu")) {
 					case 1:
 						mes "[Information Staff]";
-						mes "For now, I will mark the location of the";
+						mes "Сейчас я отмечу тебе";
 						mes "<NAVI>[Eden Group Teleporter]<INFO>izlude,131,148,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Тебя же это интересует, правильно?";
 						viewpoint 1, 131, 148, 8, 0xFF0A82;
 						next;
 						continue;
 					case 2:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Я поставлю тебе отметку о расположении";
 						mes "<NAVI>[Kafra Employee]<INFO>izlude,128,148,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Тебе нужно указать это направление?";
 						viewpoint 1, 128, 148, 9, 0xFFFF54;
 						next;
 						continue;
 					case 3:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Сейчас я отмечу тебе";
 						mes "<NAVI>[Mesmerizer]<INFO>izlude,124,127,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Мы же не хотим, чтобы ты заблудился?";
 						viewpoint 1, 125, 127, 10, 0xFF0064;
 						next;
 						continue;
 					case 4:
 						mes "[Information Staff]";
-						mes "If you want to visit ^8B4513Jawaii^000000 - the resort place for a couple,";
-						mes "talk to the <NAVI>[Wedding Secretary]<INFO>izlude,180,224,</INFO></NAVI>.";
-						mes "Just ask the question about it.";
-						mes "Do you need additional directions?";
+						mes "Если ты хочешь посетить курорт для парочек ^8B4513Jawaii^000000,";
+						mes "поговори с <NAVI>[Wedding Secretary]<INFO>izlude,180,224,</INFO></NAVI>.";
+						mes "Можешь просто спросить его.";
+						mes "Показать, где он располагается?";
 						viewpoint 1, 180, 224, 11, 0xFFFF00;
 						next;
 						continue;
 					case 5:
 						mes "[Information Staff]";
-						mes "If you need to know about the Mercenary Guild, go west and speak to the";
+						mes "Если тебе нужно узнать о Mercenary Guild, иди на Запад и поговори с";
 						mes "<NAVI>[Mercenary Guild Official]<INFO>izlude,47,170,</INFO></NAVI>.";
-						mes "Do you need additional directions?";
+						mes "Я нарисую тебе метку на карте.";
 						viewpoint 1, 47, 170, 12, 0xFFDA70;
 						next;
 						continue;
 					case 6:
 						mes "[Information Staff]";
-						mes "I will mark the location of the";
+						mes "Я поставлю тебе отметку о расположении";
 						mes "<NAVI>[Taming Merchant]<INFO>izlude,118,163,</INFO></NAVI>";
-						mes "on the mini map.";
-						mes "Do you need additional directions?";
+						mes "на мини-карте.";
+						mes "Тебя же это интересует, правильно?";
 						viewpoint 1, 118, 163, 13, 0xFF0064;
 						next;
 						continue;
@@ -1334,8 +1334,8 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 				break;
 			case 3:
 				mes "[Information Staff]";
-				mes "I will erase the marks.";
-				mes "Do you need additional directions?";
+				mes "Я удалю отметки на карте.";
+				mes "Нужно указать какое-то направление?";
 				viewpoint 2, 197, 205, 1, 0xFF0000;
 				viewpoint 2, 210, 73, 2, 0xFF0000;
 				viewpoint 2, 213, 161, 3, 0xFF0000;
@@ -1353,8 +1353,8 @@ izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 				break;
 			case 4:
 				mes "[Information Staff]";
-				mes "Have a wonderful adventure.";
-				mes "Good bye~~!";
+				mes "Пусть тебя ведет дорога приключений!.";
+				mes "Удачи~~!";
 				close;
 			}
 		}
