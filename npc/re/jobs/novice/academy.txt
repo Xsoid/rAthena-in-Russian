@@ -1129,7 +1129,7 @@ izlude_d,122,207,3	duplicate(Criatura Academy Staff#0)	Criatura Academy Staff#d	
 izlude,120,207,4	script	Information Staff#0	8W_SOLDIER,{
 	if (!checkweight(1304,3)) {
 		mes "Квест не может быть завершен, пока ваш инвентарь полон.";
-		mes "Пожалуйста, попробуйте еще раз, после того, как очистите инфентарь"
+		mes "Пожалуйста, попробуйте еще раз, после того, как очистите инфентарь";
 		close;
 	}
 
