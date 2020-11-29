@@ -2548,14 +2548,14 @@ job_sage,50,165,4	script	Test Helper#talk	700,{
 	mes "Прогресс теста анонсируется на тестовой локации. Также будет обьявлено, когда следующий человек будет готов покинуть тестовую комнату.";
 	next;
 	mes "[Ассистент]";
-	mes "Тест заннимает 5 ~ 10 минут.";
+	mes "Тест занимает 5 ~ 10 минут.";
 	mes "Если вы желаете досрочно выйти из тестовой комнаты, пожалуйста, перезайдите в игру.";
 	close;
 }
 
 job_sage,50,165,4	script	Waiting Room#sg	700,{
 OnInit:
-	disablenpc "Waiting Room#sg";
+	hideonnpc "Waiting Room#sg";
 	waitingroom "Зал ожидания",20,"Waiting Room#sg::OnStartArena",1;
 	enablewaitingroomevent;
 	end;
