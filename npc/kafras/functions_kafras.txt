@@ -315,7 +315,7 @@ function	script	F_KafTele	{
 	else if (@wrpD$[.@j] == "Маяк Фарос") warp "cmd_fild07", 127, 134;
 	else if (@wrpD$[.@j] == "Геффен") warp "geffen", 120, 39;
 	else if (@wrpD$[.@j] == "Излюд") {
-		if (checkre(RENEWAL) == true)
+		if (checkre(0) == true)
 			warp "izlude", 128, 98;
 		else
 			warp "izlude", 91, 105;
@@ -339,7 +339,7 @@ function	script	F_KafCart	{
 	if (BaseClass != Job_Merchant) {
 		mes "[Сотрудница Кафры]";
 		mes "Прошу прощения, но аренда телеги ";
-		if (checkre(RENEWAL) == true)
+		if (checkre(0) == true)
 			mes "возможна только для торговцев и их коллег.";
 		else {
 			mes "возможна только для торговцев, ";
