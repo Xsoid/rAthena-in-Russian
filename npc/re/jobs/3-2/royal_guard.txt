@@ -468,7 +468,7 @@ gl_church,173,88,0	script	Следы раскопок#01	844,{
 			getitem 7049,1; //Stone
 		else {
 			mes "Вы осматриваете камень за камнем, как вдруг пространство вокруг вас будто взрывается. Лучше сменить позицию.";
-			disablenpc strnpcinfo(0);
+			disablenpc();
 			initnpctimer;
 			close;
 		}
@@ -476,7 +476,7 @@ gl_church,173,88,0	script	Следы раскопок#01	844,{
 	mes "Вы видите следы аккуратных раскопок.";
 	close;
 OnTimer60000:
-	enablenpc strnpcinfo(0);
+	enablenpc();
 	stopnpctimer;
 OnTimer1000:
 OnTimer20000:

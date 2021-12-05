@@ -209,7 +209,7 @@ function	script	F_Mora_Mist	{
 		mes "^666666¬ы срубаете дерево"+((getarg(3,0))?", и за ним обнаруживаетс€ проход.":" и получаете возможность продвигатьс€ дальше.")+"^000000";
 		mapannounce .@map$,getarg(1),bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
 		enablenpc instance_npcname(getarg(0));
-		disablenpc instance_npcname(strnpcinfo(0));
+		disablenpc();
 		if (getarg(4,0))
 			initnpctimer;
 		close;
@@ -453,7 +453,7 @@ OnMyMobDead:
 
 1@mist,73,290,0	script	«агадочный цветок#1	844,{
 	specialeffect EF_LEVEL99_4;
-	disablenpc instance_npcname(strnpcinfo(0));
+	disablenpc();
 	getitem 12561,1; //Mysterious_Seed
 	end;
 }

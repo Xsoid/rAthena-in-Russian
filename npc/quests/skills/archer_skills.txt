@@ -37,7 +37,7 @@ moc_ruins,118,99,5	script	Roberto	88,{
 				next;
 				delitem 907,20; //Resin
 				delitem 921,7; //Mushroom_Spore
-				delitem 906,41; //Tough_Scalelike_Stem
+				delitem 906,41; //Pointed_Scale
 				delitem 1019,13; //Wooden_Block
 				delitem 501,1; //Red_Potion
 				skill "AC_MAKINGARROW",1,SKILL_PERM;
