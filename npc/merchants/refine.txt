@@ -18,13 +18,12 @@
 //= 3.4 Added VIP features. [Euphy]
 //= 3.5 Added Refine UI [Atemo, Lemongrass]
 //============================================================
-//= Перевод Xsoid
-//= Требуется перевести патч 3.5
+//= 22.05.2022 перевод Xsoid
 //============================================================
 
 // Christopher: Geffen Blacksmith
 //============================================================
-geffen_in,110,172,0	script	Christopher#1	63,{
+geffen_in,110,172,0	script	Кристофер#1	63,{
 	mes "[Кристофер Гилленроу]";
 	mes "Добро пожаловать в мастерскую Кристофера. Здесь ты можешь приобрести все, что тебе понадобится для ковки. Так что тебе необходимо?";
 	next;
@@ -287,7 +286,7 @@ geffen_in,110,172,0	script	Christopher#1	63,{
 
 // Paul Spanner: Einbroch Blacksmith Supplier
 //============================================================
-ein_in01,38,29,0	script	Paul Spanner	63,{
+ein_in01,38,29,0	script	Паул Спаннер	63,{
 	if (checkweight(1201,1) == 0) {
 		mes "- Минуточку! -";
 		mes "- У тебя с собой слишком -";
@@ -521,100 +520,100 @@ ein_in01,38,29,0	script	Paul Spanner	63,{
 
 // Weapon/Armor Refiners
 //============================================================
-prt_in,63,60,0	script	Hollgrehenn	4_M_03,{
+prt_in,63,60,0	script	Холлгрехенн	4_M_03,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Hollgrehenn]";
-		mes "I'm a blacksmith who can refine weapons and equipment.";
-		mes "Do you have any items that you'd like to refine?";
+		mes "[Холлгрехенн]";
+		mes "Я кузнец, который может усовершенствовать оружие и снаряжение.";
+		mes "Есть ли у тебя какие-либо предметы, которые ты хотел бы усовершенствовать?";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Hollgrehenn",0;
+		callfunc "refinemain","Холлгрехенн",0;
 		end;
 	}
 }
 
-morocc_in,73,38,6	script	Aragham	4W_M_03,{
+morocc_in,73,38,6	script	Авраам	4W_M_03,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Aragham]";
-		mes "De~ sert~ Blacksmith~";
-		mes "Aragham Ssaleh~ who can refine anything Ssaleh~";
-		mes "Let me see what you'd like to refine~";
+		mes "[Авраам]";
+		mes "Де~ серт~ Кузнец~";
+		mes "Авраам Ссале~ кто может усовершенствовать что-либо Ссале~";
+		mes "Позвольте взглянуть, что ты хотел бы усовершенствовать~";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Aragham",0;
+		callfunc "refinemain","Авраам",0;
 		end;
 	}
 }
 
-payon,144,173,5	script	Antonio	4_M_ORIENT01,{
+payon,144,173,5	script	Антонио	4_M_ORIENT01,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Antonio]";
-		mes "Stop nagging and get me the equipment you want to refine.";
+		mes "[Антонио]";
+		mes "Перестань ворчать и достань снаряжение, которое хочешь усовершенствовать.";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Antonio",0;
+		callfunc "refinemain","Антонио",0;
 		end;
 	}
 }
 
-alberta_in,28,58,0	script	Fredrik	4_M_03,{
+alberta_in,28,58,0	script	Фредрик	4_M_03,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Fredrik Hermanthorn]";
-		mes "I am a blacksmith who can refine your weapon or equipment.";
-		mes "Do you have anything that you'd like to refine?";
+		mes "[Фредрик Херманторн]";
+		mes "Я кузнец, который может усовершенствовать ваше оружие или снаряжение.";
+		mes "Есть ли у вас что-нибудь, что вы хотели бы доработать?";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Fredrik",0;
+		callfunc "refinemain","Фредрик",0;
 		end;
 	}
 }
 
-yuno_in01,171,21,4	script	Lambert	4_M_ORIENT01,{
+yuno_in01,171,21,4	script	Ламберт	4_M_ORIENT01,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Lambert]";
-		mes "Wel...come... This is... the best... smithy... in Juno.";
+		mes "[Ламберт]";
+		mes "Хорошо... пойдем... Это... лучшая... кузница... в Юно.";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Lambert",0;
+		callfunc "refinemain","Ламберт",0;
 		end;
 	}
 }
 
-ein_in01,24,87,5	script	Manthasman	4_M_DWARF,{
+ein_in01,24,87,5	script	Мантасман	4_M_DWARF,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Manthasman Pruhag]";
-		mes "Hahaha, you already knew it. So you'd like to refine something?";
-		mes "Let's try something risky today!";
+		mes "[Мантасман Прухаг]";
+		mes "Ха-ха-ха, ты уже всё знаешь. Итак, ты хотел что-то улучшить?";
+		mes "Давай попробуем сегодня что-нибудь рискованное!";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Manthasman Pruhag",0;
+		callfunc "refinemain","Мантасман Прухаг",0;
 		end;
 	}
 }
 
-lhz_in02,282,20,7	script	Fulerr	4_M_LGTMAN,{
+lhz_in02,282,20,7	script	Фулерр	4_M_LGTMAN,{
 	if( getbattleflag( "feature.refineui" ) ){
-		mes "[Fulerr]";
-		mes "Hehe... You wanna refine?";
-		mes "Hehe.. Consider it done..";
-		mes "Hehe....";
+		mes "[Фулерр]";
+		mes "Хе-хе... Ты хочешь улучшить снаряжение?";
+		mes "Хе-хе.. Считай, что дело сделано..";
+		mes "Хе-хе....";
 		close2;
 		refineui();
 		end;
 	}else{
-		callfunc "refinemain","Fulerr",0;
+		callfunc "refinemain","Фулерр",0;
 		end;
 	}
 }
@@ -744,6 +743,7 @@ function	script	refinemain	{
 
 	// TODO: What was this? Maybe shadow?
 	// case 5: .@price = .@price * 10; break;
+	}
 
 	if(.@features != 1) {
 		mes "["+ .@npc_name$ +"]";
@@ -940,32 +940,32 @@ function	script	refinemain	{
 
 // Material Salesmen
 //============================================================
-prt_in,56,68,5	script	Vurewell	86,{
-	callfunc "phramain","Vurewell";
+prt_in,56,68,5	script	Вьювелл	86,{
+	callfunc "phramain","Вьювелл";
 	end;
 }
-payon,145,178,3	script	Begnahd	88,{
-	callfunc "phramain","Begnahd";
+payon,145,178,3	script	Бегнахд	88,{
+	callfunc "phramain","Бегнахд";
 	end;
 }
-morocc_in,63,32,6	script	Sade	99,{
-	callfunc "phramain","Sade";
+morocc_in,63,32,6	script	Сад	99,{
+	callfunc "phramain","Сад";
 	end;
 }
-alberta_in,13,71,3	script	Kahlamanlith	86,{
-	callfunc "phramain","Kahlamanlith";
+alberta_in,13,71,3	script	Каламанлит	86,{
+	callfunc "phramain","Каламанлит";
 	end;
 }
-yuno_in01,171,27,4	script	Dilemma	88,{
-	callfunc "phramain","Dilemma";
+yuno_in01,171,27,4	script	Дилемма	88,{
+	callfunc "phramain","Дилемма";
 	end;
 }
-ein_in01,15,87,3	script	Tirehaus	86,{
-	callfunc "phramain","Tirehaus";
+ein_in01,15,87,3	script	Тирхаус	86,{
+	callfunc "phramain","Тирхаус";
 	end;
 }
-lhz_in02,278,24,3	script	Krugg	86,{
-	callfunc "phramain","Krugg";
+lhz_in02,278,24,3	script	Кругг	86,{
+	callfunc "phramain","Кругг";
 	end;
 }
 
@@ -1042,32 +1042,32 @@ function	script	phramain	{
 
 // Ori/Elu Refiners
 //============================================================
-prt_in,63,69,3	script	Dietrich	84,{
-	callfunc "orimain","Dietrich";
+prt_in,63,69,3	script	Дитрих	84,{
+	callfunc "orimain","Дитрих";
 	end;
 }
-payon,137,178,5	script	Hakhim	88,{
-	callfunc "orimain","Hakhim";
+payon,137,178,5	script	Хаким	88,{
+	callfunc "orimain","Хаким";
 	end;
 }
-morocc_in,72,32,6	script	Abdula	99,{
-	callfunc "orimain","Abdula";
+morocc_in,72,32,6	script	Абдула	99,{
+	callfunc "orimain","Абдула";
 	end;
 }
-alberta_in,21,63,5	script	Xenophon	84,{
-	callfunc "orimain","Xenophon Zolotas";
+alberta_in,21,63,5	script	Ксенофонт	84,{
+	callfunc "orimain","Ксенофонт Zolotas";
 	end;
 }
-yuno_in01,164,27,4	script	Delight	88,{
-	callfunc "orimain","Delight";
+yuno_in01,164,27,4	script	Дэлайт	88,{
+	callfunc "orimain","Дэлайт";
 	end;
 }
-ein_in01,18,82,6	script	Matestein	84,{
-	callfunc "orimain","Matestein";
+ein_in01,18,82,6	script	Матестейн	84,{
+	callfunc "orimain","Матестейн";
 	end;
 }
-lhz_in02,281,24,5	script	Fruel	84,{
-	callfunc "orimain","Fruel";
+lhz_in02,281,24,5	script	Фруло	84,{
+	callfunc "orimain","Фруло";
 	end;
 }
 
@@ -1136,73 +1136,73 @@ function	script	orimain	{
 
 // Equipment Repairmen
 //============================================================
-alberta_in,31,65,4	script	Repairman#alb	86,{
-	callfunc "repairmain","Repairman";
+alberta_in,31,65,4	script	Ремонтник#alb	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-moc_ruins,107,94,4	script	Repairman#moc	99,{
-	callfunc "repairmain","Repairman";
+moc_ruins,107,94,4	script	Ремонтник#moc	99,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-payon,143,165,4	script	Repairman#pay	88,{
-	callfunc "repairmain","Repairman";
+payon,143,165,4	script	Ремонтник#pay	88,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-prt_in,63,54,2	script	Repairman#prt	86,{
-	callfunc "repairmain","Grendal";
+prt_in,63,54,2	script	Ремонтник#prt	86,{
+	callfunc "repairmain","Грендаль";
 	end;
 }
 
-yuno_in01,175,28,3	script	Repairman#juno	86,{
-	callfunc "repairmain","Repairman";
+yuno_in01,175,28,3	script	Ремонтник#juno	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-geffen_in,34,166,3	script	Repairman#gef	99,{
-	callfunc "repairmain","Repairman";
+geffen_in,34,166,3	script	Ремонтник#gef	99,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-aldeba_in,38,60,3	script	Repairman#alde	86,{
-	callfunc "repairmain","Repairman";
+aldeba_in,38,60,3	script	Ремонтник#alde	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-lhz_in02,284,14,3	script	Repairman#lhz	86,{
-	callfunc "repairmain","Repairman";
+lhz_in02,284,14,3	script	Ремонтник#lhz	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-prt_gld,139,117,4	script	Repairman#prt_gld	86,{
-	callfunc "repairmain","Repairman";
+prt_gld,139,117,4	script	Ремонтник#prt_gld	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-gef_fild13,263,117,4	script	Repairman#gef_fild	86,{
-	callfunc "repairmain","Repairman";
+gef_fild13,263,117,4	script	Ремонтник#gef_fild	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-pay_gld,295,183,4	script	Repairman#pay_gld	86,{
-	callfunc "repairmain","Repairman";
+pay_gld,295,183,4	script	Ремонтник#pay_gld	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-alde_gld,220,152,4	script	Repairman#alde_gld	86,{
-	callfunc "repairmain","Repairman";
+alde_gld,220,152,4	script	Ремонтник#alde_gld	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-aru_gld,189,336,4	script	Repairman#aru_gld	86,{
-	callfunc "repairmain","Repairman";
+aru_gld,189,336,4	script	Ремонтник#aru_gld	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
-sch_gld,340,80,7	script	Repairman#sch_gld	86,{
-	callfunc "repairmain","Repairman";
+sch_gld,340,80,7	script	Ремонтник#sch_gld	86,{
+	callfunc "repairmain","Ремонтник";
 	end;
 }
 
