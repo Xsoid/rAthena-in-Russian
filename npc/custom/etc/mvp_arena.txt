@@ -15,11 +15,11 @@
 //= 1.3 - Removed Duplicates
 //= 1.4 - Optimized, text edited [Euphy]
 //============================================================
-//= Translated EN -> RU [Fenrir]
+//= Translated EN -> RU [Xsoid]
 //============================================================
 
 // Entrance
-prontera,154,197,3	script	MVP Warper	768,{
+prontera,154,197,3	script	MVP Арена	768,{
 	mes "[ ^0065DFMVP Warper^000000 ]";
 	mes "Ты готов умирать?";
 	if (select("Да!","Нет, спасибо.") == 2) close;
@@ -28,8 +28,8 @@ prontera,154,197,3	script	MVP Warper	768,{
 }
 
 // Information
-quiz_00,49,31,4	script	MVP Arena Guide	778,{
-	mes "[ ^0065DFMVP Arena Guide^000000 ]";
+quiz_00,49,31,4	script	Гид по MVP Арене	778,{
+	mes "[ ^0065DFГид по MVP Арене^000000 ]";
 	mes "Добро пожаловать на священную арену! Только здесь ты узнаешь, тварь ли ты дрожащая, или право имеешь.";
 	next;
 	switch(select("Больше информации","Вылечи меня!","Верни меня в Пронтеру","Прощай")) {
@@ -66,10 +66,10 @@ function	script	Keeper	{
 	warp "pvp_n_"+.@i+"-"+ .@arg,102,102;
 	close;
 }
-quiz_00,56,31,4	script	Alpha MVP	770,{ callfunc "Keeper",2; }
-quiz_00,58,31,4	script	Beta MVP	773,{ callfunc "Keeper",3; }
-quiz_00,60,31,4	script	Theta MVP	774,{ callfunc "Keeper",4; }
-quiz_00,62,31,4	script	Epsilon MVP	776,{ callfunc "Keeper",5; }
+quiz_00,56,31,4	script	Альфа MVP	770,{ callfunc "Keeper",2; }
+quiz_00,58,31,4	script	Бета MVP	773,{ callfunc "Keeper",3; }
+quiz_00,60,31,4	script	Тета MVP	774,{ callfunc "Keeper",4; }
+quiz_00,62,31,4	script	Эпсилон MVP	776,{ callfunc "Keeper",5; }
 
 // Protectors
 function	script	Protector	{

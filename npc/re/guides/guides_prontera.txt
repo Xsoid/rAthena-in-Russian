@@ -1,0 +1,275 @@
+//===== rAthena Script =======================================
+//= Prontera Guides
+//===== Description: =========================================
+//= Guides for the city of Prontera.
+//===== Changelogs: ==========================================
+//= 1.0 Initial release for Renewal [L0ne_W0lf]
+//= 1.1 Navigation system update. [Euphy]
+//============================================================
+//= 23.05.2022 перевод [Xsoid]
+//============================================================
+
+prontera,154,187,4	script	Гид#01prontera::GuideProntera	105,{
+	cutin "prt_soldier",2;
+	mes "[Гид по Пронтере]";
+	mes "Добро пожаловать в ^8B4513Пронтеру^000000,";
+	mes "прекрасную столицу";
+	mes "Королевства Рун-Мидгарт.";
+	mes "Вам нужна помощь чтобы сориентироваться в городе?";
+	F_Navi("[Гид по Пронтере]");
+	next;
+	set .@str$,"Хотите проверить другие места?";
+	while (1) {
+		switch(select("[ Основные объекты ]:[ Торговцы и Помощники ]:Удалить отметки с мини-карты:Отмена")) {
+		case 1:
+			set .@loop,1;
+			while (.@loop) {
+				switch(select("[ Магазин инструментов ]:[ Магазин оружия и доспехов ]:[ Кузница ]:[ Церковь ]:[ Офис Рыцарей ]:[ Гостиница ]:[ Таверна ]:[ Библиотека ]:[ Замок Пронтеры ]:[ Биржа труда ]:[ Ратуша ]:Предыдущее меню")) {
+				case 1:
+					callsub L_Mark, F_Navi("Магазин инструментов","prontera,134,221","^B9062F");
+					mes .@str$;
+					viewpoint 1,134,221,0,0xFF0000;
+					next;
+					break;
+				case 2:
+					callsub L_Mark, F_Navi("Магазин оружия и доспехов","prontera,175,220","^0000FF");
+					mes .@str$;
+					viewpoint 1,175,220,1,0x0A82FF;
+					next;
+					break;
+				case 3:
+					callsub L_Mark, F_Navi("Кузница","prontera,179,184","^FF5400");
+					mes .@str$;
+					viewpoint 1,179,184,2,0xFFB400;
+					next;
+					break;
+				case 4:
+					mes "[Гид по Пронтере]";
+					mes "В "+F_Navi("Церкови Пронтеры","prontera,236,316","^006400")+" вы можете получить профессию Послушника, она расположена на крайнем северо-востоке города.";
+					mes "Позвольте мне отметить это место на вашей мини-карте.";
+					mes .@str$;
+					viewpoint 1,236,316,3,0xAAFF00;
+					next;
+					break;
+				case 5:
+					mes "[Гид по Пронтере]";
+					mes "В "+F_Navi("Офисе Рыцарей","prontera,46,345")+" вы можете стать ^7F3300Рыцарем^000000.";
+					mes .@str$;
+					viewpoint 1,46,345,4,0xD2691E;
+					next;
+					break;
+				case 6:
+					callsub L_Mark, F_Navi("Гостиница","prontera,203,191","^800080");
+					mes .@str$;
+					viewpoint 1,204,191,5,0xDA70D6;
+					next;
+					break;
+				case 7:
+					callsub L_Mark, "^B9062FTaverns^000000";
+					mes "Сейчас открыта "+F_Navi("северная","prontera,208,154","^B9062F")+" таверна.";
+					mes .@str$;
+					viewpoint 1,208,154,6,0xFF0000;
+					viewpoint 1,46,67,7,0xFF0000;
+					next;
+					break;
+				case 8:
+					mes "[Гид по Пронтере]";
+					mes "В ^0000FFБиблиотеке^000000 вы можете найти полезную информацию, например, энциклопедию монстров.";
+					mes "Сейчас открыто две библиотеки: одна на "+F_Navi("северо-востоке","prontera,120,264")+" и вторая на "+F_Navi("северо-западе","prontera,192,264")+".";
+					mes .@str$;
+					viewpoint 1,120,264,8,0x0A82FF;
+					viewpoint 1,192,264,9,0x0A82FF;
+					next;
+					break;
+				case 9:
+					mes "[Гид по Пронтере]";
+					mes ""+F_Navi("Замок Пронтеры","prontera,156,360","^FF5400")+" находится на севере города, а его задние ворота связаны с северными полями Пронтеры.";
+					mes "Позвольте мне отметить замок на вашей мини-карте.";
+					mes .@str$;
+					viewpoint 1,156,360,10,0xFFB400;
+					next;
+					break;
+				case 10:
+					callsub L_Mark, F_Navi("Биржа труда","prontera,133,183","^006400");
+					mes .@str$;
+					viewpoint 1,133,183,11,0xAAFF00;
+					next;
+					break;
+				case 11:
+					mes "[Гид по Пронтере]";
+					mes "Позвольте мне отметить местоположение "+F_Navi("Ратуши","prontera,75,91","^7F3300");
+					mes "на вашей мини-карте.";
+					mes "Там есть парикмахер, который может изменить цвет волос.";
+					mes .@str$;
+					viewpoint 1,75,91,12,0xD2691E;
+					next;
+					break;
+				case 12:
+					set .@loop,0;
+					break;
+				}
+			}
+			break;
+		case 2:
+			set .@loop,1;
+			while (.@loop) {
+				switch(select("[ Офицер Телепорта Эдема ]:[ Пеко Пеко Заводчик ]:[ Мастер верховой езды ]:[ Мастер Магических Механизмов ]:[ Пеко Пеко Ремувер ]:[ Торговец ]:[ Гильдия Наёмников ]:[ Гипнотизер ]:[ Сотрудник Кафры ]:[ Леаблем ]:[ Зачарование Доспеха ]:[ Товары для Петов ]:Предыдущее меню")) {
+				case 1:
+					callsub L_Mark, F_Navi("Офицер Телепорта Эдема","prontera,124,76","^800080"),1;
+					mes .@str$;
+					viewpoint 1,124,76,13,0xDA70D6;
+					next;
+					break;
+				case 2:
+					mes "[Гид по Пронтере]";
+					mes "Есть два ^0000FFПеко Пеко Заводчика^000000 один для ^0000FFРыцарей^000000 на "+F_Navi("северо-западе","prontera,55,350","^0000FF");
+					mes "и другой для ^0000FFКрестоносецев^000000 на "+F_Navi("северо-востоке","prontera,232,310","^0000FF")+".";
+					viewpoint 1,55,350,14,0x0A82FF;
+					viewpoint 1,232,310,15,0x0A82FF;
+					next;
+					break;
+				case 3:
+					mes "[Гид по Пронтере]";
+					mes ""+F_Navi("Мастер верховой езды","prontera,131,213","^FF5400")+" предоставляет услуги ^FF5400Рунмейстерам^000000 и ^FF5400Тамплиерам^000000.";
+					mes "Позвольте мне отметить его местоположение на вашей мини-карте.";
+					mes .@str$;
+					viewpoint 1,131,213,16,0xFFB400;
+					next;
+					break;
+				case 4:
+					mes "[Гид по Пронтере]";
+					mes ""+F_Navi("Мастер Магических Механизмов","prontera,163,178","^006400");
+					mes "оказывает услуги ^006400Механикам^000000.";
+					mes "Позвольте мне отметить его местоположение на вашей мини-карте.";
+					mes .@str$;
+					viewpoint 1,163,178,17,0xAAFF00;
+					next;
+					break;
+				case 5:
+					mes "[Гид по Пронтере]";
+					mes "Если ваш Пеко Пеко отказывается вас покидать, обратитесь к "+F_Navi("Пеко Пеко Ремувер","prontera,125,208","^7F3300");
+					mes "рядом с центральным фонтаном.";
+					mes .@str$;
+					viewpoint 1,125,208,18,0xD2691E;
+					next;
+					break;
+				case 6:
+					mes "[Гид по Пронтере]";
+					mes "Торговец рунами, Торговец Амацу и другие";
+					mes F_Navi("торговцы","prontera,178,244","^800080")+" были отмечены на вашей мини-карте.";
+					mes .@str$;
+					viewpoint 1,178,244,19,0xDA70D6;
+					next;
+					break;
+				case 7:
+					callsub L_Mark, F_Navi("Гильдия Наёмников","prontera,35,337","^0000FF"),1;
+					mes .@str$;
+					viewpoint 1,35,337,20,0x0A82FF;
+					next;
+					break;
+				case 8:
+					mes "[Гид по Пронтере]";
+					mes "The ^FF5400Гипнотизер^000000";
+					mes "помогает начинающим искателям приключений сбросить свои навыки.";
+					mes "Он переехал в Излюд, город-спутник Пронтеры на юго-востоке.";
+					mes "Хотите проверить другие места?";
+					mes .@str$;
+					//viewpoint 1,146,232,21,0xFFB400;
+					next;
+					break;
+				case 9:
+					callsub L_Mark, "^006400Сотрудники Кафра^000000",1;
+					mes .@str$;
+					viewpoint 1,152,326,22,0xAAFF00;
+					viewpoint 1,30,207,23,0xAAFF00;
+					viewpoint 1,282,200,24,0xAAFF00;
+					viewpoint 1,151,29,25,0xAAFF00;
+					viewpoint 1,146,89,26,0xAAFF00;
+					next;
+					break;
+				case 10:
+					mes "[Гид по Пронтере]";
+					mes F_Navi("Леаблем","prontera,244,169","^0000FF");
+					mes "это специалист, который может создавать ^0000FFслоты^000000 для оружия и доспехов.";
+					mes "Как бы удивительно это ни звучало, не все снаряжение можно вставить.";
+					mes .@str$;
+					viewpoint 1,244,169,27,0x0A82FF;
+					next;
+					break;
+				case 11:
+					callsub L_Mark, F_Navi("Зачарование Доспеха","prontera,165,60","^800080"),1;
+					mes .@str$;
+					viewpoint 1,165,60,28,0xDA70D6;
+					next;
+					break;
+				case 12:
+					callsub L_Mark, F_Navi("Товары для Петов","prontera,218,211"),1;
+					mes .@str$;
+					viewpoint 1,218,211,29,0xFF0000;
+					next;
+					break;
+				case 13:
+					set .@loop,0;
+					break;
+				}
+			}
+			break;
+		case 3:
+			mes "[Гид по Пронтере]";
+			mes "Конечно, я удалю все отметки с вашей мини-карты.";
+			mes "Могу ли я что-нибудь еще сделать для вас?";
+			viewpoint 2,1,1,0,0xFFFF00;
+			viewpoint 2,1,1,1,0x000000;
+			viewpoint 2,1,1,2,0xFF0000;
+			viewpoint 2,1,1,3,0xFFFF00;
+			viewpoint 2,1,1,4,0xFFFF00;
+			viewpoint 2,1,1,5,0xFFFF00;
+			viewpoint 2,1,1,6,0xFFFF00;
+			viewpoint 2,1,1,7,0xFFFF00;
+			viewpoint 2,1,1,8,0xFFFF00;
+			viewpoint 2,1,1,9,0xFFFF00;
+			viewpoint 2,1,1,10,0xFFFF00;
+			viewpoint 2,1,1,11,0xFFFF00;
+			viewpoint 2,1,1,12,0xFFFF00;
+			viewpoint 2,1,1,13,0xFFFF00;
+			viewpoint 2,1,1,14,0xFFFF00;
+			viewpoint 2,1,1,15,0xFFFF00;
+			viewpoint 2,1,1,16,0xFFFF00;
+			viewpoint 2,1,1,17,0xFFFF00;
+			viewpoint 2,1,1,18,0xFFFF00;
+			viewpoint 2,1,1,19,0xFFFF00;
+			viewpoint 2,1,1,20,0xFFFF00;
+			//viewpoint 2,1,1,21,0xFFFF00;
+			viewpoint 2,1,1,22,0xFFFF00;
+			viewpoint 2,1,1,23,0xFFFF00;
+			viewpoint 2,1,1,24,0xFFFF00;
+			viewpoint 2,1,1,25,0xFFFF00;
+			viewpoint 2,1,1,26,0xFFFF00;
+			viewpoint 2,1,1,27,0xFFFF00;
+			viewpoint 2,1,1,28,0xFFFF00;
+			viewpoint 2,1,1,29,0xFFFF00;
+			next;
+			break;
+		case 4:
+			mes "[Гид по Пронтере]";
+			mes "Наслаждайтесь пребыванием в нашем городе.";
+			close2;
+			cutin "prt_soldier",255;
+			end;
+		}
+	}
+	end;
+L_Mark:
+	mes "[Гид по Пронтере]";
+	if (getarg(1,0)) {
+		mes "Позвольте мне отметить местоположение";
+		mes getarg(0);
+	} else
+		mes "Позвольте мне отметить местоположение "+getarg(0);
+	mes "на вашей мини-карте.";
+	return;
+}
+prontera,282,208,2	duplicate(GuideProntera)	Гид#02prontera	105
+prontera,29,200,6	duplicate(GuideProntera)	Гид#03prontera	105
+prontera,160,29,0	duplicate(GuideProntera)	Гид#04prontera	105
+prontera,159,326,4	duplicate(GuideProntera)	Гид#05prontera	105

@@ -1,0 +1,221 @@
+//===== rAthena Script =======================================
+//= Advanced Refiner
+//===== Description: =========================================
+//= [Official Conversion]
+//= Refiner that uses Enriched ores to increase upgrade success.
+//===== Changelog: ===========================================
+//= 1.0 Added Malangdo Refiner "’отлинк". [Euphy]
+//= 1.1 Removed re-roll behavior. [Secret]
+//= 1.2 Added db-based material ID [Secret]
+//============================================================
+//= 22.05.2021 ѕеревод на русский [Xsoid]
+//============================================================
+
+// Main NPC :: mal_jerun
+//============================================================
+malangdo,221,174,6	script	’отлинк#mal_cash	559,{
+	disable_items;
+	mes "[’отлинк]";
+	mes "я и есть м€у~  узнец ’отлинк~";
+	mes "ћастер улучшений, ’отлинк~";
+	mes "я особенный кот, который училс€ у мастеров ћорока.~";
+	mes "ћо€ дочь так гордитс€ мной~";
+	mes "„то ты хочешь улучшить?";
+	next;
+
+	setarray .@indices[1], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	for (set .@i,1; .@i<=10; set .@i,.@i+1)
+		set .@menu$, .@menu$ + ( getequipisequiped(.@indices[.@i]) ? getequipname(.@indices[.@i]) : F_getpositionname(.@indices[.@i]) +"-[Empty]" ) +":";
+	set .@part, .@indices[ select(.@menu$) ];
+
+	if (!getequipisequiped(.@part)) {
+		mes "[’отлинк]";
+		switch(.@part) {
+		case EQI_HEAD_TOP:
+			mes "ћой учитель јрагам сказал м€у~";
+			mes "ќт глупости нет лекарства...";
+			break;
+		case EQI_ARMOR:
+			mes "«десь не на что смотреть, м€у!!";
+			break;
+		case EQI_HAND_L:
+			mes "ћ€у? „то ты хочешь, чтобы € сделал с этой левой рукой...?";
+			break;
+		case EQI_HAND_R:
+			mes "ћ€у? „то ты хочешь, чтобы € сделал с этой правой рукой...?";
+			break;
+		case EQI_GARMENT:
+			mes "ћ€у? Ќа тебе ничего нет.";
+			break;
+		case EQI_SHOES:
+			mes " ь€нг~! Ќе св€зывайс€ с моим чувствительным обон€нием, м€у~.";
+			break;
+		case EQI_ACC_L:
+		case EQI_ACC_R:
+			mes "ћ€у? √де твой аксессуар?";
+			break;
+		case EQI_HEAD_MID:
+		case EQI_HEAD_LOW:
+			mes "ћ€у? “ы говоришь о других част€х головы, м€у?~";
+			break;
+		}
+		close;
+	}
+	if (!getequipisenableref(.@part)) {
+		mes "[’отлинк]";
+		mes "ƒаже јрагам не может усовершенствовать такую вещь, м€у.";
+		close;
+	}
+	if (getequiprefinerycnt(.@part) >= 10) {
+		mes "[’отлинк]";
+		mes "ћ€у ~ »деальна€ заточка. Ёто сделал јрагам, м€у?~";
+		close;
+	}
+	mes "[’отлинк]";
+	.@refineitemid = getequipid(.@part); // save id of the item
+	.@itemtype = getiteminfo( .@refineitemid, ITEMINFO_TYPE );
+	.@refinerycnt = getequiprefinerycnt(.@part); //save refinery count
+	setarray .@card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+// ’отлинк имеет разные строго заданные цены
+//	.@price = getequiprefinecost(.@part, REFINE_COST_NORMAL, REFINE_ZENY_COST);
+	.@material = getequiprefinecost(.@part, REFINE_COST_NORMAL, REFINE_MATERIAL_ID);
+
+	if( .@itemtype == IT_ARMOR ){
+		.@equip_lv = getequiparmorlv( .@part );
+		.@type$ = "брон€";
+		mes "“ы выбрал броню, м€у~";
+
+		switch(.@equip_lv) {
+			case 1:
+				.@price = 15000;
+				break;
+			default:
+				// TODO:
+				close;
+		}
+	}else if( .@itemtype == IT_WEAPON ){
+		.@equip_lv = getequipweaponlv( .@part );
+		.@type$ = "оружие";
+
+		switch( .@equip_lv ){
+			case 1: // Level 1 Weapon
+				.@price = 500;
+				mes "ќружие 1-го уровн€...?";
+				break;
+			case 2: // Level 2 Weapon
+				.@price = 2000;
+				mes "ћ€у, оружие 2-го уровн€...?";
+				break;
+			case 3: // Level 3 Weapon
+				.@price = 20000;
+				mes "ћ€у-ћ€у~~ ќружие 3-го уровн€~~";
+				break;
+			case 4: // Level 4 Weapon
+				.@price = 50000;
+				mes "я-ћ€у!... ќружие 4-го уровн€...!";
+				mes "я видел такое только дважды, пока";
+				mes "училс€ у јрагама... ћ€у-ћ€у!!";
+				break;
+			default:
+				// TODO:
+				close;
+		}
+	}else{
+		// TODO:
+		close;
+	}
+
+	mes "“ебе нужен ^ff9999"+getitemname(.@material)+"^000000 и ^ff9999"+.@price+"^000000 зен дл€ этого улучшени€, м€у~";
+	mes "’очешь продолжить, м€у?~";
+	next;
+	if(select("ƒа!!:Ќет!!") == 2) {
+		mes "[’отлинк]";
+		mes " ек!!";
+		mes "“ы не веришь в ћј—“≈–ј, м€у?~";
+		close;
+	}
+	if (getequippercentrefinery(.@part, true) < 100) {
+		mes "[’отлинк]";
+		mes "ћ€у!!";
+		if (.@type$ == "брон€")
+			mes "Ёта брон€ уже столько раз улучшалась, м€у.";
+		else {
+			mes "ќпасность. ќпасность~";
+			mes "Ёто оружие было многократно усовершенствовано, м€у~";
+			next;
+			mes "[’отлинк]";
+		}
+		mes "ћы можем сломать его, если продолжим улучшать, м€у.";
+		next;
+		mes "[’отлинк]";
+		mes " ак только "+.@type$+" будет сломан, вы никогда не сможете использовать его снова, м€у. Ќе говор€ уже о том... что все текущие ^ff0000карты и улучшени€ безвозвратно исчезнут^000000.";
+		mes "“ы все еще хочешь попробовать, м€у~?";
+		next;
+		if(select("ƒа, € уверен!!:«абудь об этом!!") == 2) {
+			mes "[’отлинк]";
+			mes "ћ€у! ћудрый выбор, м€у.";
+			mes "Ќо!!";
+			mes "я расстроен, что ты сомневаешьс€ в ћј—“≈–≈ ”Ћ”„Ўј“≈Ћ≈, м€у~";
+			close;
+		}
+	}
+	if (countitem(.@material) == 0 || Zeny < .@price) {
+		mes "[’отлинк]";
+		mes "” теб€ нет необходимых ресурсов.";
+		mes "“ебе нужно ^ff9999"+getitemname(.@material)+"^000000 и ^ff9999"+.@price+"^000000 зен, м€у~";
+		mes "»ди и найди их, м€у~";
+		close;
+	}
+	delitem .@material,1;
+	set Zeny, Zeny-.@price;
+
+	// anti-hack
+	if (callfunc("F_IsEquipIDHack", .@part, .@refineitemid) || callfunc("F_IsEquipCardHack", .@part, .@card[0], .@card[1], .@card[2], .@card[3]) ||
+		callfunc("F_IsEquipRefineHack", .@part, .@refinerycnt)) {
+		mes "[’отлинк]";
+		emotion ET_FRET;
+		mes "ѕодожди секунду...";
+		mes "“ы что, думаешь, € дурак?!";
+		mes "“ы подменил товар, пока € не смотрел! ”бирайс€ отсюда!";
+		close;
+	}
+
+	if (getequippercentrefinery(.@part, true) > rand(100)) {
+		successrefitem .@part;
+		mes "[’отлинк]";
+		mes "я~ я~ ћ€у! ¬есело весело весело! ~";
+		next;
+		emotion ET_CHUP;
+		mes "[’отлинк]";
+		mes "»деально!! ќтлично, м€у!!";
+		mes "я ученик улучшающего волшебника јрагама~";
+		mes "’отлинк!!";
+		mes "≈ще один день успешных улучшений, м€у!!";
+		close;
+	}
+	failedrefitem .@part;
+	mes "[’отлинк]";
+	mes "ћ€у~ ћ€у~  р€к!!";
+	next;
+	switch(rand(1,5)) {
+		case 1: emotion ET_CRY; break;
+		case 2: emotion ET_PROFUSELY_SWEAT; break;
+		case 3: emotion ET_KEK; break;
+		case 4: emotion ET_SCRATCH; break;
+		case 5: emotion ET_BIGTHROB; break;
+	}
+	mes "[’отлинк]";
+	mes "ћ€у~ ћ€у~  р€ааак!!!!!!";
+	mes " €ааак!! я потерпел неудачу, м€у!!";
+	next;
+	mes "[’отлинк]";
+	mes "......";
+	mes "......";
+	mes "¬се~ ¬се~ —ломано, м€у...";
+	next;
+	mes "[’отлинк]";
+	mes "ћ€у.... ћастер јрагам однажды сказал,";
+	mes "учись на своих неудачах...";
+	mes "„еловек, эта неудача станет началом твоего успеха в будущем.";
+	close;
+}

@@ -1,0 +1,278 @@
+//===== rAthena Script ======================================= 
+//= Izlude Town Renewal
+//===== By: ================================================== 
+//= Masao
+//===== Current Version: ===================================== 
+//= 1.2
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//===== Description: ========================================= 
+//= [Official Conversion]
+//= Izlude town NPCs.
+//===== Additional Comments: ================================= 
+//= 1.0 First Version. Still missing many new NPCs and their dialogues. [Masao]
+//= 1.1 Updated to match the official script. [Euphy]
+//= 1.2 Added Channel Warper and Izlude duplicates. [Euphy]
+//============================================================ 
+//= 24.05.2021 Перевод на русский [Xsoid]
+//============================================================
+
+// Izlude
+//============================================================
+izlude,197,205,1	duplicate(Sailor_izlude)	Моряк#izlude	4W_SAILOR
+izlude_a,197,205,1	duplicate(Sailor_izlude)	Моряк#izlude_a	4W_SAILOR
+izlude_b,197,205,1	duplicate(Sailor_izlude)	Моряк#izlude_b	4W_SAILOR
+izlude_c,197,205,1	duplicate(Sailor_izlude)	Моряк#izlude_c	4W_SAILOR
+izlude_d,197,205,1	duplicate(Sailor_izlude)	Моряк#izlude_d	4W_SAILOR
+
+izlude,71,92,2	duplicate(Bonne_izlude)	Бонне#izlude	4_F_01
+izlude_a,71,92,2	duplicate(Bonne_izlude)	Бонне#izlude_a	4_F_01
+izlude_b,71,92,2	duplicate(Bonne_izlude)	Бонне#izlude_b	4_F_01
+izlude_c,71,92,2	duplicate(Bonne_izlude)	Бонне#izlude_c	4_F_01
+izlude_d,71,92,2	duplicate(Bonne_izlude)	Бонне#izlude_d	4_F_01
+
+izlude,172,215,4	duplicate(Charfri_izlude)	Чарфри#izlude	4_F_02
+izlude_a,172,215,4	duplicate(Charfri_izlude)	Чарфри#izlude_a	4_F_02
+izlude_b,172,215,4	duplicate(Charfri_izlude)	Чарфри#izlude_b	4_F_02
+izlude_c,172,215,4	duplicate(Charfri_izlude)	Чарфри#izlude_c	4_F_02
+izlude_d,172,215,4	duplicate(Charfri_izlude)	Чарфри#izlude_d	4_F_02
+
+izlude,174,164,4	duplicate(Cuskoal_izlude)	Кускоал#izlude	4_F_TELEPORTER
+izlude_a,174,164,4	duplicate(Cuskoal_izlude)	Кускоал#izlude_a	4_F_TELEPORTER
+izlude_b,174,164,4	duplicate(Cuskoal_izlude)	Кускоал#izlude_b	4_F_TELEPORTER
+izlude_c,174,164,4	duplicate(Cuskoal_izlude)	Кускоал#izlude_c	4_F_TELEPORTER
+izlude_d,174,164,4	duplicate(Cuskoal_izlude)	Кускоал#izlude_d	4_F_TELEPORTER
+
+izlude,85,103,4	duplicate(Dega_izlude)	Дега#izlude	4_M_02
+izlude_a,85,103,4	duplicate(Dega_izlude)	Дега#izlude_a	4_M_02
+izlude_b,85,103,4	duplicate(Dega_izlude)	Дега#izlude_b	4_M_02
+izlude_c,85,103,4	duplicate(Dega_izlude)	Дега#izlude_c	4_M_02
+izlude_d,85,103,4	duplicate(Dega_izlude)	Дега#izlude_d	4_M_02
+
+izlude,140,186,4	duplicate(Kylick_izlude)	Кайлик#izlude	4W_M_01
+izlude_a,140,186,4	duplicate(Kylick_izlude)	Кайлик#izlude_a	4W_M_01
+izlude_b,140,186,4	duplicate(Kylick_izlude)	Кайлик#izlude_b	4W_M_01
+izlude_c,140,186,4	duplicate(Kylick_izlude)	Кайлик#izlude_c	4W_M_01
+izlude_d,140,186,4	duplicate(Kylick_izlude)	Кайлик#izlude_d	4W_M_01
+
+izlude,57,159,2	duplicate(Red_izlude)	Рэд#izlude	4_M_03
+izlude_a,57,159,2	duplicate(Red_izlude)	Рэд#izlude_a	4_M_03
+izlude_b,57,159,2	duplicate(Red_izlude)	Рэд#izlude_b	4_M_03
+izlude_c,57,159,2	duplicate(Red_izlude)	Рэд#izlude_c	4_M_03
+izlude_d,57,159,2	duplicate(Red_izlude)	Рэд#izlude_d	4_M_03
+
+izlude,55,159,2	duplicate(Cebalis_izlude)	Себалис#izlude	4W_M_02
+izlude_a,55,159,2	duplicate(Cebalis_izlude)	Себалис#izlude_a	4W_M_02
+izlude_b,55,159,2	duplicate(Cebalis_izlude)	Себалис#izlude_b	4W_M_02
+izlude_c,55,159,2	duplicate(Cebalis_izlude)	Себалис#izlude_c	4W_M_02
+izlude_d,55,159,2	duplicate(Cebalis_izlude)	Себалис#izlude_d	4W_M_02
+
+izlude,165,156,2	duplicate(Soldier_izlude)	Солдат#izlude	8W_SOLDIER
+izlude_a,165,156,2	duplicate(Soldier_izlude)	Солдат#izlude_a	8W_SOLDIER
+izlude_b,165,156,2	duplicate(Soldier_izlude)	Солдат#izlude_b	8W_SOLDIER
+izlude_c,165,156,2	duplicate(Soldier_izlude)	Солдат#izlude_c	8W_SOLDIER
+izlude_d,165,156,2	duplicate(Soldier_izlude)	Солдат#izlude_d	8W_SOLDIER
+
+-	script	::Guard_izlude	-1,{
+	mes "[Стража Излюда]";
+	mes "Добро пожаловать в Излюд.";
+	close;
+}
+prt_fild08,350,219,4	duplicate(Guard_izlude)	Стражник#izlude	8W_SOLDIER
+prt_fild08a,350,219,4	duplicate(Guard_izlude)	Стражник#izlude_a	8W_SOLDIER
+prt_fild08b,350,219,4	duplicate(Guard_izlude)	Стражник#izlude_b	8W_SOLDIER
+prt_fild08c,350,219,4	duplicate(Guard_izlude)	Стражник#izlude_c	8W_SOLDIER
+prt_fild08d,350,219,4	duplicate(Guard_izlude)	Стражник#izlude_d	8W_SOLDIER
+
+// Channel Warper :: channel
+//============================================================
+function	script	F_IzludeChannel	{
+	mes "[Варп Проводник]";
+	mes "Излюд - очень оживленное место, не так ли?";
+	mes "Я здесь, чтобы помочь сделать Излюд более свободным!";
+	mes "Я могу отправить тебя в другой слой Излюда.";
+	mes "Перейти к другой копии?";
+	next;
+	set .@i, select(getarg(0)+":Неважно");
+	if (.@i < 6) {
+		setarray .@maps$[1],"izlude","izlude_a","izlude_b","izlude_c","izlude_d";
+		savepoint .@maps$[.@i],128,98,1,1;
+		warp .@maps$[.@i],128,98;
+		end;
+	}
+	close;
+}
+izlude,122,105,5	script	Варп Проводник	1_M_WIZARD,{ callfunc "F_IzludeChannel",":2 слой:3 слой:4 слой:5 слой"; }
+izlude_a,122,105,5	script	Варп Проводник#_a	1_M_WIZARD,{ callfunc "F_IzludeChannel","1 слой::3 слой:4 слой:5 слой"; }
+izlude_b,122,105,5	script	Варп Проводник#_b	1_M_WIZARD,{ callfunc "F_IzludeChannel","1 слой:2 слой::4 слой:5 слой"; }
+izlude_c,122,105,5	script	Варп Проводник#_c	1_M_WIZARD,{ callfunc "F_IzludeChannel","1 слой:2 слой:3 слой::5 слой"; }
+izlude_d,122,105,5	script	Варп Проводник#_d	1_M_WIZARD,{ callfunc "F_IzludeChannel","1 слой:2 слой:3 слой:4 слой:"; }
+
+// Talking NPCs
+//============================================================
+izlude,143,205,7	script	Болтливое Дитя#iz	4_F_KID2,{
+	end;
+
+OnTimer64000:
+	npctalk "Болтливое Дитя : Я отдала все свои Красные Зелья Новичкам. Что мне делать?";
+	end;
+
+OnTimer72000:
+	npctalk "Болтливое Дитя : Где ближайший магазин?";
+	end;
+
+OnTimer136000:
+	npctalk "Болтливое Дитя : Идиот! Ты не знаешь про 'окно быстрого доступа'?";
+	end;
+
+OnTimer144000:
+	npctalk "Болтливое Дитя : Предметы из инвентаря можно перетащить и поместить в окно быстрого доступа.";
+	end;
+
+OnTimer212000:
+	npctalk "Болтливое Дитя : У меня так много предметов для новичков из Академии!";
+	end;
+
+OnTimer276000:
+	npctalk "Болтливое Дитя : Они даже дали мне оружие и щит!";
+	end;
+
+OnTimer284000:
+	npctalk "Болтливое Дитя : Просто нажми <Ctrl+~key>, чтобы открыть имеющуюся у вас карту.";
+	end;
+
+OnTimer344000:
+	npctalk "Болтливое Дитя : Хочешь пойти со мной в Академию? Я учусь сражаться у инструктора Субино!";
+	end;
+
+OnTimer348000:
+	npctalk "Болтливое Дитя : Академия находится в северной части Излюда. Погнали~!";
+	end;
+
+OnTimer416000:
+	npctalk "Болтливое Дитя : Это система, которая доведёт вас до места назначения.";
+	end;
+
+OnTimer424000:
+	npctalk "Болтливое Дитя : В основном меню, нажми кнопку [Навигация].";
+	end;
+
+OnTimer492000:
+	npctalk "Болтливое Дитя : Ты не собираешься использовать свой мозг? Введи /where окне чата!";
+	end;
+
+OnTimer552000:
+	npctalk "Болтливое Дитя : Для появления поля ввода нажми <Enter>.";
+	end;
+
+OnTimer560000:
+	npctalk "Болтливое Дитя : Мы просто повторяем один и тот же диалог. ХаХаХа.";
+	end;
+
+OnTimer565000:
+OnInit:
+	initnpctimer;
+	end;
+}
+
+izlude_a,143,205,7	duplicate(Болтливое Дитя#iz)	Болтливое Дитя#iza	4_F_KID2
+izlude_b,143,205,7	duplicate(Болтливое Дитя#iz)	Болтливое Дитя#izb	4_F_KID2
+izlude_c,143,205,7	duplicate(Болтливое Дитя#iz)	Болтливое Дитя#izc	4_F_KID2
+izlude_d,143,205,7	duplicate(Болтливое Дитя#iz)	Болтливое Дитя#izd	4_F_KID2
+
+izlude,146,205,7	script	Болтливый Приключенец#iz	4_M_KID1,{
+	end;
+
+OnTimer69000:
+	npctalk "Болтливый Приключенец : Ты можешь купить зелье у Торговцев.";
+	end;
+
+OnTimer77000:
+	npctalk "Болтливый Приключенец : Изображение зелья на мини-карте.";
+	end;
+
+OnTimer131000:
+	npctalk "Болтливый Приключенец : Есть ли какой-нибудь способ быстро использовать предметы?";
+	end;
+
+OnTimer141000:
+	npctalk "Болтливый Приключенец : Окно быстрого доступа? Слоты в верхней части экрана? Как я могу его использовать?";
+	end;
+
+OnTimer149000:
+	npctalk "Болтливый Приключенец : Инвентаря? Ты имеешь в виду кнопку 'Инвентарь' в меню?";
+	end;
+
+OnTimer217000:
+	npctalk "Болтливый Приключенец : У меня есть куча зелий?";
+	end;
+
+OnTimer281000:
+	npctalk "Болтливый Приключенец : Что?! Я должен немедленно отправиться в Академию!";
+	end;
+
+OnTimer279000:
+	npctalk "Болтливый Приключенец : Где находится Излюд? В центре?";
+	end;
+
+OnTimer339000:
+	npctalk "Болтливый Приключенец : Я не знаю, что делать.";
+	end;
+
+OnTimer349000:
+	npctalk "Болтливый Приключенец : О, да? Хочу учиться~ Я пойду с тобой!";
+	end;
+
+OnTimer411000:
+	npctalk "Болтливый Приключенец : Навигатор, что это такое?";
+	end;
+
+OnTimer421000:
+	npctalk "Болтливый Приключенец : О-! Нужно найти сотрудника Кафры?";
+	end;
+
+OnTimer487000:
+	npctalk "Болтливый Приключенец : Как называется этот город?";
+	end;
+
+OnTimer497000:
+	npctalk "Болтливый Приключенец : Я не вижу поле ввода?";
+	end;
+
+OnTimer557000:
+	npctalk "Болтливый Приключенец : О, ты умница...";
+	end;
+
+OnTimer555000:
+	npctalk "Болтливый Приключенец : Недавно один Новичок сказал мне: Эй, 'Болтливый Приключенец'?. ХаХаХа.";
+	end;
+
+OnTimer565000:
+OnInit:
+	initnpctimer;
+	end;
+}
+
+izlude_a,146,205,7	duplicate(Болтливый Приключенец#iz)	Болтливый Приключенец#iza	4_M_KID1
+izlude_b,146,205,7	duplicate(Болтливый Приключенец#iz)	Болтливый Приключенец#izb	4_M_KID1
+izlude_c,146,205,7	duplicate(Болтливый Приключенец#iz)	Болтливый Приключенец#izc	4_M_KID1
+izlude_d,146,205,7	duplicate(Болтливый Приключенец#iz)	Болтливый Приключенец#izd	4_M_KID1
+
+prt_fild08,338,217,7	script	Отдыхающий Приключенец#iz	4_F_SITDOWN,{
+	end;
+
+OnTimer60000:
+	npctalk "Отдыхающий Приключенец : Знаешь что? Если сидеть, восстановление HP и SP происходит быстрее.";
+	end;
+
+OnTimer65000:
+	npctalk "Отдыхающий Приключенец : Сидеть возможно, если базовый уровень профессии превышает 3. Нажми клавишу <INSERT>.";
+OnInit:
+	initnpctimer;
+	end;
+}
+
+prt_fild08a,338,217,7	duplicate(Отдыхающий Приключенец#iz)	Отдыхающий Приключенец#iza	4_F_SITDOWN
+prt_fild08b,338,217,7	duplicate(Отдыхающий Приключенец#iz)	Отдыхающий Приключенец#izb	4_F_SITDOWN
+prt_fild08c,338,217,7	duplicate(Отдыхающий Приключенец#iz)	Отдыхающий Приключенец#izc	4_F_SITDOWN
+prt_fild08d,338,217,7	duplicate(Отдыхающий Приключенец#iz)	Отдыхающий Приключенец#izd	4_F_SITDOWN
