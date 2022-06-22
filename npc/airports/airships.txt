@@ -17,7 +17,7 @@
 //= ... -> Juno -> Einbroch -> Lighthalzen -> Einbroch
 //= -> Juno -> Hugel -> ...
 //============================================================ 
-//= Перевод Fenrir, Xsoid
+//= 06.06.2020 Перевод Xsoid
 //============================================================ 
 
 airplane,243,73,0	script	#AirshipWarp-1	45,1,1,{
@@ -173,161 +173,160 @@ OnTimer480000:
 	initnpctimer;
 }
 
-airplane,240,64,5	script	Exit#airplane1a::ExitAirplane	857,{
+airplane,240,64,5	script	Выход#airplane1a::ExitAirplane	857,{
 	end;
 }
-airplane,247,64,5	duplicate(ExitAirplane)	Exit#airplane1b	857
-airplane,240,40,1	duplicate(ExitAirplane)	Exit#airplane2a	857
-airplane,247,40,1	duplicate(ExitAirplane)	Exit#airplane2b	857
+airplane,247,64,5	duplicate(ExitAirplane)	Выход#airplane1b	857
+airplane,240,40,1	duplicate(ExitAirplane)	Выход#airplane2a	857
+airplane,247,40,1	duplicate(ExitAirplane)	Выход#airplane2b	857
 
-airplane,100,69,3	script	Airship Crew#ein-1	852,{
+airplane,100,69,3	script	Экипаж дирижабля#ein-1	852,{
 	mes "[Экипаж дирижабля]";
 	mes "Когда мы приземляемся в пункте назначения и вы хотите выйти, используйте для этого лестницу перед вами. Благодарим вас за использование наших авиалиний.";
 	close;
 }
 
-airplane,64,94,1	script	Umbala Kid#ein_p	787,{
+airplane,64,94,1	script	Малыш Умбала#ein_p	787,{
 	emotion ET_PROFUSELY_SWEAT;
 	mes "[Киндер]";
 	if (event_umbala >= 3) {
 		mes "Воу! Только посмотри на это! Мы летим! Мы на седьмом небе!";
 	}
 	else {
-		mes "Makumalagu!";
-		mes "Saampa joojimbo";
-		mes "kaku na jedi Solo.";
-		mes "Bwahahahahahahaah!";
+		mes "Макумалагу!";
+		mes "Сампа джуджимбо каку на джеди Соло.";
+		mes "Бвахахахахахахаха!";
 	}
 	close;
 }
 
-airplane,66,93,3	script	Umbala Lady#ein_p	783,{
+airplane,66,93,3	script	Леди из Умбалы#ein_p	783,{
 	emotion ET_THINK;
-	mes "[Lady]";
+	mes "[Леди]";
 	if (event_umbala >= 3) {
 		mes "Ш-ш-ш...";
 		mes "Тише, малыш.";
 		mes "Веди себя спокойней на людях.";
 	}
 	else {
-		mes "Chooktu!";
-		mes "Sacraup matii!";
-		mes "Shaka gurftalfi";
-		mes "huntiki manjoo!";
+		mes "Чукту!";
+		mes "Сакрауп матии!";
+		mes "Шака гурфталфи";
+		mes "хунтики манджо!";
 	}
 	close;
 }
 
-airplane,71,91,7	script	Umbala Man#ein_p	789,{
+airplane,71,91,7	script	Человек из Умбалы#ein_p	789,{
 	if (event_umbala >= 3) {
-		mes "[Chrmlim]";
+		mes "[Хрмлим]";
 		mes "Эй ты~";
 		mes "Не отворачивайся. Судя по твоему лицу ты меня понимаешь.";
 		next;
 		emotion ET_HNG;
-		mes "[Chrmlim]";
+		mes "[Хрмлим]";
 		mes "Я помогаю членам экипажа преодолеть боязнь высоты.";
 		next;
-		mes "[Chrmlim]";
+		mes "[Хрмлим]";
 		mes "Но...";
-		mes "Некоторым так и не удаётся преодолеть свои страхи и они... гм... Попадают ^333333в Nifflheim^000000.";
+		mes "Некоторым так и не удаётся преодолеть свои страхи и они... гм... Попадают ^333333в Ниффльхейм^000000.";
 	}
 	else {
-		mes "[Chrmlim]";
-		mes "Bajoo ga";
-		mes "nukta Airship.";
+		mes "[Хрмлим]";
+		mes "Баджо га";
+		mes "нукта Дирижабль.";
 		next;
-		mes "[Chrmlim]";
+		mes "[Хрмлим]";
 		mes "...";
 		mes "......";
 		next;
 		emotion ET_HNG;
-		mes "[Chrmlim]";
-		mes "Shabala moow bajama";
-		mes "Airship kulaha googoona ";
-		mes "salu. Dama, kookoo na nu";
-		mes "yukuta. Um, fashuku na ret!";
+		mes "[Хрмлим]";
+		mes "Шабала мув баджама";
+		mes "Дирижабль кулаха гугуна";
+		mes "салу. Дама, куку на ну";
+		mes "укута. Ум, фашуку на рет!";
 	}
 	close;
 }
 
-airplane,250,58,2	script	Airship Staff#airplane	67,{
+airplane,250,58,2	script	Персонал дирижабля#airplane	67,{
 	// Hugel quest addition
 	if (hg_ma1 == 3) {
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Добро пожаловать на дирижабль.";
 		mes "Как я могу тебе помочь?";
 		next;
 		select("У вас есть пасажир по имени Thierry?");
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Извините, не думаю что у нас есть пассажир с таким именем.";
 		close;
 	}
 	// Hugel quest end
-	mes "[Airship Staff]";
+	mes "[Персонал дирижабля]";
 	mes "Добро пожаловать на дирижабль.";
 	mes "Как я могу тебе помочь?";
 	next;
 	switch (select("Я хочу полететь:Мне нужна каюта капитана:Как я могу провести время:Ничего")) {
 	case 1:
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Когда ты увидишь объявление о посадке, воспользуйся выходом в северной или южной части дирижабля.";
 		next;
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Если ты пропустишь свою остановку, не переживай, дирижабль постоянно находится на маршруте и рано или поздно вернется к необходимой точке высадки.";
 		close;
 	case 2:
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Каюта капитана находится во фронтальной части дирижабля. Там ты сможешь найти капитана и пилота.";
 		close;
 	case 3:
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "На дирижабле есть небольшое казино, в которое приглашаются все пасажиры. Там ты можешь скоротать время за мини-играми и испытать свою удачу.";
 		close;
 	case 4:
-		mes "[Airship Staff]";
+		mes "[Персонал дирижабля]";
 		mes "Надеюсь полёт пройдёт приятно. Доброй дороги.";
 		close;
 	}
 }
 
-airplane,80,71,2	script	Zerta#01airplane	834,{
-	mes "[Zerta]";
+airplane,80,71,2	script	Зерта#01airplane	834,{
+	mes "[Зерта]";
 	mes "Привет, авантюрист.";
 	mes "В настоящее время я нахожусь в крестовом походе. Помолись со мной за Рун-Мидгард.";
 	close;
 }
 
-airplane,65,63,4	script	Maelin#01airplane	714,{
-	mes "[Maelin]";
-	mes "Этот дирижабль летит в Lutie? Я лечу так давно, но не слышала ни одного объявления о Lutie.";
+airplane,65,63,4	script	Маэлин#01airplane	714,{
+	mes "[Маэлин]";
+	mes "Этот дирижабль летит в Лютию? Я лечу так давно, но не слышала ни одного объявления о Лютии.";
 	close;
 }
 
-airplane,72,34,6	script	Aanos#01airplane	702,{
-	mes "[Aanos]";
+airplane,72,34,6	script	Энос#01airplane	702,{
+	mes "[Энос]";
 	mes "Ох. Отсюда небо выглядит совершенно по-другому.";
 	close;
 }
 
-airplane,221,158,2	script	Pilot#airplane	852,{
+airplane,221,158,2	script	Пилот#airplane	852,{
 	// Hugel quest addition
 	if (hg_ma1 == 3) {
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Как же я хочу злоупотребить свежим холодным пивком.";
 		mes "Цель моей жизни пить!";
 		mes "Только выпивка придаёт мне энергию!";
 		next;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Но! Пить на работе непозволительно.";
 		mes "Но! Из-за этого мне только больше хочется выпить!";
 		emotion ET_CRY;
 		next;
 		select("Знаете ли вы посажира по имени Thierry?");
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Эта униформа действительно крутая, но слишком толстая и неудобная, чтобы носить её на дирижабле.";
 		next;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "...";
 		mes "......";
 		mes "На самом деле сюда никто никогда не заходит.";
@@ -335,7 +334,7 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 		mes "Я вполне мог бы раздеться до трусов.";
 		next;
 		emotion ET_HUK;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Вах! Кто тут?";
 		next;
 		mes "- ...Он ничего не слышал. -";
@@ -344,38 +343,38 @@ airplane,221,158,2	script	Pilot#airplane	852,{
 	// Hugel quest end
 	switch (rand(1,4)) {
 	case 1:
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Это было ооочень давно. Я наслаждался прекрасным алкогольным напитком. Но работа требует ясного ума.";
 		next;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Всегда пейте ответственно!";
 		mes "Тем не менее я не могу вспомнить, когда у меня был реальный отпуск или хоты бы выходной.";
 		mes "Дааа, немного выпивки, азартных игр, немного телевизора и всё, пришёл бы в полный порядок.";
 		emotion ET_CRY;
 		close;
 	case 2:
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Сегодня отличная погода и ясные небеса. Из некоторых окон и с палубы открывается прекрасный вид.";
 		close;
 	case 3:
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Вы знаете, наш капитан отличный парень. На самом деле он и его брат хорошо известны в авиации. Кто бы мог подумать, что из оленей получаются такие хорошие капитаны?";
 		next;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Между нами говоря, Санта явно что-то знал когда брал на работу оленей и эльфов. Он либо гений, либо чертовски удачливый парень.";
 		close;
 	default:
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Вы знаете? Всё это плавание в воздухе... То есть пилотирование корабля. Всё это довольно новое дело. Я получил эту работу в ужасной спешке.";
 		next;
 		emotion ET_HUK;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "Но мои наниматели были абсолютно серьёзны! И нас хорошо тренировали!";
 		close;
 	}
 }
 
-airplane,50,66,5	script	Apple Merchant#airplane	86,{
+airplane,50,66,5	script	Торговец яблоками#airplane	86,{
 	mes "[Фруктоз]";
 	mes "Добро пожаловать в магазин фруктов. Здесь вы можете купить яблок из которых сможете сделать яблочный сок.";
 	next;
@@ -462,55 +461,29 @@ airplane,50,66,5	script	Apple Merchant#airplane	86,{
 		}
 	case 3:
 		mes "[Фруктоз]";
-		mes "I used to be a wandering";
-		mes "vagabond when, one day,";
-		mes "I took a nap and something";
-		mes "struck my head and awoke";
-		mes "me from my restful slumber.";
+		mes "Раньше я был странствующим бродягой, когда однажды я вздремнул, что-то ударило меня по голове и разбудило меня от сна.";
 		next;
 		mes "[Фруктоз]";
-		mes "It turns out that I was";
-		mes "sleeping beneath an apple";
-		mes "tree and that an apple fell";
-		mes "and hit me on the head.";
-		mes "I was dying of hunger and";
-		mes "was about to eat that Apple...";
+		mes "Оказывается, я спал под яблоней, яблоко упало и ударило меня по голове.";
+		mes "Я умирал с голоду и собирался съесть это яблоко...";
 		next;
 		mes "[Фруктоз]";
-		mes "But suddenly, Kain, my old";
-		mes "friend from the mining days,";
-		mes "asked me to help him around";
-		mes "on the Airship. So I did, and";
-		mes "it was there where I found some";
-		mes "people playing the Dice game.";
+		mes "Но вдруг Каин, мой старый друг шахтеров, попросил меня помочь ему с дирижаблем. Я согласился, и тогда здесь я нашел людей, играющих в кости.";
 		next;
 		mes "[Фруктоз]";
-		mes "I was bored and curious";
-		mes "and ended up wagering that";
-		mes "single Apple in a game of";
-		mes "dice. But for some reason,";
-		mes "I had this incredible lucky";
-		mes "streak. One apple became two... ";
+		mes "Мне было скучно и любопытно, и в итоге я поставил это единственное яблоко в на кон в игре. И по какой-то причине у меня началась невероятная полоса везения. Одно яблоко стало двумя... ";
 		next;
 		mes "[Фруктоз]";
-		mes "Two became four and";
-		mes "before I knew it, I had";
-		mes "cornered the Apple market!";
-		mes "I won so many Apples, I just";
-		mes "started my own business here";
-		mes "on the Airship. Weird, huh?";
+		mes "Два стало четырьмя, и прежде чем я это осознал, я захватил рынок Яблок!";
+		mes "Я выиграл так много яблок, что только что начал свой собственный бизнес здесь, на дирижабле. Странно, да?";
 		next;
 		mes "[Фруктоз]";
-		mes "So Apples are good";
-		mes "for you. They were";
-		mes "certainly very good";
-		mes "to me. Hahahahaah~!";
+		mes "Так что яблоки полезны. Они, конечно, были очень добры ко мне. Хахахахах~!";
 		close;
 	case 4:
 		mes "[Фруктоз]";
-		mes "Thank you for";
-		mes "using my shop.";
-		mes "Farewell~";
+		mes "Спасибо за посещение моего магазина.";
+		mes "Прощай~";
 		close;
 	}
 }
@@ -627,272 +600,188 @@ OnTimer240000:
 	end;
 }
 
-airplane_01,240,64,5	script	Exit#airplane_011a::ExitAirplane01	857,{
+airplane_01,240,64,5	script	Выход#airplane_011a::ExitAirplane01	857,{
 	end;
 }
-airplane_01,247,64,5	duplicate(ExitAirplane01)	Exit#airplane_011b	857
-airplane_01,240,40,1	duplicate(ExitAirplane01)	Exit#airplane_012a	857
-airplane_01,247,40,1	duplicate(ExitAirplane01)	Exit#airplane_012b	857
+airplane_01,247,64,5	duplicate(ExitAirplane01)	Выход#airplane_011b	857
+airplane_01,240,40,1	duplicate(ExitAirplane01)	Выход#airplane_012a	857
+airplane_01,247,40,1	duplicate(ExitAirplane01)	Выход#airplane_012b	857
 
-airplane_01,250,58,2	script	Airship Staff#airplane01	67,{
-	mes "[Airship Staff]";
-	mes "Welcome";
-	mes "to the Airship.";
-	mes "How may I help you?";
+airplane_01,250,58,2	script	Персонал дирижабля#airplane01	67,{
+	mes "[Персонал дирижабля]";
+	mes "Добро пожаловать";
+	mes "на Дирижабль.";
+	mes "Чем я могу вам помочь?";
 	next;
-	switch (select("Using the Airship:Captain's Cabin:Facilities:Cancel")) {
+	switch (select("Инструктаж к полёту:Кабина Капитана:Развлечения:Отмена")) {
 	case 1:
-		mes "[Airship Staff]";
-		mes "When you see a broadcast";
-		mes "announcing that we have";
-		mes "arrived at your destination,";
-		mes "please use one of the exits";
-		mes "located at the north and";
-		mes "south ends of the Airship.";
+		mes "[Персонал дирижабля]";
+		mes "Когда вы увидите сообщение о том, что мы прибыли в пункт назначения, пожалуйста, воспользуйтесь одним из выходов, расположенных на северном и южном концах Дирижабля.";
 		next;
-		mes "[Airship Staff]";
-		mes "If you happen to miss";
-		mes "your stop, don't worry.";
-		mes "The Airship is constantly";
-		mes "en route and you'll get";
-		mes "another chance to arrive";
-		mes "to your intended destination.";
+		mes "[Персонал дирижабля]";
+		mes "Если вы случайно пропустите свою остановку, не волнуйтесь. Дирижабль постоянно курсирует по маршруту, и у вас будет возможность выйти на сввоей станции.";
 		close;
 	case 2:
-		mes "[Airship Staff]";
-		mes "The Captain's Cabin";
-		mes "is located at the front";
-		mes "of the Airship. There, you";
-		mes "can meet the captain and";
-		mes "the pilot of the Airship.";
+		mes "[Персонал дирижабля]";
+		mes "Каюта капитана расположена в передней части дирижабля. Там вы можете познакомиться с капитаном и пилотом Дирижабля.";
 		close;
 	case 3:
-		mes "[Airship Staff]";
-		mes "The Airship provides";
-		mes "various Mini Games for";
-		mes "the entertainment of all";
-		mes "our passengers. We invite";
-		mes "you to try your luck and skills";
-		mes "in the Airship's Mini Games~";
+		mes "[Персонал дирижабля]";
+		mes "Наш борт предлагает различные игры для того что бы скоротать время полёта. Мы приглашаем вас испытать свою удачу и мастерство в игральных залах Дирижабля ~";
 		close;
 	case 4:
-		mes "[Airship Staff]";
-		mes "Well, I hope you";
-		mes "your flight aboard";
-		mes "our Airships. Thank";
-		mes "you and have a good day.";
+		mes "[Персонал дирижабля]";
+		mes "Я надеюсь, что вы совершите свой полет на борту наших дирижаблей. Спасибо вам и хорошего дня.";
 		close;
 	}
 }
 
-airplane_01,50,66,5	script	Apple Merchant#air01	86,{
+airplane_01,50,66,5	script	Торговец яблоками#air01	86,{
 	if (checkweight(1201,1) == 0) {
-		mes "- Wait a minute !! -";
-		mes "- Currently you're carrying -";
-		mes "- too many items with you. -";
-		mes "- Please try again -";
-		mes "- after you loose some weight. -";
+		mes "- Подожди минутку!! -";
+		mes "- Сейчас у тебя слишком много -";
+		mes "- предметов с собой. -";
+		mes "- Приходите когда будет куда -";
+		mes "- складывать вещи. -";
 		close;
 	}
-	mes "[Meltz]";
-	mes "Welcome to Meltz's";
-	mes "Shop where you can";
-	mes "purchase Apples or grind";
-	mes "them to make Apple Juice.";
+	mes "[Мельтц]";
+	mes "Добро пожаловать в магазин Метз, где вы можете приобрести яблоки или приготовить яблочный сок.";
 	next;
-	switch (select("Buy Apples.:Make Apple Juice.:Cancel.")) {
+	switch (select("Купить яблоки.:Яблочный сок.:Отмена.")) {
 	case 1:
-		mes "[Meltz]";
-		mes "Please enter the amount";
-		mes "of Apples that you wish to";
-		mes "buy. Each Apple is 15 zeny";
-		mes "and you can buy a maximum";
-		mes "of 500 at a time. Please enter";
-		mes "'0' to cancel your order.";
+		mes "[Мельтц]";
+		mes "Пожалуйста, укажите сколько яблок вы хотите купить. Каждое яблоко стоит 15 зен, вы можете купить максимум 500 штук за раз. Введите '0', чтобы отменить свой заказ.";
 		next;
 		while (1) {
 			input .@input;
 			set .@pay, .@input * 15;
 			if (.@input == 0) {
-				mes "[Meltz]";
-				mes "Thanks for stopping";
-				mes "by my shop. Farewell!";
-				mes "Come by anytime when";
-				mes "you feel like having an";
-				mes "Apple to snack on~";
+				mes "[Мельтц]";
+				mes "Спасибо, что заглянули в мой магазин. Прощайте! Заходите в любое время, когда захочется перекусить яблок~";
 				close;
 			}
 			else if (.@input < 1 || .@input > 500) {
-				mes "[Meltz]";
-				mes "You've entered a number";
-				mes "higher than the maximum";
-				mes "value of 500. Please enter";
-				mes "the number of Apples you";
-				mes "wish to purchase again.";
+				mes "[Мельтц]";
+				mes "Вы ввели больше 500. Пожалуйста, введите количество яблок, которые вы хотите приобрести еще раз.";
 				next;
 			}
 			else {
-				mes "[Meltz]";
-				mes "A total of ^FF0000" + .@input + "^000000 Apples";
-				mes "will cost you ^FF0000" + .@pay + "^000000 zeny.";
-				mes "Would you like to continue?";
+				mes "[Мельтц]";
+				mes "В общей сложности ^FF0000" + .@input + "^000000 яблок обойдется вам в ^FF0000" + .@pay + "^000000 зен. Готовы расплотиться?";
 				next;
-				if (select("Yes:No") == 2) {
-					mes "[Meltz]";
-					mes "Thanks for stopping";
-					mes "by my shop. Farewell!";
-					mes "Come by anytime when";
-					mes "you feel like having an";
-					mes "Apple to snack on~";
+				if (select("Да:Нет") == 2) {
+					mes "[Мельтц]";
+					mes "Спасибо, что заглянули в мой магазин. Прощайте! Заходите в любое время, когда захочется перекусить яблоками~";
 					close;
 				}
 				break;
 			}
 		}
 		if (Zeny < .@pay) {
-			mes "[Meltz]";
-			mes "I'm sorry, you don't have";
-			mes "enough money with you.";
-			mes "Please check your funds or";
-			mes "purchase less Apples.";
+			mes "[Мельтц]";
+			mes "Мне жаль, но у вас недостаточно денег.";
 			close;
 		}
 		else if (checkweight(512,.@input) == 0) {
-			mes "[Meltz]";
-			mes "Hmm, I don't think you've";
-			mes "got enough room to carry";
-			mes "this many Apples. You might";
-			mes "want to free up your inventory";
-			mes "space.";
+			mes "[Мельтц]";
+			mes "Хм, не помещаются, у вас хватает места, чтобы унести столько яблок. Возможно, вы захотите освободить место в своем инвентаре или взять меньше яблок.";
 			close;
 		}
 		else {
 			set Zeny, Zeny - .@pay;
 			getitem 512,.@input; //Apple
-			mes "[Meltz]";
-			mes "Thanks for stopping by";
-			mes "my shop. I hope you enjoy";
-			mes "the flavor of these Apples~!";
+			mes "[Мельтц]";
+			mes "Спасибо, что заглянули в мой магазин. Я надеюсь, вам понравится вкус этих яблок ~!";
 			close;
 		}
 	case 2:
-		mes "[Meltz]";
-		mes "Okay, I'll need";
-		mes "^FF00003 Apples and 1 Empty Bottle^000000";
-		mes "to make 1 Apple Juice for you.";
-		mes "Would you like to proceed?";
+		mes "[Мельтц]";
+		mes "Окей, что бы приготовить для вас 1 сок [Apple Juice] мне потребуется: ^FF0000 3 Яблока [Apples] и 1 пустая бутылка [Empty Bottle]^000000.";
+		mes "Устраиввает?";
 		next;
-		switch (select("Yes:No")) {
+		switch (select("Да:Нет")) {
 		case 1:
 			if (countitem(512) < 3 || countitem(713) < 1) {
-				mes "[Meltz]";
-				mes "I'm sorry, but you don't";
-				mes "have enough materials to";
-				mes "create a bottle of Apple Juice.";
-				mes "Remember, I need 3 Apples";
-				mes "and 1 Empty Bottle to do it.";
+				mes "[Мельтц]";
+				mes "Мне очень жаль, но у вас недостаточно материалов. Напоминаю, для изготавления яблочного сока мне нужно от вас 3 Яблока [Apples] и 1 Пустая бутылка [Empty Bottle].";
 				close;
 			}
 			else {
-				mes "[Meltz]";
-				mes "Thank you, please wait.";
+				mes "[Мельтц]";
+				mes "Спасибо, пожалуйста, подождите.";
 				next;
 				mes "^3355FF*Grind* *Grind*";
-				mes "*Grind* *Grind*";
-				mes "*Clang...!*^000000";
+				mes "*Вжих* *Вжух*";
+				mes "*Дзынь...!*^000000";
 				next;
 				delitem 512,3; //Apple
 				delitem 713,1; //Empty_Bottle
 				getitem 531,1; //Apple_Juice
-				mes "[Meltz]";
-				mes "There you go~";
-				mes "Please come again.";
+				mes "[Мельтц]";
+				mes "Вот так~";
+				mes "Вот, пожалуйста, приходите ещё.";
 				close;
 			}
 		case 2:
-			mes "[Meltz]";
-			mes "Thanks for stopping";
-			mes "by my shop. Farewell!";
-			mes "Come by anytime when";
-			mes "you feel like having an";
-			mes "Apple to snack on~";
+			mes "[Мельтц]";
+			mes "Спасибо, что заглянули в мой магазин. До скорой встречи! Заходите в любое время, когда вам захочется сладких яблочек~";
 			close;
 		}
 	case 3:
-		mes "[Meltz]";
-		mes "Thanks for stopping";
-		mes "by my shop. Farewell!";
-		mes "Come by anytime when";
-		mes "you feel like having an";
-		mes "Apple to snack on~";
+		mes "[Мельтц]";
+		mes "Спасибо, что заглянули в мой магазин. До скорой встречи! Заходите в любое время, когда вам захочется сладких яблочек~";
 		close;
 	}
 }
 
-airplane_01,221,158,2	script	Pilot#airplane_01	852,{
+airplane_01,221,158,2	script	Пилот#airplane_01	852,{
 	switch (rand(1,4)) {
 	case 1:
-		mes "[Pilot]";
-		mes "Longitude, 131 degrees east.";
-		mes "Latitude, 37 degrees north.";
-		mes "We're right on course, captain.";
+		mes "[Пилот]";
+		mes "131 градус восточной долготы.";
+		mes "37 градусов северной широты.";
+		mes "Мы на правильном курсе, капитан.";
 		close;
 	case 2:
-		mes "[Pilot]";
-		mes "Looks like a really";
-		mes "cloudy day. Always hard";
-		mes "to navigate when the skies";
-		mes "aren't clear. Guess we'll";
-		mes "need to amp the radar.";
+		mes "[Пилот]";
+		mes "День пасмурный. Трудно ориентироваться, когда небо в тучах. Думаю, нам нужно усовершенствовать радар.";
 		close;
 	case 3:
-		mes "[Pilot]";
-		mes "The Captain is a good";
-		mes "man and I can't think of";
-		mes "a finer person to command";
-		mes "this ship. Still, he's pretty";
-		mes "tough, a real slave driver.";
+		mes "[Пилот]";
+		mes "Капитан - хороший человек, и я не могу представить себе более подходящего человека, который мог бы командовать этим кораблем. Тем не менее, он довольно жёсткий, настоящий погонщик рабов.";
 		next;
-		mes "[^ff0000Tarlock^000000]";
-		mes "^ff0000Hey...!^000000";
-		mes "^ff0000Less chit-chat^000000";
-		mes "^ff0000and more piloting!^000000";
+		mes "[^ff0000Тарлок^000000]";
+		mes "^ff0000Эй...!^000000";
+		mes "^ff0000Меньше болтовни^000000";
+		mes "^ff0000и больше работы!^000000";
 		next;
-		mes "[Pilot]";
-		mes "R-right away, sir!";
-		mes "(See what I mean?)";
+		mes "[Пилот]";
+		mes "Р-немедленно, сэр!";
+		mes "(Понимаете, что я имею в виду?)";
 		close;
 	default:
-		mes "[Pilot]";
-		mes "This uniform is";
-		mes "really dapper, but";
-		mes "it's way too thick to";
-		mes "wear around the Airship.";
+		mes "[Пилот]";
+		mes "Эта форма действительно элегантная, но она слишком дорогая, чтобы носить ее на Дирижабле.";
 		next;
-		mes "[Pilot]";
+		mes "[Пилот]";
 		mes "...";
 		mes "......";
-		mes "No one ever really";
-		mes "comes into this room.";
-		mes "And the captain IS a reindeer.";
-		mes "I could just strip to my boxers.";
+		mes "В действительности, сюда никто никогда не заходит. А капитан вообще - северный олень. Всем будет всё равно даже разденься я до трусов.";
 		next;
 		emotion ET_HUK;
-		mes "[Pilot]";
-		mes "Oh...! Hello there!";
-		mes "E-e-enjoying your flight?!";
+		mes "[Пилот]";
+		mes "О...! Привет!";
+		mes "Э-эм-наслаждаешься полётом?!";
 		close;
 	}
 }
 
-airplane_01,83,61,2	script	Dianne#01airplane_01	72,2,2,{
-	mes "[Dianne]";
-	mes "It's so weird!";
-	mes "I went to visit the";
-	mes "Airship Captain and";
-	mes "all I saw was this";
-	mes "weird reindeer. Oh!";
-	mes "Do you think that...";
+airplane_01,83,61,2	script	Диана#01airplane_01	72,2,2,{
+	mes "[Диана]";
+	mes "Это так странно!";
+	mes "Я пошла попривветствовать капитана, но всё что я нашла, это странного северного оленя. Ох!";
+	mes "Как ты думаешь...";
 	close;
 
 OnTouch_:
@@ -900,45 +789,37 @@ OnTouch_:
 	end;
 }
 
-airplane_01,69,63,2	script	Mendel#01airplane_01	55,{
-	mes "[Mendel]";
-	mes "As I expected, the";
-	mes "in-flight meals are";
-	mes "three star quality at best.";
-	mes "*Harrrumph* I really should";
-	mes "have brought my chef so that";
-	mes "I could enjoy a real meal.";
+airplane_01,69,63,2	script	Мендел#01airplane_01	55,{
+	mes "[Мендел]";
+	mes "Как я и ожидал, питание в полете в лучшем случае трехзвездочного качества.";
+	mes "*Хм-м-м* Мне действительно следовало взять с собой своего шеф-повара, чтобы я мог насладиться настоящей едой.";
 	close;
 }
 
-airplane_01,71,31,2	script	Swordsman Shimizu#air_01	106,{
-	mes "[Swordsman Shimizu]";
-	mes "Finally, after five";
-	mes "years of waiting...";
-	mes "I can have my revenge!";
+airplane_01,71,31,2	script	Фехтовальщик Симидзу#air_01	106,{
+	mes "[Фехтовальщик Симидзу]";
+	mes "Наконец-то, после";
+	mes "пяти лет ожидания...";
+	mes "Я могу отомстить!";
 	next;
-	mes "[Swordsman Shimizu]";
-	mes "I just...";
-	mes "Have to make sure that";
-	mes "I don't keep missing my";
-	mes "stop. But soon, very soon,";
-	mes "vengeance will be mine!";
+	mes "[Фехтовальщик Симидзу]";
+	mes "Я просто...";
+	mes "Нужно быть внимательней, что бы не пропустить свою остановку. Но скоро, совсем скоро, месть свершиться!";
 	close;
 }
 
 //============================================================ 
 //= Typing Challenge
 //============================================================ 
-airplane_01,32,61,4	script	Nils#ein	49,1,1,{
-	mes "[Nils]";
-	mes "Welcome to the";
+airplane_01,32,61,4	script	Нилс#ein	49,1,1,{
+	mes "[Нилс]";
+	mes "Добро пожаловать в";
 	mes "^ff0000RO Typing Challenge^000000.";
-	mes "Would you like to play";
-	mes "a quick typing game?";
+	mes "Хотели бы вы поиграть в игру быстрого набора текста?";
 	next;
-	switch (select("Play ^ff0000RO Typing Challenge^000000:Information:View Top Records:Cancel")) {
+	switch (select("Play ^ff0000RO Typing Challenge^000000:Информация:Посмотреть лучшие результаты:Отмена")) {
 	case 1:
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes "Okay, we have";
 		mes "a new challenger!";
 		mes "Enter the following";
@@ -1003,7 +884,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 					1450;
 		set .@wordtest, rand(7);
 		next;
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes .@line1_1$[.@wordtest];
 		mes .@line1_2$[.@wordtest];
 		mes .@line1_3$[.@wordtest];
@@ -1012,7 +893,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 		input .@save1$;
 		set .@end_time, gettimetick(1);
 		set .@total_time, .@end_time - .@start_time;
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes .@line2_1$[.@wordtest];
 		mes .@line2_2$[.@wordtest];
 		set .@start_time, gettimetick(1);
@@ -1022,12 +903,12 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 		set .@total_time, .@total_time + (.@start_time - .@end_time);
 		set .@tasoo, (.@letters[.@wordtest] / .@total_time) * 6;
 		if ((.@save1$ == .@word1$[.@wordtest]) && (.@save2$ == .@word2$[.@wordtest])) {
-			mes "[Nils]";
+			mes "[Нилс]";
 			mes "Your record is ^ff0000" + .@total_time + " seconds^000000 and";
 			mes "the total letters are " + .@tasoo + ".";
 			next;
 			if (.@tasoo >= 1300) {
-				mes "[Nils]";
+				mes "[Нилс]";
 				mes "Hmmm, this record isn't";
 				mes "humanly possible unless you";
 				mes "copy and paste the whole";
@@ -1036,7 +917,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 				close;
 			}
 			if (.@tasoo >= $050320_ein_typing) {
-				mes "[Nils]";
+				mes "[Нилс]";
 				mes "The previous top record was";
 				mes "made by ^0000ff" + $050320_minus1_typing$ + "^000000";
 				mes "with the total ^0000ff" + $050320_ein_typing + "^000000 letters.";
@@ -1048,7 +929,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 				close;
 			}
 			else {
-				mes "[Nils]";
+				mes "[Нилс]";
 				mes "^0000ff" + $050320_minus1_typing$ + "^000000";
 				mes "is the current";
 				mes "record holder with";
@@ -1059,7 +940,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 			}
 		}
 		else {
-			mes "[Nils]";
+			mes "[Нилс]";
 			mes "Oooh...";
 			mes "I'm sorry, but";
 			mes "you entered the";
@@ -1067,7 +948,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 			close;
 		}
 	case 2:
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes "The ^ff0000RO Typing Challenge^000000";
 		mes "is a game where you enter";
 		mes "the given text as quickly as you";
@@ -1075,7 +956,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 		mes "is recorded for posterity. If you";
 		mes "want fame, here's your chance!";
 		next;
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes "I'd just like to let";
 		mes "you know that you type";
 		mes "all the text that you see";
@@ -1084,7 +965,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 		mes "the enter key, just click 'OK.'";
 		close;
 	case 3:
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes "^0000ff" + $050320_minus1_typing$ + "^000000";
 		mes "is the current";
 		mes "record holder with";
@@ -1093,7 +974,7 @@ airplane_01,32,61,4	script	Nils#ein	49,1,1,{
 		mes "that record next time~";
 		close;
 	case 4:
-		mes "[Nils]";
+		mes "[Нилс]";
 		mes "Feel free to take on the";
 		mes "^ff0000RO Typing Challenge^000000";
 		mes "anytime. I'll be here~";

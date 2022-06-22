@@ -17,6 +17,7 @@
 //= 1.3 Updated to match the latest official script. [Euphy]
 //= 1.4 Added correct safe refines. [Haruna]
 //= 1.5 Added Refine UI [Atemo, Lemongrass]
+//= 1.6 Added Barter exchange npcs [Atemo]
 //============================================================
 //= Перевод Xsoid
 //============================================================
@@ -564,3 +565,118 @@ malangdo,224,172,6	script	Дин-Дон#mal_normal	544,{
 	mes "Можешь хвалить меня!!";
 	close;
 }
+
+// Renewal barter shops
+-	script	refine_barter_init	-1,{
+	end;
+OnInit:
+	if (getbattleflag("feature.barter")) {
+		unloadnpc "Вьювелл";
+		unloadnpc "Бегнахд";
+		unloadnpc "Сад";
+		unloadnpc "Каламанлит";
+		unloadnpc "Дилемма";
+		unloadnpc "Тирхаус";
+		unloadnpc "Кругг";
+		unloadnpc "Хаким";
+		unloadnpc "Абдула";
+		unloadnpc "Ксенофонт";
+		unloadnpc "Дэлайт";
+		unloadnpc "Матестейн";
+		unloadnpc "Фруло";
+
+		npcshopupdate "market_refine_prt_in",1010,200,999999;
+		npcshopupdate "market_refine_payon",1010,200,999999;
+		npcshopupdate "market_refine_morocc_in",1010,200,999999;
+		npcshopupdate "market_refine_alberta_in",1010,200,999999;
+		npcshopupdate "market_refine_yuno_in01",1010,200,999999;
+		npcshopupdate "market_refine_ein_in01",1010,200,999999;
+		npcshopupdate "market_refine_lhz_in02",1010,200,999999;
+		
+		npcshopupdate "market_refine_prt_in",1011,1000,999999;
+		npcshopupdate "market_refine_payon",1011,1000,999999;
+		npcshopupdate "market_refine_morocc_in",1011,1000,999999;
+		npcshopupdate "market_refine_alberta_in",1011,1000,999999;
+		npcshopupdate "market_refine_yuno_in01",1011,1000,999999;
+		npcshopupdate "market_refine_ein_in01",1011,1000,999999;
+		npcshopupdate "market_refine_lhz_in02",1011,1000,999999;
+	}
+	else {
+		unloadnpc "market_refine_prt_in";
+		unloadnpc "market_refine_payon";
+		unloadnpc "market_refine_morocc_in";
+		unloadnpc "market_refine_alberta_in";
+		unloadnpc "market_refine_yuno_in01";
+		unloadnpc "market_refine_ein_in01";
+		unloadnpc "market_refine_lhz_in02";
+
+		unloadnpc "Дитрих#ns_prt";
+		unloadnpc "Полина";
+	}
+	end;
+}
+
+-	marketshop	market_refine_prt_in	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_payon	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_morocc_in	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_alberta_in	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_yuno_in01	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_ein_in01	-1,1010:-1:999999,1011:-1:999999
+-	marketshop	market_refine_lhz_in02	-1,1010:-1:999999,1011:-1:999999
+
+prt_in,63,69,3	script	Дитрих#ns_prt	4_M_02,{
+	mes "[" + strnpcinfo(1) + "]";
+	mes "We sell and exchange various ores used in smelting.";
+	next;
+	switch( select( "View basic smelting ores", "View advanced smelting ores", "View Ether smelting ores", "Cancel" ) ) {
+	case 1:
+		mes "[" + strnpcinfo(1) + "]";
+		mes "Phracon and Emveretarcon are available for use in smelting low-level weapons.";
+		close2;
+		callshop "market_refine_" + strnpcinfo(4);
+		end;
+	case 2:
+		mes "[" + strnpcinfo(1) + "]";
+		mes "We are purifying Elunium Stone or Oridecon Stone, or exchanging them with Bradium or Carnium.";
+		close2;
+		callshop "barter_refine_1";
+		end;
+	case 3:
+		mes "[" + strnpcinfo(1) + "]";
+		mes "We add Etel Dust to existing smelting ores and replace them with Ether-bearing smelting ores.";
+		close2;
+		callshop "barter_refine_2";
+		end;
+	case 4:
+		mes "[" + strnpcinfo(1) + "]";
+		mes "If you lack the materials used for smelting, come anytime.";
+		close;
+	}
+	end;
+
+OnInit:
+	setunittitle getnpcid(0), "<Отдел продаж>";
+	end;
+}
+payon,137,178,5	duplicate(Дитрих#ns_prt)	Хаким#2	4_M_ORIENT01
+morocc_in,72,32,3	duplicate(Дитрих#ns_prt)	Абдула#2	4W_M_03
+alberta_in,21,63,5	duplicate(Дитрих#ns_prt)	Ксенофонт#ns_albe	4_M_02
+yuno_in01,164,27,4	duplicate(Дитрих#ns_prt)	Дэлайт#2	4_M_ORIENT01
+ein_in01,18,82,5	duplicate(Дитрих#ns_prt)	Матестейн#2	4_M_02
+lhz_in02,281,24,5	duplicate(Дитрих#ns_prt)	Фруло#2	4_M_02
+
+// Shadowdecon/Zelunium exchange npcs
+prt_in,64,57,3	script	Полина	4_M_02,{
+	mes "[" + strnpcinfo(1) + "]";
+	mes "Do you have <ITEM>[Shadowdecon Gemstone]<INFO>25728</INFO></ITEM> or <ITEM>[Zelunium Gemstone]<INFO>25730</INFO></ITEM>?";
+	mes "We will exchange them for refined products for use as smelting goods.";
+	close2;
+	callshop "barter_refine_3";
+	end;
+}
+payon,142,179,3	duplicate(Полина)	Джиху	4_M_ORIENT01
+morocc_in,64,37,3	duplicate(Полина)	Марик	4W_M_03
+alberta_in,24,63,5	duplicate(Полина)	Сатана	4_M_02
+yuno_in01,164,31,6	duplicate(Полина)	Димир	4_M_ORIENT01
+lhz_in02,275,23,5	duplicate(Полина)	Немил	4_M_02
+ein_in01,30,88,5	duplicate(Полина)	Галан	4_M_02
