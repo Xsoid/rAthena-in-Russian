@@ -16,7 +16,7 @@
 //============================================================ 
 //= Translated en > ru [Akaineko] [Kellait]
 //= Encoding: cp1251
-//= NOTE: instance name = "Mistwood Maze" 
+//= Instance name is translated! It must match the Name field in import/instance_db.yml [akaineko]
 //============================================================
 
 // Instance Creation :: md_mistwoods_enter
@@ -24,7 +24,7 @@
 bif_fild01,158,340,5	script	Страж Лафин#mist	447,{
 
 	set .@party_id,getcharid(1);
-	set .@md_name$,"Mistwood Maze";
+	set .@md_name$,"Туманный лес";// ID 5. Строка должна соответствовать полю Name в instance_db. Русификации названий в import/instance_db.yml
 
 	mes "[Страж]";
 	mes "Вы направляетесь в Лес?";
@@ -136,12 +136,13 @@ bif_fild01,158,340,5	script	Страж Лафин#mist	447,{
 }
 
 bif_fild01,161,355,0	script	Отверстие в стволе	844,{
+	set .@md_name$,"Туманный лес";// ID 5. Строка должна соответствовать полю Name в instance_db. Русификации названий в import/instance_db.yml
 	mes "^666666Из отверстия с той стороны в туннель проникает слабый свет.";
 	mes "Похоже, по нему можно попасть в Туманный Лес.^000000";
 	next;
 	if(select("Забраться внутрь.:Отступить.") == 2)
 		close;
-	switch(instance_enter("Mistwood Maze")) {
+	switch(instance_enter(.@md_name$)) {
 	case IE_OTHER:
 		mes "[Страж]";
 		mes "Что-то не так. Ситуация слишком непонятна, я не могу позволить вам так рисковать.";
@@ -1165,4 +1166,4 @@ OnInstanceInit:
 1@mist,95,287,0	warp	c1_c13-1	1,1,1@mist,323,276	//Тито
 1@mist,324,325,0	warp	c13-3_c4	1,1,1@mist,49,316	//Пумба
 1@mist,280,344,0	warp	c19_c4	1,1,1@mist,49,316	//Tете
-1@mist,345,186,0 warp #to_bif02 1,1,bif_fild02,151,121 //Дерево Хранителей
+1@mist,345,186,0	warp	#to_bif02	1,1,bif_fild02,151,121 //Дерево Хранителей

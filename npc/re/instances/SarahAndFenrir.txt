@@ -8,6 +8,7 @@
 //============================================================
 //= Translated en > ru [Akaineko] [Kellait]
 //= Upgraded [Akaineko]
+//= Instance name is translated! It must match the Name field in import/instance_db.yml [akaineko]
 //============================================================
 
 
@@ -58,7 +59,7 @@ dali02,97,142,3	script	Профессор Бернхардт#a1	4_LGTSCIENCE,{
 			mes "[Профессор Бернхардт]";
 			mes "Я настроил пространственно-временное устройство точно на то время, когда происходила битва между Сарой Ирен и Фенриром.";
 			mes "Временное окно не резиновое, так что рекомендую поторопиться.";
-			instance_create("Fenrir and Sarah");
+			instance_create("Сара и Фенрир");// ID 21. Строка должна соответствовать полю Name в instance_db. Русификации названий в import/instance_db.yml
 			close;
 		case 1:
 			mes "[Профессор Бернхардт]";
@@ -123,7 +124,7 @@ dali02,97,142,3	script	Профессор Бернхардт#a1	4_LGTSCIENCE,{
 				mes "Пространственно-временное устройство настроено на момент битвы между Фенриром и Сарой. Окно не резиновое, поэтому советую поторопиться.";
 				close;
 			}
-			instance_create("Fenrir and Sarah");
+			instance_create("Сара и Фенрир");
 		}
 		close;
 	}
@@ -159,7 +160,7 @@ dali02,99,148,3	script	Устройство#XX1	PORTAL,{
 		mes "- Вы ощущаете какую-то сырость. -";
 		close;
 	}
-	.@md_name$ = "Fenrir and Sarah";
+	.@md_name$ = "Сара и Фенрир";
 	switch( instance_enter(.@md_name$) ) {
 	case IE_OTHER:
 		mes "Произошла неизвестная ошибка.";
