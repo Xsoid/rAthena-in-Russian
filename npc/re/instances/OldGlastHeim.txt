@@ -17,11 +17,14 @@
 //=     Cleaned up the script.
 //=     TODO: Confirm Hugin NPC's code flow.
 //= 1.6 Cleaned up the dialogue. [Aleos]
+//= 1.7 Implemented fast mode. [Atemo]
+//      Note: The treasure room is not accessible in fast mode.
 //============================================================
 //= Translated en -> ru [Kellait] [Akaineko]
 //= Adapted to v1.6 [Akaineko]
 //= Added OGH buffs according to f01f10
 //= Instance name is translated! It must match the Name field in import/instance_db.yml [akaineko]
+//= Adapted to v1.7 [Xsoid]
 //============================================================ 
 
 glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
@@ -185,6 +188,28 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 		cutin "gl_barmund2",2;
 		close3;
 	}
+	// If the instance has already been completed once, the player can skip sector 1,2,3 and starts from the 1st boss MG_CORRUPTION_ROOT
+	if (isbegin_quest(12321) == 2) {
+		mes "У тебя есть предыдущая четкая запись. Ты можешь пропустить этот сценарий и действовать по ситуации.";
+		next;
+		if (select( "Сокращённый сценарий.", "Полное прохождение." ) == 1) {
+			cutin "GL_BARMUND1.bmp",2;
+			mes "[Barmund]";
+			mes "Я тебя видел " + strcharinfo(0) + "?";
+			mes "Уверен что могу доверять тебе, давай сразу к делу.";
+			close2;
+			cutin "",255;
+			if ('step == 0) {
+				'step = 1;
+				'mode = 2;
+				disablenpc();
+				enablenpc instance_npcname("Генрих#1");
+				enablenpc instance_npcname("Вармунт#1");
+			}
+			end;
+		}
+		// (original scenario)
+	}
 	.@account_id = getcharid(3);
 	.@player_name$ = strcharinfo(0);
 	mes "[Вармунт]";
@@ -226,9 +251,14 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 	npctalk "Вармунт : Быстрее! Скажите Сэру Генриху, что Химмельмец здесь. Я постараюсь исследовать чары, которыми она опутала это место.";
 	close2;
 	cutin "",255;
-	disablenpc instance_npcname("Вармунт#0");
-	enablenpc instance_npcname("Генрих#1");
-	enablenpc instance_npcname("Вармунт#1");
+	if ('step == 0) {
+		'step = 1;
+		'mode = 1;
+		disablenpc instance_npcname("Вармунт#0");
+		enablenpc instance_npcname("Генрих#1");
+		enablenpc instance_npcname("Вармунт#1");
+	}
+
 	end;
 }
 
@@ -316,12 +346,26 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 }
 1@gl_k,154,54,3	duplicate(Рыцарь Калицбург#21)	Рыцарь Калицбург#22	4_F_KHALITZBURG
 
-1@gl_k,149,100,6	script	Генрих#1	4_M_HEINRICH,{
-	if (is_party_leader() == false) {
+1@gl_k,149,100,5	script	Генрих#1	4_M_HEINRICH,{
+	if (is_party_leader() == false || 'step != 1) {
 		mes "[Генрих]";
 		mes "Где ваш командир? Мне нужно с ним поговорить.";
 		cutin "gl_heinrich2",2;
 		close3;
+	}
+	if ('mode == 2) {
+		cutin "GL_HEINRICH2.bmp",2;
+		select( "Генрих, ты сейчас в замке..." );
+		mes "[Генрих]";
+		mes "Охх " + strcharinfo(0) + "";
+		mes "Думаю, я могу тебе доверять. Давай сразу к делу.";
+		close2;
+		cutin "",255;
+		if ('step == 1) {
+			'step = 2;
+			donpcevent instance_npcname("#talkinstance2") + "::OnEnable";
+		}
+		end;
 	}
 	.@account_id = getcharid(3);
 	.@player_name$ = strcharinfo(0);
@@ -373,15 +417,15 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 	mes "Мы не можем пойти на риск и переместить Сердце только потому, что так говорит какой-то прохожий.";
 	npctalk "Мы не можем пойти на риск и переместить Сердце только потому, что так говорит какой-то прохожий.";
 	close2;
-	disablenpc instance_npcname("Генрих#1");
-	enablenpc instance_npcname("Генрих#2");
-	enablenpc instance_npcname("Химмельмец#1");
-	donpcevent instance_npcname("#talkinstance1") + "::OnEnable";
 	cutin "",255;
+	if ('step == 1) {
+		'step = 2;
+		donpcevent instance_npcname("#talkinstance1") + "::OnEnable";
+	}
 	end;
 }
 
-1@gl_k,152,97,3	script	Вармунт#1	4_M_BARMUND,{ end; }
+1@gl_k,152,97,3	duplicate(dummy_npc)	Вармунт#1	4_M_BARMUND
 1@gl_k,149,97,5	duplicate(Вармунт#1)	Генрих#2	4_M_HEINRICH
 1@gl_k,149,100,5	duplicate(Вармунт#1)	Генрих#3	4_M_HEINRICH
 1@gl_k,149,89,1	duplicate(Вармунт#1)	Химмельмец#1	4_F_HIMEL
@@ -391,6 +435,9 @@ glast_01,204,273,5	script	Хугин	4_M_SAGE_C,{
 1@gl_k,1,1,0	script	#talkinstance1	HIDDEN_WARP_NPC,{
 	end;
 OnEnable:
+	disablenpc instance_npcname("Генрих#1");
+	enablenpc instance_npcname("Генрих#2");
+	enablenpc instance_npcname("Химмельмец#1");
 	mapannounce 'map_name$[0], "???? : Оххохохохо~!", bc_map,0xFFFF00,FW_NORMAL,18;
 	initnpctimer;
 	'npc_himelmez1$ = instance_npcname("Химмельмец#1");
@@ -616,6 +663,174 @@ OnMyMobDead:
 	end;
 }
 
+// Fast mode
+1@gl_k,1,1,0	script	#talkinstance2	HIDDEN_WARP_NPC,{
+	end;
+OnEnable:
+	disablenpc instance_npcname("Генрих#1");
+	enablenpc instance_npcname("Генрих#2");
+	enablenpc instance_npcname("Химмельмец#1");
+	mapannounce 'map_name$[0], "????'s: Оххохохохо~!", bc_map,0xFFFF00,FW_NORMAL,18;
+	initnpctimer;
+	'npc_himelmez1$ = instance_npcname("Химмельмец#1");
+	'npc_varmundt1$ = instance_npcname("Вармунт#1");
+	'npc_heinrich2$ = instance_npcname("Генрих#2");
+	'npc_heinrich3$ = instance_npcname("Генрих#3");
+	end;
+OnTimer1500:
+	npctalk "Генрих : Кто здесь?!", 'npc_heinrich2$;
+	end;
+OnTimer3500:
+	npctalk "Химмельмец : Ох~ Я прервала ваш разговор? Не ждали?", 'npc_himelmez1$;
+	end;
+OnTimer7500:
+	npctalk "Химмельмец: У меня есть дельце. Мои приспешники позаботятся о тебе~", 'npc_himelmez1$;
+	end;
+OnTimer11500:
+	disablenpc 'npc_himelmez1$;
+	end;
+OnTimer12500:
+	npctalk "Химмельмец: Она, вероятно, уже знает, где находится часть Сердца Имира.", 'npc_heinrich2$;
+	end;
+OnTimer16500:
+	for (.@i = 1; .@i <= 20; .@i += 4) {
+		hideonnpc instance_npcname("Рыцарь Калицбург#" + .@i);
+		hideonnpc instance_npcname("Рыцарь Калицбург#" + (.@i+1));
+		hideonnpc instance_npcname("Белый рыцарь#" + (.@i+2));
+		hideonnpc instance_npcname("Белый рыцарь#" + (.@i+3));
+	}
+	hideonnpc instance_npcname("Рыцарь Калицбург#21");
+	hideonnpc instance_npcname("Рыцарь Калицбург#22");
+
+	.@label$ = instance_npcname("#talkinstance1") + "::OnMyMobDead";
+	monster 'map_name$[0],145,59,"Abysmal Knight",2470,1,.@label$;// MG_KNIGHT_OF_ABYSS
+	monster 'map_name$[0],154,59,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],145,69,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],154,69,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],145,79,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],154,79,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],145,89,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],154,89,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],145,99,"Abysmal Knight",2470,1,.@label$;
+	monster 'map_name$[0],154,99,"Abysmal Knight",2470,1,.@label$;
+
+	monster 'map_name$[0],145,54,"Khalitzburg",2471,1,.@label$;// G_MG_KHALITZBURG
+	unittalk $@mobid[0],"Вода... Кто-нибудь, дайте мне воды...";
+	monster 'map_name$[0],154,54,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Кккрррруугхх...";
+	monster 'map_name$[0],145,64,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Сэр Генрих. Спаси меня...";
+	monster 'map_name$[0],154,64,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Я скучаю по своей сестре...";
+	monster 'map_name$[0],145,74,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Не оставляй меня одну, помоги мне.";
+	monster 'map_name$[0],154,74,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Аааррррррххххх";
+	monster 'map_name$[0],145,84,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Я так хочу пить.";
+	monster 'map_name$[0],154,84,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"О... Нет... Я пока не могу умереть...";
+	monster 'map_name$[0],145,94,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"У меня сводит живот, урррг";
+	monster 'map_name$[0],154,94,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Может кто-нибудь...";
+	monster 'map_name$[0],145,104,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"Арргг... Мое тело";
+	monster 'map_name$[0],154,104,"Khalitzburg",2471,1,.@label$;
+	unittalk $@mobid[0],"У меня горит горло!";
+	end;
+OnTimer17500:
+	npctalk "Мертвые отправляются туда, где им место! Все возвращайтесь!", 'npc_heinrich2$;
+	end;
+OnTimer18500:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#1");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#2");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#1");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#2");
+	end;
+OnTimer19000:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#3");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#4");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#5");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#6");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#3");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#4");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#5");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#6");
+	end;
+OnTimer19500:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#7");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#8");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#9");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#10");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#7");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#8");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#9");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#10");
+	end;
+OnTimer20000:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#11");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#12");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#13");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#14");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#11");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#12");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#13");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#14");
+	end;
+OnTimer20500:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#15");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#16");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#17");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#18");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#15");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#16");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#17");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#18");
+	end;
+OnTimer21500:
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#19");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Белый рыцарь#20");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#21");
+	specialeffect EF_GRANDCROSS,AREA, instance_npcname("Рыцарь Калицбург#22");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#19");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Белый рыцарь#20");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#21");
+	specialeffect EF_LEXAETERNA,AREA, instance_npcname("Рыцарь Калицбург#22");
+	disablenpc 'npc_heinrich2$;
+	enablenpc 'npc_heinrich3$;
+	killmonster 'map_name$[0], instance_npcname("#talkinstance1") + "::OnMyMobDead";
+	npctalk "Генрих: Очень хорошо, Вермонт. Давай найдем Химмельмеца.", 'npc_heinrich3$;
+	end;
+OnTimer25500:
+	npctalk "Вармунт: Подождите, у меня нет времени обходить запертые двери и расчищать путь. Я открою портал.", 'npc_varmundt1$;
+	end;
+OnTimer27000:
+	specialeffect EF_BEGINSPELL_N5, AREA, 'npc_varmundt1$;
+	end;
+OnTimer28500:
+	stopnpctimer;
+	disablenpc 'npc_heinrich3$;
+	disablenpc 'npc_varmundt1$;
+	enablenpc instance_npcname("#cut01");
+	enablenpc instance_npcname("#Mimelon");
+	enablenpc instance_npcname("Химмельмец#2");
+	enablenpc instance_npcname("Вармунт#2");
+	enablenpc instance_npcname("Генрих#4");
+	'step = 4;
+
+	'npc_himelmez1$ = 'npc_varmundt1$ = 'npc_heinrich2$ = 'npc_heinrich3$ = "";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@gl_k,149,96,1	script	#cut01	GATE_SKYBLUE,{
+	warp 'map_name$[0],151,232;
+	end;
+}
+
+
 // Sector 1 Mobs
 //============================================================
 1@gl_k,1,1,0	script	#ghmemorialmob01	HIDDEN_WARP_NPC,{
@@ -647,7 +862,7 @@ OnMyMobDead:
 }
 
 1@gl_k,17,51,3	script	Прислужник Домун#1	4_M_KID1,{
-	if (is_party_leader() == false) {
+	if (is_party_leader() == false || 'step != 2) {
 		mes "[Прислужник Домун]";
 		mes "Помогите! Помогите!!!";
 		close;
@@ -688,8 +903,11 @@ OnMyMobDead:
 	mes "[Прислужник Домун]";
 	mes "Ох, хорошо... Я постараюсь.";
 	npctalk "Прислужник Домун: Ох, хорошо... Я постараюсь.";
-	disablenpc instance_npcname("Прислужник Домун#1");
-	donpcevent instance_npcname("#ghmemorialmob02") + "::OnStart";
+	if ('step == 2) {
+		'step = 3;
+		disablenpc instance_npcname("Прислужник Домун#1");
+		donpcevent instance_npcname("#ghmemorialmob02") + "::OnStart";
+	}
 	close;
 }
 
@@ -725,7 +943,7 @@ OnMyMobDead:
 }
 
 1@gl_k,291,145,3	script	Холлгренн#1	4_F_JOB_BLACKSMITH,{
-	if (is_party_leader() == false) {
+	if (is_party_leader() == false || 'step != 3) {
 		mes "[Разрушительница Холлгренн]";
 		mes "Ты точно человек?";
 		close;
@@ -763,8 +981,11 @@ OnMyMobDead:
 	mes "[Разрушительница Холлгренн]";
 	mes "Всё в порядке, спасибо, что помогли нам. Я смогу добраться одна. И... желаю удачи.";
 	npctalk "Разрушительница Холлгренн : Всё в порядке, спасибо, что помогли нам. Я смогу добраться одна. И... желаю удачи.";
-	disablenpc instance_npcname("Холлгренн#1");
-	donpcevent instance_npcname("#ghmemorialmob03") + "::OnEnable";
+	if ('step == 3) {
+		'step = 4;
+		disablenpc instance_npcname("Холлгренн#1");
+		donpcevent instance_npcname("#ghmemorialmob03") + "::OnEnable";
+	}
 	close;
 }
 
@@ -892,7 +1113,20 @@ OnTimer5000:
 1@gl_k,150,257,0	script	#Mimelon	HIDDEN_WARP_NPC,7,7,{
 	end;
 OnTouch_:
-	disablenpc instance_npcname("#Mimelon");
+	if ('step != 4)
+		end;
+	'step = 5;
+	disablenpc();
+	if ('mode == 1)
+		donpcevent instance_npcname("#talkinstance3") + "::OnStart";
+	else if ('mode == 2)
+		donpcevent instance_npcname("#talkinstance4") + "::OnStart";
+	end;
+}
+
+1@gl_k,1,1,0	script	#talkinstance3	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
 	initnpctimer;
 	'npc_himelmez2$ = instance_npcname("Химмельмец#2");
 	'npc_heinrich4$ = instance_npcname("Генрих#4");
@@ -943,6 +1177,33 @@ OnTimer38000:
 	end;
 }
 
+1@gl_k,1,1,0	script	#talkinstance4	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	initnpctimer;
+	'npc_himelmez2$ = instance_npcname("Химмельмец#2");
+	'npc_heinrich4$ = instance_npcname("Генрих#4");
+	npctalk "Химмельмец: Раз ты зашёл так далеко, ты либо везунчик, либо очень силён.", 'npc_himelmez2$;
+	end;
+OnTimer3500:
+	disablenpc 'npc_himelmez2$;
+	end;
+OnTimer4500:
+	npctalk "Генрих: Сэр Вармунт! Помогите этим авантюристам. Я пойду за Химмельмецом!", 'npc_heinrich4$;
+	end;
+OnTimer6500:
+	disablenpc 'npc_heinrich4$;
+	end;
+OnTimer9500:
+	mapannounce 'map_name$[0], "Из глубины рыцарского святилища доносится эхо.", bc_map,0xFFFFFF;
+	end;
+OnTimer14500:
+	stopnpctimer;
+	donpcevent instance_npcname("#ghmemorialmob04") + "::OnStart";
+	'npc_himelmez2$ = 'npc_heinrich4$ = "";
+	end;
+}
+
 1@gl_k,1,1,0	script	#ghmemorialmob04	HIDDEN_WARP_NPC,{
 	end;
 OnStart:
@@ -989,11 +1250,23 @@ OnEffect:
 	end;
 }
 
-// note: this part can be skipped
 2@gl_k,150,66,0	script	#Servanton	HIDDEN_WARP_NPC,7,7,{
 	end;
 OnTouch_:
-	disablenpc instance_npcname("#Servanton");
+	if ('step != 5)
+		end;
+	'step = 6;
+	disablenpc();
+	if ('mode == 1)
+		donpcevent instance_npcname("#talkinstance5") + "::OnStart";
+	else if ('mode == 2)
+		donpcevent instance_npcname("#talkinstance6") + "::OnStart";
+	end;
+}
+
+2@gl_k,1,1,0	script	#talkinstance5	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
 	initnpctimer;
 	'npc_heinrich$ = instance_npcname("Генрих#21");
 	'npc_varmundt$ = instance_npcname("Вармунт#21");
@@ -1076,6 +1349,28 @@ OnTimer69000:
 	end;
 }
 
+2@gl_k,1,1,0	script	#talkinstance6	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	initnpctimer;
+	'npc_heinrich$ = instance_npcname("Генрих#21");
+	'npc_varmundt$ = instance_npcname("Вармунт#21");
+	npctalk "Генрих: Этого сооружения раньше в замке не было!", 'npc_heinrich$;
+	end;
+OnTimer2000:
+	npctalk "Вармунт: Хорошо, пришло время начать, Генрих.", 'npc_varmundt$;
+	end;
+OnTimer3500:
+	stopnpctimer;
+	mapannounce 'map_name$[1], "В центральном коридоре открылся портал на запад.", bc_map,0xFFFF00;
+	disablenpc 'npc_varmundt$;
+	disablenpc 'npc_heinrich$;
+	'npc_varmundt$ = 'npc_heinrich$ = "";
+	enablenpc instance_npcname("#22 Control");
+	enablenpc instance_npcname("#22 Control2");
+	end;
+}
+
 // Spots
 // Note: timer is the only condition for them to respawn
 2@gl_k,118,141,0	script	#ogh_2-1	HIDDEN_WARP_NPC,20,20,{
@@ -1130,7 +1425,13 @@ OnStart:
 	end;
 
 OnMyMobDead:
-	if (rand(50) == 0) {// can re-spawn
+	if (mobcount('map_name$[1], instance_npcname("#ghmemorialmob05") + "::OnBossDead") > 0)	// Prevent boss re-spawn
+		end;
+	if ('mode == 2)	// Higher (but unknown) spawn rate in fast mode
+		.@r = 10;
+	else
+		.@r = 50;
+	if (rand(.@r) == 0) {
 		mapannounce 'map_name$[1], "Где-то поблизости появилось существо с сильной злой аурой.", bc_map,0xFFFF44,FW_NORMAL,15;
 		killmonster 'map_name$[1], instance_npcname("#ghmemorialmob05") + "::OnBossDead";
 
@@ -1141,14 +1442,17 @@ OnMyMobDead:
 	end;
 
 OnBossDead:
+	disablenpc();
 	mapannounce 'map_name$[1], "Проход во вторую зону появился в направлении на 3 часа. Чтобы попасть туда, пройдите в центральный коридор.", bc_map,0xFFFF00;
 	enablenpc instance_npcname("#23 Control");
 	enablenpc instance_npcname("#23 Control2");
 	donpcevent instance_npcname("#ghmemorialmob06") + "::OnStart";
 
-	disablenpc instance_npcname("#ghmemorialmob05");
+	// Event stopped and monsters in this sector killed
 	for ( .@i = 1; .@i <= 7; .@i++ )
 		donpcevent instance_npcname("#ogh_2-" + .@i) + "::OnStop";
+
+	killmonster 'map_name$[1], instance_npcname("#ghmemorialmob05") + "::OnMyMobDead";
 	end;
 }
 
@@ -1209,7 +1513,13 @@ OnStart:
 	end;
 
 OnMyMobDead:
-	if (rand(50) == 0) {// can re-spawn
+	if (mobcount('map_name$[1], instance_npcname("#ghmemorialmob06") + "::OnBossDead") > 0)	// Prevent boss re-spawn
+		end;
+	if ('mode == 2)	// Higher (but unknown) spawn rate in fast mode
+		.@r = 10;
+	else
+		.@r = 50;
+	if (rand(.@r) == 0) {
 		mapannounce 'map_name$[1], "Поблизости появилось существо со злой аурой.", bc_map,0xFFFF44,FW_NORMAL,15;
 		killmonster 'map_name$[1], instance_npcname("#ghmemorialmob06") + "::OnBossDead";
 
@@ -1220,6 +1530,7 @@ OnMyMobDead:
 	end;
 
 OnBossDead:
+	disablenpc();
 	mapannounce 'map_name$[1], "Проход в третью зону появился в направлении на двенадцать часов. Чтобы попасть туда, пройдите в центральный коридор.", bc_map,0xFFFF00;
 	enablenpc instance_npcname("#24 Control");
 	enablenpc instance_npcname("#24 Control2");
@@ -1227,9 +1538,11 @@ OnBossDead:
 	for ( .@i = 1; .@i <= 35; .@i++ )
 		enablenpc instance_npcname("Труп#" + .@i);
 
-	disablenpc instance_npcname("#ghmemorialmob06");
+	// Event stopped and monsters in this sector killed
 	for ( .@i = 1; .@i <= 7; .@i++ )
 		donpcevent instance_npcname("#ogh_3-" + .@i) + "::OnStop";
+
+	killmonster 'map_name$[1], instance_npcname("#ghmemorialmob05") + "::OnMyMobDead";
 
 	// Hidden mobs
 	setarray .@coord[0],
@@ -1246,6 +1559,9 @@ OnBossDead:
 2@gl_k,150,180,0	script	#Geron	HIDDEN_WARP_NPC,7,7,{
 	end;
 OnTouch_:
+	if ('step != 6)
+		end;
+	'step = 7;
 	disablenpc instance_npcname("#Geron");
 	mapannounce 'map_name$[1], "???: Не подходите! Это ловушка!!! Кххх *шмяк*!!!", bc_map,0xFF7777,FW_NORMAL,15;
 	enablenpc instance_npcname("Химмельмец#22");
@@ -1336,11 +1652,21 @@ OnTimer45000:
 	mes "[Химмельмец]";
 	mes "Восхитительно! Вы забрались так далеко! Мои апплодисменты~";
 	close3;
-
-OnTouch:
-	end;
 OnTouch_:
-	disablenpc instance_npcname("Химмельмец#22");
+	if ('step != 7)
+		end;
+	'step = 8;
+	disablenpc();
+	if ('mode == 1)
+		donpcevent instance_npcname("#talkinstance7") + "::OnStart";
+	else if ('mode == 2)
+		donpcevent instance_npcname("#talkinstance8") + "::OnStart";
+	end;
+}
+
+2@gl_k,1,1,0	script	#talkinstance7	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
 	enablenpc instance_npcname("Химмельмец#23");
 	initnpctimer;
 	'npc_himelmez$ = instance_npcname("Химмельмец#23");
@@ -1436,6 +1762,62 @@ OnTimer80000:
 	disablenpc 'npc_gerhalt$;
 	donpcevent instance_npcname("#ghmemorialmob07") + "::OnStart";
 	stopnpctimer;
+	'npc_himelmez$ = 'npc_gerhalt$ = 'npc_heinrich$ = 'npc_varmundt$ = "";
+	end;
+}
+
+2@gl_k,1,1,0	script	#talkinstance8	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("Химмельмец#23");
+	initnpctimer;
+	'npc_himelmez$ = instance_npcname("Химмельмец#23");
+	'npc_gerhalt$ = instance_npcname("Герхард#23");
+	'npc_heinrich$ = instance_npcname("Генрих#23");
+	'npc_varmundt$ = instance_npcname("Вармунт#23");
+
+	npctalk "Химмельмец: Удивительно~ Я думал, ты даже близко не подойдёшь cюда...", 'npc_himelmez$;
+	end;
+OnTimer1500:
+	specialeffect EF_BARRIER, AREA, 'npc_gerhalt$;
+	end;
+OnTimer3500:
+	specialeffect EF_MAPPILLAR, AREA, 'npc_gerhalt$;
+	end;
+OnTimer5000:
+	specialeffect EF_MAPPILLAR2, AREA, 'npc_gerhalt$;
+	end;
+OnTimer5500:
+	disablenpc 'npc_himelmez$;
+	end;
+OnTimer7000:
+	specialeffect EF_CHAINCOMBO, AREA, 'npc_gerhalt$;
+	end;
+OnTimer10000:
+	npctalk "Генрих: Я никогда не позволю тебе уйти, Химмельмец!!", 'npc_heinrich$;
+	end;
+OnTimer11000:
+	disablenpc 'npc_heinrich$;
+	npctalk "Вармунт: У нас нет выбора. Нам предстоит сражаться с Амдарайсом!", 'npc_varmundt$;
+	end;
+OnTimer14000:
+	specialeffect EF_MAPPILLAR2, AREA, 'npc_gerhalt$;
+	specialeffect EF_MAPPILLAR, AREA, 'npc_gerhalt$;
+	end;
+OnTimer14500:
+	mapannounce 'map_name$[1], "Тело Герхарда меняется.", bc_map,0xFFFFFF;
+	end;
+OnTimer15500:
+	disablenpc 'npc_varmundt$;
+	mapannounce 'map_name$[1], "Вармунт: Позвольте мне помочь в этой битве. Следуй приказам иллюзии.", bc_map,0xFFFF00;
+	end;
+OnTimer17500:
+	specialeffect EF_LORD, AREA, 'npc_gerhalt$;
+	end;
+OnTimer20500:
+	stopnpctimer;
+	disablenpc 'npc_gerhalt$;
+	donpcevent instance_npcname("#ghmemorialmob07") + "::OnStart";
 	'npc_himelmez$ = 'npc_gerhalt$ = 'npc_heinrich$ = 'npc_varmundt$ = "";
 	end;
 }
@@ -1597,6 +1979,8 @@ OnTimer10000:
 
 
 2@gl_k,158,241,1	script	Хугин#21	4_M_SAGE_C,{
+	if ('step != 8)
+		end;
 	if (checkquest(12319,HUNTING) == 2) {// note: complete hunting 'Corrupted Soul Hunt' prerequis
 		mes "[Хугин]";
 		mes "Хорошая работа. Прежде всего возьмите награду за Амдараиса.";
@@ -1654,6 +2038,8 @@ OnTimer10000:
 // Treasure Room
 //============================================================
 1@gl_k,165,136,3	script	Трещина в пространстве#2	CLEAR_NPC,{
+	if ('step != 8)
+		end;
 	if (isbegin_quest(12322) == 0) {// Space Distortion
 		mes "Странного вида трещина и всё.";
 		close;
@@ -1734,6 +2120,8 @@ OnTimer10000:
 	end;
 
 OnInstanceInit:
+	'step = 0;
+	'mode = 0;
 	'map_name$[0] = instance_mapname("1@gl_k");
 	'map_name$[1] = instance_mapname("2@gl_k");
 
@@ -1815,5 +2203,8 @@ OnInstanceInit:
 	disablenpc instance_npcname("#24 Control");
 	disablenpc instance_npcname("#24 Control2");
 	disablenpc instance_npcname("#Secret Room Exit");
+
+	// Fast mode
+	disablenpc instance_npcname("#cut01");
 	end;
 }
